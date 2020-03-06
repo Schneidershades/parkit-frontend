@@ -1,0 +1,39 @@
+{
+  "name": "parkit-app",
+  "version": "0.0.1",
+  "description": "Parkit Application Car Detailing and Care Service",
+  "author": "schneidershades <schneidershades@gmail.com>",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@casl/ability": "3.4.0",
+    "@casl/vue": "0.5.1",
+    "@quasar/extras": "1.5.2",
+    "axios": "0.19.0",
+    "core-js": "2.6.11",
+    "electron-pos-printer": "1.1.2",
+    "print-js": "1.0.63",
+    "quasar": "1.9.8",
+    "rave-javascript-sdk": "1.0.4",
+    "vue": "2.6.11",
+    "vue-gallery": "2.0.1",
+    "vue-ravepayment": "2.0.2",
+    "@quasar/babel-preset-app": "1.1.9",
+    "compression": "^1.0.0",
+    "express": "^4.0.0",
+    "lru-cache": "5.1.1",
+    "vue-server-renderer": "2.6.11",
+    "vue-router": "3.1.6",
+    "vuex": "3.1.2"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "quasar": {
+    "ssr": true
+  }
+}
