@@ -18,7 +18,7 @@
     "core-js": "^2.6.11",
     "electron-pos-printer": "^1.1.2",
     "print-js": "^1.0.63",
-    "quasar": "^1.9.7",
+    "quasar": "^1.9.8",
     "rave-javascript-sdk": "^1.0.4",
     "vue": "^2.6.11",
     "vue-gallery": "^2.0.1",
