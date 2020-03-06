@@ -1,0 +1,42 @@
+{
+  "name": "parkit-app",
+  "version": "0.0.1",
+  "description": "Parkit Application Car Detailing and Care Service",
+  "productName": "Parkit App",
+  "cordovaId": "com.shades.todo",
+  "capacitorId": "",
+  "author": "schneidershades <schneidershades@gmail.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "@casl/ability": "^3.4.0",
+    "@casl/vue": "^0.5.1",
+    "@quasar/extras": "^1.5.2",
+    "axios": "^0.19.0",
+    "core-js": "^2.6.11",
+    "electron-pos-printer": "^1.1.2",
+    "print-js": "^1.0.63",
+    "quasar": "^1.9.7",
+    "rave-javascript-sdk": "^1.0.4",
+    "vue": "^2.6.11",
+    "vue-gallery": "^2.0.1",
+    "vue-ravepayment": "^2.0.2"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.6.0",
+    "devtron": "^1.4.0",
+    "electron": "^7.1.7",
+    "electron-debug": "^3.0.1",
+    "electron-devtools-installer": "^2.2.4"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ]
+}
