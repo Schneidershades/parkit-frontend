@@ -15,6 +15,8 @@ export default async ({ app, router, store, Vue }) => {
   	// something to do
   	axios.defaults.baseURL= 'http://127.0.0.1:8000/api'
 
+  	axios.defaults.withCredentials = true
+
 	// Vue.config.productionTip = false
 
 	// console.log(localStorage.getItem('token'))
