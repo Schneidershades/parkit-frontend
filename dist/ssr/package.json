@@ -5,29 +5,28 @@
   "author": "schneidershades <schneidershades@gmail.com>",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js", 
+    "build": "yarn"
   },
   "dependencies": {
     "@casl/ability": "3.4.0",
     "@casl/vue": "0.5.1",
-    "@quasar/babel-preset-app": "1.1.9",
     "@quasar/extras": "1.5.2",
     "axios": "0.19.0",
-    "compression": "^1.0.0",
-    "connect-history-api-fallback": "^1.6.0",
     "core-js": "2.6.11",
     "electron-pos-printer": "1.1.2",
-    "express": "^4.17.1",
-    "lru-cache": "5.1.1",
     "print-js": "1.0.63",
     "quasar": "1.9.8",
     "rave-javascript-sdk": "1.0.4",
-    "serve-static": "^1.14.1",
     "vue": "2.6.11",
     "vue-gallery": "2.0.1",
     "vue-ravepayment": "2.0.2",
-    "vue-router": "3.1.6",
+    "@quasar/babel-preset-app": "1.1.9",
+    "compression": "^1.0.0",
+    "express": "^4.0.0",
+    "lru-cache": "5.1.1",
     "vue-server-renderer": "2.6.11",
+    "vue-router": "3.1.6",
     "vuex": "3.1.2"
   },
   "engines": {
