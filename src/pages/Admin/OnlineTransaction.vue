@@ -135,14 +135,13 @@
 				        :done="step > 3"
 				      >
 				      	<!-- {{transactionDetails}} -->
-				        <div class="q-pa-md">
-						    <!-- <div class="q-gutter-sm" v-if="transactionDetails.status != 'successful' || transactionDetails.payment_status!='free' ">
+				        <div class="q-pa-md" v-if="transactionDetails">
+						    <div class="q-gutter-sm" v-if="transactionDetails.status != 'successful' || transactionDetails.payment_status!='free' ">
 						      <q-radio v-model="payment_method" val="pos" label="POS Machine" />
 						      <q-radio v-model="payment_method" val="cash" label="Cash" />
 						      <q-radio v-model="payment_method" val="online" label="Online" />
 						    </div>
-
-						    <div v-else> {{transactionDetails.payment_status}}</div> -->
+						    <div v-else> {{transactionDetails.payment_status}}</div>
 
 						    <!-- {{transactionDetails.status}} -->
 

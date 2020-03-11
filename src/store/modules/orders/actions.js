@@ -4,7 +4,7 @@ import axios from 'axios'
 // get products
 export const getOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
-		return axios.get('admin/user/order/history').then((response) => {
+		return axios.get('auth/order').then((response) => {
 			// console.log(response.data)
 			commit('setOrders', response.data.data)
 			return Promise.resolve()

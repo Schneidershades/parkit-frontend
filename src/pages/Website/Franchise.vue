@@ -18,7 +18,6 @@
 
     <div class="q-pa-xl">
       <div class="q-gutter-y-md">
-    
         <div class="container">
           <div>
             <h4>Interested in becoming a franchise?</h4>
@@ -27,36 +26,30 @@
         </div>
 
         <q-list bordered>
-          <q-expansion-item group="somegroup" icon="explore" label="First" default-opened header-class="text-primary text-h5 q-py-md">
+          <q-expansion-item group="somegroup" icon="explore" label="How much does a Parkit franchise cost?" default-opened header-class="text-primary text-h5 q-py-md">
             <q-card>
               <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                eveniet doloribus ullam aliquid.
+                The franchise fee for owning a Parkit franchise is N1,000,000 however setup cost can vary from N2,000,000 to N4,500,000 depending on the size and location.
               </q-card-section>
             </q-card>
           </q-expansion-item>
 
           <q-separator />
 
-          <q-expansion-item group="somegroup" icon="explore" label="Second"  header-class="text-primary text-h5 q-py-md">
+          <q-expansion-item group="somegroup" icon="explore" label="How much liquid capital do I need?"  header-class="text-primary text-h5 q-py-md">
             <q-card>
               <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                eveniet doloribus ullam aliquid.
+                A liquid capital of N500,000 to N1,000,000+ is required for other running costs for the first 3 months at least.
               </q-card-section>
             </q-card>
           </q-expansion-item>
 
           <q-separator />
 
-          <q-expansion-item group="somegroup" icon="explore" label="Third"  header-class="text-primary text-h5 q-py-md">
+          <q-expansion-item group="somegroup" icon="explore" label="What is the royalty fee?"  header-class="text-primary text-h5 q-py-md">
             <q-card>
               <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                eveniet doloribus ullam aliquid.
+                An ongoing royalty fee of 10% of the Net sales (gross minus taxes) is paid monthly, fee also includes all marketing costs.
               </q-card-section>
             </q-card>
           </q-expansion-item>
@@ -66,19 +59,39 @@
           <q-expansion-item
             group="somegroup"
             icon="explore"
-            label="Fourth"
+            label="What kind of training does Parkit provide?"
              header-class="text-primary text-h5 q-py-md"
             expand-icon-class="text-white"
           >
             <q-card >
               <q-card-section>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-                commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-                eveniet doloribus ullam aliquid.
+                Parkit doesn’t require prior experience, we make training and support an ongoing part of being in the Parkit family.
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+
+          <q-expansion-item
+            group="somegroup"
+            icon="explore"
+            label="Does Parkit setup a location for Franchisees?"
+             header-class="text-primary text-h5 q-py-md"
+            expand-icon-class="text-white"
+          >
+            <q-card >
+              <q-card-section>
+                The Parkit team will guide you through all phases of site selection, lease negotiation, construction, training, grand opening and ongoing processes for marketing and operations. However there’s an option to allow Parkit take up the entire construction project if the franchisee is interested.
               </q-card-section>
             </q-card>
           </q-expansion-item>
         </q-list>
+      </div>
+      <div class="q-gutter-y-md">
+        <div class="container ">
+          <div class="row">
+            <h4>Fill our Franchise Interest Form</h4>
+            <iframe class="col-md-12" style="height:900px" src="https://forms.gle/YbuoVQXPjbGg17Xm7"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </q-page>

@@ -1,5 +1,5 @@
-
 import axios from 'axios'
+import { LocalStorage, SessionStorage } from 'quasar'
 
 // get products
 export const getProducts = ({ commit }) => {
@@ -12,7 +12,7 @@ export const getProducts = ({ commit }) => {
 export const getCart = async ({ commit }) => {
 	console.log('get')
 	await axios.get('cart').then((response) => {
-		console.log(response.data.data.products)
+		// console.log(response.data.data.products)
 		commit('setCart', response.data.data.products)
 		return Promise.resolve()
 	})
@@ -60,7 +60,8 @@ export const storeCart = ({ state, rootState }) =>{
 
 	if(!auth){
 		console.log(auth)
-		localStorage.setItem('cart', JSON.stringify(state.cart))
+		
+		LocalStorage.set('cart', JSON.stringify(state.cart))
 	}else{
 		var types = state.cart
 
@@ -84,9 +85,9 @@ export const storeCart = ({ state, rootState }) =>{
 					products
 				});
 
-				localStorage.removeItem('cart');
+				return LocalStorage.remove('cart');
 
-				return dispatch('getCart')
+				// return dispatch('getCart')
 			}			
 		}
 	}	
@@ -111,7 +112,7 @@ export const storeCartFromSession = ({ state }) =>{
 
 		// localStorage.removeItem('cart')
 
-		localStorage.setItem('cart', [])
+		LocalStorage.set('cart', [])
 
 		dispatch('getCart')
 	}

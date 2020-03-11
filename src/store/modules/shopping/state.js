@@ -1,9 +1,11 @@
 import { Platform } from 'quasar'
+import { LocalStorage, SessionStorage } from 'quasar'
+import Dexie from 'dexie';
 
 export default{
 	products:[],
-	cart: JSON.parse(localStorage.getItem('cart')) || [],
-	percentageDiscount : Platform.is.electron ? 0 : 10,
+	cart: LocalStorage.getItem('cart') ? JSON.parse(LocalStorage.getItem('cart')) : [],
+	percentageDiscount : 0,
 	amountDiscount : 0,
 	couponDetails: null,
 	discountDetails: null,

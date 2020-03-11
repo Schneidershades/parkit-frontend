@@ -157,7 +157,6 @@ export default {
 			removeAllProductFromCart: 'shopping/removeAllProductFromCart',
 			updateCartTotals: 'shopping/updateCartTotals',
 		}),
-
 	}
 }
 </script>

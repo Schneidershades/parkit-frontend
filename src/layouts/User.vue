@@ -37,7 +37,7 @@
             <UserMenu/>
         </q-drawer>
 
-        <q-drawer v-model="right" side="right" bordered>
+        <q-drawer v-model="right" side="right" behavior="mobile" bordered>
           <CartDrawer/>
         </q-drawer>
 

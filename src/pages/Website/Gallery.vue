@@ -6,9 +6,6 @@
           </div>
         </q-img>
 
-
-        
-
         <div class="q-pa-xl">
             <div class="q-gutter-y-md">
                <q-card>
@@ -22,62 +19,41 @@
                   narrow-indicator
                 >
                   <div class="cbs-vehicle-list">
-                    <div class="col-md-3 vehicle-cbs">
-                      <q-tab name="mails" label="Mails" />
-                    </div>
-                    <div class="col-md-3 vehicle-cbs">
-                      <q-tab name="alarms" label="Alarms" />
-                    </div>
-
-                    <div class="col-md-3 vehicle-cbs">
-                      <q-tab name="movies" label="Movies" />
+                    <div class="col-md-3  vehicle-cbs" v-for="content in gallery.data" :key="content.name">
+                      <q-tab :name="content.slug" :label="content.name"  />
                     </div>
                   </div>
                   
                 </q-tabs>
 
                 <q-separator />
-
+                {{tab}}
+                
                 <q-tab-panels v-model="tab" animated>
-                  <q-tab-panel name="mails">
-                    <div class="text-h6">Mails</div>
+                  <q-tab-panel :name="content.slug"  v-for="content in gallery.data" :key="content.name">
+                    <div class="text-h6">{{content.name}}</div>
                     <div class="row" style="justify-content: space-around;">
-                      <gallery :images="images" :index="index" @close="index = null"></gallery>
-                      <div
-                        class="image col-md-3"
-                        v-for="(image, imageIndex) in images"
-                        :key="imageIndex"
-                        @click="index = imageIndex"
-                        :style="{ backgroundImage: 'url(' + image + ')', width: '230px', height: '150px' }"
-                      ></div>
-                    </div>
-                  </q-tab-panel>
+                      <!-- {{content}} -->
 
-                  <q-tab-panel name="alarms">
-                    <div class="text-h6">Alarms</div>
-                    <div class="row" style="justify-content: space-around;">
-                      <gallery :images="images" :index="index" @close="index = null"></gallery>
-                      <div
-                        class="image col-md-3"
-                        v-for="(image, imageIndex) in images"
-                        :key="imageIndex"
-                        @click="index = imageIndex"
-                        :style="{ backgroundImage: 'url(' + image + ')', width: '230px', height: '150px' }"
-                      ></div>
-                    </div>
-                  </q-tab-panel>
+                      <silent-box :gallery="img.image"/>
 
-                  <q-tab-panel name="movies">
-                    <div class="text-h6">Movies</div>
-                    <div class="row" style="justify-content: space-around;">
-                      <gallery :images="images" :index="index" @close="index = null"></gallery>
-                      <div
-                        class="image col-md-3"
-                        v-for="(image, imageIndex) in images"
-                        :key="imageIndex"
-                        @click="index = imageIndex"
-                        :style="{ backgroundImage: 'url(' + image + ')', width: '230px', height: '150px' }"
-                      ></div>
+                      <!-- <silentbox-group>
+                          <silentbox-item v-for="img in content" :src="img.image" :description="content.name" :key="img.image">
+                              <img :src="img.image" width="200px">
+                          </silentbox-item>
+                      </silentbox-group> -->
+
+                       <!-- <silentbox-group>
+                          <silentbox-item src="images/image001.jpg" description="Sunken dreams II. by Arbebuk">
+                              <img src="images/image001.jpg" width="200px">
+                          </silentbox-item>
+                          <silentbox-item src="images/image002.jpg" description="Tunnel View Sunrise by Porbital">
+                              <img src="images/image002.jpg" width="200px">
+                          </silentbox-item>
+                          <silentbox-item src="images/image005.jpg" description="Mythology by Nelleke">
+                              <img src="images/image005.jpg" width="200px">
+                          </silentbox-item>
+                      </silentbox-group> -->
                     </div>
                   </q-tab-panel>
                 </q-tab-panels>
@@ -88,81 +64,90 @@
 
     </q-page>
 </template>
+
+
 <style  scoped>
 
 
-.image {
-  /*float: left;*/
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  border: 1px solid #ebebeb;
-  margin: 5px;
-} 
+  .image {
+    /*float: left;*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #ebebeb;
+    margin: 5px;
+  } 
 
-  .my-card{
-  /*width: 300px;*/
-}
+    .my-card{
+    /*width: 300px;*/
+  }
 
-.card-style{
-  height: 200px;
-}
+  .card-style{
+    height: 200px;
+  }
 
-.card-amount{
-  padding: 0;
-}
+  .card-amount{
+    padding: 0;
+  }
 
-.card-style-action{
-  bottom: 0;
-}
+  .card-style-action{
+    bottom: 0;
+  }
 
-.vehicle-cbs{
-  flex-grow: 1;
-  /*flex-basis: 140px;*/
-  height: 80px;
-  cursor: pointer;
-  padding-top: 20px;
-  /*border-width: 1px;*/
-  /*border-style: solid;*/
-  text-align: center;
-  margin: 0px 6px 12px 6px; 
-}
+  .vehicle-cbs{
+    flex-grow: 1;
+    /*flex-basis: 140px;*/
+    height: 80px;
+    cursor: pointer;
+    padding-top: 20px;
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
+    text-align: center;
+    margin: 0px 6px 12px 6px; 
+  }
 
-.cbs-vehicle-list{
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
-  padding: 10px 50px;
-}
+  .cbs-vehicle-list{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding: 10px 50px;
+  }
 </style>
-<script>
-    import TabList from 'components/Tabs/TabList.vue'
-    import Animation from 'components/Website/Animation.vue'
-    import VueGallery from 'vue-gallery'
-    
-    export default {
-      data () {
-        return {
-          slide: 'first',
-          tab: 'mails',
-          images: [
-            'https://dummyimage.com/800/ffffff/000000',
-            'https://dummyimage.com/1600/ffffff/000000',
-            'https://dummyimage.com/1280/000000/ffffff',
-            'https://dummyimage.com/400/000000/ffffff',
-            'https://dummyimage.com/800/ffffff/000000',
-            'https://dummyimage.com/1600/ffffff/000000',
-            'https://dummyimage.com/1280/000000/ffffff',
-            'https://dummyimage.com/400/000000/ffffff',
-          ],
 
-          index: null
-        }
-      },
-      components:{
-        TabList,
-        Animation,
-        'gallery': VueGallery,
+
+<script>
+  import TabList from 'components/Tabs/TabList.vue'
+  import Animation from 'components/Website/Animation.vue'
+  import { mapActions, mapGetters } from 'vuex'
+  import VueSilentbox from 'vue-silentbox'
+  
+  export default {
+    data () {
+      return {
+        tab: null,
+        index: null
       }
+    },
+    components:{
+      TabList,
+      Animation,
+      VueSilentbox
+    },
+
+    computed: {
+      ...mapGetters({
+        gallery: 'content/gallery',
+      })
+    },
+
+    methods:{
+      ...mapActions({
+        getGallery: 'content/getGallery',
+      })
+    },
+
+    mounted(){
+      this.getGallery()
     }
+  }
 </script>

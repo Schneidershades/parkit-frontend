@@ -41,6 +41,15 @@
             
             <q-list>
                 <q-item-label header>Menu</q-item-label>
+                
+                <q-item clickable to="/">
+                    <q-item-section avatar>
+                        <q-icon name="home" />
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Home</q-item-label>
+                    </q-item-section>
+                </q-item>
 
                 <q-item clickable to="/admin/dashboard">
                     <q-item-section avatar>

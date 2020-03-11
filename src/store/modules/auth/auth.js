@@ -85,10 +85,11 @@ export default ({
 			}
 		},
 		
-		signOut({ commit }){
+		signOut({ commit, rootState }){
 			return axios.post('auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
+				commit('shopping/clearCart', null, { root: true })
 			})
 		},
 

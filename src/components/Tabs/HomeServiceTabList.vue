@@ -27,8 +27,9 @@
 							<q-card-section class="bg-primary text-white card-style" >
 								<div class="text-h6">{{content.package}}</div>
 								<q-card-actions align="right" >
-									<q-btn flat class="card-style-action"><h6 class="card-amount
-										">₦{{content.amount}}</h6></q-btn>
+									<q-btn flat class="card-style-action">
+										<div class="text-h6">₦{{content.amount}}</div>
+									</q-btn>
 								</q-card-actions>
 							</q-card-section>
 

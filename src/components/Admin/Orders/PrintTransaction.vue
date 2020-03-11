@@ -1,47 +1,42 @@
-
 <template>
 	<div class="ticket">
 		<div id="ticket">
+
 			<q-card-actions align="center">
 	            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
 	        </q-card-actions>
-	        <p><b>Location : street city, state 0000 <br>
-				Phone   : 555-555-5555 <br> 
-				Email   : info@parkit.ng<br>
-				Website   : www.parkit.ng<br><br>
 
-				Bill ID   : www.parkit.ng<br>
+	        <div class="q-py-sm">
+	        	<b>Location : {{transactionDetails.location.name}}000000000{{transactionDetails.id}} <br>
+				Phone   : +234-903-152-6466 <br> 
+				Email   : info@parkit.ng<br>
+				Website   : www.parkit.ng<br></b>
+			</div>
+			<div class="q-py-sm">
+				<b>Bill ID   : www.parkit.ng<br>
 				Date   : {{transactionDetails.customer.phone}}<br>
 				Service Date   : www.parkit.ng<br>
 				Cashier   : {{transactionDetails.customer.phone}}<br>
 				To   : www.parkit.ng<br>
 				Payment Method   : www.parkit.ng<br></b>
-			</p>
-
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+	        </div>
+	       		
+			<div class="text-h6">Purchase Items</div>
 
 			<!-- {{transactionDetails}} -->
 			
-			<div v-for="item in transactionDetails.products">
-				<p><b>Package: {{item.package}}</b></p>
-				<p><b>Location: {{item.venue}}</b></p>
-				<p><b>Price: N {{item.amount}}</b></p>
-				<hr>
-			</div><br><br><br>
-			<div  align="left">
-				<p><b>sub-total: N{{transactionDetails.subtotal}}</b></p>
-				<p><b>discount: N{{transactionDetails.discount}}</b></p>
-				<p><b>total: N{{transactionDetails.total}}</b></p>
-				<hr>
+			<div class="q-py-sm" v-for="item in transactionDetails.products">
+				<p>
+					<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
+				</p>
+			</div>
+			<div class="q-py-sm"  align="right">
+				<b>Sub-total: ₦{{transactionDetails.subtotal}}<br>
+				Discount: ₦ {{transactionDetails.discount}}<br>
+				Total: ₦ {{transactionDetails.total}}.00</b>
 			</div>
 		</div>
-        <!-- <p class="centered">Thanks for your purchase!<br>parzibyte.me/blog</p> -->
-		
+
 	    <button type="button" @click="pr">
 		    Print Form
 		 </button>
@@ -105,7 +100,7 @@
 
 import { mapGetters } from 'vuex'
 import print  from 'print-js'
-const { remote } = require('electron')
+// const { remote } = require('electron')
 // import {PosPrinter, PosPrintData, PosPrintOptions} from "electron-pos-printer";
 // import * as path from "path";
 

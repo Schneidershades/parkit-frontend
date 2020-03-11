@@ -41,7 +41,7 @@
         <q-separator />
 
         <q-card-actions align="center">
-            <q-btn label="Close" color="primary" v-close-popup />
+            <q-btn label="Close" color="primary" v-close-popup="cancelEnabled"/>
             <q-btn @click="loginUser" label="Sign In" color="primary"  />
         </q-card-actions>
 
@@ -64,7 +64,8 @@
                     password: ''
                 },
 
-                isPwd: true,     
+                isPwd: true, 
+                cancelEnabled: false    
             }
         },computed: {
             ...mapGetters({
@@ -81,7 +82,10 @@
                 if( this.form.email != '' && this.form.password != ''){
                     this.login(this.form).then((res) => {
                         this.positiveNotification('Welcome!! you are now logged in')
-                        this.$router.push({name: 'userDashboard'})
+                        // this.$router.push({name: 'userDashboard'})
+                        console.log(this.cancelEnabled)
+                        return this.cancelEnabled = true
+
                     }).catch((error) => {
                         console.log(error)
                         this.errorMessages = error
@@ -93,6 +97,7 @@
                     this.negativeNotification('All fields are required')
                 }
             },
+
 
             
 
@@ -115,6 +120,10 @@
                     message: error
                 })
             },
+        },
+
+        mounted(){
+            console.log(this.cancelEnabled)
         }
     }
 </script>
