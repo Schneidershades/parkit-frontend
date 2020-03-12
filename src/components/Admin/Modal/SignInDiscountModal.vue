@@ -61,7 +61,7 @@
                 form:{
                     username: null,
                     password: '',
-                    permission: 'create-discounts',
+                    permission: 'create_discounts',
                 },
 
                 usernames: [],

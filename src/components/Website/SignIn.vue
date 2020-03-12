@@ -5,6 +5,10 @@
             <q-card-actions align="center">
                 <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
             </q-card-actions> 
+
+            <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
+                {{message}}
+            </q-banner>
            
         </q-card-section>
         <!-- <q-separator /> -->
@@ -41,7 +45,7 @@
         <q-separator />
 
         <q-card-actions align="center">
-            <q-btn label="Close" color="primary" v-close-popup="cancelEnabled"/>
+            <q-btn label="Close" color="primary" v-close-popup />
             <q-btn @click="loginUser" label="Sign In" color="primary"  />
         </q-card-actions>
 
@@ -64,8 +68,7 @@
                     password: ''
                 },
 
-                isPwd: true, 
-                cancelEnabled: false    
+                isPwd: true,     
             }
         },computed: {
             ...mapGetters({
@@ -82,10 +85,7 @@
                 if( this.form.email != '' && this.form.password != ''){
                     this.login(this.form).then((res) => {
                         this.positiveNotification('Welcome!! you are now logged in')
-                        // this.$router.push({name: 'userDashboard'})
-                        console.log(this.cancelEnabled)
-                        return this.cancelEnabled = true
-
+                        return this.$router.push({name: 'userDashboard'})
                     }).catch((error) => {
                         console.log(error)
                         this.errorMessages = error
@@ -97,7 +97,6 @@
                     this.negativeNotification('All fields are required')
                 }
             },
-
 
             
 
@@ -120,10 +119,6 @@
                     message: error
                 })
             },
-        },
-
-        mounted(){
-            console.log(this.cancelEnabled)
         }
     }
 </script>

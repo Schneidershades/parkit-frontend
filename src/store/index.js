@@ -27,6 +27,11 @@ import requisitionOrder from './modules/admin/requisitionOrders'
 import purchaseOrders from './modules/admin/purchaseOrders'
 import onlineTransaction from './modules/admin/onlineTransaction'
 
+import accountClassification from './modules/admin/account/accountClassification'
+import accountLocation from './modules/admin/account/accountLocation'
+
+
+
 export default new Vuex.Store({
 	state,
 	getters,
@@ -50,6 +55,10 @@ export default new Vuex.Store({
 		requisitionOrder,
 		purchaseOrders,
 		onlineTransaction,
+
+		accountClassification,
+		accountLocation,
+
 	}
 })
 

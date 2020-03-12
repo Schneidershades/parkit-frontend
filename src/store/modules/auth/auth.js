@@ -39,17 +39,30 @@ export default ({
 
 	actions: {
 		async signIn({dispatch}, credentials){
-			let response = await axios.post('auth/signin', credentials);
-			// console.log(response.data)
-			dispatch('attempt', response.data.token)
+			// let response = await axios.post('auth/signin', credentials);
+			// dispatch('attempt', response.data.token)
+
+			return new Promise((resolve, reject) => {
+	            axios.post('auth/signin', credentials).then(response => {
+	                dispatch('attempt', response.data.token)
+	                resolve()
+	            }, error => {
+	                dispatch('flashMessage', error.response.data.data.error, {root:true})
+	            })
+		    })	
 			
 		},
 
 		async adminSignIn({dispatch}, credentials){
-			let response = await axios.post('admin/user/signin', credentials);
-			// console.log(response.data)
-			dispatch('attempt', response.data.token)
-			
+			return new Promise((resolve, reject) => {
+	            axios.post('admin/user/signin', credentials).then(response => {
+	                dispatch('attempt', response.data.token)
+	                resolve()
+	            }, error => {
+	                dispatch('flashMessage', error.response.data.data.error, {root:true})
+	                // console.log(error.response.data.data.error)
+	            })
+		    })			
 		},
 
 		async attempt({ commit, dispatch, state }, token){
@@ -122,7 +135,6 @@ export default ({
 
 		async signUp({dispatch}, credentials){
 			let response = await axios.post('auth/signup', credentials);
-			// console.log(response.data)
 			// console.log(response.data.data.message)
 			return dispatch('attempt', response.data.data.message.token)
 		},

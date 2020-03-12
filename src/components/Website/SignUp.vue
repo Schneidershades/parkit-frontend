@@ -6,10 +6,11 @@
             </q-card-actions> 
        
 
-        <q-card-section  style="max-height: 80vh" class="scroll">            
+        <q-card-section  style="max-height: 80vh" class="scroll">  
+            <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
+                {{message}}
+            </q-banner>          
             <div class="q-pa-md">
-                <!-- <div class="bg-primary">{{message}}</div> -->
-
                 <q-stepper
                   v-model="step"
                   header-nav

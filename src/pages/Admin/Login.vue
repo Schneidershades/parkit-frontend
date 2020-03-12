@@ -5,9 +5,15 @@
 				<div class="row">
 					<q-card square bordered class="q-pa-lg shadow-1" style="width:400px ">
 						<q-card-section>
+
 							<q-card-actions align="center">
 				                <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
 				            </q-card-actions> 
+
+                            <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
+                              {{message}}
+                            </q-banner>
+
 							<q-form class="q-gutter-md" @submit="loginUser" ref="form">
 								<q-input 
 									square 
@@ -114,12 +120,6 @@
                 this.login(this.form).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
                     return this.$router.push({name: 'adminDashboard'})
-                }).catch((error) => {
-                    console.log(error)
-                    this.errorMessages = error
-                    if(error){
-                        this.negativeNotification(error.error)
-                    }
                 })
             },
             positiveNotification(message){

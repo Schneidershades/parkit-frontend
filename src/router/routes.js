@@ -445,7 +445,60 @@ const routes = [
         },
       }
     ]
-  }
+  },
+  {
+    path: '/admin/account',
+    component: () => import('layouts/Admin.vue'),
+    children: [
+      { path: '', 
+        name: 'admin-account', 
+        component: () => import('pages/Admin/Account/Account.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      },
+      { 
+        path: '/admin/account/location/:locationId',
+        name: 'accountLocationShow',  
+        component: () => import('pages/Admin/Account/Location.vue'), 
+        meta: {
+          middleware:[
+            websiteAuth,
+            desktopAuth
+          ]
+        },
+        props: true,
+      },
+      { 
+        path: '/admin/account/location/:locationId/expense',
+        name: 'accountLocationShow',  
+        component: () => import('pages/Admin/Account/Expense.vue'), 
+        meta: {
+          middleware:[
+            websiteAuth,
+            desktopAuth
+          ]
+        },
+        props: true,
+      },
+      { 
+        path: '/admin/account/location/:locationId/income',
+        name: 'accountLocationShow',  
+        component: () => import('pages/Admin/Account/Income.vue'), 
+        meta: {
+          middleware:[
+            websiteAuth,
+            desktopAuth
+          ]
+        },
+        props: true,
+      },
+    ]
+  },
+
 ]
 
 

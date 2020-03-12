@@ -11,6 +11,6 @@ export default function auth({ next, store, ssrContext}){
 	// }
 
 	
-	// return next()
+	return next()
 }
 

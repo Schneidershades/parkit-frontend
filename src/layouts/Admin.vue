@@ -17,20 +17,26 @@
                 <!-- <q-space /> -->
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
-                        <!-- <q-btn color="primary" class="q-ma-sm"  icon="logout" @click.prevent="signOut" label="logout" /> -->
                         <q-btn color="purple" icon="home" class="q-ma-sm" label="Location" />
                         <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" />
                         <template v-if="cart.length">
                             <q-btn color="primary"  :label="carTotalLength"  />
-                            <!-- <q-btn color="primary"  :label="carTotalLength" @click="right = !right" /> -->
                         </template>
                     </template>
                 </div>
+                <div  @click="right = !right" class="lt-md" id="total_charges_fab" style="display: block; position: fixed; top: 100px; right: 18px; z-index: 1;">
+                    <q-btn size="12px" unelevated class="q-px-xl" color="primary" :label="carTotalLength"/>
+                </div>
             </q-toolbar>
         </q-header>
-        <q-drawer v-model="right" side="right" bordered>
+
+
+
+        <q-drawer v-model="right" side="right"  behavior="mobile" bordered>
           <CartDrawer/>
         </q-drawer>
+
+
         <q-drawer
             v-model="leftDrawerOpen"
             show-if-above
@@ -40,99 +46,105 @@
             >
             
             <q-list>
-                <q-item-label header>Menu</q-item-label>
-                
-                <q-item clickable to="/">
-                    <q-item-section avatar>
-                        <q-icon name="home" />
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Home</q-item-label>
-                    </q-item-section>
-                </q-item>
+                <template>
+                    <q-item-label header>Menu</q-item-label>
 
-                <q-item clickable to="/admin/dashboard">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="home" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Dashboard</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/dashboard">
+                        <q-item-section avatar>
+                            <q-icon name="home" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Dashboard</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/invoice">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="person" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Invoice</q-item-label>
-                    </q-item-section>
-                </q-item>
-                <q-item clickable to="/admin/history">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="cart" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>History</q-item-label>
-                    </q-item-section>
-                </q-item>
-                <q-item clickable to="/admin/online/transactions">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="shop" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Online Transaction</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/invoice">
+                        <q-item-section avatar>
+                            <q-icon name="receipt" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Invoice</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                    <q-item clickable to="/admin/history">
+                        <q-item-section avatar>
+                            <q-icon name="history" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>History</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                    <q-item clickable to="/admin/online/transactions">
+                        <q-item-section avatar>
+                            <q-icon name="confirmation_number" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Online Transaction</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/personnel/requests">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="lock" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Personnel Request</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/personnel/requests">
+                        <q-item-section avatar>
+                            <q-icon name="person_add" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Personnel Request</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/purchase/order">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="lock" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Purchase Order</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/purchase/order">
+                        <q-item-section avatar>
+                            <q-icon name="shopping_basket" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Purchase Order</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/report/fault">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="lock" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Report Fault</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/report/fault">
+                        <q-item-section avatar>
+                            <q-icon name="build" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Report Fault</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/requisition/order">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="lock" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Requistion Order</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/requisition/order">
+                        <q-item-section avatar>
+                            <q-icon name="reorder" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Requistion Order</q-item-label>
+                        </q-item-section>
+                    </q-item>
 
-                <q-item clickable to="/admin/suggestions/complaints">
-                    <q-item-section avatar>
-                        <!-- <q-icon name="lock" /> -->
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Suggestions & Complaints</q-item-label>
-                    </q-item-section>
-                </q-item>
+                    <q-item clickable to="/admin/suggestions/complaints">
+                        <q-item-section avatar>
+                            <q-icon name="contact_support" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Suggestions & Complaints</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                </template>
+
+                <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+                    <q-item-label header>Accounts</q-item-label>
+
+                    <q-item clickable to="/admin/account">
+                        <q-item-section avatar>
+                            <q-icon name="account_balance" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Account</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                </template>
 
                 <q-item clickable @click.prevent="signOut">
                     <q-item-section avatar>
-                        <!-- <q-icon name="logout" /> -->
+                        <q-icon name="logout" />
                     </q-item-section>
                     <q-item-section>
                         <q-item-label>Logout</q-item-label>

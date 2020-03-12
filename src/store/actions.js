@@ -1,6 +1,6 @@
 export const flashMessage = ({commit}, message) =>{
+	// console.log(message)
 	commit('setMessage', message)
-
 
 	setTimeout(() => {
 		commit('clearMessage')

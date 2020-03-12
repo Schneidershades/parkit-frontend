@@ -12,12 +12,12 @@
                 <div class="col-md-3 q-pa-sm">
                     <header class="text-h6">LINKS</header>
                     <q-btn flat label="Home Service" to="/home-service"/>
+                    <q-btn flat label="Franchise" to="/parkit-franchise"/>
                     <q-btn flat label="Parkit Corporate" to="/parkit-corporate"/>
                     <q-btn flat label="Gallery" to="/gallery"/>
                     <q-btn flat label="Membership" to="" @click="membershipModal = true"/>
                     <q-btn flat label="Become a Partner" @click="partnerModal = true"/>
                     <q-btn flat label="Careers" @click="careerModal = true"/>
-                    <q-btn flat label="Franchise" to="/parkit-franchise"/>
                     <q-btn flat label="Training and Consultancy" @click="trainingAndConsultancyModal = true"/>
                 </div>
 
@@ -80,11 +80,6 @@
         </div>
       </q-toolbar>
     </q-footer>
-
-
-    <!-- <div id="footer">
-        
-    </div> -->
 </template>
 <style scoped>
     #footer {
