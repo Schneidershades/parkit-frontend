@@ -23,7 +23,6 @@
     "printd": "^1.4.1",
     "quasar": "^1.9.8",
     "rave-javascript-sdk": "^1.0.4",
-    "simple-electron-printer-and-thermalprinter": "^1.0.6",
     "vue": "^2.6.11",
     "vue-gallery": "^2.0.1",
     "vue-ravepayment": "^2.0.2",

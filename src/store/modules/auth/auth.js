@@ -7,11 +7,12 @@ export default ({
 		token: null,
 		user: null,
 		phone: null,
+		authenticated: null,
 	},
 
 	getters:{
 		authenticated (state){
-			return state.token && state.user
+			return state.authenticated && state.user
 		},
 
 		user(state){
@@ -28,6 +29,10 @@ export default ({
 			state.token = token
 		},
 
+		SET_AUTHENTICATED (state, value) {
+			state.authenticated = value
+		},
+
 		SET_USER (state, data) {
 			state.user = data
 		},
@@ -39,12 +44,13 @@ export default ({
 
 	actions: {
 		async signIn({dispatch}, credentials){
-			// let response = await axios.post('auth/signin', credentials);
+			let response = await axios.get('airlock/csrf-cookie', credentials);
 			// dispatch('attempt', response.data.token)
 
 			return new Promise((resolve, reject) => {
-	            axios.post('auth/signin', credentials).then(response => {
-	                dispatch('attempt', response.data.token)
+	            axios.post('api/auth/signin', credentials).then(response => {
+	            	// console.log(response.data)
+	                dispatch('attempt', response.data)
 	                resolve()
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
@@ -55,7 +61,7 @@ export default ({
 
 		async adminSignIn({dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('admin/user/signin', credentials).then(response => {
+	            axios.post('api/admin/user/signin', credentials).then(response => {
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
@@ -66,40 +72,22 @@ export default ({
 		},
 
 		async attempt({ commit, dispatch, state }, token){
-			// console.log(token)
-
-			if(token){
-				commit('SET_TOKEN', token)
-
-			}else{
-				console.log('bad')
-			}
-
-
-			if(!state.token){
-				return
-			}
-
-			try{
-				return new Promise((resolve, reject) => {
-		            axios.get('auth/me').then(response => {
-		                commit('SET_USER', response.data.data)
-						dispatch('shopping/storeCart', null, { root: true })
-						return dispatch('shopping/getCart', null, { root: true })
-		            }, error => {
-		                // dispatch('flashErrorMessage', error.response.data, {root:true})
-		                // console.log(error.response.data.data.error)
-		                // reject(error.response.data.data.error)
-		            })
-		        })
-			}catch (e){
-				commit('SET_USER', null)
-				commit('SET_TOKEN', null)
-			}
+			return new Promise((resolve, reject) => {
+	            axios.get('api/auth/me').then(response => {
+	                commit('SET_AUTHENTICATED', true)
+	                commit('SET_USER', response.data.data)
+					dispatch('shopping/storeCart', null, { root: true })
+					return dispatch('shopping/getCart', null, { root: true })
+	            }, error => {
+	                // dispatch('flashErrorMessage', error.response.data, {root:true})
+	                // console.log(error.response.data.data.error)
+	                // reject(error.response.data.data.error)
+	            })
+	        })
 		},
 		
 		signOut({ commit, rootState }){
-			return axios.post('auth/signout').then(() =>{
+			return axios.post('api/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
 				commit('shopping/clearCart', null, { root: true })
@@ -108,7 +96,7 @@ export default ({
 
 		async sendPhoneNumber({commit, dispatch}, phone_number){
 			return new Promise((resolve, reject) => {
-	            axios.post('phone', phone_number).then(response => {
+	            axios.post('api/phone', phone_number).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 					commit('SET_PHONE_NUMBER', phone_number)
@@ -122,7 +110,7 @@ export default ({
 
 		async verifyOTP({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('verify-otp', credentials).then(response => {
+	            axios.post('api/verify-otp', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 	            }, error => {
@@ -134,7 +122,7 @@ export default ({
 		},
 
 		async signUp({dispatch}, credentials){
-			let response = await axios.post('auth/signup', credentials);
+			let response = await axios.post('api/auth/signup', credentials);
 			// console.log(response.data.data.message)
 			return dispatch('attempt', response.data.data.message.token)
 		},

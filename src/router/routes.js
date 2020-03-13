@@ -474,7 +474,7 @@ const routes = [
       },
       { 
         path: '/admin/account/location/:locationId/expense',
-        name: 'accountLocationShow',  
+        name: 'accountExpenseShow',  
         component: () => import('pages/Admin/Account/Expense.vue'), 
         meta: {
           middleware:[
@@ -486,7 +486,7 @@ const routes = [
       },
       { 
         path: '/admin/account/location/:locationId/income',
-        name: 'accountLocationShow',  
+        name: 'accountIncomeShow',  
         component: () => import('pages/Admin/Account/Income.vue'), 
         meta: {
           middleware:[

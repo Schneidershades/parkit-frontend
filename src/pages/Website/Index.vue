@@ -6,7 +6,7 @@
             v-model="slide"
             height="550px"
             >
-            <q-carousel-slide name="first" img-src="statics/selected/slider1.JPG" class="column no-wrap flex-center">
+            <q-carousel-slide name="first" img-src="statics/selected/slider1.jpg" class="column no-wrap flex-center">
                 <div class="absolute-bottom custom-caption">
                     <template v-if="user!=null">
                       <div class="text-h2 text-weight-bolder" >Car Wash & Vehicle Care </div>
@@ -17,8 +17,8 @@
                       <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
                       
                       <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" label="Book Now"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
                       </q-card-actions>
                     </template>
                 </div>
@@ -34,8 +34,8 @@
                       <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
                       
                       <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" label="Book Now"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
                       </q-card-actions>
                     </template>
                 </div>
@@ -51,8 +51,8 @@
                       <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
                       
                       <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs" color="primary" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs" color="primary" label="Book Now"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
                       </q-card-actions>
                     </template>
                 </div>
@@ -68,8 +68,8 @@
                       <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
                       
                       <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs" color="primary" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs" color="primary" label="Book Now"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
+                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
                       </q-card-actions>
                     </template>
                 </div>
@@ -99,6 +99,14 @@
                 <Animation/>
             </div> -->
         </div>
+
+        <q-dialog v-model="signInModal">
+            <SignIn/>
+        </q-dialog>
+
+        <q-dialog v-model="signUpModal">
+            <SignUp/>
+        </q-dialog>
     </q-page>
 </template>
 <style  scoped>
@@ -135,6 +143,8 @@
 <script>
     import TabList from 'components/Tabs/TabList.vue'
     import Animation from 'components/Website/Animation.vue'
+    import SignUp from 'components/Website/SignUp.vue'
+    import SignIn from 'components/Website/SignIn.vue'
     import { mapActions, mapGetters } from 'vuex'
     
     export default {
@@ -142,11 +152,15 @@
         return {
           slide: 'first',
           tab: 'mails',
+          signInModal: false,
+          signUpModal: false,
         }
       },
       components:{
         TabList,
-        Animation
+        Animation,
+        SignUp,
+        SignIn,
       },
       computed: {
         ...mapGetters({

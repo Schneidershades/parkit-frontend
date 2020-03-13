@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // get products
 export const getStaffPurchaseOrders = ({ commit }) => {
-	var URL = 'admin/user/staff-purchase-orders'
+	var URL = 'api/admin/user/staff-purchase-orders'
 	return axios.get(URL).then((response) => {
 		console.log(response.data)
 		commit('setReportFaults', response.data)
@@ -11,7 +11,7 @@ export const getStaffPurchaseOrders = ({ commit }) => {
 }
 
 export const sendStaffPurchaseOrders = ({ commit }, information) => {
-	var URL = 'admin/user/staff-purchase-orders'
+	var URL = 'api/admin/user/staff-purchase-orders'
 	return axios.post(URL, information).then((response) => {
 		console.log(response.data)
 		return Promise.resolve()

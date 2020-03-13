@@ -5,9 +5,11 @@ import { LocalStorage, SessionStorage } from 'quasar'
 
 export default async ({ app, router, store, Vue }) => {
   	// something to do
-  	axios.defaults.baseURL= 'http://127.0.0.1:8000/api'
-  	// axios.defaults.baseURL= 'https://parkit-backend-app.herokuapp.com/api'
-	store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
+  	axios.defaults.withCredentials = true
+
+  	axios.defaults.baseURL= 'http://localhost:8000'
+  	//axios.defaults.baseURL= 'https://parkit-backend-app.herokuapp.com/api'
+	store.dispatch('auth/attempt').then(() => {
 		new Vue({
 			router,
 			store,
