@@ -2,7 +2,7 @@
 .DS_Store
 .thumbs.db
 node_modules
-.env
+
 /dist
 /src-cordova/node_modules
 /src-cordova/platforms
@@ -21,3 +21,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+.env
