@@ -1,6 +1,11 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
+const path = require('path')
+const DotEnv = require('dotenv')
+const webpack = require('webpack')
+const envparser = require('./config/envparser')
+
 module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
@@ -23,10 +28,10 @@ module.exports = function (ctx) {
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
-      // 'ionicons-v4',
-      // 'mdi-v4',
+      'ionicons-v4',
+      'mdi-v4',
       'fontawesome-v5',
-      // 'eva-icons',
+      'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
@@ -69,6 +74,7 @@ module.exports = function (ctx) {
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',
+      env: envparser(),
       // showProgress: false,
       // gzip: true,
       // analyze: true,
@@ -77,6 +83,13 @@ module.exports = function (ctx) {
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
+        cfg.resolve.alias.env = path.resolve(__dirname, 'config/helpers/env.js')
+
+        cfg.plugins.push(
+          new webpack.ProvidePlugin({
+            'env' : 'env'
+          })
+        )
       }
     },
 

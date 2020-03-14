@@ -2,13 +2,13 @@
 	<div class="q-pa-sm">
 		<table v-if="cart.length">
             <q-card-actions align="around">
-                <q-btn flat @click.prevent="removeAllProductFromCart()">Clear Cart</q-btn>
-                <q-btn flat to="/cart">Cart Page</q-btn>
+                <q-btn color="red" icon="remove_shopping_cart" @click.prevent="removeAllProductFromCart()">Clear Cart</q-btn>
+                <q-btn color="green" icon="subdirectory_arrow_right" to="/cart">Proceed</q-btn>
             </q-card-actions>
             <thead>
                 <tr>
                     <th scope="col">Package</th>
-                    <th scope="col">Venue</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Unit</th>
                     <th scope="col">Amount</th>
@@ -18,7 +18,7 @@
             <tbody>
                 <tr v-for="item in cart" :key="item.id">
                     <td data-label="Package"><b>{{item.vehicle}}</b> - {{item.package}}</td>
-                    <td data-label="Venue">{{item.venue}}</td>
+                    <td data-label="Location">{{item.venue}}</td>
                     <td data-label="Quantity">{{item.quantity}}</td>
                     <td data-label="Unit">{{item.amount}}</td>
                     <td data-label="Amount">{{item.amount * item.quantity}}</td>

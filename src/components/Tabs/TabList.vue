@@ -1,12 +1,19 @@
 <template>
 	<q-card flat>
-		<!-- <template v-if="!tab"> -->
-            <h4 class="header-text q-ml-xl">Select a Package </h4>
-	    <!-- </template> -->
+        <h4 class="header-text">Select a Package </h4>
+		
+        <div class="q-gutter-sm lt-md" >
+	      <q-radio v-model="tab" v-for="product in products.data" size="sm" :val="product.slug" :label="product.type" :key="product.slug" :icon="product.svg_path" />
+	    </div>
+
+
+
+
 		<q-tabs
           v-model="tab"
           vertical
           color="primary"
+          class="gt-sm"
 			>
 			<div class="cbs-vehicle-list">
 				<q-tab class="col-md-3 vehicle-cbs"  v-for="product in products.data" :name="product.slug" :label="product.type" 
@@ -16,14 +23,16 @@
 		</q-tabs>
 
 
+
+
 		<q-tab-panels bordered v-model="tab" animated class="row">
 			<q-tab-panel :name="product.slug" v-for="product in products.data" :key="product.id">
 				<div class="lt-md">
-					<q-list bordered class="rounded-borders">
+					<q-list class="rounded-borders">
 						<q-item class=" col-md-12" v-for="content in product.packages" v-if="content.venue=='parkit-location'" :key ="content.slug">
 							<q-item-section avatar top class="col-3 ">
 								<q-icon name="account_tree" color="black" size="20px" />
-								{{content.package}}
+								{{content.short_name}}
 							</q-item-section>
 
 							<q-item-section top class="col-7 q-pt-md">

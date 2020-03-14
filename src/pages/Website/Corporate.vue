@@ -1,6 +1,6 @@
 <template>
 	<q-page>
-		<q-img src="statics/slider-bg.jpg" style="height:400px">
+		<q-img src="statics/selected/corporate-mtn.jpg" style="height:400px">
 			<div class="absolute-full text-subtitle2 flex flex-center">
 				<div class="row">
 					<div class="col-md-6 q-pa-sm" >
@@ -77,7 +77,7 @@
 		</div>
 
 		<div class="text-white q-pa-xl" style="background-color: rgb(5, 18, 189); ">
-            <h4>Simply Put Why Parkit?</h4>
+            <h4 class="text-white">Simply Put Why Parkit?</h4>
             <p>If you’re tired of not being able to find the right cleaning options, paying too much for car washes, not getting your car fully clean, seeing water spots that were left behind or getting stuck in a car wash that takes too long, then Parkit car wash is optimally designed for you.</p>
         </div>
 
@@ -145,91 +145,68 @@
 		            <div class="container">
 		                <h5>MONTHLY SUBSCRIPTION PACKAGES</h5>
 
-		                <h4 class="text-center">Basic package monthly subscription</h4>
+		                <div class="text-h4 text-center">Basic package monthly subscription</div>
 		                <div class="q-pa-md row items-start q-gutter-md" style="display: flex; justify-content: space-around;">
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>EVERYDAY WASH </div>
 		                		<div class='price'><i>N8,500 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'> SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>EVERYDAY WASH</div>
 		                		<div class='price'><i>N24,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'> SUV & SPACE BUS </div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'> 3-DAYS / WEEK WASH </div>
 		                		<div class='price'><i>N8,500 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>3-DAYS / WEEK WASH  </div>
 		                		<div class='price'><i>N12,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SUV & SPACE BUS</div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'> SATURDAY </div>
 		                		<div class='price'><i>N3,500 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>SATURDAY  </div>
 		                		<div class='price'><i>N4,500/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SUV & SPACE BUS</div>
 		                		<hr>
 		                	</div>
-
-
-
-		                	<!-- <div class='package'>
-		                		<div class='name'>Basic</div>
-		                		<div class='price'>€0</div>
-		                		<div class='trial'>Totally free</div>
-		                		<hr>
-		                		<ul>
-		                			<li>
-		                				<strong>5</strong>
-		                				team members
-		                			</li>
-		                			<li>
-		                				<strong>3</strong>
-		                				team playlists
-		                			</li>
-		                			<li>
-		                				<strong>Unlimited</strong>
-		                				public playlists
-		                			</li>
-		                		</ul>
-		                	</div> -->
 						</div>
 
 
-		                <h4 class="text-center">Other packages (These cover 4 washes in a month)</h4>
+		                <h5 class="text-center">Other packages (These cover 4 washes in a month)</h5>
 
 						 <div class="q-pa-md row items-start q-gutter-md" style="display: flex; justify-content: space-around;">
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>EX-WASH PACKAGE</div>
 		                		<div class='price'><i>N3,500 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'> SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>EX-WASH PACKAGE</div>
 		                		<div class='price'><i>N5,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'> SUV & SPACE BUS </div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>EX-WASH PACKAGE</div>
 		                		<div class='price'><i>N7,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'> TRUCK </div>
@@ -238,40 +215,40 @@
 
 
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>IN-WASH WASH </div>
 		                		<div class='price'><i>N8,000 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>IN-WASH WASH </div>
 		                		<div class='price'><i>N10,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SUV & SPACE BUS</div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'> IN-WASH WASH </div>
 		                		<div class='price'><i>N12,000 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>TRUCK</div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>PLUS WASH </div>
 		                		<div class='price'><i>N12,500 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SALOON CAR</div>
 		                		<hr>
 		                	</div>
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'>PLUS WASH </div>
 		                		<div class='price'><i>N15,750/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>SUV & SPACE BUS</div>
 		                		<hr>
 		                	</div>
 
-		                	<div class='package brilliant' style="height:220px; width:400px">
+		                	<div class='package brilliant' style="height:220px; width:300px">
 		                		<div class='name'> PLUS WASH </div>
 		                		<div class='price'><i>N18,000 /</i><small style="color:red">  Month</small></div>
 		                		<div class='trial'>TRUCK</div>
@@ -283,56 +260,56 @@
 		                <h5>SINGLE WASH PACKAGES</h5>
 
 		                 <div class="q-pa-md row items-start q-gutter-md" style="display: flex; justify-content: space-around;">
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">SINGLE WASH</div>
 		                		<div class='price'><i>N4,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Tyre wax and wheel polish</div>
 		                		<div class='price'><i>N3,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Freshening of fabric & perfuming</div>
 		                		<div class='price'><i>N2,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Car waxing (With buffers)</div>
 		                		<div class='price'><i>N5,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Cleaning of rooftop</div>
 		                		<div class='price'><i>N2,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Upholstery wash</div>
 		                		<div class='price'><i>N3,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">All glass polishing</div>
 		                		<div class='price'><i>N4,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
 		                		<div class='trial'></div>
 		                		<hr>
 		                	</div>
-		                	<div class='package  brilliant' style="height:180px; width:400px">
+		                	<div class='package  brilliant' style="height:180px; width:300px">
 		                		<div class='name' style="font-size:1.5em">Shinning of rear and front lights</div>
 		                		<div class='price'><i>N4,000/</i><small style="color:red">  Month</small></div>
 		                		<div class='trial' >ENGINE WASH </div>
@@ -346,7 +323,7 @@
 		</div>
 
 
-		<div class="text-white q-pa-xl" style="background-color: rgb(13, 71, 161); ">
+		<div class="q-pa-xl" >
             <div class="container">
                 <h4 style="margin-top: 0;">Contact Parkit</h4>
                 <q-form
@@ -358,52 +335,55 @@
                         <div class="col-md-4 q-pl-sm">
                             <q-input
                                 ref="name"
-                                color="white"
+                                color="black"
+                                filled
                                 :dense="dense"
-                                label="Personnel Position *"
-                                hint="Please insert a personnel position"
+                                label="Name *"
                                 lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
+                                :rules="[ val => val && val.length > 0 || 'Please type in your name']"
                             />
                         </div>
 
                         <div class="col-md-4 q-pl-sm">
                             <q-input
                                 ref="name"
-                                color="white"
+                                color="black"
+                                filled
                                 :dense="dense"
-                                label="Quantity *"
+                                label="Email *"
                                 min="1"
-                                hint="Please insert a quantity"
                                 lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
+                                :rules="[ val => val && val.length > 0 || 'Please type in your email']"
                             />
                         </div>
 
                         <div class="col-md-4 q-pl-sm">
                             <q-input
                                 ref="name"
-                                color="grey-3"
+                                color="black"
+                                filled
                                 :dense="dense"
-                                label="Reason *"
-                                hint="Please state a reason"
+                                label="Phone Number *"
                                 lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
+                                :rules="[ val => val && val.length > 0 || 'Please type your phone number']"
                             />
                         </div>
 
                         <div class="col-md-12 q-pt-sm">
                             <q-input
 						      	type="textarea"
-                                color="grey-3"
-                            	label="Additional Information *"
+						      	filled
+                                color="black"
+                            	label="Message *"
+                            	:rules="[ val => val && val.length > 0 || 'Please type a message']"
 						    />
                         </div>
-				        <q-card-actions align="right">
-				            <q-btn  type="submit" label="SEND MESSAGE" color="white" text-color="primary" />
-				        </q-card-actions>
+				        
 
-                    </div>  
+                    </div>
+                    <q-card-actions align="right">
+			            <q-btn size="lg" type="submit" label="SEND MESSAGE" color="primary" text-color="white" />
+			        </q-card-actions> 
                 </q-form> 
             </div>
         </div>
@@ -546,7 +526,7 @@ li:before {
   color: white;
   background: radial-gradient(circle, #7c3ac9 0%, #014a88 100%);
   position: relative;
-  width: 230px; /* width of each table */
+  width: 200px; /* width of each table */
   margin-right: 10px; /* spacing between tables */
   margin-bottom: 1em;
   transition: all .5s;

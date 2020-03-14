@@ -7,72 +7,16 @@
             height="550px"
             >
             <q-carousel-slide name="first" img-src="statics/selected/slider1.jpg" class="column no-wrap flex-center">
-                <div class="absolute-bottom custom-caption">
-                    <template v-if="user!=null">
-                      <div class="text-h2 text-weight-bolder" >Car Wash & Vehicle Care </div>
-                      <div class="text-h6">A Car Wash & Vehicle Care Service like never before!</div>
-                    </template>
-                    <template v-else>
-                      <div class="text-h6">Welcome</div>
-                      <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
-                      
-                      <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
-                      </q-card-actions>
-                    </template>
-                </div>
+              <SliderComponent/>
             </q-carousel-slide>
             <q-carousel-slide name="second" img-src="statics/slider-bg2.jpg" class="column no-wrap flex-center">
-                <div class="absolute-bottom custom-caption">
-                    <template v-if="user!=null">
-                      <div class="text-h2 text-weight-bolder">Car Wash & Vehicle Care </div>
-                      <div class="text-h6">A Car Wash & Vehicle Care Service like never before!</div>
-                    </template>
-                    <template v-else>
-                      <div class="text-h6">Welcome</div>
-                      <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
-                      
-                      <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
-                      </q-card-actions>
-                    </template>
-                </div>
+              <SliderComponent/> 
             </q-carousel-slide>
             <q-carousel-slide name="third" img-src="statics/selected/slider2.jpg" class="column no-wrap flex-center">
-                <div class="absolute-bottom custom-caption">
-                    <template v-if="user!=null">
-                      <div class="text-h2 text-weight-bolder">Car Wash & Vehicle Care </div>
-                      <div class="text-h6">A Car Wash & Vehicle Care Service like never before!</div>
-                    </template>
-                    <template v-else>
-                      <div class="text-h6">Welcome</div>
-                      <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
-                      
-                      <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
-                      </q-card-actions>
-                    </template>
-                </div>
+              <SliderComponent/>  
             </q-carousel-slide>
             <q-carousel-slide name="fourth" img-src="statics/selected/slider3.jpg" class="column no-wrap flex-center">
-                <div class="absolute-bottom custom-caption">
-                    <template v-if="user!=null">
-                      <div class="text-h2 text-weight-bolder">Car Wash & Vehicle Care </div>
-                      <div class="text-h6">A Car Wash & Vehicle Care Service like never before!</div>
-                    </template>
-                    <template v-else>
-                      <div class="text-h6">Welcome</div>
-                      <div class="text-h2 text-weight-bolder q-pb-md">Sign up to get a free car wash</div>
-                      
-                      <q-card-actions align="left">
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signUpModal = true" label="Sign Up"/>
-                        <q-btn size="18px" unelevated rounded class="q-py-xs q-px-md" color="primary" @click="signInModal = true" label="Book Now"/>
-                      </q-card-actions>
-                    </template>
-                </div>
+              <SliderComponent/>  
             </q-carousel-slide>
         </q-carousel>
         <div class="q-pa-xl">
@@ -87,26 +31,18 @@
             </div>
         </div>
         <div class="q-pa-md">
-            <div class="q-gutter-y-xl">
+            <div class="q-px-lg">
                 <tab-list></tab-list>
             </div>
 
-            <div class=" q-pl-xl">
+            <div class="q-px-lg">
               <h4>Interested in owning a parkit franchise ?</h4>
-              <img class="responsive-img" src="statics/CAR00.png" width="100%" alt="Parkit Home service">
+              <img class="responsive-img" src="statics/CAR00.png" width="100%" alt="Parkit Home service" @click="corporate">
             </div>
             <!-- <div class="q-gutter-y-md gt-sm">
                 <Animation/>
             </div> -->
         </div>
-
-        <q-dialog v-model="signInModal">
-            <SignIn/>
-        </q-dialog>
-
-        <q-dialog v-model="signUpModal">
-            <SignUp/>
-        </q-dialog>
     </q-page>
 </template>
 <style  scoped>
@@ -119,32 +55,11 @@
       padding: 4px;
       font-weight: 700;
   }
-
-    .custom-caption{
-      text-align: left;
-      padding: 12px;
-      color: white;
-      background-color: rgba(0, 0, 0, .5);
-      height: -webkit-fill-available;
-      padding: 200px 80px 75px;
-    }
-    #footer {
-      background-color: #151c1f;
-      color: #eceff1;
-      padding-top: 60px;
-      padding-bottom: 60px;
-    }
-
-    #footer a{
-      text-decoration: none;
-      color: #039be5;
-    }
 </style>
 <script>
     import TabList from 'components/Tabs/TabList.vue'
     import Animation from 'components/Website/Animation.vue'
-    import SignUp from 'components/Website/SignUp.vue'
-    import SignIn from 'components/Website/SignIn.vue'
+    import SliderComponent from 'components/Website/SliderComponent.vue'
     import { mapActions, mapGetters } from 'vuex'
     
     export default {
@@ -152,20 +67,24 @@
         return {
           slide: 'first',
           tab: 'mails',
-          signInModal: false,
-          signUpModal: false,
         }
       },
       components:{
         TabList,
         Animation,
-        SignUp,
-        SignIn,
+        SliderComponent,
       },
       computed: {
         ...mapGetters({
           user: 'auth/user',
         })
-      }       
+      },
+      methods :{
+        corporate(){
+          this.$router.replace({
+              name: 'franchise'
+          })
+        }
+      }     
     }
 </script>

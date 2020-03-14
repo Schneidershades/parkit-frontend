@@ -1,6 +1,6 @@
 <template>
 	<q-page>
-		<q-img src="statics/slider-bg.jpg" style="height:600px">
+		<q-img src="statics/selected/home-service.jpg" style="height:600px">
 			<div class="absolute-full text-subtitle2 flex flex-center">
 				<div class="row">
 					<div class="col-md-12 q-pa-sm" >
@@ -23,67 +23,6 @@
             </div>
 		</div>
 
-		<!-- <div class="text-white q-pa-xl" style="background-color: rgb(13, 71, 161); ">
-            <div class="container">
-                <h4 style="margin-top: 0;">Contact Parkit</h4>
-                <q-form
-                    @submit="submitRequest"
-                    class="q-gutter-md"
-                    ref="form"
-                >
-                	<div class="row text-white">
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="white"
-                                :dense="dense"
-                                label="Personnel Position *"
-                                hint="Please insert a personnel position"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
-                            />
-                        </div>
-
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="white"
-                                :dense="dense"
-                                label="Quantity *"
-                                min="1"
-                                hint="Please insert a quantity"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
-                            />
-                        </div>
-
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="grey-3"
-                                :dense="dense"
-                                label="Reason *"
-                                hint="Please state a reason"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type something']"
-                            />
-                        </div>
-
-                        <div class="col-md-12 q-pt-sm">
-                            <q-input
-						      	type="textarea"
-                                color="grey-3"
-                            	label="Additional Information *"
-						    />
-                        </div>
-				        <q-card-actions align="right">
-				            <q-btn  type="submit" label="SEND MESSAGE" color="white" text-color="primary" />
-				        </q-card-actions>
-
-                    </div>  
-                </q-form> 
-            </div>
-        </div> -->
 	</q-page>
 </template>
 

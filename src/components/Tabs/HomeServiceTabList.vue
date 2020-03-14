@@ -16,7 +16,7 @@
 		</q-tabs>
 
 
-		<q-tab-panels bordered v-model="tab" animated class="row">
+		<q-tab-panels bordered v-model="tab" animated class="row" >
 			<q-tab-panel :name="product.slug" v-for="product in products.data" :key="product.id">
 				<div class="row wrap justify-around tab-card">
 					<!-- <div class="q-pa-sm col-md-3 " v-for="content in product.packages" v-if="content.venue=='location' && content.package!='SINGLE WASH PACKAGE'"> -->

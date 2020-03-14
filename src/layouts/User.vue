@@ -12,7 +12,7 @@
                     class="lt-xl"
                     />
                 <q-toolbar-title clickable to="/" >
-                    <img src="statics/parkit_logo.png" alt="Parkit Home service" width="300">
+                    <q-img src="statics/parkit_logo.png" spinner-color="white" style="height: 120px; max-width: 300px" @click="home"/>
                 </q-toolbar-title>
                 <!-- <q-space /> -->
                 <div class="gt-sm">
@@ -106,6 +106,12 @@
                         name: 'home'
                     })
                 })
+            },
+            
+            home(){
+              this.$router.replace({
+                  name: 'home'
+              })
             }
         }
     }

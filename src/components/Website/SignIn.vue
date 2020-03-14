@@ -70,7 +70,8 @@
 
                 isPwd: true,     
             }
-        },computed: {
+        },
+        computed: {
             ...mapGetters({
                 message: 'message',
             })

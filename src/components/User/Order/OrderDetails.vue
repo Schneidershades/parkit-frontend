@@ -189,7 +189,7 @@ export default {
     },
 	data () {
 		return {
-			raveKey: "FLWPUBK_TEST-c4a138b24a98ba7c339d5f85cffcb4d0-X",
+			raveKey: process.env.FLUTTERWAVE_PUBLIC_KEY,
 	        email: "parkitng@gmail.com",
 	        amount: "",
 	        plan: 0,

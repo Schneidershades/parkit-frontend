@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-img src="statics/slider-bg.jpg" style="height:600px">
+    <q-img src="statics/selected/franchise-banner.jpg" style="height:600px">
       <div class="absolute-full text-subtitle2 flex flex-center">
         <div class="row">
           <div class="col-md-12 q-pa-sm" >
@@ -87,9 +87,9 @@
       </div>
       <div class="q-gutter-y-md">
         <div class="container ">
+          <h4>Fill our Franchise Interest Form</h4>
           <div class="row">
-            <h4>Fill our Franchise Interest Form</h4>
-            <iframe class="col-md-12" style="height:900px" src="https://forms.gle/YbuoVQXPjbGg17Xm7"></iframe>
+            <iframe class="col-md-12" style="height:1200px; width:1200px" src="https://docs.google.com/forms/d/e/1FAIpQLSfla6pXYjR1b2KnumrP-nnRsRcrUZ0sD_mZfMMI6T-YA8wrLw/viewform?usp=send_form"></iframe>
           </div>
         </div>
       </div>

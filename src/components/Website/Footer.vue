@@ -9,17 +9,51 @@
                         <p>Parkit is a technology driven vehicle wash and care service. We pride ourselves in having; unparalleled customer experience; with our easy to use booking, payment and location finder system via our app, customers enjoy seamless booking experiences.</p>
                     </div>
                 </div>
-                <div class="col-md-3 q-pa-sm">
-                    <header class="text-h6">LINKS</header>
-                    <q-btn flat label="Home Service" to="/home-service"/>
-                    <q-btn flat label="Franchise" to="/parkit-franchise"/>
-                    <q-btn flat label="Parkit Corporate" to="/parkit-corporate"/>
-                    <q-btn flat label="Gallery" to="/gallery"/>
-                    <q-btn flat label="Membership" to="" @click="membershipModal = true"/>
-                    <q-btn flat label="Become a Partner" @click="partnerModal = true"/>
-                    <q-btn flat label="Careers" @click="careerModal = true"/>
-                    <q-btn flat label="Training and Consultancy" @click="trainingAndConsultancyModal = true"/>
+                <div class="col-md-4 ">
+                    
+                    <header class="text-h6 text-center">LINKS</header>
+                    <q-list dense  class="rounded-borders" align="left">
+                      <q-item >
+                        <q-item-section side >
+                          <q-btn flat label="Home Service" to="/home-service"/>
+                        </q-item-section>
+                        <q-item-section align="right">
+                          <q-btn flat  label="Franchise" to="/parkit-franchise"/>
+                        </q-item-section>
+
+                      </q-item>
+
+                      <q-item >
+                        <q-item-section side >
+                          <q-btn flat  label="Gallery" to="/gallery"/>
+                        </q-item-section>
+                        <q-item-section align="right">
+                          <q-btn flat  label="Parkit Corporate" to="/parkit-corporate"/>
+                        </q-item-section>
+                      </q-item>
+
+                      <q-item >
+                        <q-item-section side >
+                          <q-btn flat  label="Membership" to="" @click="membershipModal = true" class="fake_link"/>
+                        </q-item-section>
+                        <q-item-section align="right">
+                          <q-btn flat  label="Become a Partner" @click="partnerModal = true" class="fake_link"/>
+                        </q-item-section>
+                      </q-item>
+
+                      <q-item >
+                       <q-item-section side >
+                          <q-btn flat  label="Careers" @click="careerModal = true" class="fake_link"/>
+                        </q-item-section>
+                        <q-item-section align="right">
+                          <q-btn flat  label="Training and Consultancy" @click="trainingAndConsultancyModal = true" class="fake_link"/>
+                        </q-item-section>
+
+                      </q-item>
+                    </q-list> 
                 </div>
+
+                
 
                 <q-dialog v-model="membershipModal">
                     <Membership/>
@@ -38,7 +72,7 @@
                 </q-dialog>
 
 
-                <div class="col-md-3 q-pa-sm">
+                <div class="col-md-2 q-pa-sm">
                     <div class="align-center">
                         <header class="text-h6">LOCATIONS</header>
                         <table>
@@ -74,7 +108,8 @@
                         </tbody>
                     </table>
                 </div>
-
+                
+                <!-- <SocialMedia/> -->
 
             </div>
         </div>
@@ -92,6 +127,9 @@
         text-decoration: none;
         color: #039be5;
     }
+    .fake_link{
+        color: #039be5;
+    }
 </style>
 
 
@@ -100,6 +138,7 @@
     import Partner from 'components/Website/Partner.vue'
     import TrainingAndConsultancy from 'components/Website/TrainingAndConsultancy.vue'
     import Career from 'components/Website/Career.vue'
+    import SocialMedia from 'components/Website/SocialMedia.vue'
     import { mapActions, mapGetters } from 'vuex'
 
     export default {
@@ -109,7 +148,8 @@
             Membership,
             Partner,
             TrainingAndConsultancy,
-            Career
+            Career,
+            SocialMedia,
         },
         
         data () {

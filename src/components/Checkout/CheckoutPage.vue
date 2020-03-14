@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th scope="col">Package</th>
-                    <th scope="col">Venue</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Unit</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Total</th>
@@ -13,7 +13,7 @@
             <tbody>
                 <tr v-for="item in cart" :key="item.id">
                     <td data-label="Package"><b>{{item.vehicle}}</b> - {{item.package}}</td>
-                    <td data-label="Venue">{{item.venue}}</td>
+                    <td data-label="Location">{{item.venue}}</td>
                     <td data-label="Unit">{{item.quantity}}</td>
                     <td data-label="Amount">₦ {{item.amount}}</td>
                     <td data-label="Total">₦ {{item.amount * item.quantity}}</td>

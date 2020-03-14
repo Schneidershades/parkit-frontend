@@ -6,7 +6,7 @@
         <!-- <q-btn dense flat round icon="menu" @click="left = !left" />
         <q-btn dense flat round icon="menu" @click="right = !right" /> -->
           <q-toolbar-title >
-              <img src="statics/parkit_logo.png" alt="Parkit Home service" width="300" to="/">
+            <q-img src="statics/parkit_logo.png" spinner-color="white" style="height: 100px; max-width: 300px" @click="home"/>
           </q-toolbar-title>
           <!-- <q-space /> -->
           <div class="gt-sm">
@@ -73,7 +73,7 @@
                       <q-item-label>Sign Up</q-item-label>
                   </q-item-section>
               </q-item>
-              <q-item clickable>
+              <q-item clickable to="/cart">
                   <q-item-section avatar>
                       <q-icon name="shopping_cart" />
                   </q-item-section>
@@ -190,6 +190,11 @@
                         name: 'home'
                     })
                 })
+            },
+            home(){
+              this.$router.replace({
+                  name: 'home'
+              })
             }
         }
     }
