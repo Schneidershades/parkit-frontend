@@ -5,7 +5,15 @@
                 <tr>
                 	<td colspan="2">
                       	<p class="text-left"><b> ID No</b></p>
-                      	<p class="text-left">{{order.location.name}}000000000{{order.id}}</p>
+                      	<template v-if="order.location != null && order.address != null">
+                      		<p class="text-left">HS/{{order.location.name}}000000000{{order.id}}</p>
+                      	</template>
+                      	<template v-if="order.location == null && order.address != null">
+                      		<p class="text-left">HS000000000{{order.id}}</p>
+                      	</template>
+                      	<template v-if="order.location != null && order.address == null">
+                      		<p class="text-left">{{order.location.name}}000000000{{order.id}}</p>
+                      	</template>
                   	</td>
                 	<td>
                 		<p class="text-left"><b> Action Status</b></p>
@@ -18,7 +26,17 @@
                 	</td>
                 	<td>
                 		<p class="text-left"><b> Location</b></p>
-                      	<p class="text-left">{{order.location.short_name}}</p>
+
+                		<template v-if="order.location != null && order.address != null">
+                      		<p class="text-left">{{order.address.address}}</p>
+                      		<p class="text-left">{{order.location.short_name}}</p>
+                      	</template>
+                      	<template v-if="order.location == null && order.address != null">
+                      		<p class="text-left">{{order.address.address}}</p>
+                      	</template>
+                      	<template v-if="order.location != null && order.address == null">
+                      		<p class="text-left">{{order.location.short_name}}</p>
+                      	</template>
                 	</td>
                 </tr>
                 <tr>
