@@ -7,12 +7,11 @@ export default ({
 		token: null,
 		user: null,
 		phone: null,
-		authenticated: null,
 	},
 
 	getters:{
 		authenticated (state){
-			return state.authenticated && state.user
+			return state.token && state.user
 		},
 
 		user(state){
@@ -27,10 +26,6 @@ export default ({
 	mutations: {
 		SET_TOKEN (state, token) {
 			state.token = token
-		},
-
-		SET_AUTHENTICATED (state, value) {
-			state.authenticated = value
 		},
 
 		SET_USER (state, data) {
@@ -72,18 +67,33 @@ export default ({
 		},
 
 		async attempt({ commit, dispatch, state }, token){
-			return new Promise((resolve, reject) => {
-	            axios.get('api/auth/me').then(response => {
-	                commit('SET_AUTHENTICATED', true)
-	                commit('SET_USER', response.data.data)
-					dispatch('shopping/storeCart', null, { root: true })
-					return dispatch('shopping/getCart', null, { root: true })
-	            }, error => {
-	                // dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data.error)
-	                // reject(error.response.data.data.error)
-	            })
-	        })
+
+			if(token){
+				commit('SET_TOKEN', token)
+			}
+
+			if(!state.token){
+				return
+			}
+
+			try{
+				return new Promise((resolve, reject) => {
+		            axios.get('auth/me').then(response => {
+		                commit('SET_USER', response.data.data)
+						dispatch('shopping/storeCart', null, { root: true })
+						dispatch('shopping/getCart', null, { root: true })
+						resolve()
+		            }, error => {
+		                // dispatch('flashErrorMessage', error.response.data, {root:true})
+		                // console.log(error.response.data.data.error)
+		                // reject(error.response.data.data.error)
+		                reject()
+		            })
+		        })
+			}catch (e){
+				commit('SET_USER', null)
+				commit('SET_TOKEN', null)
+			}
 		},
 		
 		signOut({ commit, rootState }){
