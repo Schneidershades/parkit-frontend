@@ -93,6 +93,16 @@ export default {
 	    Required() {
 	        return [(v) => !!v || 'Choose a password']
 	    }
+	},
+
+	methods:{
+		onSubmit(){
+
+		},
+
+		onReset(){
+
+		}
 	}
 }
 
