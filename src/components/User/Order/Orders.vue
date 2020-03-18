@@ -11,7 +11,15 @@
 		    >
 		      <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
-		      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
+		      		<template v-if="props.row.location != null && props.row.address != null">
+		      			<q-td key="id" :props="props">HS/{{props.row.location.name}}000000000{{props.row.id}}</q-td>
+                  	</template>
+                  	<template v-if="props.row.location == null && props.row.address != null">
+		      			<q-td key="id" :props="props">HS000000000{{props.row.id}}</q-td>
+                  	</template>
+                  	<template v-if="props.row.location != null && props.row.address == null">
+		      			<q-td key="id" :props="props">{{props.row.location.name}}000000000{{props.row.id}}</q-td>
+                  	</template>
 		      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
 		      		<q-td key="subtotal" :props="props">{{ props.row.subtotal }}</q-td>
 		      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
