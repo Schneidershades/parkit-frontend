@@ -16,8 +16,6 @@ import location from './modules/location'
 import address from './modules/address'
 import packages from './modules/packages'
 import orders from './modules/orders'
-import content from './modules/content'
-import offlinedb from './modules/offlinedb'
 
 import plateNumber from './modules/admin/plateNumber'
 import reportFaults from './modules/admin/reportFaults'
@@ -44,8 +42,6 @@ export default new Vuex.Store({
 		address,
 		packages,
 		orders,
-		offlinedb,
-		content,
 
 
 		plateNumber,

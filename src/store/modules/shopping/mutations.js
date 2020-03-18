@@ -151,9 +151,9 @@ export const setDefaultDiscountToZeroOnLocationManagerApp = (state) => {
 	return 
 }
 
-export const setDefaultDiscountOnWeb = (state, data) => {
+export const setDefaultDiscountOnWeb = (state) => {
 	state.discountDetails = []
-	state.percentageDiscount = data ? data : 0
+	state.percentageDiscount = 10
 
 	return 
 }

@@ -86,11 +86,15 @@ export default ({
 	        })
 		},
 		
+<<<<<<< HEAD
 		signOut({ commit, rootState }){
 			return axios.post('api/auth/signout').then(() =>{
+=======
+		signOut({ commit }){
+			return axios.post('auth/signout').then(() =>{
+>>>>>>> parent of 3be25e0... updates
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
-				commit('shopping/clearCart', null, { root: true })
 			})
 		},
 

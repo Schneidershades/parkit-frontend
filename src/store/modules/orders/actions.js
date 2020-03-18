@@ -4,7 +4,11 @@ import axios from 'axios'
 // get products
 export const getOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
+<<<<<<< HEAD
 		return axios.get('api/auth/orders').then((response) => {
+=======
+		return axios.get('admin/user/order/history').then((response) => {
+>>>>>>> parent of 3be25e0... updates
 			// console.log(response.data)
 			commit('setOrders', response.data.data)
 			return Promise.resolve()

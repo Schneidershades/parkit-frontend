@@ -46,6 +46,7 @@
             >
             
             <q-list>
+<<<<<<< HEAD
                 <template>
                     <q-item-label header>Menu</q-item-label>
 
@@ -141,6 +142,88 @@
                         </q-item-section>
                     </q-item>
                 </template>
+=======
+                <q-item-label header>Menu</q-item-label>
+
+                <q-item clickable to="/admin/dashboard">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="home" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Dashboard</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/invoice">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="person" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Invoice</q-item-label>
+                    </q-item-section>
+                </q-item>
+                <q-item clickable to="/admin/history">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="cart" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>History</q-item-label>
+                    </q-item-section>
+                </q-item>
+                <q-item clickable to="/admin/online/transactions">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="shop" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Online Transaction</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/personnel/requests">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="lock" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Personnel Request</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/purchase/order">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="lock" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Purchase Order</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/report/fault">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="lock" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Report Fault</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/requisition/order">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="lock" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Requistion Order</q-item-label>
+                    </q-item-section>
+                </q-item>
+
+                <q-item clickable to="/admin/suggestions/complaints">
+                    <q-item-section avatar>
+                        <!-- <q-icon name="lock" /> -->
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Suggestions & Complaints</q-item-label>
+                    </q-item-section>
+                </q-item>
+>>>>>>> parent of 3be25e0... updates
 
                 <q-item clickable @click.prevent="signOut">
                     <q-item-section avatar>

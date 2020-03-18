@@ -1,5 +1,5 @@
+
 import axios from 'axios'
-import { LocalStorage, SessionStorage } from 'quasar'
 
 // get products
 export const getProducts = ({ commit }) => {
@@ -11,8 +11,13 @@ export const getProducts = ({ commit }) => {
 
 export const getCart = async ({ commit }) => {
 	console.log('get')
+<<<<<<< HEAD
 	await axios.get('api/cart').then((response) => {
 		// console.log(response.data.data.products)
+=======
+	await axios.get('cart').then((response) => {
+		console.log(response.data.data.products)
+>>>>>>> parent of 3be25e0... updates
 		commit('setCart', response.data.data.products)
 		return Promise.resolve()
 	})
@@ -60,8 +65,7 @@ export const storeCart = ({ state, rootState }) =>{
 
 	if(!auth){
 		console.log(auth)
-		
-		LocalStorage.set('cart', JSON.stringify(state.cart))
+		localStorage.setItem('cart', JSON.stringify(state.cart))
 	}else{
 		var types = state.cart
 
@@ -85,9 +89,9 @@ export const storeCart = ({ state, rootState }) =>{
 					products
 				});
 
-				return LocalStorage.remove('cart');
+				localStorage.removeItem('cart');
 
-				// return dispatch('getCart')
+				return dispatch('getCart')
 			}			
 		}
 	}	
@@ -112,7 +116,7 @@ export const storeCartFromSession = ({ state }) =>{
 
 		// localStorage.removeItem('cart')
 
-		LocalStorage.set('cart', [])
+		localStorage.setItem('cart', [])
 
 		dispatch('getCart')
 	}

@@ -86,7 +86,11 @@
                 if( this.form.email != '' && this.form.password != ''){
                     this.login(this.form).then((res) => {
                         this.positiveNotification('Welcome!! you are now logged in')
+<<<<<<< HEAD
                         return this.$router.push({name: 'userDashboard'})
+=======
+                        this.$router.push({name: 'userDashboard'})
+>>>>>>> parent of 3be25e0... updates
                     }).catch((error) => {
                         console.log(error)
                         this.errorMessages = error

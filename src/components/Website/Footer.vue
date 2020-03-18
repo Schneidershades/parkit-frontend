@@ -9,6 +9,7 @@
                         <p>Parkit is a technology driven vehicle wash and care service. We pride ourselves in having; unparalleled customer experience; with our easy to use booking, payment and location finder system via our app, customers enjoy seamless booking experiences.</p>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div class="col-md-4 ">
                     
                     <header class="text-h6 text-center">LINKS</header>
@@ -51,6 +52,18 @@
 
                       </q-item>
                     </q-list> 
+=======
+                <div class="col-md-3 q-pa-sm">
+                    <header class="text-h6">LINKS</header>
+                    <!-- <q-btn flat label="Gallery" to="/gallery"/> -->
+                    <q-btn flat label="Home Service" to="/home-service"/>
+                    <q-btn flat label="Parkit Corporate" to="/parkit-corporate"/>
+                    <q-btn flat label="Membership" to="" @click="membershipModal = true"/>
+                    <q-btn flat label="Become a Partner" @click="partnerModal = true"/>
+                    <q-btn flat label="Careers" @click="careerModal = true"/>
+                    <q-btn flat label="Franchise" to="/parkit-franchise"/>
+                    <q-btn flat label="Training and Consultancy" @click="trainingAndConsultancyModal = true"/>
+>>>>>>> parent of 3be25e0... updates
                 </div>
 
                 

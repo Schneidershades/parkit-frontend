@@ -16,7 +16,6 @@
     "@quasar/extras": "^1.5.2",
     "axios": "^0.19.0",
     "core-js": "^2.6.11",
-    "dexie": "^2.0.4",
     "electron-pos-printer": "^1.1.2",
     "escpos": "^3.0.0-alpha.2",
     "print-js": "^1.0.63",
@@ -25,8 +24,7 @@
     "rave-javascript-sdk": "^1.0.4",
     "vue": "^2.6.11",
     "vue-gallery": "^2.0.1",
-    "vue-ravepayment": "^2.0.2",
-    "vue-silentbox": "^2.0.0"
+    "vue-ravepayment": "^2.0.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.6.0",
