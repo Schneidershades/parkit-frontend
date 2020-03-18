@@ -19,7 +19,7 @@
                   narrow-indicator
                 >
                   <div class="cbs-vehicle-list">
-                    <div class="col-md-3  vehicle-cbs" v-for="content in gallery.data" :key="content.name">
+                    <div class="col-md-3 vehicle-cbs" v-for="content in gallery.data" :key="content.name">
                       <q-tab :name="content.slug" :label="content.name"  />
                     </div>
                   </div>
@@ -27,33 +27,18 @@
                 </q-tabs>
 
                 <q-separator />
-                {{tab}}
+                <!-- {{tab}} -->
                 
                 <q-tab-panels v-model="tab" animated>
                   <q-tab-panel :name="content.slug"  v-for="content in gallery.data" :key="content.name">
                     <div class="text-h6">{{content.name}}</div>
                     <div class="row" style="justify-content: space-around;">
-                      <!-- {{content}} -->
+                      {{content}}
 
-                      <silent-box :gallery="img.image"/>
+                        <!-- <q-img class="col-md-3" v-for="(image, i) in content" :src="image.image" :key="i" @click="index = i" style="height:200px; width:300px"> -->
+                        <!-- <img class="image" v-for="(image, i) in content" :src="image" :key="i" @click="index = i"> -->
+                        <!-- <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow> -->
 
-                      <!-- <silentbox-group>
-                          <silentbox-item v-for="img in content" :src="img.image" :description="content.name" :key="img.image">
-                              <img :src="img.image" width="200px">
-                          </silentbox-item>
-                      </silentbox-group> -->
-
-                       <!-- <silentbox-group>
-                          <silentbox-item src="images/image001.jpg" description="Sunken dreams II. by Arbebuk">
-                              <img src="images/image001.jpg" width="200px">
-                          </silentbox-item>
-                          <silentbox-item src="images/image002.jpg" description="Tunnel View Sunrise by Porbital">
-                              <img src="images/image002.jpg" width="200px">
-                          </silentbox-item>
-                          <silentbox-item src="images/image005.jpg" description="Mythology by Nelleke">
-                              <img src="images/image005.jpg" width="200px">
-                          </silentbox-item>
-                      </silentbox-group> -->
                     </div>
                   </q-tab-panel>
                 </q-tab-panels>
@@ -119,19 +104,21 @@
   import TabList from 'components/Tabs/TabList.vue'
   import Animation from 'components/Website/Animation.vue'
   import { mapActions, mapGetters } from 'vuex'
-  import VueSilentbox from 'vue-silentbox'
+  import VueGallerySlideshow from 'vue-gallery-slideshow';
   
   export default {
     data () {
       return {
         tab: null,
+        index: null,
+        images: [],
         index: null
       }
     },
     components:{
       TabList,
       Animation,
-      VueSilentbox
+      VueGallerySlideshow
     },
 
     computed: {
