@@ -131,7 +131,7 @@ export default {
             cart: 'shopping/cart',
             cartItemCount: 'shopping/cartItemCount',
             cartTotal: 'shopping/cartTotal',
-            authenticated: 'auth/authenticated',
+            authenticated: 'auth/user',
         }),
         
         carTotalLength(){

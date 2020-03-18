@@ -1,5 +1,5 @@
 export default function auth({ next, store }){
-	if(!store.getters["auth/authenticated"].role.){
+	if(!store.getters["auth/user"].role.){
 		return next({
 			name: 'home'
 		})

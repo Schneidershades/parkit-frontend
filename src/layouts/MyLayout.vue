@@ -98,11 +98,11 @@
       <router-view />
     </q-page-container>
 
-    <q-dialog v-model="signInModal">
+    <q-dialog v-model="signInModal" v-if="!authenticated">
         <SignIn/>
     </q-dialog>
 
-    <q-dialog v-model="signUpModal">
+    <q-dialog v-model="signUpModal" v-if="!authenticated">
         <SignUp/>
     </q-dialog>
 
@@ -164,7 +164,7 @@
                 cart: 'shopping/cart',
                 cartItemCount: 'shopping/cartItemCount',
                 cartTotal: 'shopping/cartTotal',
-                authenticated: 'auth/authenticated',
+                authenticated: 'auth/user',
             }),
             
             carTotalLength(){

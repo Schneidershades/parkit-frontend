@@ -358,7 +358,7 @@ export default {
             cartTotal: 'shopping/cartTotal',
             subTotal: 'shopping/subTotal',
             discount: 'shopping/discount',
-            authenticated: 'auth/authenticated',
+            authenticated: 'auth/user',
             authenticatedUser: 'auth/user',
 			locationCount: 'shopping/packageLocationCount',
 			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
