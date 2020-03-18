@@ -39,13 +39,13 @@ export default ({
 
 	actions: {
 		async signIn({dispatch}, credentials){
-			let response = await axios.get('airlock/csrf-cookie', credentials);
+			// let response = await axios.get('airlock/csrf-cookie', credentials);
 			// dispatch('attempt', response.data.token)
 
 			return new Promise((resolve, reject) => {
 	            axios.post('api/auth/signin', credentials).then(response => {
-	            	// console.log(response.data)
-	                dispatch('attempt', response.data)
+	            	console.log(response.data.token)
+	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
@@ -67,7 +67,7 @@ export default ({
 		},
 
 		async attempt({ commit, dispatch, state }, token){
-
+			console.log(token)
 			if(token){
 				commit('SET_TOKEN', token)
 			}
@@ -78,7 +78,7 @@ export default ({
 
 			try{
 				return new Promise((resolve, reject) => {
-		            axios.get('auth/me').then(response => {
+		            axios.get('api/auth/me').then(response => {
 		                commit('SET_USER', response.data.data)
 						dispatch('shopping/storeCart', null, { root: true })
 						dispatch('shopping/getCart', null, { root: true })
