@@ -20,8 +20,7 @@ export const getOrders = ({ commit, dispatch, rootState }) => {
 
 export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 	return axios.post('api/auth/orders', order).then((response) => {
-		// console.log(order)
-		// rootState.shopping.removeAllProductFromCartLocalStorage
+		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
 	})
