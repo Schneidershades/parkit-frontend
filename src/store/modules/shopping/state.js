@@ -1,6 +1,5 @@
 import { Platform } from 'quasar'
 import { LocalStorage, SessionStorage } from 'quasar'
-import Dexie from 'dexie';
 
 export default{
 	products:[],

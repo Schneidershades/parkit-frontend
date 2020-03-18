@@ -15,6 +15,10 @@ module.exports = function (ctx) {
       'my-custom-main.js',
       'notify-defaults',
       'roles.js',
+      'localstorage.js',
+      'platform.js',
+      // { path: '../router/middleware/isWeb.js', server: false }
+      // 'dexieoffline.js',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -54,6 +58,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'LocalStorage',
+        'SessionStorage',        
         'Notify',
         'Loading',
         'QAjaxBar',
