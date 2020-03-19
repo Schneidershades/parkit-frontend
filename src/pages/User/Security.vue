@@ -9,7 +9,7 @@
     
 
     <div class="q-pa-md">
-        <div class="q-gutter-y-md" >
+      <div class="q-gutter-y-md" >
         	<q-card>
         		<q-tabs
 	        		v-model="tab"

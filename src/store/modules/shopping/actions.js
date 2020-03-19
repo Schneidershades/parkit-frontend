@@ -10,7 +10,7 @@ export const getProducts = ({ commit }) => {
 }
 
 export const getCart = async ({ commit }) => {
-	console.log('get')
+	// console.log('get')
 	await axios.get('api/cart').then((response) => {
 		// console.log(response.data.data.products)
 		commit('setCart', response.data.data.products)
@@ -59,27 +59,27 @@ export const storeCart = ({ state, rootState }) =>{
 	let auth = rootState.auth.user
 
 	if(!auth){
-		console.log(auth)
+		// console.log(auth)
 		
 		LocalStorage.set('cart', JSON.stringify(state.cart))
 	}else{
 		var types = state.cart
 
 		if(types != [] || types != null){
-			console.log(types)
+			// console.log(types)
 			var obj = types.map(function(item){
 			  return {id : item["id"], quantity : item["quantity"]}
 			});
 
-			console.log('products')
-			console.log(obj)
+			// console.log('products')
+			// console.log(obj)
 
 			if(obj === undefined || obj.length == 0){
-				console.log('none')
+				// console.log('none')
 				
 			}else{
 				var products = obj
-				console.log(obj)
+				// console.log(obj)
 
 				axios.post('api/cart', {
 					products
@@ -97,14 +97,14 @@ export const storeCartFromSession = ({ state }) =>{
 	
 	var types = state.cart
 	// var types = payload
-	console.log(types)
+	// console.log(types)
 	if(types != [] || types != null){
 		// console.log('good')
 		var results = types.map(function(item){
 		  return {id : item["id"], quantity : item["quantity"]}
 		});
 
-		console.log(results)
+		// console.log(results)
 
 		return axios.post('api/cart', {
 			results
@@ -183,14 +183,14 @@ export const applyCoupon = async ({ commit }, items) =>{
 		commit('updateCouponData', response.data.data)
 		return Promise.resolve()
 	}).catch((error) => {
-		console.log(error.response.data)
+		// console.log(error.response.data)
         // commit('updateCouponData', null)
         return Promise.reject()
     }) 
 }
 
 export const applyCustomerDiscount = async ({ commit }, items) =>{
-	console.log(items)
+	// console.log(items)
 	await axios.post('api/admin/user/customer-discounts', items).then((response) => {
 		// console.log(response.data.data)
 		commit('updateDiscountData', response.data.data)
@@ -215,11 +215,11 @@ export const setUserDiscountPriviledge = async ({ commit }, items) =>{
 export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
 	// console.log(items)
 	await axios.get('api/admin/user/permission/discounts').then((response) => {
-		console.log(response.data)
+		// console.log(response.data)
 		commit('setUsersWithDiscountPriviledge', response.data)
 		return Promise.resolve()
 	}).catch((error) => {
-		console.log(error.response.data)
+		// console.log(error.response.data)
         // commit('updateDiscountData', null)
         return Promise.reject()
     }) 
@@ -228,11 +228,11 @@ export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
 export const signInaUserWithDiscountPriviledge = async ({ commit }, items) =>{
 	// console.log(items)
 	await axios.post('api/admin/user/permission/authorize', items).then((response) => {
-		console.log(response.data.data)
+		// console.log(response.data.data)
 		commit('setSignedInaUserWithDiscountPriviledge', response.data.data)
 		return Promise.resolve()
 	}).catch((error) => {
-		console.log(error.response.data)
+		// console.log(error.response.data)
         // commit('updateDiscountData', null)
         return Promise.reject()
     }) 

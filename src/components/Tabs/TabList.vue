@@ -6,9 +6,6 @@
 	      <q-radio v-model="tab" v-for="product in products.data" size="sm" :val="product.slug" :label="product.type" :key="product.slug" :icon="product.svg_path" />
 	    </div>
 
-
-
-
 		<q-tabs
           v-model="tab"
           vertical
@@ -21,9 +18,6 @@
 		        </q-tab>
 			</div>
 		</q-tabs>
-
-
-
 
 		<q-tab-panels bordered v-model="tab" animated class="row">
 			<q-tab-panel :name="product.slug" v-for="product in products.data" :key="product.id">
@@ -111,7 +105,6 @@
 						</q-card>
 					</div>
 				</div>
-			</div>
 			</q-tab-panel>
 		</q-tab-panels>
 	</q-card>

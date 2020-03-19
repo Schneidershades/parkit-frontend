@@ -93,12 +93,20 @@
 		                                
 		                            </div>
 
-		                            <div class="col-md-6 q-pa-sm">
-		                            	 <q-input filled ref="name" v-model="profile.user" mask="date" :dense="dense"
+		                            <!-- <div class="col-md-6 q-pa-sm">
+		                            	<q-input 
+		                            	 	filled 
+		                            	 	ref="name" 
+		                            	 	v-model="profile.user" 
+		                            	 	mask="date" 
+		                            	 	:dense="dense"
 		                                    label="Date of Birth *"
 		                                    hint="We care about you"
 		                                    lazy-rules
-		                                    :readonly="readonly" :value="user.dob" :rules="['date']">
+		                                    :readonly="readonly" 
+		                                    :value="user.dob" 
+		                                    :rules="['date']"
+		                                    >
 									      	<template v-slot:append>
 										        <q-icon name="event" class="cursor-pointer">
 										          	<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -107,7 +115,7 @@
 										        </q-icon>
 									      	</template>
 									    </q-input>
-		                            </div>
+		                            </div> -->
 		                        </div>
 
 		                        <q-card-actions align="left">
@@ -115,7 +123,7 @@
 							    </q-card-actions>  
 
 							    <q-card-actions align="right">
-						            <q-btn type="submit" label="Save Profile" color="white" text-color="primary" />
+						            <q-btn type="submit" label="Save Profile" color="white" text-color="primary" :disable="readonly"/>
 						        </q-card-actions>
 	                        </q-form>
 			            </div>
@@ -135,7 +143,8 @@
     export default{
         data(){
             return{
-                 profile: {
+
+                profile: {
                     phone : '',
                     firstName: '',
                     lastName: '',
@@ -144,15 +153,16 @@
                     dob: '',
                     sex: '',
                 },
+
                 errorMessages: [],
                 error: '',
                 step: 1,
                 dense: false,
                 isPwd: true, 
-                // readonly: true,
+                readonly: true,
                 disable: true,
                 disableRadio: true,
-      			userSex: null,  
+      			userSex: null,   
             }
         },
 
@@ -163,10 +173,6 @@
                 newPhoneNumber: 'auth/phone',
                 user: 'auth/user',
             }),
-
-            readonly(){
-
-            },
 
             sex(){
             	if(this.user.sex == 'male'){
@@ -181,13 +187,20 @@
             
         methods:{
             ...mapActions({
-              stepOneValidation: 'auth/sendPhoneNumber',
-              stepTwoValidation: 'auth/verifyOTP',
-              stepThreeValidation: 'auth/signUp',
+              	profileData: 'auth/updateProfile',
             }),
 
             updateProfile(){
-                       
+                this.profileData(this.profile).then((res) => {
+                    this.positiveNotification('Your profile has been updated')
+                	this.disable=true
+                }).catch((error) => {
+                    // console.log(error)
+                    this.errorMessages = error
+                    if(error){
+                        this.negativeNotification(error.error)
+                    }
+                })   
             },
             
 

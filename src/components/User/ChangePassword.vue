@@ -55,7 +55,6 @@
 	                    </template>
 	                </q-input>
 	            </div>
-
 	        </div>
 
 		    

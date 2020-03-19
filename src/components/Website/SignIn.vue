@@ -146,7 +146,7 @@
                     this.positiveNotification('Welcome!! you are now logged in')
                     return this.$router.push({name: 'userDashboard'})
                 }).catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)
@@ -159,7 +159,7 @@
                     this.positiveNotification('Welcome!! you are now logged in')
                     return this.$router.push({name: 'userDashboard'})
                 }).catch((error) => {
-                    console.log(error)
+                    // console.log(error)
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)

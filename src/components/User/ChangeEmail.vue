@@ -79,7 +79,6 @@
 		        <div class="row">
 		            The Phone number has been changed
 		        </div>
-
 	      	</q-step>
 	    </q-stepper>
   	</div>

@@ -25,6 +25,9 @@
                         </template>
                     </template>
                 </div>
+                <div  @click="right = !right" class="lt-md" id="total_charges_fab" style="display: block; position: fixed; top: 100px; right: 18px; z-index: 1;">
+                    <q-btn size="12px" unelevated class="q-px-xl" color="primary" :label="carTotalLength"/>
+                </div>
             </q-toolbar>
         </q-header>
         <q-drawer

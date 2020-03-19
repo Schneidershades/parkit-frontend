@@ -31,7 +31,6 @@
 		            <div class="container">
 		                <div>
 		                    <h5>PARKIT CORPORATE</h5>
-		                    <!-- <p style="margin: 0;">Parkit a professional car wash and car spa service, is a subsidiary of Wefix; founded in 2011, Wefix offers services which ranges from facility management services, to contract and corporate cleaning services, to laundry, dry cleaning and car wash services.</p> -->
 		                    <p style="margin-bottom: 0;">Parkit provides a premium service second to none in the entire West African region and delivers with extreme attention to details, cleaning, polishing and detailing all interior and exterior surfaces of vehicles with state of the art tooling and equipment.</p>
 		                </div>
 		            </div>
@@ -40,9 +39,7 @@
 		        <div id="corporate-page-company_story">
 		            <div class="container">
 		                <h5>COMPANY STORY</h5>
-		                <p >Extensive research into the needs of customers, car sales companies, executives and car lovers alike has highlighted the following challenges which inspired Parkit.</p>
-		                <!-- <hr> -->
-		                <!-- <div class="hide-on-med-and-down" style="height: 40px;"></div> -->
+		                <p>Extensive research into the needs of customers, car sales companies, executives and car lovers alike has highlighted the following challenges which inspired Parkit.</p>
 
 		                <div class="pricingdiv">
 							<ul class="theplan">
@@ -52,25 +49,24 @@
 							<ul class="theplan">
 								<li class="title"><b>WATER SPOTS LEFT BEHIND</b></li>
 								<li>If it surprises you that water spots are still an issue, you’re completely right. This issue generally stems from car washes that still use outdated implements. Parkit Car Wash avoids this problem by using the latest industry standards which features a spot free rinse and use of chamois wipes.</li>
-								</ul>
+							</ul>
 							<ul class="theplan">
 								<li class="title"><b>DOESN’T FULLY CLEAN</b></li>
 								<li> While this is most common at car washes, a car not getting fully clean usually comes down to the management not properly training or taking care of their employees. By choosing Parkit car wash and our dedicated approach, you can count on getting a fully clean car. Over time, we have developed the best technology, as well as a truly great team that takes a lot of pride in what they do.</li>
-								</ul>
+								
 							</ul>
 							<ul class="theplan">
 								<li class="title"><b>TAKES TOO LONG</b></li>
 								<li>Getting your car washed shouldn’t require you to schedule your entire day. That’s why Parkit car wash has large facilities that make it easy to get your car washed in a timely manner. And if you need to wait on a car detailing service, you can still be productive and comfortable.</li>
-								</ul>
 							</ul>
 							<ul class="theplan">
 								<li class="title"><b>TOO EXPENSIVE</b></li>
-								<li><p class="center-align">People do not often look forward to pay a fortune every time they need to get the dirt off their vehicle. Plenty of car washes charge a lot of money for their services simply because they can. Instead of offering more affordable rates that allow them to build long-term relationships with customers, they simply go for the big one-time fee.</p>
-		                                <p class="center-align">At Parkit car wash, we understand what it means to have value long-term relationships with our customers, which is why we offer multiple packages at different, affordable price points and even offer freebies such as giving customers a fifth free wash.</p></li>
-								</ul>
+								<li>
+									<p class="center-align">People do not often look forward to pay a fortune every time they need to get the dirt off their vehicle. Plenty of car washes charge a lot of money for their services simply because they can. Instead of offering more affordable rates that allow them to build long-term relationships with customers, they simply go for the big one-time fee.</p>
+		                            <p class="center-align">At Parkit car wash, we understand what it means to have value long-term relationships with our customers, which is why we offer multiple packages at different, affordable price points and even offer freebies such as giving customers a fifth free wash.</p>
+		                        </li>
 							</ul>
 						</div>
-
 		            </div>
 		        </div>
 			</div>

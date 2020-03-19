@@ -3,9 +3,6 @@
 		<header>
 			<h1>
 				<span class="header-subtitile">PARKIT SPA LOCATION</span>
-				<!-- <p class="header-title">
-					Parallel park
-				</p> -->
 			</h1>
 		</header>
 		<div class="row q-col-gutter-sm">
