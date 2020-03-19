@@ -3,8 +3,6 @@
         <!-- <q-card-actions align="center">
             <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="100">
         </q-card-actions>  -->
-       
-
         <q-card-section >            
             <div class="q-pa-sm">
                 <div class="text-h4 text-center">Training / Consultancy</div>
@@ -12,7 +10,7 @@
                 <p>Kindly fill the form below and send us a message to let us know of your training or consultancy requirements.</p>
 
                 <q-form
-                    @submit="submitNewUser"
+                    @submit="submitPartnerEmail"
                     class="q-gutter-md"
                 >
                     <div class="row">
@@ -82,20 +80,8 @@
                     email: '',
                     message: '',
                 },
-
-                otpCode: '',
                 errorMessages: [],
-                error: '',
-                form : {
-                    phone : ''
-                },
-
-
-                password_confirmation: '',
-
-                step: 1,
-                dense: false,
-                isPwd: true   
+                error: '',  
             }
         },
 
@@ -103,71 +89,22 @@
             ...mapGetters({
                 message: 'message',
                 errorMessage: 'errorMessage',
-                newPhoneNumber: 'auth/phone',
             }),
-
-            ConfirmPWD() {
-                return [
-                    (v) => !!v || "Choose a password",
-                    (v) => v == this.$refs.fldPasswordChange.value || "Password does not match"
-                 ]
-            },
-            Required() {
-                return [(v) => !!v || 'Choose a password']
-            }
         },
             
         methods:{
             ...mapActions({
-              stepOneValidation: 'auth/sendPhoneNumber',
-              stepTwoValidation: 'auth/verifyOTP',
-              stepThreeValidation: 'auth/signUp',
+              sendMail: 'contact/sendTrainingAndConsultancyEmail',
             }),
 
-            submitPhone(){
-                this.stepOneValidation(this.form).then((res) => {
-                    this.newUser.phone = "234"+this.newPhoneNumber.phone
-                    return this.step = 2 
-                })
-                .catch((error) => {
-                    this.errorMessages = error
-                    console.log(this.errorMessages)
-                    if(this.errorMessages.phone){
-                        this.negativeNotification(error.phone[0])
-                    }
-                    if(this.errorMessages){
-                        this.negativeNotification(this.errorMessages)
-                    }
-                })           
-            },
-
-            submitOTP(){
-                this.stepTwoValidation({
-                    phone : this.newPhoneNumber.phone,
-                    otp: this.otpCode,
-                }).then((res) => {
-                    return this.step = 3
-                })
-                .catch((error) => {
-                    console.log(error)
-                    this.errorMessages = error
-                    if(error){
-                        this.negativeNotification(error.error)
-                    }
-                }) 
-            },
-
-            submitNewUser(){
-                this.stepThreeValidation(this.newUser).then((res) => {
-                    this.positiveNotification('Welcome!! you are now logged in')
-                    this.$router.replace({
-                        to: 'user-dashboard'
-                    })
+            submitPartnerEmail(){
+                this.sendMail(this.partner).then((res) => {
+                    this.positiveNotification('your request has been sent')
                 }).catch((error) => {
                     console.log(error)
                     this.errorMessages = error
                     if(error){
-                        this.negativeNotification(error.error)
+                        this.negativeNotification('Sorry!!! An error occured')
                     }
                 })
             },

@@ -32,11 +32,10 @@
                 <q-tab-panels v-model="tab" animated>
                   <q-tab-panel :name="content.slug"  v-for="content in gallery.data" :key="content.name">
                     <div class="text-h6">{{content.name}}</div>
-                    <div class="row" style="justify-content: space-around;">
-                      {{content}}
+                    <div class="row" align="center">
+                      <!-- {{content}} -->
 
-                        <!-- <q-img class="col-md-3" v-for="(image, i) in content" :src="image.image" :key="i" @click="index = i" style="height:200px; width:300px"> -->
-                        <!-- <img class="image" v-for="(image, i) in content" :src="image" :key="i" @click="index = i"> -->
+                        <q-img rounded class="col-md-3 q-ma-sm rounded-borders" v-for="(image, i) in content.images" :src="image.image" :key="i" @click="index = i" style="width:250px"></q-img>
                         <!-- <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow> -->
 
                     </div>

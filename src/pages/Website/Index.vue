@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-6 text-center align-center">
                     <h5 class="center-align"><strong>Rather have us come over instead?<br>Home or Office</strong></h5>
-                    <q-btn unelevated rounded color="primary"  to="/home-service" label="Book Now" />
+                    <q-btn unelevated size="20px" class="q-px-md" rounded color="primary"  to="/home-service" label="Book Now" />
                 </div>
             </div>
         </div>

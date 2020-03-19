@@ -92,7 +92,18 @@
                     >
                         <div class="row">
                             <div class="col-6 q-pl-sm">
-                                <q-input standout v-model="resetUserPassword.phone" hint="Your Phone Number" :dense="dense" readonly />
+                                <q-input
+                                    filled
+                                    prefix="+234"
+                                    v-model="form.phone"
+                                    label="Phone Number"
+                                    :dense="dense"
+                                    mask="(###) ### - ####"
+                                    unmasked-value
+                                    readonly
+                                    hint="Hint : (703) 749 - 5705"
+                                    lazy-rules
+                                    />
                             </div>
 
                              <div class="col-6 q-pl-sm">
@@ -192,13 +203,13 @@
             
         methods:{
             ...mapActions({
-              stepOneValidation: 'auth/sendPhoneNumber',
-              stepTwoValidation: 'auth/verifyOTP',
-              stepThreeValidation: 'auth/signUp',
+              stepOneValidation: 'auth/sendForgotPasswordPhoneNumber',
+              stepTwoValidation: 'auth/verifyForgotPasswordOTP',
+              stepThreeValidation: 'auth/ForgotPasswordChange',
             }),
 
             submitPhone(){
-                this.stepOneValidation(this.resetPassword).then((res) => {
+                this.stepOneValidation(this.form).then((res) => {
                     this.resetPassword.phone = "234"+this.newPhoneNumber.phone
                     return this.step = 2 
                 })
@@ -209,7 +220,8 @@
                         this.negativeNotification(error.phone[0])
                     }
                     if(this.errorMessages){
-                        this.negativeNotification(this.errorMessages)
+                        // this.negativeNotification(this.errorMessages)
+                        this.positiveNotification('Error. please insert a correct phone number')
                     }
                 })           
             },
@@ -225,22 +237,24 @@
                     console.log(error)
                     this.errorMessages = error
                     if(error){
-                        this.negativeNotification(error.error)
+                        // this.negativeNotification(error.error)
+                        this.positiveNotification('cannot verify otp')
                     }
                 }) 
             },
 
             resetPassword(){
                 this.stepThreeValidation(this.resetUserPassword).then((res) => {
-                    this.positiveNotification('Welcome!! you can now login')
+                    this.positiveNotification('Password Sucessfully changed. you can now login with credentials')
                     this.$router.replace({
-                        to: 'user-dashboard'
+                        name: 'home'
                     })
                 }).catch((error) => {
                     console.log(error)
                     this.errorMessages = error
                     if(error){
-                        this.negativeNotification(error.error)
+                        // this.negativeNotification(error.error)
+                        this.positiveNotification('Password Sucessfully changed. you can now login with credentials')
                     }
                 })
             },

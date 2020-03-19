@@ -103,14 +103,8 @@
                     phone: '',
                     about: '',
                 },
-
-                otpCode: '',
                 errorMessages: [],
                 error: '',
-                form : {
-                    phone : ''
-                },
-
                 options: [
                     'Manager', 
                     'Cashier', 
@@ -118,86 +112,23 @@
                     'Parkit Pro', 
                     'Valet', 
                     'Security', 
-                ],
-
-
-                password_confirmation: '',
-
-                step: 1,
-                dense: false,
-                isPwd: true   
+                ],  
             }
         },
 
-        computed: {
-            ...mapGetters({
-                message: 'message',
-                errorMessage: 'errorMessage',
-                newPhoneNumber: 'auth/phone',
-            }),
-
-            ConfirmPWD() {
-                return [
-                    (v) => !!v || "Choose a password",
-                    (v) => v == this.$refs.fldPasswordChange.value || "Password does not match"
-                 ]
-            },
-            Required() {
-                return [(v) => !!v || 'Choose a password']
-            }
-        },
-            
         methods:{
             ...mapActions({
-              stepOneValidation: 'auth/sendPhoneNumber',
-              stepTwoValidation: 'auth/verifyOTP',
-              stepThreeValidation: 'auth/signUp',
+              sendMail: 'contact/sendCareerEmail',
             }),
 
-            submitPhone(){
-                this.stepOneValidation(this.form).then((res) => {
-                    this.newUser.phone = "234"+this.newPhoneNumber.phone
-                    return this.step = 2 
-                })
-                .catch((error) => {
-                    this.errorMessages = error
-                    console.log(this.errorMessages)
-                    if(this.errorMessages.phone){
-                        this.negativeNotification(error.phone[0])
-                    }
-                    if(this.errorMessages){
-                        this.negativeNotification(this.errorMessages)
-                    }
-                })           
-            },
-
-            submitOTP(){
-                this.stepTwoValidation({
-                    phone : this.newPhoneNumber.phone,
-                    otp: this.otpCode,
-                }).then((res) => {
-                    return this.step = 3
-                })
-                .catch((error) => {
-                    console.log(error)
-                    this.errorMessages = error
-                    if(error){
-                        this.negativeNotification(error.error)
-                    }
-                }) 
-            },
-
-            submitNewUser(){
-                this.stepThreeValidation(this.newUser).then((res) => {
-                    this.positiveNotification('Welcome!! you are now logged in')
-                    this.$router.replace({
-                        to: 'user-dashboard'
-                    })
+            submitPartnerEmail(){
+                this.sendMail(this.career).then((res) => {
+                    this.positiveNotification('your request has been sent')
                 }).catch((error) => {
                     console.log(error)
                     this.errorMessages = error
                     if(error){
-                        this.negativeNotification(error.error)
+                        this.negativeNotification('Sorry!!! An error occured')
                     }
                 })
             },

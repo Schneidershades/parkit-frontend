@@ -15,8 +15,8 @@
 	    background-position: center center;
 	    height: 100%;
 	    width: 100%;
-	    /*padding: 10% 0;*/
-	    position: fixed; 
+	    padding: 10%;
+	    /*position: fixed; */
 	}
 </style>
 
