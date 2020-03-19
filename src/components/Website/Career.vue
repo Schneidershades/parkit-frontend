@@ -3,7 +3,6 @@
         <!-- <q-card-actions align="center">
             <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="100">
         </q-card-actions>  -->
-       
 
         <q-card-section >            
             <div class="q-pa-sm">
@@ -12,7 +11,7 @@
                 <p>We are developing a world class work force to provide premium car wash services in the entire African region. Feel you have a hero's place in our mission? Then join us to redefine car wash.</p>
 
                 <q-form
-                    @submit="submitNewUser"
+                    @submit="submitCareerEmail"
                     class="q-gutter-md"
                 >
                     <div class="row">
@@ -65,13 +64,14 @@
                             />
                         </div>
 
-                        <div class="col-md-12 q-pa-sm">
-                            <q-uploader
+                        <div class="col-md-12 q-py-lg">
+                            <q-file
+                                class="q-px-lg"
+                                v-model="career.file"
                                 label="Upload your CV"
-                                auto-upload
-                                url="http://localhost:4444/upload"
-                                no-thumbnails
-                                style="max-width: auto"
+                                filled
+                                accept=".pdf, .docx, .doc"
+                                style="width:300px"
                             />
                         </div>
 
@@ -102,7 +102,9 @@
                     role: '',
                     phone: '',
                     about: '',
+                    file: null,
                 },
+
                 errorMessages: [],
                 error: '',
                 options: [
@@ -121,8 +123,17 @@
               sendMail: 'contact/sendCareerEmail',
             }),
 
-            submitPartnerEmail(){
-                this.sendMail(this.career).then((res) => {
+            submitCareerEmail(){
+                let formData = new FormData()
+
+                formData.append('first_name', this.career.first_name)
+                formData.append('last_name', this.career.last_name)
+                formData.append('role', this.career.role)
+                formData.append('phone', this.career.phone)
+                formData.append('about', this.career.about)
+                formData.append('file', this.career.file)
+
+                this.sendMail(formData).then((res) => {
                     this.positiveNotification('your request has been sent')
                 }).catch((error) => {
                     console.log(error)

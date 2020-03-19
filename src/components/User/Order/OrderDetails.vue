@@ -3,7 +3,7 @@
 		<table>
             <thead>
                 <tr>
-                	<td colspan="2">
+                	<td>
                       	<p class="text-left"><b> ID No</b></p>
                       	<template v-if="order.location != null && order.address != null">
                       		<p class="text-left">HS/{{order.location.name}}000000000{{order.id}}</p>
@@ -24,20 +24,30 @@
                       	<p class="text-left"><b> Date</b></p>
                       	<p class="text-left">{{order.created_at}}</p>
                 	</td>
-                	<td>
+                	<td  colspan="2">
                 		<p class="text-left"><b> Location</b></p>
 
                 		<template v-if="order.location != null && order.address != null">
-                      		<p class="text-left">{{order.address.address}}</p>
-                      		<p class="text-left">{{order.location.short_name}}</p>
+                      		<p class="text-left">Home-Service Address: {{order.address.address}}</p>
+                      		<p class="text-left">Location : {{order.location.short_name}}</p>
                       	</template>
                       	<template v-if="order.location == null && order.address != null">
-                      		<p class="text-left">{{order.address.address}}</p>
+                      		<p class="text-left">Home-Service Address: {{order.address.address}}</p>
                       	</template>
                       	<template v-if="order.location != null && order.address == null">
-                      		<p class="text-left">{{order.location.short_name}}</p>
+                      		<p class="text-left">Location: {{order.location.short_name}}</p>
                       	</template>
                 	</td>
+                </tr>
+
+                <tr>
+                	<td colspan="3">
+                      	Home Service Date: {{order.home_service_booking_Date}}
+                  	</td>
+
+                  	<td colspan="2">
+                      	Home Service Time: {{order.home_service_booking_time}}
+                  	</td>
                 </tr>
                 <tr>
                     <th scope="col">Package</th>

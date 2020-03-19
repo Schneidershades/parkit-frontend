@@ -72,7 +72,13 @@
 	                		<div class="q-gutter-sm" v-for="address in addresses.data" :key="address.id">
 	                			<b>	<q-radio v-model="address_id" :val="address.id" :label="address.name" /></b>
 						    </div>
+
+						    <!-- <div v-else>Create a new address</div> -->
 	                	</td>
+
+	                	<!-- <td colspan="2" v-else>
+	                		
+	                	</td> -->
 
 	                	<td></td>
 	                	<td>
@@ -502,7 +508,7 @@ export default {
                 type: 'positive',
                 color: 'positive',
                 timeout: 3000,
-                position: 'left',
+                position: 'center',
                 message: message
             })
         },
@@ -512,7 +518,7 @@ export default {
                 type: 'negative',
                 color: 'negative',
                 timeout: 3000,
-                position: 'left',
+                position: 'center',
                 message: error
             })
         },
