@@ -9,13 +9,18 @@ export default async ({ app, router, store, Vue }) => {
 
   	axios.defaults.baseURL= process.env.BACKEND_API_URL
   	// axios.defaults.baseURL= 'https://parkit-backend-app.herokuapp.com'
-	store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
-		new Vue({
-			router,
-			store,
-			render: h => h(App)
-		}).$mount('#q-app')
-	}).catch()
+  	try{
+		await store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
+			new Vue({
+				router,
+				store,
+				render: h => h(App)
+			}).$mount('#q-app')
+		})
+	}catch (e){
+		console.log('Welcome to parkit')
+	}
+	
 }
 
 

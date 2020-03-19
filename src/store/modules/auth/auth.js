@@ -49,6 +49,7 @@ export default ({
 	                resolve()
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
+	                reject()
 	            })
 		    })	
 			
@@ -62,12 +63,12 @@ export default ({
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
 	                // console.log(error.response.data.data.error)
+	                reject()
 	            })
 		    })			
 		},
 
 		async attempt({ commit, dispatch, state }, token){
-			console.log(token)
 			if(token){
 				commit('SET_TOKEN', token)
 			}
