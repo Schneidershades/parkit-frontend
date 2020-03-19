@@ -323,70 +323,7 @@
 		</div>
 
 
-		<div class="q-pa-xl" >
-            <div class="container">
-                <h4 style="margin-top: 0;">Contact Parkit</h4>
-                <q-form
-                    @submit="submitRequest"
-                    class="q-gutter-md"
-                    ref="form"
-                >
-                	<div class="row text-white">
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="black"
-                                filled
-                                :dense="dense"
-                                label="Name *"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type in your name']"
-                            />
-                        </div>
-
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="black"
-                                filled
-                                :dense="dense"
-                                label="Email *"
-                                min="1"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type in your email']"
-                            />
-                        </div>
-
-                        <div class="col-md-4 q-pl-sm">
-                            <q-input
-                                ref="name"
-                                color="black"
-                                filled
-                                :dense="dense"
-                                label="Phone Number *"
-                                lazy-rules
-                                :rules="[ val => val && val.length > 0 || 'Please type your phone number']"
-                            />
-                        </div>
-
-                        <div class="col-md-12 q-pt-sm">
-                            <q-input
-						      	type="textarea"
-						      	filled
-                                color="black"
-                            	label="Message *"
-                            	:rules="[ val => val && val.length > 0 || 'Please type a message']"
-						    />
-                        </div>
-				        
-
-                    </div>
-                    <q-card-actions align="right">
-			            <q-btn size="lg" type="submit" label="SEND MESSAGE" color="primary" text-color="white" />
-			        </q-card-actions> 
-                </q-form> 
-            </div>
-        </div>
+		<Contact/>
 	</q-page>
 </template>
 
@@ -602,12 +539,17 @@ li:before {
 </style>
 
 <script>
+
+import Contact from 'components/Website/Contact.vue'
+
 export default {
-  data () {
-    return {
-      expanded: false,
-      lorem: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-    }
-  }
+  	data () {
+	    return {
+	      expanded: false,
+	    }
+  	},
+	components:{
+	    Contact
+	}
 }
 </script>
