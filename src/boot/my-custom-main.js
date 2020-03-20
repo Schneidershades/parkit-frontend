@@ -7,8 +7,8 @@ export default async ({ app, router, store, Vue }) => {
   	// something to do
   	axios.defaults.withCredentials = true
 
-  	axios.defaults.baseURL= process.env.BACKEND_API_URL
-  	// axios.defaults.baseURL= 'https://parkit-backend-app.herokuapp.com'
+  	// axios.defaults.baseURL= process.env.BACKEND_API_URL
+  	axios.defaults.baseURL= 'https://parkit-backend-app.herokuapp.com'
   	try{
 		await store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
 			new Vue({

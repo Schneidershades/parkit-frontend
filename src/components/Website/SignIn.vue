@@ -53,7 +53,7 @@
                             </q-input>
 
                             <q-card-actions align="center">
-                                <q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Login" />
+                                <q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Login" :disable="disable"/>
                             </q-card-actions>
                         </q-form>
                     </q-tab-panel>
@@ -89,7 +89,7 @@
                             </q-input>
 
                             <q-card-actions align="center">
-                                <q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Login" />
+                                <q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Login" :disable="disable"/>
                             </q-card-actions>
                         </q-form>
                     </q-tab-panel>
@@ -127,7 +127,8 @@
                 },
 
                 isPwd: true,  
-                tab: 'one'   
+                tab: 'one',
+                disable: false  
             }
         },
         computed: {
@@ -142,11 +143,15 @@
             }),
 
             loginEmailUser(){
+
+                this.disable = true 
                 this.login(this.emailForm).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
+                    this.disable = false 
                     return this.$router.push({name: 'userDashboard'})
                 }).catch((error) => {
                     // console.log(error)
+                    this.disable = false 
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)
@@ -155,12 +160,15 @@
             },
 
             loginPhoneUser(){
+                this.disable = true 
                 this.login(this.phoneForm).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
+                    this.disable = false 
                     return this.$router.push({name: 'userDashboard'})
                 }).catch((error) => {
                     // console.log(error)
                     this.errorMessages = error
+                    this.disable = false 
                     if(error){
                         this.negativeNotification(error.error)
                     }

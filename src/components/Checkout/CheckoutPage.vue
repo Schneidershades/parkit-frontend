@@ -351,8 +351,6 @@ export default {
       			state_id: '',
       			country_id: '',
       		},
-
-      		
   			date: '',
 			time: '',
 		}

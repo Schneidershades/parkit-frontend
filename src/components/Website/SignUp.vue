@@ -44,7 +44,7 @@
                                 />
 
                             <q-stepper-navigation>
-                              <q-btn type="submit" color="primary" label="Continue" />
+                              <q-btn type="submit" color="primary" label="Continue" :disable="disable"/>
                             </q-stepper-navigation>
                         </q-form>
                   </q-step>
@@ -74,8 +74,8 @@
                                 />
 
                             <q-stepper-navigation>
-                              <q-btn type="submit" color="primary" label="Continue" />
-                              <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
+                              <q-btn type="submit" color="primary" label="Continue" :disable="disable"/>
+                              <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" :disable="disable"/>
                             </q-stepper-navigation>
                         </q-form>
                     </q-step>
@@ -162,8 +162,8 @@
                         </div>
 
                         <q-stepper-navigation>
-                          <q-btn color="primary" type="submit" label="Finish" />
-                          <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
+                          <q-btn color="primary" type="submit" label="Finish" :disable="disable"/>
+                          <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" :disable="disable"/>
                         </q-stepper-navigation>
                     </q-form>
                   </q-step>
@@ -206,7 +206,8 @@
 
                 step: 1,
                 dense: false,
-                isPwd: true   
+                isPwd: true,
+                disable: false   
             }
         },
 
@@ -236,13 +237,16 @@
             }),
 
             submitPhone(){
+                this.disable = true 
                 this.stepOneValidation(this.form).then((res) => {
                     this.newUser.phone = "234"+this.newPhoneNumber.phone
+                    this.disable = false 
                     return this.step = 2 
                 })
                 .catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)
+                    this.disable = false 
                     if(this.errorMessages.phone){
                         this.negativeNotification(error.phone[0])
                     }
@@ -253,14 +257,17 @@
             },
 
             submitOTP(){
+                this.disable = true 
                 this.stepTwoValidation({
                     phone : this.newPhoneNumber.phone,
                     otp: this.otpCode,
                 }).then((res) => {
+                    this.disable = false 
                     return this.step = 3
                 })
                 .catch((error) => {
                     console.log(error)
+                    this.disable = false 
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)
@@ -269,13 +276,16 @@
             },
 
             submitNewUser(){
+                this.disable = true 
                 this.stepThreeValidation(this.newUser).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
+                    this.disable = false 
                     this.$router.replace({
                         to: 'user-dashboard'
                     })
                 }).catch((error) => {
                     console.log(error)
+                    this.disable = false 
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)

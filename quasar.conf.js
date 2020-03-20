@@ -63,7 +63,7 @@ module.exports = function (ctx) {
         'Notify',
         'Loading',
         'QAjaxBar',
-        'QCircularProgress'
+        'QCircularProgress',
       ]
     },
 

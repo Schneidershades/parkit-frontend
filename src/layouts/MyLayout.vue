@@ -91,7 +91,7 @@
 
     <q-drawer v-model="right" side="right" behavior="mobile" bordered>
       <!-- drawer content -->
-      <CartDrawer style="width:300px"/>
+      <CartDrawer/>
     </q-drawer>
 
     <q-page-container>
