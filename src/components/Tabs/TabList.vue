@@ -35,8 +35,8 @@
 	        </q-bar>
 
 	        <q-card-actions align="around" class="q-px-md">
-	          <q-btn dense size="20px" class="bg-primary text-white" icon="close" v-close-popup>Go Back</q-btn>
-	          <q-btn dense size="20px" class="bg-green text-white" icon="shopping_cart"  v-close-popup>{{carTotalLength}}</q-btn>
+	          <q-btn dense size="20px" class="bg-primary text-white q-py-md q-my-md" icon="close" v-close-popup>Go Back</q-btn>
+	          <q-btn dense size="20px" class="bg-green text-white q-py-md q-my-md" icon="shopping_cart"  v-close-popup>{{carTotalLength}}</q-btn>
 	        </q-card-actions>
 
 	        <q-card-section class="q-pt-none">

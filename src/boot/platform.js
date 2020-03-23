@@ -9,11 +9,12 @@ export default async ({ app, router, store, Vue, ssrContext, urlPath, redirect }
     ? Platform.parseSSR(ssrContext)
     : Platform
 
-    // console.info(process.env.BACKEND_API_URL)
+    // console.info(platform.is.electron)
+    console.info(platform)
 
     if(platform.is.electron == false){
     	return store.commit('shopping/setDefaultDiscountOnWeb', 10, { root: true })
     }else{
-    	// return redirect('/admin/login')
+    	return router.push({name: 'adminLogin'})
     }
 }

@@ -17,8 +17,8 @@ module.exports = function (ctx) {
       'roles.js',
       'localstorage.js',
       'platform.js',
-      // { path: '../router/middleware/isWeb.js', server: false }
-      // 'dexieoffline.js',
+      'dexieoffline.js',
+      'initiateDexie.js',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

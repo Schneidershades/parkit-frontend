@@ -13,8 +13,8 @@
                 </q-card-section>
 
                 <q-tabs v-model="tab" class="text-primary">
-                    <q-tab icon="phone"  label="Phone Number Sign In" name="one" color="primary"/>
-                    <q-tab icon="mail" label="Email Sign In" name="two" color="primary"/>
+                    <q-tab icon="phone"  label="Phone" name="one" color="primary"/>
+                    <q-tab icon="mail" label="Email" name="two" color="primary"/>
                 </q-tabs>
 
                 <q-separator />

@@ -44,7 +44,7 @@ export default ({
 
 			return new Promise((resolve, reject) => {
 	            axios.post('api/auth/signin', credentials).then(response => {
-	            	console.log(response.data.token)
+	            	// console.log(response.data.token)
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
@@ -186,9 +186,18 @@ export default ({
 		},
 
 		async signUp({dispatch}, credentials){
-			let response = await axios.post('api/auth/signup', credentials);
+			// let response = await axios.post('api/auth/signup', credentials);
 			// console.log(response.data.data.message)
-			return dispatch('attempt', response.data.data.message.token)
+			// return dispatch('attempt', response.data.data.message.token)
+			return new Promise((resolve, reject) => {
+	            axios.post('api/auth/signup', credentials).then(response => {
+	                dispatch('attempt', response.data.token)
+	                resolve()
+	            }, error => {
+	                dispatch('flashMessage', error.response.data.data.error, {root:true})
+	                reject()
+	            })
+		    })	
 		},
 	},
 })
