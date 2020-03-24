@@ -99,17 +99,7 @@
                     >
                         <div class="row">
                             <div class="col-xm-12 col-12 q-mb-md">
-                                <q-input
-                                    filled
-                                    prefix="+234"
-                                    v-model="resetUserPassword.phone"
-                                    label="Phone Number"
-                                    :dense="dense"
-                                    mask="(###) ### - ####"
-                                    unmasked-value
-                                    readonly
-                                    lazy-rules
-                                    />
+                                <q-input standout v-model="resetUserPassword.phone" hint="Your Phone Number" :dense="dense" readonly />
                             </div>
 
                              <div class="col-xm-12 col-12">
@@ -170,7 +160,7 @@
     export default{
         data(){
             return{
-                 resetUserPassword: {
+                resetUserPassword: {
                     phone : '',
                     password: '',
                     password_confirmation: '',
@@ -218,7 +208,7 @@
             submitPhone(){
                 this.disable = true 
                 this.stepOneValidation(this.form).then((res) => {
-                    this.resetPassword.phone = "234"+this.newPhoneNumber.phone
+                    this.resetUserPassword.phone = "234"+this.newPhoneNumber.phone
                     this.disable = false 
                     return this.step = 2 
                 })
