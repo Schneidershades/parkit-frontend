@@ -40,7 +40,7 @@
                 	</td>
                 </tr>
 
-                <tr>
+                <tr v-if="order.address != null">
                 	<td colspan="3">
                       	Home Service Date: {{order.home_service_booking_Date}}
                   	</td>

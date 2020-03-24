@@ -1,16 +1,13 @@
 <template>   
-    <q-card style="width: 800px; max-width: 80vw;" class="q-pa-md">
-        <div class="text-h6 text-center">Sign Up</div>
+    <q-card style="width: 800px; max-width: 80vw;" class="q-pa-sm">
+        <q-card-section  style="max-height: 80vh" class="scroll"> 
+            <div class="text-h6 text-center">Sign Up</div>
             <q-card-actions align="center">
                 <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
-            </q-card-actions> 
-       
-
-        <q-card-section  style="max-height: 80vh" class="scroll">  
-            <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
+            </q-card-actions>  
+            <q-banner dense rounded inline-actions v-if="message" class="text-white bg-green">
                 {{message}}
             </q-banner>          
-            <div class="q-pa-md">
                 <q-stepper
                   v-model="step"
                   header-nav
@@ -28,7 +25,6 @@
                   >
                         <q-form
                             @submit="submitPhone"
-                            class="q-gutter-md"
                             ref="form"
                         >
                            <q-input
@@ -58,7 +54,6 @@
                       >
                         <q-form
                             @submit="submitOTP"
-                            class="q-gutter-md"
                         >
                             Kindly provide your OTP Code.
                             <q-input
@@ -88,14 +83,13 @@
                   >
                     <q-form
                         @submit="submitNewUser"
-                        class="q-gutter-md"
                     >
                         <div class="row">
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input standout v-model="newUser.phone" hint="Your Phone Number" :dense="dense" readonly />
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -106,7 +100,7 @@
                                 />
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -117,7 +111,7 @@
                                 />
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -128,7 +122,7 @@
                                 />
                             </div>
 
-                             <div class="col-6 q-pl-sm">
+                             <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input filled
                                         v-model="newUser.password"
                                         label="Create a password"
@@ -144,7 +138,7 @@
                                 </q-input>
                             </div>
 
-                             <div class="col-6 q-pl-sm">
+                             <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input filled
                                         v-model="newUser.password_confirmation"
                                         label="Confirm your password"
@@ -168,7 +162,6 @@
                     </q-form>
                   </q-step>
                 </q-stepper>
-              </div>
         </q-card-section>
         <q-separator />
         <q-card-actions align="right">

@@ -98,22 +98,21 @@
                         class="q-gutter-md"
                     >
                         <div class="row">
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-xm-12 col-12 q-mb-md">
                                 <q-input
                                     filled
                                     prefix="+234"
-                                    v-model="form.phone"
+                                    v-model="resetUserPassword.phone"
                                     label="Phone Number"
                                     :dense="dense"
                                     mask="(###) ### - ####"
                                     unmasked-value
                                     readonly
-                                    hint="Hint : (703) 749 - 5705"
                                     lazy-rules
                                     />
                             </div>
 
-                             <div class="col-6 q-pl-sm">
+                             <div class="col-xm-12 col-12">
                                 <q-input filled
                                         v-model="resetUserPassword.password"
                                         label="Create a password"
@@ -129,7 +128,7 @@
                                 </q-input>
                             </div>
 
-                             <div class="col-6 q-pl-sm">
+                             <div class="col-xm-12 col-12">
                                 <q-input filled
                                         v-model="resetUserPassword.password_confirmation"
                                         label="Confirm your password"

@@ -6,7 +6,19 @@
 
         <q-card-section  class="row" align="center">  
         	<div class="col-sm-12">
-        		<p>Transaction ID : <b>{{order.location.name}}000000000{{order.id}}</b></p>
+        		<p>Transaction ID : 
+                    <b>
+                        <template v-if="order.location != null && order.address != null">
+                            <p class="text-left">HS/{{order.location.name}}000000000{{order.id}}</p>
+                        </template>
+                        <template v-if="order.location == null && order.address != null">
+                            <p class="text-left">HS000000000{{order.id}}</p>
+                        </template>
+                        <template v-if="order.location != null && order.address == null">
+                            <p class="text-left">{{order.location.name}}000000000{{order.id}}</p>
+                        </template>
+                    </b>
+                </p>
         		<p>Transaction Status : <b>{{order.status}}</b></p>
         		<p>Payment Method  : <b>{{order.action}}</b></p>
         		<p>Payment Amount  : <b>₦{{order.total}}.00</b></p>
