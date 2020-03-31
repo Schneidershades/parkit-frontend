@@ -8,7 +8,19 @@
   "author": "schneidershades <schneidershades@gmail.com>",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "quasar build -m ssr",
+    "start": "node dist/ssr/index.js",
+    "deploy:fresh": "git pull && quasar build -m ssr && yarn deploy:ssr-pm2_restart",
+    "deploy:ssr-pm2": "pm2 start ./dist/ssr/index.js --name quasar-ssr",
+    "deploy:ssr-pm2_clusterize": "pm2 start ./dist/ssr/index.js --name quasar-ssr -i max",
+    "deploy:ssr-pm2_watch": "pm2 start ./dist/ssr/index.js --name quasar-ssr --watch ./dist/ssr",
+    "deploy:ssr-pm2_deep-monitoring": "pm2 start ./dist/ssr/index.js --name quasar-ssr --deep-monitoring",
+    "deploy:ssr-pm2_restart": "pm2 restart quasar-ssr",
+    "deploy:ssr-pm2_stop": "pm2 stop quasar-ssr",
+    "deploy:ssr-pm2_monitor": "pm2 monitor quasar-ssr",
+    "deploy:ssr-pm2_unmonitor": "pm2 unmonitor quasar-ssr",
+    "deploy:ssr-pm2_kill": "pm2 kill"
   },
   "dependencies": {
     "@casl/ability": "^3.4.0",
@@ -21,7 +33,7 @@
     "escpos": "^3.0.0-alpha.3",
     "print-js": "^1.0.63",
     "printd": "^1.4.1",
-    "quasar": "^1.9.10",
+    "quasar": "^1.9.12",
     "rave-javascript-sdk": "^1.0.4",
     "vue": "^2.6.11",
     "vue-gallery": "^2.0.1",
