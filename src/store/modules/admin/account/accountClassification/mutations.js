@@ -1,3 +1,3 @@
-export const setAccountLocation = (state, accountClassification) =>{
+export const setAccountClassification = (state, accountClassification) =>{
 	state.accountClassification = accountClassification
 }

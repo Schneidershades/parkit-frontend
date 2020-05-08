@@ -1,4 +1,4 @@
 export default{
 	message: null,
-	errors: []
+	errors: null
 }

@@ -161,7 +161,7 @@
 						</template>
                 	</td>
                 	<td>{{errorMessage}} {{errorMessage}}</td>
-                	<td><b v-if="discount"> {{percentageDiscount}}</b></td>
+                	<td><b v-if="discount"> {{discount}}</b></td>
                 </tr>
                 <tr>
                 	<td></td>
@@ -312,44 +312,41 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            cart: 'shopping/cart',
-            cartItemCount: 'shopping/cartItemCount',
-            cartTotal: 'shopping/cartTotal',
-            subTotal: 'shopping/subTotal',
-            discount: 'shopping/discount',
+            cart: 'adminShopping/cart',
+            cartItemCount: 'adminShopping/cartItemCount',
+            cartTotal: 'adminShopping/cartTotal',
+            subTotal: 'adminShopping/subTotal',
+            discount: 'adminShopping/discount',
             user: 'auth/user',
-			packageLocationCount: 'shopping/packageLocationCount',
-			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
+			packageLocationCount: 'adminShopping/packageLocationCount',
+			packageHomeOfficeCount: 'adminShopping/packageHomeOfficeCount',
 			locations: 'location/locations',
 			addresses: 'address/addresses',
-			userDiscountPriviledge: 'shopping/userDiscountPriviledge',
-			discountDetails: 'shopping/discountDetails',
-			setDefaultDiscountToZero: 'shopping/setDefaultDiscountToZero',
+			userDiscountPriviledge: 'adminShopping/userDiscountPriviledge',
+			discountDetails: 'adminShopping/discountDetails',
+			setDefaultDiscountToZero: 'adminShopping/setDefaultDiscountToZero',
         }),
         
         carTotalLength(){
             return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
         },
 
-        percentageDiscount(){
-        	return this.discount + '% Discount Applied'
-        }
     },
 
 	methods:{
 		...mapActions({
-			removeProductFromCart: 'shopping/removeProductFromCart',
-			removeAllProductFromCart: 'shopping/removeAllProductFromCart',
-			updateCartTotals: 'shopping/updateCartTotals',
-			applyCoupon: 'shopping/applyCoupon',
+			removeProductFromCart: 'adminShopping/removeProductFromCart',
+			removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
+			updateCartTotals: 'adminShopping/updateCartTotals',
+			applyCoupon: 'adminShopping/applyCoupon',
 			getLocations: 'location/getLocations',
 			getAddresses: 'address/getAddresses',
-			applyDiscount: 'shopping/applyCustomerDiscount',
-			resetDiscount: 'shopping/applyResetDiscount',
-			setUserDiscountPriviledge: 'shopping/setUserDiscountPriviledge',
-			getUsersWithDiscountPriviledge: 'shopping/getUsersWithDiscountPriviledge',
-			defaultDiscountOnWeb: 'shopping/defaultDiscountOnWeb',
-			defaultDiscountToZeroOnLocationManagerApp: 'shopping/defaultDiscountToZeroOnLocationManagerApp',
+			applyDiscount: 'adminShopping/applyCustomerDiscount',
+			resetDiscount: 'adminShopping/applyResetDiscount',
+			setUserDiscountPriviledge: 'adminShopping/setUserDiscountPriviledge',
+			getUsersWithDiscountPriviledge: 'adminShopping/getUsersWithDiscountPriviledge',
+			defaultDiscountOnWeb: 'adminShopping/defaultDiscountOnWeb',
+			defaultDiscountToZeroOnLocationManagerApp: 'adminShopping/defaultDiscountToZeroOnLocationManagerApp',
 		}),
 
 		updateCart(item,quantity){
@@ -425,7 +422,6 @@ export default {
 			}else{
 				var user_discount_operator_id = this.userDiscountPriviledge.id
 			}
-			console.log('good')
 
 			this.applyDiscount({
 				percentage: this.number.percentage,
@@ -433,7 +429,6 @@ export default {
 				user_discount_operator_id: user_discount_operator_id
 			}).then((response) => {
 	      		this.submitting = true
-                // console.log(response.data.data)
             }).catch((error) => {
                 // this.errorMessage = error
                 // console.log(this.errorMessage)

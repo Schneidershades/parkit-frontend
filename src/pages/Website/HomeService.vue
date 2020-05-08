@@ -7,7 +7,7 @@
 						<h6 class="text-center" style="padding: 12px;background-color: #0d47a1;font-weight: 700">HOME SERVICE</h6>
 						<div style="position: relative;">                                
 							<blockquote class="white-text darken-4-text valign-wrapper" id="parkit-corporate-vision-body">
-								<h6 class="flow-text" style="margin: 0;text-align: center;">We meet you at your comfort.</h6>
+								<h6 class="flow-text" style="margin: 0;text-align: center;">Get your car attended to right where you are.</h6>
 							</blockquote>
 							<div class="corporate-page-banner-mission-vision-body-overlay"></div>
 						</div>

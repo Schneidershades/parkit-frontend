@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // get products
 export const getAddresses = ({ commit }) => {
-	return axios.get('api/auth/addresses').then((response) => {
+	return axios.get('api/v1/auth/addresses').then((response) => {
 		// console.log(response.data)
 		commit('setAddresses', response.data)
 		return Promise.resolve()
@@ -10,7 +10,7 @@ export const getAddresses = ({ commit }) => {
 }
 
 export const saveAddress = ({ commit, dispatch }, items) => {
-	return axios.post('api/auth/addresses', items).then((response) => {
+	return axios.post('api/v1/auth/addresses', items).then((response) => {
 		// console.log(response.data)
 		dispatch('getAddresses')
 		return Promise.resolve()

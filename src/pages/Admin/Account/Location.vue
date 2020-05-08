@@ -1,137 +1,118 @@
 <template>
 	<q-page padding>
-    <div class="q-pa-md q-gutter-sm">
-      <q-breadcrumbs>
-        <q-breadcrumbs-el label="Home" />
-        <q-breadcrumbs-el label="Location" />
-      </q-breadcrumbs>
-    </div>
+	    <div class="q-pa-md q-gutter-sm">
+	      <q-breadcrumbs>
+	        <q-breadcrumbs-el label="Home" />
+	        <q-breadcrumbs-el label="Location" />
+	      </q-breadcrumbs>
+	    </div>
 
-    <div class="q-pa-md">
-      <div class="q-gutter-y-md">
-      	<q-btn-group push class="q-p-md" align="right">
-	      	<q-btn push @click="postIncome(location)" label="Post Income Transaction"/>
-	      	<q-btn push @click="postExpense(location)" label="Post Expense Transaction"/>
-	    </q-btn-group>
-      	<!-- {{location}} -->
+	    <div class="q-pa-md">
+		    <div class="q-gutter-y-md">
+		      	<q-btn-group push class="q-p-md" align="right">
+			      	<q-btn v-if="user.location.code == 'PARKIT PARENT'" push @click="postIncome(location)" label="Post Income Transaction"/>
+			      	<q-btn push @click="postExpense(location)" label="Post Expense Transaction"/>
+			    </q-btn-group>
+		      	<!-- {{location}} -->
+		      	<!-- {{locationId}} -->
+		      	<!-- {{user.location.code}} -->
+		      	<!-- {{transactions}} -->
+		        <q-table
+				    title="All Expense Transactions"
+			      	:data="transactions"
+			      	:columns="columns"
+			      	row-key="name"
+		      		:filter="filterExpense"
+				    >
+				    <template v-slot:top-right>
+				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
+				          <template v-slot:append>
+				            <q-icon name="search" v-model="filterExpense"/>
+				          </template>
+				        </q-input>
+			      	</template>
+				    <template slot="body" slot-scope="props">
+				      	<q-tr :props="props">
+				      		<q-td key="id" :props="props">1019239{{props.row.id}}</q-td>
+				      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
+				      		<q-td key="title" :props="props">{{ props.row.title }}</q-td>
+				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
+				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
+				      		<q-td key="datePosted" :props="props">{{ props.row.postedDate }}</q-td>
+				      		<q-td key="action" :props="props">
+				      			<q-btn color="warning"  label="View Transaction"  @click="viewTransaction(props.row)"/>
+				      		</q-td>
+				      	</q-tr>
+				    </template>
+			    </q-table>
 
+			    <q-table
+				    title="All Income Transactions"
+			      	:data="transactions"
+			      	:columns="columns"
+			      	row-key="name"
+		      		:filter="filterIncome"
+				    >
+				    <template v-slot:top-right>
+				        <q-input borderless dense debounce="300" v-model="filterIncome" placeholder="Search">
+				          <template v-slot:append>
+				            <q-icon name="search" />
+				          </template>
+				        </q-input>
+				    </template>
 
-        <!-- <q-table
-		      title="Orders"
-		      :columns="columns"
-		      row-key="name"
-		      :data="orders"
-		      :grid="$q.screen.xs"
-		      rows-per-page-label="50"
-		      v-if="location"
-		    >
-		      <template slot="body" slot-scope="props">
-		      	<q-tr :props="props">
-		      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
-		      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
-		      		<q-td key="subtotal" :props="props">{{ props.row.subtotal }}</q-td>
-		      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
-		      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
-		      		<q-td key="date" :props="props">{{ props.row.created_at }}</q-td>
-		      		<q-td key="status" :props="props">{{ props.row.action }}: <b>{{ props.row.status }}</b></q-td>
-		      		<q-td key="action" :props="props">
-		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.id)"/>
-		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.id)"/>
-		      		</q-td>
-		      	</q-tr>
-		      </template>
-	    </q-table>  -->
-      </div>
-    </div>
-  </q-page>
+				    <template slot="body" slot-scope="props"  >
+				      	<q-tr :props="props" >
+				      		<q-td key="id" :props="props">1019239{{props.row.id}}</q-td>
+				      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
+				      		<q-td key="title"  :props="props">{{ props.row.title }}</q-td>
+				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
+				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
+				      		<q-td key="datePosted" :props="props">{{ props.row.postedDate }}</q-td>
+				      		<q-td key="action" :props="props">
+				      			<q-btn color="warning" label="View Transaction" @click="viewTransaction(props.row)"/>
+				      		</q-td>
+				      	</q-tr>
+				    </template>
+			    </q-table> 
+
+			    <q-dialog v-model="seeTransaction" >
+			    	<q-card>
+			    		<q-card-section>
+			    			<div class="text-h6">Transaction Details</div>
+			    		</q-card-section>
+
+			    		<q-separator />
+
+			    		<q-card-section style="max-height: 50vh" class="scroll" v-if="transactionId">
+			    			<p>ID : 1019239{{transactionId.id}}</p>
+			    			<p>Transaction Type : {{transactionId.type}}</p>
+			    			<p>Transaction Title : {{transactionId.title}}</p>
+			    			<p>Transaction Class : {{transactionId.class}}</p>
+			    			<p>Transaction Amount : ₦ {{transactionId.amount}}</p>
+			    			<p>Transaction Date : {{transactionId.date}}</p>
+			    			<p>Transaction Posted Date : {{transactionId.postedDate}}</p>
+			    			<q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" />
+			    		</q-card-section>
+
+			    		<q-separator />
+
+			    		<q-card-actions align="right">
+			    			<q-btn flat label="Close" color="primary" v-close-popup />
+			    		</q-card-actions>
+			    	</q-card>
+			    </q-dialog>
+		    </div>
+	    </div>
+	</q-page>
 </template>
-
-<style scoped>
-	table {
-		border: 1px solid #ccc;
-		border-collapse: collapse;
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		table-layout: fixed;
-	}
-
-	table caption {
-		font-size: 1.5em;
-		/*margin: .5em 0 .75em;*/
-	}
-
-	table tr {
-		background-color: #f8f8f8;
-		border: 1px solid #ddd;
-		/*padding: .35em;*/
-	}
-
-	table th,
-	table td {
-		padding: .625em;
-		text-align: center;
-	}
-
-	table th {
-		font-size: .85em;
-		letter-spacing: .1em;
-		text-transform: uppercase;
-	}
-
-	@media screen and (max-width: 600px) {
-		table {
-			border: 0;
-		}
-
-		table caption {
-			font-size: 1.3em;
-		}
-
-		table thead {
-			border: none;
-			clip: rect(0 0 0 0);
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			width: 1px;
-		}
-
-		table tr {
-			border-bottom: 3px solid #ddd;
-			display: block;
-			margin-bottom: .325em;
-		}
-
-		table td {
-			border-bottom: 1px solid #ddd;
-			display: block;
-			font-size: .8em;
-			text-align: right;
-		}
-
-		table td::before {
-		    /*
-		    * aria-label has no advantage, it won't be read inside a table
-		    content: attr(aria-label);
-		    */
-		    content: attr(data-label);
-		    float: left;
-		    font-weight: bold;
-		    text-transform: uppercase;
-		}
-
-		table td:last-child {
-			border-bottom: 0;
-		}
-	}
-</style>
 
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
+import { Notify } from 'quasar'
 
 export default {
 	props :[
@@ -139,45 +120,51 @@ export default {
 	],
 	data () {
 		return {
+      		fixedIncomeDialog: false,
+      		fixedExpenseDialog: false,
+      		seeTransaction: false,
 			pagination: {
-		        rowsPerPage: 0
+		        rowsPerPage: 1
 		    },
+
+		    filterExpense: 'expense',
+		    filterIncome: 'income',
 
 		    text: '',
 		    columns: [
 		       {
 		          name: 'id',
 		          align: 'left',
-		          label: 'Order ID',
+		          label: 'ID',
 		          field: 'id',
 		          sortable: true
 		       },
 		       {
-		          name: 'packages',
+		          name: 'type',
 		          align: 'left',
-		          label: 'Package(s)',
-		          field: 'packages',
+		          label: 'Type',
+		          field: 'type',
 		          sortable: true
 		       },
 		       {
-		          name: 'subtotal',
+		          name: 'title',
 		          align: 'left',
-		          label: 'Subtotal (₦)',
-		          field: 'subtotal',
+		          label: 'Title',
+		          field: 'title',
 		          sortable: true
 		       },
 		       {
-		          name: 'discount',
+		          name: 'class',
 		          align: 'left',
-		          label: 'Discount (₦)',
-		          field: 'discount',
+		          label: 'Classification',
+		          field: 'class',
 		          sortable: true
 		       },
 		       {
-		          name: 'total',
+		          name: 'amount',
 		          align: 'left',
-		          label: 'Total (₦)',
-		          field: 'total',
+		          label: 'Amount (₦)',
+		          field: 'amount',
 		          sortable: true
 		       },
 		       {
@@ -187,14 +174,14 @@ export default {
 		          field: 'date',
 		          sortable: true
 		       },
-
 		       {
-		          name: 'status',
+		          name: 'datePosted',
 		          align: 'left',
-		          label: 'Status',
-		          field: 'status',
+		          label: 'Posted',
+		          field: 'datePosted',
 		          sortable: true
 		       },
+
 		       {
 		          name: 'action',
 		          align: 'left',
@@ -207,18 +194,26 @@ export default {
 	computed: {
         ...mapGetters({
             location: 'accountLocation/accountLocationDetails',
+            transactions: 'accountLocation/accountLocationTransactions',
+          	user: 'auth/user',
+          	transactionId: 'accountLocation/accountLocationTransactionSelected',
         }),
     },
 
 	methods:{
 
 		...mapActions({
+        	getAccountLocationDetails: 'accountLocation/getAccountLocationDetails',
 	        sendLocationsDetails: 'accountLocation/setAccountLocationSelected',
+            getAccountLocationTransactions: 'accountLocation/getAccountLocationTransactions',
+            sendAccountLocationTransactionSelected: 'accountLocation/sendAccountLocationTransactionSelected',
+            deleteAccountLocationTransactionSelected: 'accountLocation/deleteAccountLocationTransactionSelected',
+        	getClassifications: 'accountClassification/getAccountClassification',
 	    }),	
 
 		postExpense(location){
 			this.sendLocationsDetails(location).then((response) => {
-	          return this.$router.push({ path: `/admin/account/location/${location.id}/expense` })   
+	          return this.$router.push({ path: `/admin/account/location/expense/${this.$route.params.locationId}` })   
 	        }).catch((error) => {
 	            console.log('not available')
 	        })  
@@ -226,14 +221,30 @@ export default {
 		},
 		postIncome(location){
 			this.sendLocationsDetails(location).then((response) => {
-	          	return this.$router.push({ path: `/admin/account/location/${location.id}/income` })   
+	          	return this.$router.push({ path: `/admin/account/location/income/${this.$route.params.locationId}` })   
 	        }).catch((error) => {
 	            console.log('not available')
 	        })
 		},
 
-		searchTransaction(location){
-			
+		viewTransaction(location){
+			this.sendAccountLocationTransactionSelected(location).then((response) => {
+				this.seeTransaction = true
+	        }).catch((error) => {
+	            console.log('not available')
+	        })
+		},
+
+
+		deleteTransaction(location){
+			this.deleteAccountLocationTransactionSelected(location).then((response) => {
+				this.seeTransaction = false
+				this.positiveNotification('Transaction successfully deleted')
+				// return this.$router.push({ path: `/admin/account/location/${this.$route.params.locationId}` })
+	        }).catch((error) => {
+				// this.negativeNotification('unable to delete transaction')
+	            console.log('not available')
+	        })
 		},
 
 	    positiveNotification(message){
@@ -256,5 +267,16 @@ export default {
             })
         },
 	},
+	mounted()
+	{
+		if(this.$route.params.locationId != null){
+			this.getAccountLocationTransactions(this.$route.params.locationId)
+		}else{
+			return this.$router.push({ path: `/admin/account` })  
+		}
+
+    	this.getClassifications()
+		
+	}
 }
 </script>

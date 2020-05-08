@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const sendContactUsEmail = ({ commit }, credentials) => {
-	return axios.post('api/send/contact', credentials).then((response) => {
+	return axios.post('api/v1/send/contact', credentials).then((response) => {
 		console.log(response.data)
 		commit('setContact', response.data)
 		return Promise.resolve()
@@ -9,7 +9,7 @@ export const sendContactUsEmail = ({ commit }, credentials) => {
 }
 
 export const sendTrainingAndConsultancyEmail = ({ commit }, credentials) => {
-	return axios.post('api/send/training-consultancy', credentials).then((response) => {
+	return axios.post('api/v1/send/training-consultancy', credentials).then((response) => {
 		console.log(response.data)
 		commit('setTrainingAndConsultancy', response.data)
 		return Promise.resolve()
@@ -18,7 +18,7 @@ export const sendTrainingAndConsultancyEmail = ({ commit }, credentials) => {
 
 export const sendCareerEmail = ({ commit }, credentials) => {
 	console.log(credentials)
-	return axios.post('api/send/careers', credentials, 
+	return axios.post('api/v1/send/careers', credentials, 
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -32,7 +32,7 @@ export const sendCareerEmail = ({ commit }, credentials) => {
 }
 
 export const sendPartnerEmail = ({ commit }, credentials) => {
-	return axios.post('api/send/partnership', credentials).then((response) => {
+	return axios.post('api/v1/send/partnership', credentials).then((response) => {
 		console.log(response.data)
 		commit('setPartnership', response.data)
 		return Promise.resolve()

@@ -10,6 +10,9 @@
 				                <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
 				            </q-card-actions> 
 
+                            <offline @detected-condition="handleConnectivityChange"></offline>
+                            <!-- <connection-light></connection-light> -->
+
                             <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
                               {{message}}
                             </q-banner>
@@ -89,6 +92,8 @@
     
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
+    import offline from 'v-offline'
+    import ConnectionLight from 'components/Connectivity/Connectivity.vue'
 
     export default{
         data(){
@@ -103,6 +108,11 @@
             }
         },
 
+        components:{
+            offline,
+            // ConnectionLight
+        },
+
         computed: {
             ...mapGetters({
                 message: 'message',
@@ -114,20 +124,41 @@
         methods:{
             ...mapActions({
               	login: 'auth/adminSignIn',
+                // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
             }),
+
+            handleConnectivityChange(status) {
+                console.log(status);
+
+                if(status == true){
+                    return this.positiveNotification('You are now online')
+                }
+                if(status == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+                
+            },
 
            loginUser(){
                 this.login(this.form).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
-                    return this.$router.push({name: 'adminDashboard'})
+                    return this.$router.replace({name: 'adminDashboard'})
+                    // return this.$router.push({name: 'adminDashboard'})
+                }).catch((error) => {
+                    // console.log(error)
+                    this.disable = false 
+                    this.errorMessages = error
+                    if(error){
+                        this.negativeNotification(error.error)
+                    }
                 })
             },
             positiveNotification(message){
                 Notify.create({
                     type: 'positive',
                     color: 'positive',
-                    timeout: 3000,
-                    position: 'center',
+                    timeout: 10000,
+                    position: 'bottom',
                     message: message
                 })
             },
@@ -136,11 +167,15 @@
                 Notify.create({
                     type: 'negative',
                     color: 'negative',
-                    timeout: 3000,
-                    position: 'center',
+                    timeout: 10000,
+                    position: 'bottom',
                     message: error
                 })
             },
+        },
+        
+        mounted(){
+            // this.plateNumbers()
         }
     }
 </script>

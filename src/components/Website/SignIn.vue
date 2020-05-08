@@ -103,7 +103,7 @@
         <q-separator />
 
         <q-card-actions align="right">
-            <q-btn flat label="Forgot Password" to="user/forgot-password" color="primary"  />
+            <q-btn flat label="Forgot Password" to="/user/password/reset" color="primary"  />
         </q-card-actions>
     </q-card>
 </template>

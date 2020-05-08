@@ -7,6 +7,7 @@ export default ({
 		token: null,
 		user: null,
 		phone: null,
+		onlineStatus: null,
 	},
 
 	getters:{
@@ -20,6 +21,10 @@ export default ({
 
 		phone(state){
 			return state.phone
+		},
+
+		onlineStatus(state){
+			return state.onlineStatus
 		}
 	},
 
@@ -34,6 +39,10 @@ export default ({
 
 		SET_PHONE_NUMBER (state, phone) {
 			state.phone = phone
+		},
+
+		SET_ONLINE_STATUS (state, onlineStatus) {
+			state.onlineStatus = onlineStatus
 		}
 	},
 
@@ -43,7 +52,7 @@ export default ({
 			// dispatch('attempt', response.data.token)
 
 			return new Promise((resolve, reject) => {
-	            axios.post('api/auth/signin', credentials).then(response => {
+	            axios.post('api/v1/auth/signin', credentials).then(response => {
 	            	// console.log(response.data.token)
 	                dispatch('attempt', response.data.token)
 	                resolve()
@@ -57,7 +66,7 @@ export default ({
 
 		async adminSignIn({dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/admin/user/signin', credentials).then(response => {
+	            axios.post('api/v1/admin/user/signin', credentials).then(response => {
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
@@ -79,7 +88,7 @@ export default ({
 
 			try{
 				return new Promise((resolve, reject) => {
-		            axios.get('api/auth/me').then(response => {
+		            axios.get('api/v1/auth/me').then(response => {
 		                commit('SET_USER', response.data.data)
 						dispatch('shopping/storeCart', null, { root: true })
 						dispatch('shopping/getCart', null, { root: true })
@@ -98,7 +107,7 @@ export default ({
 		},
 		
 		signOut({ commit, rootState }){
-			return axios.post('api/auth/signout').then(() =>{
+			return axios.post('api/v1/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
 				commit('shopping/clearCart', null, { root: true })
@@ -107,13 +116,12 @@ export default ({
 
 		async sendPhoneNumber({commit, dispatch}, phone_number){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/phone', phone_number).then(response => {
+	            axios.post('api/v1/phone', phone_number).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 					commit('SET_PHONE_NUMBER', phone_number)
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data.error)
 	                reject(error.response.data.data.error);
 	            })
 	        })
@@ -121,12 +129,11 @@ export default ({
 
 		async verifyOTP({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/verify-otp', credentials).then(response => {
+	            axios.post('api/v1/verify-otp', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -134,13 +141,12 @@ export default ({
 
 		async sendForgotPasswordPhoneNumber({commit, dispatch}, phone_number){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/forgot-password/phone', phone_number).then(response => {
+	            axios.post('api/v1/forgot-password/phone', phone_number).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 					commit('SET_PHONE_NUMBER', phone_number)
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data.error)
 	                reject(error.response.data.data.error);
 	            })
 	        })
@@ -148,12 +154,11 @@ export default ({
 
 		async verifyForgotPasswordOTP({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/forgot-password/verify-otp', credentials).then(response => {
+	            axios.post('api/v1/forgot-password/verify-otp', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -161,12 +166,48 @@ export default ({
 
 		async ForgotPasswordChange({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/auth/change/password', credentials).then(response => {
+	            axios.post('api/v1/auth/change/password', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+
+		async PasswordReset({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.post('api/v1/auth/password-reset', credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+		async CheckPasswordResetToken({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.get('api/v1/auth/password-reset/'+ credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+		async NewPasswordReset({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.patch('api/v1/auth/password-reset/update', credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -174,23 +215,20 @@ export default ({
 
 		async updateProfile({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/auth/profile/update', credentials).then(response => {
+	            axios.post('api/v1/auth/profile/update', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                dispatch('attempt', response.data.token)
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
 		},
 
 		async signUp({dispatch}, credentials){
-			// let response = await axios.post('api/auth/signup', credentials);
-			// console.log(response.data.data.message)
-			// return dispatch('attempt', response.data.data.message.token)
 			return new Promise((resolve, reject) => {
-	            axios.post('api/auth/signup', credentials).then(response => {
+	            axios.post('api/v1/auth/signup', credentials).then(response => {
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
@@ -198,6 +236,10 @@ export default ({
 	                reject()
 	            })
 		    })	
+		},
+
+		onlineStatus({ commit, rootState }, credentials){
+	        dispatch('SET_ONLINE_STATUS', credentials)
 		},
 	},
 })

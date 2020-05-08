@@ -14,11 +14,8 @@ module.exports = function (ctx) {
     boot: [
       'my-custom-main.js',
       'notify-defaults',
-      'roles.js',
       'localstorage.js',
       'platform.js',
-      'dexieoffline.js',
-      'initiateDexie.js',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -95,7 +92,7 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      // https: true,
+      https: true,
       // port: 8080,
       open: true // opens browser window automatically
     },

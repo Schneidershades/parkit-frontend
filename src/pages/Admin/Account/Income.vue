@@ -3,12 +3,17 @@
     <div class="q-pa-md q-gutter-sm">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="Home" />
-        <q-breadcrumbs-el label="Income Transactions" />
+        <q-breadcrumbs-el label="Income Transaction" />
       </q-breadcrumbs>
     </div>
 
     <div class="q-pa-md">
       <div class="q-gutter-y-md">
+
+        <q-card-actions align="right">
+          <q-btn @click="backToLocaton" unelevated color="primary" class="q-px-md" size="lg" label="Back" />
+        </q-card-actions>
+
         <q-form @submit="submitTransactions" ref="form">
           <div v-for="(line, index) in lines" :key="index" class="row q-py-md">
             <div class="col-md-4 q-pa-sm">
@@ -23,6 +28,21 @@
                 </q-input>
             </div>
 
+
+            <div class="col-md-4 q-pa-sm">
+                <q-select 
+                  filled 
+                  v-model="line.class"
+                  :options="classes" 
+                  label="Classification *"
+                  lazy-rules
+                  map-options
+                  emit-value
+                  option-value="id"
+                  option-label="name"
+                />
+            </div>
+
             <div class="col-md-4 q-pa-sm">
                 <q-input
                     filled
@@ -32,6 +52,7 @@
                     :rules="[ val => val && val.length > 0 || 'Please type a transaction description']"
                 />
             </div>
+            
 
             <div class="col-md-4 q-pa-sm">
                 <q-input
@@ -57,6 +78,8 @@
             <div class="col-md-4 q-pa-sm">
                 <q-input
                     filled
+                    type="number"
+                    min="0"
                     v-model="line.amount"
                     label="Amount *"
                     lazy-rules
@@ -99,43 +122,26 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import { date } from 'quasar'
+import { Notify } from 'quasar'
 
 export default {
   // name: 'PhoneNumberLine',
   props :[
     'locationId'
   ],
+
   data () {
     return {
       lines: [],
-
       date: '',
       blockRemoval: true,
-      phoneUsageTypes: [
-        {
-          label: 'Home', value: 'home'
-        }, {
-          label: 'Work', value: 'work'
-        }, {
-          label: 'Mobile', value: 'mobile'
-        }, {
-          label: 'Fax', value: 'fax'
-        }
-      ],
-      countryPhoneCodes: [
-        {
-          label: '+90',
-          value: '+90'
-        }, {
-          label: '+1',
-          value: '+1'
-        }
-      ]
+      classes: null,
     }
   },
   computed: {
       ...mapGetters({
           location: 'accountLocation/accountLocationDetails',
+          classifications: 'accountClassification/allAccountClassification',
       }),
   },
   watch: {
@@ -144,6 +150,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+        sendTransactions: 'accountLocation/sendTransactions',
+        getClassifications: 'accountClassification/getAccountClassification',
+    }),
     addLine () {
       let checkEmptyLines = this.lines.filter(line => line.title === null)
 
@@ -151,13 +161,15 @@ export default {
          return
       } 
 
+
       this.lines.push({
         title: null,
         type: 'income',
         reference: null,
+        class: '',
         location: this.location.locationName,
         location_id: this.location.id,
-        amount: null,
+        amount: 0,
         date: '',
       })
     },
@@ -179,11 +191,52 @@ export default {
     },
 
     submitTransactions(){
+      this.sendTransactions(this.lines).then((res) => {
+          this.positiveNotification('your transactions has been saved')
+          return this.$router.push({ path: `/admin/account/location/${this.$route.params.locationId}` })
+      }).catch((error) => {
+          this.errorMessages = error
+          console.log(this.errorMessages)
+          if(this.errorMessages){
+              this.negativeNotification(this.errorMessages)
+          }
+      })
+    },
 
-    }
+    backToLocaton(){
+      return this.$router.back()
+    },
+
+    positiveNotification(message){
+        Notify.create({
+            type: 'positive',
+            color: 'positive',
+            timeout: 3000,
+            position: 'center',
+            message: message
+        })
+    },
+
+    negativeNotification(error){
+        Notify.create({
+            type: 'negative',
+            color: 'negative',
+            timeout: 3000,
+            position: 'center',
+            message: error
+        })
+    },
+
+    
   },
   mounted () {
+    if(this.$route.params.locationId = null || this.location==null){
+      this.negativeNotification('Please wait for 5 seconds please')
+      return this.$router.push({ path: `/admin/account` }) 
+    }
     this.addLine()
+    this.getClassifications()
+    this.classes = this.classifications 
   }
 }
 </script>

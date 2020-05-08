@@ -21,7 +21,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
-import Orders from 'components/User/Order/Orders.vue'
+import Orders from 'components/Admin/Orders/Orders.vue'
 
 export default {
 	components: {

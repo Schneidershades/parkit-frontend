@@ -17,7 +17,7 @@
                 <!-- <q-space /> -->
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
-                        <q-btn color="purple" icon="home" class="q-ma-sm" label="Location" />
+                        <q-btn color="purple" icon="home" class="q-ma-sm" :label="presentLocation" />
                         <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" />
                         <template v-if="cart.length">
                             <q-btn color="primary"  :label="carTotalLength"  />
@@ -64,6 +64,15 @@
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>Invoice</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+                    <q-item clickable to="/admin/recent">
+                        <q-item-section avatar>
+                            <q-icon name="history" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Recent</q-item-label>
                         </q-item-section>
                     </q-item>
                     <q-item clickable to="/admin/history">
@@ -127,6 +136,39 @@
                             <q-item-label>Suggestions & Complaints</q-item-label>
                         </q-item-section>
                     </q-item>
+
+                    <q-item clickable to="/admin/users">
+                        <q-item-section avatar>
+                            <q-icon name="people" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Users</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+                    <q-item clickable to="/admin/roles">
+                        <q-item-section avatar>
+                            <q-icon name="scatter_plot" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Roles & Permissions</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                </template>
+
+                
+
+                <template v-if="$can('access', 'allAccounts')">
+                    <q-item-label header>Locations</q-item-label>
+
+                    <q-item clickable to="/admin/locations">
+                        <q-item-section avatar>
+                            <q-icon name="house" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Location</q-item-label>
+                        </q-item-section>
+                    </q-item>
                 </template>
 
                 <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
@@ -162,13 +204,18 @@
 <script>
     import CartDrawer from 'components/Cart/CartDrawer.vue'
 
+    import { getPersistedState } from '../store/modules/auth/statemapper.js';
+
     import { mapActions, mapGetters } from 'vuex'
+    import offline from 'v-offline'
+    import ConnectionLight from 'components/Connectivity/Connectivity.vue'
 
     export default {
         name: 'Admin',
 
         components:{
-           CartDrawer
+            CartDrawer,
+            offline,
         },
         
         data () {
@@ -182,28 +229,97 @@
                 right: false
             }
         },
+
         computed: {
             ...mapGetters({
-                cart: 'shopping/cart',
-                cartItemCount: 'shopping/cartItemCount',
-                cartTotal: 'shopping/cartTotal',
+                cart: 'adminShopping/cart',
+                cartItemCount: 'adminShopping/cartItemCount',
+                cartTotal: 'adminShopping/cartTotal',
                 authenticated: 'auth/user',
+                user: 'auth/user',
+                online: 'auth/onlineStatus',
             }),
             
             carTotalLength(){
                 return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
+            }, 
+
+            presentLocation(){
+                return "Location : " + this.user.location.code
             }
+        },
+
+        methods:{
+            ...mapActions({
+                connectOnline: 'auth/onlineStatus',
+                // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
+            }),
+
+            handleConnectivityChange(status) {
+                console.log(status);
+
+                if(status == true){                    
+                    return this.positiveNotification('You are now online')
+                }
+                if(status == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+
+                // this.connectOnline(status).then((res) => {
+                        
+                // }).catch((error) => {
+                //     // console.log(error)
+                //     // this.disable = false 
+                //     // this.errorMessages = error
+                //     // if(error){
+                //     //     this.negativeNotification(error.error)
+                //     // }
+                // })
+                
+                
+            },
+
+            positiveNotification(message){
+                Notify.create({
+                    type: 'positive',
+                    color: 'positive',
+                    timeout: 10000,
+                    position: 'bottom',
+                    message: message
+                })
+            },
+
+            negativeNotification(error){
+                Notify.create({
+                    type: 'negative',
+                    color: 'negative',
+                    timeout: 10000,
+                    position: 'bottom',
+                    message: error
+                })
+            },
         },
 
         mounted(){
             this.authenticated
+            // console.log('cwcw', getPersistedState())
+            if (!this.$store.initialized) {
+              
+              getPersistedState().then(persistedState => {
+                this.$store.commit('initialize', persistedState);
+                console.log('hooooooooooo', persistedState)
+              })
+              .catch(error => {
+                // tsk tsk... handle this error too
+              });
+            }
         },
 
 
         methods:{
             ...mapActions({
-              removeProductFromCart: 'shopping/removeProductFromCart',
-              removeAllProductFromCart: 'shopping/removeAllProductFromCart',
+              removeProductFromCart: 'adminShopping/removeProductFromCart',
+              removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
               signOutAction: 'auth/signOut'
             }),
 

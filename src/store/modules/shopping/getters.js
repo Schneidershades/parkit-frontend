@@ -29,17 +29,17 @@ export const cartTotal = (state) => {
 		var discountPrice =  arraySum  * discount
 		var sub = arraySum
 		return sub - discountPrice 
-	}else{
-		return arraySum
 	}
+
+
 
 	if(state.amountDiscount > 0 && state.amountDiscount != null){
 		var discountPrice = state.amountDiscount
 		var sub = arraySum 
 		return sub - discountPrice 
-	}else{
-		return arraySum
 	}
+
+	return arraySum
 }
 
 

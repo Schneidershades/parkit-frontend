@@ -28,13 +28,12 @@
 		                                <q-input
 		                                    ref="name"
 		                                    filled
+		                                    v-model="profile.firstName"
 		                                    :dense="dense"
 		                                    label="Your First Name *"
-		                                    hint="Please insert your first name"
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your first name']"
 		                                    :readonly="readonly"
-		                                    :value="user.firstName"
 		                                />
 		                            </div>
 
@@ -42,12 +41,12 @@
 		                                <q-input
 		                                    ref="name"
 		                                    filled
+		                                    v-model="profile.lastName"
 		                                    :dense="dense"
 		                                    label="Your Last Name *"
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your last name']"
 		                                    :readonly="readonly"
-		                                    :value="user.lastName"
 		                                />
 		                            </div>
 
@@ -60,7 +59,7 @@
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your email']"
 		                                    :readonly="readonly"
-		                                    :value="user.email"
+		                                    v-model="profile.email"
 		                                />
 		                            </div>
 
@@ -72,7 +71,7 @@
 		                                    label="Your Phone *"
 		                                    lazy-rules
 		                                    readonly="readonly"
-		                                    :value="user.phone"
+		                                    v-model="profile.phone"
 		                                />
 		                            </div>
 
@@ -84,38 +83,37 @@
 		                                    label="Your username *"
 		                                    lazy-rules
 		                                    readonly="readonly"
-		                                    :value="user.username"
+		                                    v-model="profile.username"
 		                                />
 		                            </div>
 
 		                            <div class="col-md-6 q-pa-sm">
 		                            	Male <q-toggle toggle-indeterminate v-model="userSex" :dense="dense"  :readonly="readonly" :disable="disableRadio && readonly == true" :value="sex" label="Female" />
-		                                
+		                                {{profile.sex}}
 		                            </div>
 
-		                            <!-- <div class="col-md-6 q-pa-sm">
+		                            <div class="col-md-6 q-pa-sm">
 		                            	<q-input 
 		                            	 	filled 
 		                            	 	ref="name" 
-		                            	 	v-model="profile.user" 
+		                            	 	v-model="profile.dob" 
 		                            	 	mask="date" 
 		                            	 	:dense="dense"
 		                                    label="Date of Birth *"
 		                                    hint="We care about you"
 		                                    lazy-rules
 		                                    :readonly="readonly" 
-		                                    :value="user.dob" 
 		                                    :rules="['date']"
 		                                    >
 									      	<template v-slot:append>
 										        <q-icon name="event" class="cursor-pointer">
 										          	<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-										            	<q-date v-model="profile.user" @input="() => $refs.qDateProxy.hide()" />
+										            	<q-date v-model="profile.dob" @input="() => $refs.qDateProxy.hide()" />
 										          	</q-popup-proxy>
 										        </q-icon>
 									      	</template>
 									    </q-input>
-		                            </div> -->
+		                            </div>
 		                        </div>
 
 		                        <q-card-actions align="left">
@@ -145,10 +143,10 @@
             return{
 
                 profile: {
-                    phone : '',
-                    firstName: '',
+                    firstName:  '',
                     lastName: '',
-                    email: '',
+                    email:  '',
+                    phone : '',
                     username: '',
                     dob: '',
                     sex: '',
@@ -162,7 +160,8 @@
                 readonly: true,
                 disable: true,
                 disableRadio: true,
-      			userSex: null,   
+                userSex: null,
+      			
             }
         },
 
@@ -175,12 +174,12 @@
             }),
 
             sex(){
-            	if(this.user.sex == 'male'){
-            		this.userSex = "male"
+            	if(this.userSex == false){
+            		this.profile.sex  = "male"
             	}
 
-            	if(this.user.sex == 'female'){
-            		this.userSex = 'female'
+            	if(this.userSex == true){
+            		this.profile.sex = "female"
             	}
             }
         },
@@ -192,6 +191,7 @@
 
             updateProfile(){
                 this.profileData(this.profile).then((res) => {
+                	console.log(this.profile)
                     this.positiveNotification('Your profile has been updated')
                 	this.disable=true
                 }).catch((error) => {
@@ -223,6 +223,28 @@
                     message: error
                 })
             },
+        },
+        mounted(){
+        	if(this.user != null){
+        		this.profile.firstName = this.user.firstName
+        		this.profile.lastName = this.user.lastName
+        		this.profile.username = this.user.username
+        		this.profile.email = this.user.email
+        		this.profile.phone = this.user.phone
+        		this.profile.dob = this.user.dob
+
+        		if(this.user.sex == 'male'){
+            		this.profile.sex  = "male"
+            	}
+
+            	if(this.user.sex == 'female'){
+            		this.profile.sex  = 'female'
+            	}
+
+            	if(this.user.sex == null){
+            		this.profile.sex  = null
+            	}
+        	}
         }
     }
 </script>

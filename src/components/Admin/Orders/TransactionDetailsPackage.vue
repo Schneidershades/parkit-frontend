@@ -39,13 +39,12 @@
                 	<td colspan="3"></td>
                 </tr>
                 <tr>
-
-
                 	<td colspan="4">
 					    <b>Discount 
-					    <template v-if="transactionDetails.action == 'online-free-wash'"> - {{transactionDetails.action}}</template> </b>
+					    	<template v-if="transactionDetails.action == 'online-free-wash'"> - {{transactionDetails.action}}</template> 
+					    </b>
                 	</td>
-                	<td><b v-if="transactionDetails.discount">₦ {{transactionDetails.discount}}.00 </b></td>
+                	<td><b v-if="transactionDetails.discount">₦ {{transactionDetails.discount}} </b></td>
                 </tr>
                 <tr>
                 	<td colspan="4">

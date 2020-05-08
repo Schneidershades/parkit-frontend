@@ -6,7 +6,7 @@
           </div>
         </q-img>
 
-        <div class="q-pa-xl">
+        <div class="q-pa-sm">
             <div class="q-gutter-y-md">
                <q-card>
                 <q-tabs
@@ -16,31 +16,58 @@
                   active-color="primary"
                   indicator-color="primary"
                   align="justify"
-                  narrow-indicator
                 >
                   <div class="cbs-vehicle-list">
-                    <div class="col-md-3 vehicle-cbs" v-for="content in gallery.data" :key="content.name">
-                      <q-tab :name="content.slug" :label="content.name"  />
-                    </div>
+                    <q-tab @click="dialog = true" class="col-md-3 vehicle-cbs"  v-for="content in gallery.data" :key="content.name" :name="content.slug" :label="content.name" >
+                        </q-tab>
+                    <!-- <div class="col-md-3 vehicle-cbs" v-for="content in gallery.data" :key="content.name">
+                      <q-tab  />
+                    </div> -->
                   </div>
                   
                 </q-tabs>
 
+                <q-dialog
+                  v-model="dialog"
+                  persistent
+                  :maximized="maximizedToggle"
+                  transition-show="slide-up"
+                  transition-hide="slide-down"
+                >
+                  <q-card class="bg-white">
+                    <q-bar class="bg-primary text-white">
+                      <q-space />
+                      <q-btn dense flat icon="close" v-close-popup>
+                        <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
+                      </q-btn>
+                    </q-bar>
+
+                    <q-card-actions align="around" class="q-px-md">
+                      <q-btn dense size="20px" class="bg-primary text-white q-py-md" icon="close" v-close-popup>Go Back</q-btn>
+                      
+                    </q-card-actions>
+
+                    <q-card-section >
+                      <q-tab-panels v-model="tab" animated>
+                        <q-tab-panel :name="content.slug"  v-for="content in gallery.data" :key="content.name">
+                          <div class="text-h6">{{content.name}}</div>
+                          <div class="row" align="center">
+                            <!-- {{content}} -->
+
+                              <q-img rounded class="col-md-3 q-ma-sm rounded-borders" v-for="(image, i) in content.images" :src="image.image" :key="i" @click="index = i" style="width:250px"></q-img>
+                              <!-- <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow> -->
+
+                          </div>
+                        </q-tab-panel>
+                      </q-tab-panels>
+                    </q-card-section>
+                  </q-card>
+                </q-dialog>
+
                 <q-separator />
                 <!-- {{tab}} -->
                 
-                <q-tab-panels v-model="tab" animated>
-                  <q-tab-panel :name="content.slug"  v-for="content in gallery.data" :key="content.name">
-                    <div class="text-h6">{{content.name}}</div>
-                    <div class="row" align="center">
-                      <!-- {{content}} -->
-
-                        <q-img rounded class="col-md-3 q-ma-sm rounded-borders" v-for="(image, i) in content.images" :src="image.image" :key="i" @click="index = i" style="width:250px"></q-img>
-                        <!-- <vue-gallery-slideshow :images="images" :index="index" @close="index = null"></vue-gallery-slideshow> -->
-
-                    </div>
-                  </q-tab-panel>
-                </q-tab-panels>
+                
               </q-card>
             </div>
         </div>
@@ -80,14 +107,14 @@
 
   .vehicle-cbs{
     flex-grow: 1;
-    /*flex-basis: 140px;*/
-    height: 80px;
+    flex-basis: 140px;
+    height: 147px;
     cursor: pointer;
     padding-top: 20px;
-    /*border-width: 1px;*/
-    /*border-style: solid;*/
+    border-width: 1px;
+    border-style: solid;
     text-align: center;
-    margin: 0px 6px 12px 6px; 
+    margin: 0px 6px 6px 6px; 
   }
 
   .cbs-vehicle-list{
@@ -96,6 +123,7 @@
     margin: auto;
     padding: 10px 50px;
   }
+
 </style>
 
 
@@ -111,7 +139,9 @@
         tab: null,
         index: null,
         images: [],
-        index: null
+        index: null,
+        dialog: false,
+        maximizedToggle: true
       }
     },
     components:{

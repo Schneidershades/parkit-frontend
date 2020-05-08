@@ -128,9 +128,9 @@ export default {
 
 	computed: {
         ...mapGetters({
-            cart: 'shopping/cart',
-            cartItemCount: 'shopping/cartItemCount',
-            cartTotal: 'shopping/cartTotal',
+            cart: 'adminShopping/cart',
+            cartItemCount: 'adminShopping/cartItemCount',
+            cartTotal: 'adminShopping/cartTotal',
             authenticated: 'auth/user',
         }),
         
@@ -141,9 +141,9 @@ export default {
 
 	methods:{
 		...mapActions({
-			removeProductFromCart: 'shopping/removeProductFromCart',
-			removeAllProductFromCart: 'shopping/removeAllProductFromCart',
-			updateCartTotals: 'shopping/updateCartTotals',
+			removeProductFromCart: 'adminShopping/removeProductFromCart',
+			removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
+			updateCartTotals: 'adminShopping/updateCartTotals',
 		}),
 
 	}

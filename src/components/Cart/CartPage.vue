@@ -182,14 +182,14 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            cart: 'shopping/cart',
-            cartItemCount: 'shopping/cartItemCount',
-            cartTotal: 'shopping/cartTotal',
-            subTotal: 'shopping/subTotal',
-            discount: 'shopping/discount',
+            cart: 'adminShopping/cart',
+            cartItemCount: 'adminShopping/cartItemCount',
+            cartTotal: 'adminShopping/cartTotal',
+            subTotal: 'adminShopping/subTotal',
+            discount: 'adminShopping/discount',
             authenticated: 'auth/user',
-			packageLocationCount: 'shopping/packageLocationCount',
-			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
+			packageLocationCount: 'adminShopping/packageLocationCount',
+			packageHomeOfficeCount: 'adminShopping/packageHomeOfficeCount',
 			locations: 'location/locations',
 			addresses: 'address/addresses',
         }),
@@ -207,10 +207,10 @@ export default {
 
 	methods:{
 		...mapActions({
-			removeProductFromCart: 'shopping/removeProductFromCart',
-			removeAllProductFromCart: 'shopping/removeAllProductFromCart',
-			updateCartTotals: 'shopping/updateCartTotals',
-			applyCoupon: 'shopping/applyCoupon',
+			removeProductFromCart: 'adminShopping/removeProductFromCart',
+			removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
+			updateCartTotals: 'adminShopping/updateCartTotals',
+			applyCoupon: 'adminShopping/applyCoupon',
 			getLocations: 'location/getLocations',
 			getAddresses: 'address/getAddresses',
 		}),

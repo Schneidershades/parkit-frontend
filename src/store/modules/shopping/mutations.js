@@ -86,6 +86,7 @@ export const clearCart = (state) =>{
 
 export const updateCouponData = (state, data) => {
 
+
 	state.couponDetails = data
 	
 	if(data.percentageDiscount != null && data.percentageDiscount > 0){

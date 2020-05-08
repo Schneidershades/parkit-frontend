@@ -82,15 +82,41 @@ const routes = [
     ]
   },
   {
-    path: '/user/forgot-password',
+    path: '/user/password/reset',
     component: () => import('layouts/Auth.vue'),
     children: [
       { path: '', 
-        name: 'forgot-password', 
+        name: 'password-reset', 
         component: () => import('pages/User/ForgotPassword.vue'),
-      }
+      },
+
+      { path: '/user/password/reset/:token', 
+        name: 'password-reset-token', 
+        component: () => import('pages/User/PasswordResetToken.vue'),
+        props: true,
+      },
+
     ]
   },
+  {
+    path: '/user/password/reset/:token',
+    component: () => import('layouts/Auth.vue'),
+    children: [
+      { path: '', 
+        name: 'password-reset-token4', 
+        component: () => import('pages/User/PasswordResetToken.vue'),
+        props: true,
+      },
+    ]
+  },
+
+
+
+
+
+
+
+
 
 
 
@@ -325,6 +351,22 @@ const routes = [
     ]
   },
   {
+    path: '/admin/recent',
+    component: () => import('layouts/Admin.vue'),
+    children: [
+      { path: '', 
+        name: 'admin-recent', 
+        component: () => import('pages/Admin/RecentTransactions.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      }
+    ]
+  },
+  {
     path: '/admin/inbox',
     component: () => import('layouts/Admin.vue'),
     children: [
@@ -446,6 +488,76 @@ const routes = [
       }
     ]
   },
+
+  {
+    path: '/admin/roles',
+    component: () => import('layouts/Admin.vue'),
+    children: [
+      { path: '', 
+        name: 'admin-roles', 
+        component: () => import('pages/Admin/Roles/Roles.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      }
+    ]
+  },
+  {
+    path: '/admin/locations',
+    component: () => import('layouts/Admin.vue'),
+    children: [
+      { path: '', 
+        name: 'admin-locations', 
+        component: () => import('pages/Admin/Locations/Locations.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      },
+    ]
+  },
+  {
+    path: '/admin/users',
+    component: () => import('layouts/Admin.vue'),
+    children: [
+      { path: '', 
+        name: 'admin-users', 
+        component: () => import('pages/Admin/Users/Users.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      },
+      { path: '/admin/users/location/:locationId', 
+        name: 'admin-users-location', 
+        component: () => import('pages/Admin/Users/Location.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+      },
+      { path: '/admin/users/location/:userId/roles/permissions', 
+        name: 'admin-users-roles-permissions', 
+        component: () => import('pages/Admin/Users/RolesPermissions.vue'),
+        meta: {
+          middleware:[
+            isElectron,
+            desktopAuth
+          ]
+        },
+        props: true,
+      },
+    ]
+  },
   {
     path: '/admin/account',
     component: () => import('layouts/Admin.vue'),
@@ -473,7 +585,7 @@ const routes = [
         props: true,
       },
       { 
-        path: '/admin/account/location/:locationId/expense',
+        path: '/admin/account/location/expense/:locationId',
         name: 'accountExpenseShow',  
         component: () => import('pages/Admin/Account/Expense.vue'), 
         meta: {
@@ -485,7 +597,7 @@ const routes = [
         props: true,
       },
       { 
-        path: '/admin/account/location/:locationId/income',
+        path: '/admin/account/location/income/:locationId',
         name: 'accountIncomeShow',  
         component: () => import('pages/Admin/Account/Income.vue'), 
         meta: {
