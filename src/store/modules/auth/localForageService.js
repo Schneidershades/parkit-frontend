@@ -16,9 +16,9 @@ localForageService.setDriver([
   // localForageService.setItem('testkssey', 'testvalue', function() {
   //   console.log('Of the driver options given, localforage is using:' + localForageService.driver());
   // });
-})
-.catch(error => {
+}).catch(error => {
   // welp. you can't have nice things.
+  console.log('localstorage not created')
 });
 
 export default {
