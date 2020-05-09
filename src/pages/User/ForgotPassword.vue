@@ -1,22 +1,38 @@
 <template>
-	<q-card style="width: 500px; max-width: 80vw; margin: auto;" class="q-pt-md">
-
-
-        <div class="text-h6 text-center">Reset Password</div>  
+	<q-card style="width: 500px; max-width: 80vw; margin: auto;" class="q-pt-md"> 
         <q-card-actions align="center">
             <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
         </q-card-actions> 
+        <div class="text-h6 text-center">Reset Password</div> 
 
         <q-card-section  style="max-height: 80vh" class="scroll">  
             <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-green">
                 {{message}}
             </q-banner>
 
-            <q-banner dense rounded inline-actions v-if="errorMessage==null || errorMessage==[]" class="q-my-lg text-white bg-red">
+            <q-banner dense rounded inline-actions v-if="errorMessage" class="q-my-lg text-white bg-red">
                 {{errorMessage}}
             </q-banner>
+
+            <q-form
+                @submit="sendLinkBtn"
+                class="q-gutter-md q-"
+                ref="form"
+            >
+               <q-input
+                    filled
+                    v-model="form.email"
+                    label="Email Address"
+                    unmasked-value
+                    lazy-rules
+                    :rules="[val => !!val || '* Required', val => val && val.length > 0 || 'Please type in email address']"
+                    />
+                <q-stepper-navigation>
+                  <q-btn type="submit" color="primary" label="Send Reset Link" :disable="disable"/>
+                </q-stepper-navigation>
+            </q-form>
         
-            <div class="gi">
+            <!-- <div class="gi">
                 <q-stepper
                   v-model="step"
                   header-nav
@@ -142,12 +158,12 @@
                     </q-form>
                   </q-step>
                 </q-stepper>
-              </div>
+            </div> -->
+
         </q-card-section>
         <q-separator />
         <q-card-actions align="right">
             <q-btn to="/" label="Back to Home" color="primary" v-close-popup />
-            <q-btn label="Reset" color="home" text-color="primary" @click="step = 1" />
         </q-card-actions>
     </q-card>
 </template>
@@ -166,11 +182,13 @@
                     password_confirmation: '',
                 },
 
+                email: '',
+
                 otpCode: '',
-                errorMessages: [],
+                errorMessages: null,
                 error: '',
                 form : {
-                    phone : ''
+                    email : ''
                 },
                 password_confirmation: '',
                 step: 1,
@@ -203,7 +221,18 @@
               stepOneValidation: 'auth/sendForgotPasswordPhoneNumber',
               stepTwoValidation: 'auth/verifyForgotPasswordOTP',
               stepThreeValidation: 'auth/ForgotPasswordChange',
+              sendLink: 'auth/PasswordReset',
             }),
+
+            sendLinkBtn(){
+                this.disable = true 
+                this.sendLink(this.form).then((res) => {
+                    this.disable = false 
+                }).catch((error) => {
+                    this.errorMessages = error
+                    this.disable = false 
+                })           
+            },
 
             submitPhone(){
                 this.disable = true 
