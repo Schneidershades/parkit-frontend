@@ -18,10 +18,10 @@ store.watch(
 			// 
 			const testOffline = async () => {
 				axios.defaults.baseURL = 'http://localhost:8000/'
-				await store.dispatch('locationHistory/getLocationHistory')
 		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
 			  	await store.dispatch('adminShopping/getProducts')
 			  	await store.dispatch('adminOrders/checkRecieptNumber')
+				await store.dispatch('locationHistory/getLocationHistory')
 				// await store.dispatch('offlineOrders/getOrders')
 			  	// console.log('BEFORE:', await localForageService.getItem('cart'))
 			}
