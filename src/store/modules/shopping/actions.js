@@ -3,7 +3,7 @@ import { LocalStorage, SessionStorage } from 'quasar'
 
 // get products
 export const getProducts = ({ commit }) => {
-	return axios.get('api/vehicles').then((response) => {
+	return axios.get('api/v1/vehicles').then((response) => {
 		commit('setProducts', response.data)
 		return Promise.resolve()
 	})
@@ -11,7 +11,7 @@ export const getProducts = ({ commit }) => {
 
 export const getCart = async ({ commit }) => {
 	// console.log('get')
-	await axios.get('api/cart').then((response) => {
+	await axios.get('api/v1/cart').then((response) => {
 		// console.log(response.data.data.products)
 		commit('setCart', response.data.data.products)
 		return Promise.resolve()
@@ -43,7 +43,7 @@ export const addProductToCart = ({ commit, dispatch, rootState }, productsItems)
 		}]
 		// console.log(productsItems)
 
-		return axios.post('api/cart', {
+		return axios.post('api/v1/cart', {
 			products
 		});
 
@@ -81,7 +81,7 @@ export const storeCart = ({ state, rootState }) =>{
 				var products = obj
 				// console.log(obj)
 
-				axios.post('api/cart', {
+				axios.post('api/v1/cart', {
 					products
 				});
 
@@ -106,7 +106,7 @@ export const storeCartFromSession = ({ state }) =>{
 
 		// console.log(results)
 
-		return axios.post('api/cart', {
+		return axios.post('api/v1/cart', {
 			results
 		});
 
@@ -127,7 +127,7 @@ export const removeProductFromCart = ({commit, dispatch, rootState }, productId)
 	let auth = rootState.auth.user
 
 	if(auth){
-		return axios.delete(`api/cart/${productId}`)
+		return axios.delete(`api/v1/cart/${productId}`)
 		
 		dispatch('getCart')
 	}else{
@@ -142,7 +142,7 @@ export const removeAllProductFromCart = ({ commit, dispatch, rootState }, ) =>{
 
 	let auth = rootState.auth.user
 	if(auth){
-		return axios.get('api/empty-cart');
+		return axios.get('api/v1/empty-cart');
 		dispatch('getCart')
 	}else{
 		dispatch('storeCart')
@@ -168,7 +168,7 @@ export const updateCartTotals = ({ commit, dispatch, rootState }, items) =>{
 
 	// store notes
 	if(auth){
-		var cartURL = 'api/cart/' + apianWayId
+		var cartURL = 'api/v1/cart/' + apianWayId
 		return axios.patch(cartURL, {quantity : quantity})
 	}else{
 		dispatch('storeCart')
@@ -177,7 +177,7 @@ export const updateCartTotals = ({ commit, dispatch, rootState }, items) =>{
 
 
 export const applyCoupon = async ({ commit }, items) =>{
-	var couponURL = 'api/coupons/' + items
+	var couponURL = 'api/v1/coupons/' + items
 	await axios.get(couponURL).then((response) => {
 		// console.log(response.data.data)
 		commit('updateCouponData', response.data.data)
@@ -191,7 +191,7 @@ export const applyCoupon = async ({ commit }, items) =>{
 
 export const applyCustomerDiscount = async ({ commit }, items) =>{
 	// console.log(items)
-	await axios.post('api/admin/user/customer-discounts', items).then((response) => {
+	await axios.post('api/v1/admin/user/customer-discounts', items).then((response) => {
 		// console.log(response.data.data)
 		commit('updateDiscountData', response.data.data)
 		return Promise.resolve()
@@ -214,7 +214,7 @@ export const setUserDiscountPriviledge = async ({ commit }, items) =>{
 
 export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
 	// console.log(items)
-	await axios.get('api/admin/user/permission/discounts').then((response) => {
+	await axios.get('api/v1/admin/user/permission/discounts').then((response) => {
 		// console.log(response.data)
 		commit('setUsersWithDiscountPriviledge', response.data)
 		return Promise.resolve()
@@ -227,7 +227,7 @@ export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
 
 export const signInaUserWithDiscountPriviledge = async ({ commit }, items) =>{
 	// console.log(items)
-	await axios.post('api/admin/user/permission/authorize', items).then((response) => {
+	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
 		// console.log(response.data.data)
 		commit('setSignedInaUserWithDiscountPriviledge', response.data.data)
 		return Promise.resolve()
