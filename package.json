@@ -41,12 +41,8 @@
     "v-offline": "^1.2.1",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.3",
-    "vue-gallery": "^2.0.1",
-    "vue-gallery-slideshow": "^1.5.0",
     "vue-ravepayment": "^2.0.2",
-    "vue-runtime-helpers": "^1.1.2",
-    "vuex-persist": "^2.2.0",
-    "vuex-persistedstate": "^3.0.1"
+    "vue-runtime-helpers": "^1.1.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.6.0",

@@ -43,9 +43,6 @@ import users from './modules/admin/users'
 
 import roles from './modules/admin/roles'
 
-import createPersistedState from 'vuex-persistedstate'
-
-import VuexPersist from 'vuex-persist';
 
 export default new Vuex.Store({
 	state,
