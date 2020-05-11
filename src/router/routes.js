@@ -92,22 +92,6 @@ const routes = [
     ]
   },
   {
-    path: '/admin/recent',
-    component: () => import('layouts/Admin.vue'),
-    children: [
-      { path: '', 
-        name: 'admin-recent', 
-        component: () => import('pages/Admin/RecentTransactions.vue'),
-        meta: {
-          middleware:[
-            isElectron,
-            desktopAuth
-          ]
-        },
-      }
-    ]
-  },
-  {
     path: '/admin/inbox',
     component: () => import('layouts/Admin.vue'),
     children: [
