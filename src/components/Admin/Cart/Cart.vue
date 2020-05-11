@@ -37,11 +37,9 @@
                     <td data-label="Unit">₦ {{item.amount}}</td>
                     <td data-label="Amount">₦ {{item.amount * item.quantity}}</td>
                 </tr>
-
-                <!-- {{userDiscountPriviledge}} -->
                 <tr>
                 	<td colspan="4">
-						<template v-if="userDiscountPriviledge != null">
+						<template v-if="userDiscountPrivilege == true">
 					    	<q-card-actions align="left">
 							    <div class="q-px-sm row no-wrap items-center">
 							    	<div class="col-3">
@@ -322,7 +320,7 @@ export default {
 			packageHomeOfficeCount: 'adminShopping/packageHomeOfficeCount',
 			locations: 'location/locations',
 			addresses: 'address/addresses',
-			userDiscountPriviledge: 'adminShopping/userDiscountPriviledge',
+			userDiscountPrivilege: 'adminShopping/userDiscountPrivilege',
 			discountDetails: 'adminShopping/discountDetails',
 			setDefaultDiscountToZero: 'adminShopping/setDefaultDiscountToZero',
         }),
@@ -343,8 +341,8 @@ export default {
 			getAddresses: 'address/getAddresses',
 			applyDiscount: 'adminShopping/applyCustomerDiscount',
 			resetDiscount: 'adminShopping/applyResetDiscount',
-			setUserDiscountPriviledge: 'adminShopping/setUserDiscountPriviledge',
-			getUsersWithDiscountPriviledge: 'adminShopping/getUsersWithDiscountPriviledge',
+			setUserDiscountPrivilege: 'adminShopping/setUserDiscountPrivilege',
+			getUsersWithDiscountPrivilege: 'adminShopping/getUsersWithDiscountPrivilege',
 			defaultDiscountOnWeb: 'adminShopping/defaultDiscountOnWeb',
 			defaultDiscountToZeroOnLocationManagerApp: 'adminShopping/defaultDiscountToZeroOnLocationManagerApp',
 		}),
@@ -417,10 +415,10 @@ export default {
 				return this.negativeNotification('please your amount should not be more than total amount ' + this.cartTotal)
 			}
 
-			if(this.userDiscountPriviledge == null || this.userDiscountPriviledge == []){
+			if(this.userDiscountPrivilege == null || this.userDiscountPrivilege == []){
 				var user_discount_operator_id = this.user.id
 			}else{
-				var user_discount_operator_id = this.userDiscountPriviledge.id
+				var user_discount_operator_id = this.userDiscountPrivilege.id
 			}
 
 			this.applyDiscount({
@@ -472,13 +470,11 @@ export default {
 	mounted(){
 
 		if(this.$can('create', 'discounts')){
-			this.setUserDiscountPriviledge(this.user)
+			this.setUserDiscountPrivilege(true)
+		}else{
+			this.setUserDiscountPrivilege(false)
 		}
-
-		if(this.userDiscountPriviledge != null){
-			this.signInDiscountModal = false
-		}
-		this.getUsersWithDiscountPriviledge()
+		this.getUsersWithDiscountPrivilege()
 
 
 		// if(Platform.is.electron){

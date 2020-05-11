@@ -10,6 +10,6 @@ export default{
 	amountDiscount : 0,
 	couponDetails: null,
 	discountDetails: null,
-	userDiscountPriviledge: null,
-	usersWithDiscountPriviledge: [],
+	userDiscountPrivilege: null,
+	usersWithDiscountPrivilege: [],
 }

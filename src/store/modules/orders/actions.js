@@ -80,3 +80,4 @@ export const payAtLocation = ({ commit }, item) =>{
 export const storeOrder = ({ commit, dispatch, rootState }, order) =>{
 	commit('setOrder', order)
 }
+

@@ -115,16 +115,17 @@ export const applyResetDiscount = async ({ commit }) =>{
 	return commit('applyResetDiscountData')
 }
 
-export const setUserDiscountPriviledge = async ({ commit }, items) =>{
+export const setUserDiscountPrivilege = async ({ commit }, items) =>{
 	// console.log(items)
-	return commit('setUserDiscountPriviledge', items)
+	return commit('setUserDiscountPrivilege', items)
 }
 
-export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
+
+export const signInaUserWithDiscountPrivilege = async ({ commit }, items) =>{
 	// console.log(items)
-	await axios.get('api/v1/admin/user/permission/discounts').then((response) => {
-		// console.log(response.data)
-		commit('setUsersWithDiscountPriviledge', response.data)
+	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
+		// console.log(response.data.data)
+		commit('setSignedInaUserWithDiscountPrivilege', response.data)
 		return Promise.resolve()
 	}).catch((error) => {
 		// console.log(error.response.data)
@@ -133,11 +134,23 @@ export const getUsersWithDiscountPriviledge = async ({ commit }) =>{
     }) 
 }
 
-export const signInaUserWithDiscountPriviledge = async ({ commit }, items) =>{
+export const getUsersWithDiscountPrivilege = async ({ commit }) =>{
 	// console.log(items)
-	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
-		// console.log(response.data.data)
-		commit('setSignedInaUserWithDiscountPriviledge', response.data)
+	await axios.get('api/v1/admin/user/permission/discounts').then((response) => {
+		// console.log(response.data)
+		commit('setUsersWithDiscountPrivilege', response.data)
+		return Promise.resolve()
+	}).catch((error) => {
+		// console.log(error.response.data)
+        // commit('updateDiscountData', null)
+        return Promise.reject()
+    }) 
+}
+
+export const getUsersWithRight = async ({ commit }, item) =>{
+	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
+		console.log(response.data)
+		commit('setUsersWithDiscountPrivilege', response.data)
 		return Promise.resolve()
 	}).catch((error) => {
 		// console.log(error.response.data)

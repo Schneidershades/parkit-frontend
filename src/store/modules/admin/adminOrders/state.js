@@ -6,4 +6,9 @@ export default{
 	orderDetails:[],
 	paymentDetails:[],
 	paymentTimeout :null,
+	userDiscountPrivilege: null,
+	usersWithDiscountPrivilege: [],
+	editPrivilege: null,
+	deletePrivilege: null,
+	usersWithRights: null,
 }

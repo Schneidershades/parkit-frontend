@@ -111,6 +111,7 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
+                online: 'auth/onlineStatus',
             }),
         },
             
@@ -120,6 +121,10 @@
             }),
 
             submitRequest(){
+            	if(this.online === false ){
+            		return this.negativeNotification('you must be connected to the internet to proceed')
+            	}
+
                 this.sendRequest(this.form).then((res) => {
                     this.positiveNotification('your request has been sent')
                 }).catch((error) => {

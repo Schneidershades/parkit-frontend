@@ -2,6 +2,7 @@
 	<q-layout view="hHh lpR lfr">
         <q-header bordered  style="background-color:white; height:100px;">
             <q-toolbar class="q-pl-xl text-primary">
+
             	<q-btn
                     flat
                     dense
@@ -10,20 +11,28 @@
                     icon="menu"
                     aria-label="Menu"
                     class="lt-xl"
-                    />
+                />
+
                 <q-toolbar-title>
                     <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
                 </q-toolbar-title>
-                <!-- <q-space /> -->
+
+
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
                         <q-btn color="purple" icon="home" class="q-ma-sm" :label="presentLocation" />
-                        <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" />
+                        <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" v-bind:disabled="online === true || online === null ? false : true"/>                        
+
+                        <q-btn color="black" v-if="online==false" ><offline @detected-condition="handleConnectivityChange"></offline>Offline</q-btn>
+                        <q-btn color="green"  v-if="online==true"><offline @detected-condition="handleConnectivityChange"></offline>Online</q-btn>
+                        <q-btn color="orange"  v-if="online==null"><offline @detected-condition="handleConnectivityChange"></offline>Connected</q-btn>
+                        
                         <template v-if="cart.length">
                             <q-btn color="primary"  :label="carTotalLength"  />
                         </template>
                     </template>
                 </div>
+
                 <div  @click="right = !right" class="lt-md" id="total_charges_fab" style="display: block; position: fixed; top: 100px; right: 18px; z-index: 1;">
                     <q-btn size="12px" unelevated class="q-px-xl" color="primary" :label="carTotalLength"/>
                 </div>
@@ -64,15 +73,6 @@
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>Invoice</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/recent">
-                        <q-item-section avatar>
-                            <q-icon name="history" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Recent</q-item-label>
                         </q-item-section>
                     </q-item>
                     <q-item clickable to="/admin/history">
@@ -137,23 +137,7 @@
                         </q-item-section>
                     </q-item>
 
-                    <q-item clickable to="/admin/users">
-                        <q-item-section avatar>
-                            <q-icon name="people" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Users</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/roles">
-                        <q-item-section avatar>
-                            <q-icon name="scatter_plot" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Roles & Permissions</q-item-label>
-                        </q-item-section>
-                    </q-item>
+                    
                 </template>
 
                 
@@ -172,6 +156,7 @@
                 </template>
 
                 <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+
                     <q-item-label header>Accounts</q-item-label>
 
                     <q-item clickable to="/admin/account">
@@ -180,6 +165,30 @@
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>Account</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+
+                    <q-item-label header>Users</q-item-label>
+
+                    <q-item clickable to="/admin/users">
+                        <q-item-section avatar>
+                            <q-icon name="people" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Users</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
+
+                    <q-item-label header>Roles</q-item-label>
+
+                    <q-item clickable to="/admin/roles">
+                        <q-item-section avatar>
+                            <q-icon name="scatter_plot" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Roles & Permissions</q-item-label>
                         </q-item-section>
                     </q-item>
                 </template>
@@ -203,12 +212,11 @@
 
 <script>
     import CartDrawer from 'components/Cart/CartDrawer.vue'
-
     import { getPersistedState } from '../store/modules/auth/statemapper.js';
-
     import { mapActions, mapGetters } from 'vuex'
+    import { Notify } from 'quasar'
     import offline from 'v-offline'
-    import ConnectionLight from 'components/Connectivity/Connectivity.vue'
+    // import ConnectionLight from 'components/Connectivity/Connectivity.vue'
 
     export default {
         name: 'Admin',
@@ -251,30 +259,38 @@
 
         methods:{
             ...mapActions({
+                removeProductFromCart: 'adminShopping/removeProductFromCart',
+                removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
+                signOutAction: 'auth/signOut',
                 connectOnline: 'auth/onlineStatus',
-                // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
             }),
+
+            signOut(){
+                this.signOutAction().then(() => {
+                    return this.$router.push({name: 'adminLogin'})
+                })
+            },
 
             handleConnectivityChange(status) {
                 console.log(status);
 
                 if(status == true){                    
-                    return this.positiveNotification('You are now online')
+                    this.positiveNotification('You are now online')
                 }
                 if(status == false){
-                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                    this.negativeNotification('You are offline. Please connect to an available internet')
                 }
 
-                // this.connectOnline(status).then((res) => {
+                this.connectOnline(status).then((res) => {
                         
-                // }).catch((error) => {
-                //     // console.log(error)
-                //     // this.disable = false 
-                //     // this.errorMessages = error
-                //     // if(error){
-                //     //     this.negativeNotification(error.error)
-                //     // }
-                // })
+                }).catch((error) => {
+                    // console.log(error)
+                    // this.disable = false 
+                    // this.errorMessages = error
+                    // if(error){
+                    //     this.negativeNotification(error.error)
+                    // }
+                })
                 
                 
             },
@@ -304,30 +320,14 @@
             this.authenticated
             // console.log('cwcw', getPersistedState())
             if (!this.$store.initialized) {
-              
-              getPersistedState().then(persistedState => {
-                this.$store.commit('initialize', persistedState);
-                console.log('hooooooooooo', persistedState)
-              })
-              .catch(error => {
-                // tsk tsk... handle this error too
-              });
+                getPersistedState().then(persistedState => {
+                    this.$store.commit('initialize', persistedState);
+                    console.log('hooooooooooo', persistedState)
+                })
+                .catch(error => {
+                    // tsk tsk... handle this error too
+                });
             }
         },
-
-
-        methods:{
-            ...mapActions({
-              removeProductFromCart: 'adminShopping/removeProductFromCart',
-              removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
-              signOutAction: 'auth/signOut'
-            }),
-
-            signOut(){
-                this.signOutAction().then(() => {
-                    return this.$router.push({name: 'adminLogin'})
-                })
-            }
-        }
     }
 </script>

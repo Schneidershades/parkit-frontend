@@ -19,3 +19,15 @@ export const paymentTimeout = (state) => {
 export const receiptNumber = (state) => {
 	return state.receiptOrderNumber
 }
+
+export const editPrivilege = (state) => {
+	return state.editPrivilege 
+}
+
+export const deletePrivilege = (state) => {
+	return state.deletePrivilege 
+}
+
+export const usersWithRights = (state) => {
+	return state.usersWithRights 
+}

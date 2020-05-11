@@ -1,13 +1,14 @@
 <template>
-    <q-card flat style="width: 500px; max-width: 80vw;" class="q-pa-md">
+    <q-card flat style="width: 500px; max-width: 80vw;" class="q-pa-md" v-if="deletePrivilege==null || deletePrivilege==false ">
+        <!-- {{deletePrivilege}} -->
         <q-card-section>
-            <div class="text-h6 text-center">Authorize Discounts</div>
+            <div class="text-h6 text-center">Delete Order Request</div>
             <q-card-actions align="center">
                 <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
             </q-card-actions> 
            
         </q-card-section>
-        <!-- <q-separator /> -->
+
         <q-card-section style="max-height: 50vh" class="scroll" v-if="online === true || online === null">
             <q-select 
                 filled 
@@ -34,9 +35,12 @@
                 </template>
             </q-input>
         </q-card-section>
+
         <q-card-section style="max-height: 50vh" class="scroll" v-else>
             please connect to an internet
         </q-card-section>
+
+
         <q-separator />
 
         <q-card-actions align="center">
@@ -57,32 +61,30 @@
                 form:{
                     username: null,
                     password: '',
-                    permission: 'create_discounts',
+                    permission: 'edit_orders',
                 },
-
                 usernames: [],
-
                 isPwd: true,     
             }
         },computed: {
             ...mapGetters({
                 message: 'message',
-                usersWithDiscountPrivilege: 'adminShopping/usersWithDiscountPrivilege',
+                usersWithRights: 'adminOrders/usersWithRights',
+                deletePrivilege: 'adminOrders/deletePrivilege',
                 online: 'auth/onlineStatus',
             })
         },
             
         methods:{
             ...mapActions({
-                login: 'shopping/signInaUserWithDiscountPrivilege',
-                getUserPrivilege: 'adminShopping/getUsersWithDiscountPrivilege',
-                getUsersWithRight: 'adminShopping/getUsersWithRight',
+                login: 'adminOrders/signInaUserWithDeletePrivilege',
+                getRight: 'adminOrders/getUsersWithRight',
             }),
 
             loginUser(){
                 if( this.form.username != '' && this.form.password != '' && this.form.permission != ''){
                     this.login(this.form).then((res) => {
-                        this.positiveNotification('Welcome!! you can now create discount')
+                        this.positiveNotification('Welcome!! you can now edit an order')
                     }).catch((error) => {
                         console.log(error)
                         this.errorMessages = error
@@ -94,8 +96,6 @@
                     this.negativeNotification('All fields are required')
                 }
             },
-
-            
 
             positiveNotification(message){
                 Notify.create({
@@ -118,8 +118,8 @@
             },
         }, 
         mounted(){
-            if(this.getUsersWithRight('create_discounts')){
-                this.usernames = this.usersWithDiscountPrivilege
+            if(this.getRight('delete_orders')){
+                this.usernames = this.usersWithRights
             }
         }
     }

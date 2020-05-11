@@ -47,3 +47,28 @@ export const setUpdateOrderDetails = (state, order) =>{
 	}
 
 }
+
+export const setUsersWithRight = (state, data) => {
+	state.usersWithRights = data
+	return 
+}
+
+export const setCurrentUserEditRight = (state, data) => {
+	state.editPrivilege = data
+	return 
+}
+
+export const setCurrentUserDeleteRight = (state, data) => {
+	state.deletePrivilege = data
+	return 
+}
+
+export const setSignedInaUserWithEditPrivilege = (state, data) =>{
+	state.editPrivilege = data
+	return 
+}
+
+export const setSignedInaUserWithDeletePrivilege = (state, data) => {
+	state.deletePrivilege = data
+	return 
+}

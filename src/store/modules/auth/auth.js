@@ -239,7 +239,7 @@ export default ({
 		},
 
 		onlineStatus({ commit, rootState }, credentials){
-	        dispatch('SET_ONLINE_STATUS', credentials)
+	        commit('SET_ONLINE_STATUS', credentials)
 		},
 	},
 })

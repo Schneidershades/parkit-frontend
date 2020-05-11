@@ -7,8 +7,8 @@
 			</q-breadcrumbs>
 		</div>
 
-		{{couponDetails}}
-		{{connectOnline}}
+		<!-- {{couponDetails}}
+		{{connectOnline}} -->
 
 		<div class="q-pa-md">
 			<div class="q-gutter-y-md">
@@ -300,7 +300,7 @@
               	checkPlateNumber: 'customerPlateNumbers/plateNumber',
                 newPhoneNumber: 'auth/phone',
                 cart: 'adminShopping/cart',
-				userDiscountPriviledge: 'adminShopping/userDiscountPriviledge',
+				userDiscountPrivilege: 'adminShopping/userDiscountPrivilege',
 				discount: 'adminShopping/discount',
 				discountDetails: 'adminShopping/discountDetails',
 				couponDetails: 'adminShopping/couponDetails',

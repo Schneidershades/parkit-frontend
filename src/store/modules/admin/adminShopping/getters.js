@@ -94,13 +94,13 @@ export const packageHomeOfficeCount = (state) =>{
 	return count
 }
 
-export const userDiscountPriviledge = (state) =>{
-	return state.userDiscountPriviledge
+export const userDiscountPrivilege = (state) =>{
+	return state.userDiscountPrivilege
 }
 
 
-export const usersWithDiscountPriviledge = (state) =>{
-	return state.usersWithDiscountPriviledge
+export const usersWithDiscountPrivilege = (state) =>{
+	return state.usersWithDiscountPrivilege
 }
 
 export const discountDetails = (state) =>{

@@ -5,7 +5,6 @@
 				<div class="row">
 					<q-card square bordered class="q-pa-lg shadow-1" style="width:400px ">
 						<q-card-section>
-
 							<q-card-actions align="center">
 				                <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
 				            </q-card-actions> 
@@ -136,7 +135,6 @@
                 if(status == false){
                     return this.negativeNotification('You are offline. Please connect to an available internet')
                 }
-                
             },
 
            loginUser(){

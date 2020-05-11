@@ -127,20 +127,19 @@ export const applyResetDiscountData = (state) => {
 	return 
 }
 
-export const setUserDiscountPriviledge = (state, data) => {
-	console.log(data)
-	state.userDiscountPriviledge = data
+export const setUserDiscountPrivilege = (state, data) => {
+	state.userDiscountPrivilege = data
 	return 
 }
 
-export const setUsersWithDiscountPriviledge = (state, data) => {
-	state.usersWithDiscountPriviledge = data
+export const setUsersWithDiscountPrivilege = (state, data) => {
+	state.usersWithDiscountPrivilege = data
 	return 
 }
 
 
-export const setSignedInaUserWithDiscountPriviledge = (state, data) => {
-	state.userDiscountPriviledge = data
+export const setSignedInaUserWithDiscountPrivilege = (state, data) => {
+	state.userDiscountPrivilege = data
 	return 
 }
 

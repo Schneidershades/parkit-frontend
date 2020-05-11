@@ -133,19 +133,16 @@ export const applyResetDiscountData = (state) => {
 	return 
 }
 
-export const setUserDiscountPriviledge = (state, data) => {
-	state.userDiscountPriviledge = data
+
+
+export const setUsersWithDiscountPrivilege = (state, data) => {
+	state.usersWithDiscountPrivilege = data
 	return 
 }
 
-export const setUsersWithDiscountPriviledge = (state, data) => {
-	state.usersWithDiscountPriviledge = data
-	return 
-}
 
-
-export const setSignedInaUserWithDiscountPriviledge = (state, data) => {
-	state.userDiscountPriviledge = data
+export const setSignedInaUserWithDiscountPrivilege = (state, data) => {
+	state.userDiscountPrivilege = data
 	return 
 }
 
@@ -161,5 +158,10 @@ export const setDefaultDiscountOnWeb = (state, data) => {
 	state.discountDetails = []
 	state.percentageDiscount = data ? data : 0
 
+	return 
+}
+
+export const setUserDiscountPrivilege = (state, data) => {
+	state.userDiscountPrivilege = data
 	return 
 }

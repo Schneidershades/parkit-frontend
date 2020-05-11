@@ -250,7 +250,7 @@
                 newPhoneNumber: 'auth/phone',
                 plateVehicleDetails: 'plateNumber/plateNumberDetails',
                 cart: 'shopping/cart',
-				userDiscountPriviledge: 'shopping/userDiscountPriviledge',
+				userDiscountPrivilege: 'shopping/userDiscountPrivilege',
 				discount: 'shopping/discount',
 				discountDetails: 'shopping/discountDetails',
 				allTransactions: 'onlineTransaction/allTransactions',

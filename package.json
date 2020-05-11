@@ -25,7 +25,7 @@
   "dependencies": {
     "@casl/ability": "^3.4.0",
     "@casl/vue": "^0.5.1",
-    "@quasar/extras": "^1.6.0",
+    "@quasar/extras": "^1.7.0",
     "apexcharts": "^3.19.0",
     "axios": "^0.19.2",
     "core-js": "^2.6.11",
@@ -36,7 +36,7 @@
     "localforage-getitems": "^1.4.2",
     "print-js": "^1.0.63",
     "printd": "^1.4.1",
-    "quasar": "^1.9.12",
+    "quasar": "^1.10.5",
     "rave-javascript-sdk": "^1.0.4",
     "v-offline": "^1.2.1",
     "vue": "^2.6.11",
@@ -45,7 +45,7 @@
     "vue-runtime-helpers": "^1.1.2"
   },
   "devDependencies": {
-    "@quasar/app": "^1.6.0",
+    "@quasar/app": "^1.8.5",
     "devtron": "^1.4.0",
     "dotenv": "^8.2.0",
     "electron": "^7.1.7",

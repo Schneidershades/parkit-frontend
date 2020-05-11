@@ -3,4 +3,6 @@ export default{
 	orderDetails:[],
 	paymentDetails:[],
 	paymentTimeout :null,
+	editPrivilege :null,
+	deletePrivilege :null,
 }

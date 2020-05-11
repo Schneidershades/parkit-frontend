@@ -112,3 +112,58 @@ export const processRequest = ({ state, commit, dispatch, rootState }, order) =>
 	commit('setUpdateOrderDetails', order)
 	LocalStorage.set('orders', JSON.stringify(state.orders))
 }
+
+
+export const setCurrentUserEditRight = async ({ commit }, items) =>{
+	return commit('setCurrentUserEditRight', items)
+}
+
+export const setCurrentUserDeleteRight = async ({ commit }, items) =>{
+	return commit('setCurrentUserDeleteRight', items)
+}
+
+export const signInaUserWithEditPrivilege = async ({ commit }, items) =>{
+	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
+		commit('setSignedInaUserWithEditPrivilege', true)
+		return Promise.resolve()
+	}).catch((error) => {
+        return Promise.reject()
+    }) 
+}
+
+export const signInaUserWithDeletePrivilege = async ({ commit }, items) =>{
+	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
+		commit('setSignedInaUserWithDeletePrivilege', true)
+		return Promise.resolve()
+	}).catch((error) => {
+        return Promise.reject()
+    }) 
+}
+
+
+
+export const getUsersWithRight = async ({ commit }, item) =>{
+	// console.log(items)
+	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
+		console.log(response.data)
+		commit('setUsersWithRight', response.data)
+		return Promise.resolve()
+	}).catch((error) => {
+		// console.log(error.response.data)
+        // commit('updateDiscountData', null)
+        return Promise.reject()
+    }) 
+}
+
+export const getUserDeletePrivilege = async ({ commit }, item) =>{
+	// console.log(items)
+	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
+		// console.log(response.data)
+		commit('setUserDeletePrivilege', response.data)
+		return Promise.resolve()
+	}).catch((error) => {
+		// console.log(error.response.data)
+        // commit('updateDiscountData', null)
+        return Promise.reject()
+    }) 
+}
