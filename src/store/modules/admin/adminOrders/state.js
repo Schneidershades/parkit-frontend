@@ -11,4 +11,5 @@ export default{
 	editPrivilege: null,
 	deletePrivilege: null,
 	usersWithRights: null,
+	freeWash: null,
 }

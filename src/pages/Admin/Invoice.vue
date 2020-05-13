@@ -1,6 +1,6 @@
 <template>
 	<q-page padding>
-		<div class="q-pa-md q-gutter-sm">
+		<div class="q-pa-md q-gutter-sm print-hide" >
 			<q-breadcrumbs>
 				<q-breadcrumbs-el label="Home" />
 				<q-breadcrumbs-el label="Invoice"/>
@@ -10,7 +10,54 @@
 		<!-- {{couponDetails}}
 		{{connectOnline}} -->
 
-		<div class="q-pa-md">
+		<div id="ticketPrinter">
+			<div class="ticket print-only" v-if="order">
+
+				<q-card-actions align="center">
+		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+		        </q-card-actions>
+
+		        <div class="q-py-sm">
+		        	<b>Location : {{order.location ? order.location.code : ''}} -  {{order.location ? order.location.address : ''}}<br>
+					Phone   : +234-903-152-6466 <br> 
+					Email   : info@parkit.ng<br>
+					Website   : www.parkit.ng<br></b>
+				</div>
+				<div class="q-py-sm">
+					<b>Bill ID   : {{order.receipt_number}}<br>
+					Date   : {{order.date}}<br>
+					Time   : {{order.time}}<br>
+					Cashier   : {{order.cashier}}<br>
+					To   : {{order.vehicle.first_name}} {{order.vehicle.last_name}}<br>
+					Transaction ID   : {{order.vehicle.plate_number}}<br>
+					Payment Method   : {{order.payment_method == 'not_paid' ? 'Not Paid' : ''}}
+					{{order.payment_method == 'pos' ? 'POS' : ''}}
+					{{order.payment_method == 'cash' ? 'Cash' : ''}}
+					{{order.payment_method == 'transfer' ? 'Transfer' : ''}}
+
+					<br></b>
+		        </div>
+		       		
+				<div class="text-h6">Items</div>
+				
+				<div class="q-py-sm" v-for="item in order.packages">
+					<p>
+						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
+					</p>
+				</div>
+				<div class="q-py-sm"  align="right">
+					<b>Sub-total: ₦{{order.sub_total}}<br>
+					Discount: ₦ {{order.discount==null ? order.discount : '0.00'}}
+					<br>
+					Total: ₦ {{order.total}}</b>
+					<br><br><br><br>
+					<hr>
+					
+				</div>
+			</div>
+	    </div>
+
+		<div class="q-pa-md print-hide" >
 			<div class="q-gutter-y-md">
 			    <q-stepper
 			      v-model="step"
@@ -78,7 +125,7 @@
 	                        </div> 
                         </q-form>
 
-                        <template v-if="checkPlateNumber">
+                        <template v-if="order.vehicle.plate_number != null">
                         	<q-form
 	                            @submit="updateUser"
 	                            class="q-gutter-md q-pt-xl"
@@ -166,7 +213,7 @@
                         </template>
 
                         <q-stepper-navigation >
-				          	<q-btn v-if="checkPlateNumber && readonly==true" @click="step = 4" color="primary" label="Continue" />
+				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true" @click="step = 4" color="primary" label="Continue" />
 				          	<q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
 				        </q-stepper-navigation> 
 			      </q-step>
@@ -183,6 +230,7 @@
 					      <q-radio v-model="order.payment_method" val="pos" label="POS Machine" />
 					      <q-radio v-model="order.payment_method" val="cash" label="Cash" />
 					      <q-radio v-model="order.payment_method" val="transfer" label="Bank Transfer" />
+					      <q-radio v-model="order.payment_method" val="free" label="Free" />
 					    </div>
 					</div>
 
@@ -199,6 +247,11 @@
 			        title="Print Invoice"
 			        icon="print"
 			      >
+
+
+			      	<!-- {{printData}} -->
+			      	<!-- <Receipt/> -->
+					
 			        
 
 			        <q-stepper-navigation>
@@ -211,6 +264,56 @@
 	</q-page>
 </template>
 
+<style scoped>
+	@page { margin: 0; }
+	.ticket {
+	    font-size: 9px;
+	    margin:0;
+	}
+
+	td,
+	th,
+	tr,
+	table {
+	    border-top: 1px solid black;
+	    border-collapse: collapse;
+	}
+
+	td.description,
+	th.description {
+	    width: 75px;
+	    max-width: 75px;
+	}
+
+	td.quantity,
+	th.quantity {
+	    width: 40px;
+	    max-width: 40px;
+	    word-break: break-all;
+	}
+
+	td.price,
+	th.price {
+	    width: 40px;
+	    max-width: 40px;
+	    word-break: break-all;
+	}
+
+	.centered {
+	    text-align: center;
+	    align-content: center;
+	}
+
+	.ticket {
+	    width: 200px;
+	    max-width: 155px;
+	}
+
+	@page{
+		margin:0cm;
+	}
+
+</style>
 
 <script>
     
@@ -219,6 +322,12 @@
   	import PackageTabList from 'components/Admin/Tabs/PackageTabList.vue'
     import Cart from 'components/Admin/Cart/Cart.vue'
 	import { date } from 'quasar'
+	import print  from 'print-js'
+	import VueHtmlToPaper from 'vue-html-to-paper';
+	const { remote } = require('electron')
+
+	const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
+	const path = require("path")
 
     export default{
     	components:{
@@ -241,7 +350,7 @@
 	                },
 	                packages: null,
 	                customer_id: this.checkPlateNumber ? this.checkPlateNumber.user.id : null,
-					location_id: "",
+					location: null,
 					discount: null,
 					coupon: null,
 	                payment_method: 'not_paid',
@@ -306,6 +415,7 @@
 				couponDetails: 'adminShopping/couponDetails',
 				receiptNo: 'adminOrders/receiptNumber',
 				subTotal: 'adminShopping/subTotal',
+                online: 'auth/onlineStatus',
             }),
         },
             
@@ -318,15 +428,23 @@
 
             beginStep(){
             	this.step = 1
+
+				this.order.vehicle.id = ''
+    			this.order.vehicle.email = ''
+        		this.order.vehicle.plate_number = ''
+	            this.order.vehicle.phone = ''
+	            this.order.vehicle.first_name = ''
+	            this.order.vehicle.last_name = ''
+	            this.order.vehicle.vehicle_type = ''
+	            this.order.vehicle.vehicle_model = ''  	
             },
 
             placeOrder(){
-            	// console.log(this.order)
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
 	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
-	        	this.order.location_id = this.user.location.id
+	        	this.order.location = this.user.location
 	        	this.order.total = this.cartTotal
 	        	this.order.cashier = this.user.firstName
 	        	this.order.discount = this.discountDetails
@@ -335,7 +453,14 @@
 
 				this.placeCustomerOrder(this.order).then((response) => {
 					this.step = 5
-					// this.$router.push({name: 'userOrderShow'})      		
+					remote.getCurrentWebContents().print({silent:true, copies : 2})
+
+		   //  		var printContents = document.getElementById('ticket').innerHTML;
+					// var originalContents = document.body.innerHTML;
+					// document.body.innerHTML = printContents;
+					// window.print();
+					// document.body.innerHTML = originalContents;
+
 	            }).catch((error) => {
 	                console.log(error)
 	                if(this.errorMessage){

@@ -17,6 +17,12 @@ export const setPlateNumber = (state, plateNumber) =>{
 		email: item ? item.email : null, 
 	}
 
+	if (item.freeWash == true){
+		state.freeWash = true
+	}else{
+		state.freeWash = false
+	}
+
 	state.plateNumber = details
 }
 

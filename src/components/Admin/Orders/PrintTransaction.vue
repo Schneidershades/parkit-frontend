@@ -122,7 +122,7 @@ export default {
 				{
 			      type: 'text',                                       // 'text' | 'barCode' | 'qrCode' | 'image'
 			      value: 'SAMPLE HEADING',
-			      style: `text-align:center;`,
+			      style: `text-align:left;`,
 			      css: {"font-weight": "700", "font-size": "18px"}
 			   }
 			]
@@ -136,11 +136,11 @@ export default {
 
     methods: {
     	pr(){
-    		PosPrinter.print(this.data, this.options)
-			 .then(() => {})
-			 .catch((error) => {
-			    console.error(error);
-			  });
+    // 		PosPrinter.print(this.data, this.options)
+			 // .then(() => {})
+			 // .catch((error) => {
+			 //    console.error(error);
+			 //  });
 
 
     		// remote.getCurrentWebContents().print()

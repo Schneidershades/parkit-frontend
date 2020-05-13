@@ -1,6 +1,6 @@
 <template>
 	<q-layout view="hHh lpR lfr">
-        <q-header bordered  style="background-color:white; height:100px;">
+        <q-header bordered  style="background-color:white; height:100px; " class="print-hide">
             <q-toolbar class="q-pl-xl text-primary">
 
             	<q-btn
@@ -41,7 +41,7 @@
 
 
 
-        <q-drawer v-model="right" side="right"  behavior="mobile" bordered>
+        <q-drawer v-model="right" side="right"  behavior="mobile" bordered class="print-hide">
           <CartDrawer/>
         </q-drawer>
 
@@ -51,7 +51,7 @@
             show-if-above
             bordered
             content-class="bg-white-2"
-            class="lt-xl"
+            class="lt-xl print-hide"
             >
             
             <q-list>
@@ -266,6 +266,11 @@
             }),
 
             signOut(){
+
+                if(this.online === false ){
+                    return this.negativeNotification('you must be connected to the internet to proceed')
+                }
+                
                 this.signOutAction().then(() => {
                     return this.$router.push({name: 'adminLogin'})
                 })

@@ -2,7 +2,12 @@ import Vue from 'vue'
 
 import Vuex from 'vuex'
 
+import VueHtmlToPaper from 'vue-html-to-paper';
+
 Vue.use(Vuex)
+
+Vue.use(VueHtmlToPaper);
+
 
 
 import state from './state'

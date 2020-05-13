@@ -323,6 +323,7 @@ export default {
 			userDiscountPrivilege: 'adminShopping/userDiscountPrivilege',
 			discountDetails: 'adminShopping/discountDetails',
 			setDefaultDiscountToZero: 'adminShopping/setDefaultDiscountToZero',
+            online: 'auth/onlineStatus',
         }),
         
         carTotalLength(){
@@ -371,6 +372,10 @@ export default {
 	    },
 
 	    simulateSubmit () {
+	    	if(this.online === false ){
+        		return this.negativeNotification('you must be connected to the internet to proceed')
+        	}
+        	
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
             }).catch((error) => {
@@ -397,6 +402,10 @@ export default {
 			// if (!this.$can('create', 'discounts')){
 			// 	return this.negativeNotification('You are not authorized to give discounts at this moment')
 			// }
+			
+        	if(this.online === false ){
+        		return this.negativeNotification('you must be connected to the internet to proceed')
+        	}
 			
 			if(type == 'percentage' && parseInt(number) > 0 ){
 				this.number.amount = 0

@@ -1,16 +1,59 @@
 <template>
 	<q-page padding>
-      	<div class="q-pa-md q-gutter-sm">
+      	<div class="q-pa-md q-gutter-sm print-hide">
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Orders"/>
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <!-- {{action}} -->
-	    <!-- {{editPrivilege}} -->
+	    <div id="ticketPrinter" v-if="orderDetails">
+			<div class="ticket print-only">
+				<q-card-actions align="center">
+		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+		        </q-card-actions>
 
-	    <div class="q-pa-md">
+		        <div class="q-py-sm">
+		        	<!-- <b>Location : {{orderDetails.location.code}} - {{orderDetails.location.address}}<br> -->
+					Phone   : +234-903-152-6466 <br> 
+					Email   : info@parkit.ng<br>
+					Website   : www.parkit.ng<br></b>
+				</div>
+				<div class="q-py-sm">
+					<b>Bill ID   : {{orderDetails.receipt_number}}<br>
+					Date   : {{orderDetails.date}}<br>
+					Time   : {{orderDetails.time}}<br>
+					Cashier   : {{orderDetails.cashier}}<br>
+					<!-- Transaction ID  : {{orderDetails.vehicle.plate_number ? orderDetails.vehicle.plate_number : 'N/A' }}<br> -->
+					<!-- To   : {{orderDetails.vehicle.plate_number ? orderDetails.vehicle.plate_number : 'N/A' }}<br> -->
+					Payment Method  : {{orderDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
+					{{orderDetails.payment_method == 'pos' ? 'POS' : ''}}
+					{{orderDetails.payment_method == 'cash' ? 'Cash' : ''}}
+					{{orderDetails.payment_method == 'transfer' ? 'Transfer' : ''}}
+
+					<br></b>
+		        </div>
+		       		
+				<div class="text-h6">Items</div>
+				
+				<div class="q-py-sm" v-for="item in orderDetails.packages">
+					<p>
+						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
+					</p>
+				</div>
+				<div class="q-py-sm"  align="right">
+					<b>Sub-total: ₦{{orderDetails.sub_total}}<br>
+					Discount: ₦ {{orderDetails.discount==null ? orderDetails.discount : '0.00'}}
+					<br>
+					Total: ₦ {{orderDetails.total}}</b>
+					<br><br><br><br>
+					<hr>
+					
+				</div>
+			</div>
+	    </div>
+
+	    <div class="q-pa-md print-hide">
 		    <div class="q-gutter-y-md">
 		        <q-table
 				    title="Recent Transactions"
@@ -82,6 +125,8 @@
 					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
 				      			</template>
 
+				      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOrderTransaction(props.row)"/>
+
 				      		</q-td>
 				      	</q-tr>
 				    </template>
@@ -130,6 +175,8 @@
 				      			<template v-if="props.row.status == 'completed' ">
 					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
 				      			</template>
+
+				      			<q-btn color="purple" class="q-mx-sm" icon="print" />
 
 				      		</q-td>
 				      	</q-tr>
@@ -266,12 +313,66 @@
 </template>
 
 
+<style scoped>
+	@page { margin: 0; }
+	.ticket {
+	    font-size: 9px;
+	    margin:0;
+	}
+
+	td,
+	th,
+	tr,
+	table {
+	    border-top: 1px solid black;
+	    border-collapse: collapse;
+	}
+
+	td.description,
+	th.description {
+	    width: 75px;
+	    max-width: 75px;
+	}
+
+	td.quantity,
+	th.quantity {
+	    width: 40px;
+	    max-width: 40px;
+	    word-break: break-all;
+	}
+
+	td.price,
+	th.price {
+	    width: 40px;
+	    max-width: 40px;
+	    word-break: break-all;
+	}
+
+	.centered {
+	    text-align: center;
+	    align-content: center;
+	}
+
+	.ticket {
+	    width: 200px;
+	    max-width: 155px;
+	}
+
+	@page{
+		margin:0cm;
+	}
+
+</style>
+
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
 import Orders from 'components/Admin/Orders/Orders.vue'
 import EditRequest from 'components/Admin/Modal/EditRequest.vue'
 import DeleteRequest from 'components/Admin/Modal/DeleteRequest.vue'
+const { remote } = require('electron')
+const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
+const path = require("path")
 
 export default {
 
@@ -387,6 +488,18 @@ export default {
 			this.sendOrder(data).then((response) => {
 				this.editTransaction = true	
 				this.action.orderDetails = this.orderDetails
+            }).catch((error) => {
+                console.log(error)
+                if(this.errorMessage){
+                    this.negativeNotification('cannot process order at the moment')
+                }
+            }) 
+    	},
+
+    	printOrderTransaction(data){
+			this.sendOrder(data).then((response) => {
+				this.action.orderDetails = this.orderDetails
+				remote.getCurrentWebContents().print({silent:true, copies : 1})
             }).catch((error) => {
                 console.log(error)
                 if(this.errorMessage){
