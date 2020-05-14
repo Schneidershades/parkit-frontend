@@ -15,6 +15,7 @@
 
 				<q-card-actions align="center">
 		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+		            <i>Welcome to parkit</i>
 		        </q-card-actions>
 
 		        <div class="q-py-sm">
@@ -28,7 +29,7 @@
 					Date   : {{order.date}}<br>
 					Time   : {{order.time}}<br>
 					Cashier   : {{order.cashier}}<br>
-					To   : {{order.vehicle.first_name}} {{order.vehicle.last_name}}<br>
+					To   : {{order.vehicle.first_name ? order.vehicle.first_name : 'N/A'}} {{order.vehicle.last_name}}<br>
 					Transaction ID   : {{order.vehicle.plate_number}}<br>
 					Payment Method   : {{order.payment_method == 'not_paid' ? 'Not Paid' : ''}}
 					{{order.payment_method == 'pos' ? 'POS' : ''}}
@@ -47,12 +48,35 @@
 				</div>
 				<div class="q-py-sm"  align="right">
 					<b>Sub-total: ₦{{order.sub_total}}<br>
-					Discount: ₦ {{order.discount==null ? order.discount : '0.00'}}
+					<template v-if="order.discount!=null">
+						<template v-if="order.discount.amountDiscount != null">
+							Net-Total: ₦ {{ order.discount.amountDiscount }}
+						</template>
+						<template v-if="order.discount.percentageDiscount != null">
+							Net-Total: ₦ {{ orderdiscount.percentageDiscount/100 * orderdiscount.sub_total }}
+						</template>
+					</template>
+					<template v-if="order.coupon!=null">
+						<template v-if="order.coupon.amountDiscount != null">
+							Net-Total: ₦ {{ order.coupon.amountDiscount }}
+						</template>
+						<template v-if="order.coupon.percentageDiscount != null">
+							Net-Total: ₦ {{ order.coupon.percentageDiscount/100 * order.sub_total }}
+						</template>
+					</template>
+
+					<template v-if="order.discount==null && order.coupon==null">
+						Net-Total: ₦ 0.00
+					</template>
+					
 					<br>
 					Total: ₦ {{order.total}}</b>
-					<br><br><br><br>
+					<br><br><br>
+		            	<i>Thank you for your patronage</i>
+					<br>
+					<br><br>
+					<br>
 					<hr>
-					
 				</div>
 			</div>
 	    </div>
@@ -67,41 +91,11 @@
 			    >
 			      <q-step
 			        :name="1"
-			        title="Select Vehicle Packages"
+			        title="Process Plate Number"
 			        icon="settings"
 			        :done="step > 1"
 			      >
-			        
-            		<PackageTabList/>
-
-			        <q-stepper-navigation>
-			          <q-btn v-if="cart.length" @click="step = 2" color="primary" label="Continue" />
-			        </q-stepper-navigation>
-			      </q-step>
-
-			      <q-step
-			        :name="2"
-			        title="View Cart"
-			        caption="Customer choosen Packages"
-			        icon="create_new_folder"
-			        :done="step > 2"
-			      >
-			        <cart></cart>
-
-			        <q-stepper-navigation>
-			          <q-btn v-if="cart.length" @click="step = 3" color="primary" label="Continue" />
-			          <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
-			        </q-stepper-navigation>
-			      </q-step>
-
-			      <q-step
-			        :name="3"
-			        title="Process Plate Number"
-			        icon="assignment"
-			        :done="step > 3"
-			      >
-			        
-						<q-form
+			      		<q-form
                             @submit="submitFindVehicle"
                             class="q-gutter-md"
                             ref="form"
@@ -116,7 +110,7 @@
 	                                    label="Get Vehicle Details *"
 	                                    hint="Please insert a plate number"
 	                                    lazy-rules
-	                                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+	                                    :rules="[ val => val && val.length > 0 || 'Please type in a vehicle number']"
 	                                />
 	                            </div>
 	                            <div class="col-6 q-pl-sm">
@@ -151,7 +145,6 @@
 			                                v-model="order.vehicle.phone"
 			                                label="Phone Number"
 			                                lazy-rules
-			                                :rules="[val => !!val || '* Required', val => val && val.length > 0 || 'Please type in your phone number']"
 		                                    :value="order.vehicle.phone"
 		                                />
 		                            </div>
@@ -165,6 +158,7 @@
 		                                    :dense="dense"
 		                                    :readonly="readonly"
 		                                    :value="order.vehicle.vehicle_type"
+	                                    	:rules="[ val => val && val.length > 0 || 'Select a vehicle type']"
 		                            	/>
 		                            </div>
 		                            <div class="col-4 q-pa-sm">
@@ -210,12 +204,55 @@
 						          	<q-btn color="primary" v-if="readonly==false" type="submit" label="Save Details " />
 							    </q-card-actions>
 	                        </q-form>
+
+	                        <div class="q-gutter-sm" v-if="freeWash==true">
+	                        	<q-banner dense rounded inline-actions class="q-my-lg text-white bg-green">
+	                              	This user has a free wash
+	                            </q-banner>
+						      	<q-radio v-model="order.free_wash" val="no" v-on:click.native="useFreeWash('no')" label="Reject Free Wash" />
+						      	<q-radio v-model="order.free_wash" val="yes" v-on:click.native="useFreeWash('yes')" label="Use Free Wash" />
+
+						      	<!-- {{freeWashStatus}} -->
+						    </div>
                         </template>
 
                         <q-stepper-navigation >
-				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true" @click="step = 4" color="primary" label="Continue" />
-				          	<q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
+				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true" @click="step = 2" color="primary" label="Continue" />
 				        </q-stepper-navigation> 
+			      </q-step>
+
+			      <q-step
+			        :name="2"
+			        title="View Cart"
+			        caption="Select Vehicle Packages"
+			        icon="create_new_folder"
+			        :done="step > 2"
+			      >
+
+			        
+            		<PackageTabList/>
+
+			        <q-stepper-navigation>
+			          	<q-btn v-if="cart.length" @click="step = 3" color="primary" label="Continue" />
+				        <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
+			        </q-stepper-navigation>
+			        
+			      </q-step>
+
+			      <q-step
+			        :name="3"
+			        title="Customer choosen Packages"
+			        icon="assignment"
+			        :done="step > 3"
+			      >
+			      		<cart></cart>
+
+				        <q-stepper-navigation>
+				          <q-btn v-if="cart.length" @click="step = 4" color="primary" label="Continue" />
+				          <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
+				        </q-stepper-navigation>
+			        
+						
 			      </q-step>
 
 			      <q-step
@@ -225,12 +262,14 @@
 			        :done="step > 4"
 			      >
 			        <div class="q-pa-md">
-					    <div class="q-gutter-sm">
+					    <div class="q-gutter-sm" v-if="freeWashStatus=='yes' && freeWash == true">
+					      <q-radio v-model="order.payment_method" val="free" label="Free" />
+					    </div>
+					    <div class="q-gutter-sm" v-else >
 					      <q-radio v-model="order.payment_method" val="not_paid" label="Not Paid" />
 					      <q-radio v-model="order.payment_method" val="pos" label="POS Machine" />
 					      <q-radio v-model="order.payment_method" val="cash" label="Cash" />
 					      <q-radio v-model="order.payment_method" val="transfer" label="Bank Transfer" />
-					      <q-radio v-model="order.payment_method" val="free" label="Free" />
 					    </div>
 					</div>
 
@@ -363,6 +402,7 @@
 	                cashier: null,
 	                date: null,
 	                time: null,
+	                free_wash: 'no',
                 },
                 
                 errorMessages: [],
@@ -395,7 +435,7 @@
                 dense: true,
       			splitterModel: 20,
       			trigger: false,
-      			readonly: true,
+      			readonly: false,
             }
         },
 
@@ -416,6 +456,8 @@
 				receiptNo: 'adminOrders/receiptNumber',
 				subTotal: 'adminShopping/subTotal',
                 online: 'auth/onlineStatus',
+                freeWash: 'customerPlateNumbers/freeWash',
+                freeWashStatus: 'customerPlateNumbers/useFreeWash',
             }),
         },
             
@@ -424,6 +466,7 @@
               	sendPlatenumber: 'customerPlateNumbers/checkPlateNumber',
               	updateCustomer: 'customerPlateNumbers/updateCustomer',
 				placeCustomerOrder: 'adminOrders/storeOrder',
+				setFreeWashStatus: 'customerPlateNumbers/useFreeWash',
             }),
 
             beginStep(){
@@ -453,14 +496,7 @@
 
 				this.placeCustomerOrder(this.order).then((response) => {
 					this.step = 5
-					remote.getCurrentWebContents().print({silent:true, copies : 2})
-
-		   //  		var printContents = document.getElementById('ticket').innerHTML;
-					// var originalContents = document.body.innerHTML;
-					// document.body.innerHTML = printContents;
-					// window.print();
-					// document.body.innerHTML = originalContents;
-
+					remote.getCurrentWebContents().print({silent:true, copies : 1})
 	            }).catch((error) => {
 	                console.log(error)
 	                if(this.errorMessage){
@@ -537,6 +573,17 @@
 		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
             	today.getSeconds();
             	return time
+		    },
+
+		    useFreeWash(stats){
+		    	this.setFreeWashStatus(stats).then((response) => {
+		    		this.positiveNotification('free wash has been updated to ' + stats)
+	            }).catch((error) => {
+	                console.log(error)
+	                if(this.errorMessage){
+	                    this.negativeNotification('cannot process order at the moment')
+	                }
+	            })     
 		    }
         },
 

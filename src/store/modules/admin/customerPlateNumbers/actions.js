@@ -27,3 +27,15 @@ export const removeCurrentPlateNumberFromLocalStorage = ({ commit } ) =>{
 	LocalStorage.set('plateNumber', null)
 }
 
+
+export const useFreeWash = ({ commit,  dispatch, rootState }, item) =>{
+	commit('setFreeWashStatus', item)
+
+	var free = {data: {id: "free", percentageDiscount: "100", amountDiscount: 0}}
+
+	if(item=='yes'){
+		commit('adminShopping/updateDiscountData', free , { root: true })
+	}else{
+		commit('adminShopping/applyResetDiscountData', null, { root: true })
+	}
+}
