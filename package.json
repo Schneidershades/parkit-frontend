@@ -42,7 +42,8 @@
     "v-offline": "^1.2.1",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.5.3",
-    "vue-html-to-paper": "^1.3.1",
+    "vue-gallery": "^2.0.1",
+    "vue-gallery-slideshow": "^1.5.0",
     "vue-ravepayment": "^2.0.2",
     "vue-runtime-helpers": "^1.1.2"
   },
@@ -51,10 +52,8 @@
     "devtron": "^1.4.0",
     "dotenv": "^8.2.0",
     "electron": "^7.1.7",
-    "electron-builder": "^22.6.0",
     "electron-debug": "^3.0.1",
-    "electron-devtools-installer": "^2.2.4",
-    "electron-packager": "^14.2.1"
+    "electron-devtools-installer": "^2.2.4"
   },
   "engines": {
     "node": ">= 8.9.0",
@@ -65,3 +64,5 @@
     "last 1 version, not dead, ie >= 11"
   ]
 }
+
+
