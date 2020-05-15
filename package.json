@@ -31,6 +31,7 @@
     "core-js": "^2.6.11",
     "dexie": "^2.0.4",
     "electron-pos-printer": "^1.1.2",
+    "electron-updater": "^4.3.1",
     "escpos": "^3.0.0-alpha.3",
     "localforage": "^1.7.3",
     "localforage-getitems": "^1.4.2",
@@ -50,6 +51,7 @@
     "devtron": "^1.4.0",
     "dotenv": "^8.2.0",
     "electron": "^7.1.7",
+    "electron-builder": "^22.6.0",
     "electron-debug": "^3.0.1",
     "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^14.2.1"

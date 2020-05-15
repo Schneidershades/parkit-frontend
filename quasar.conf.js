@@ -162,7 +162,7 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
     electron: {
-      // bundler: 'builder', // or 'packager'
+      bundler: 'builder', // or 'packager'
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
@@ -180,7 +180,8 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        // appId: 'quasar-todo'
+        appId: 'com.parkit.location.manager',
+        productName : 'Parkit Location Manager',
       },
 
       // keep in sync with /src-electron/main-process/electron-main

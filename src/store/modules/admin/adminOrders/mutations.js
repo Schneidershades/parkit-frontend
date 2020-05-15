@@ -23,7 +23,7 @@ export const setOrder = (state, order) =>{
 	state.orders.push(order)
 }
 
-export const setNewPhoneNumber = (state, no) =>{
+export const setNewOrderNumber = (state, no) =>{
 	state.receiptOrderNumber = no
 }
 

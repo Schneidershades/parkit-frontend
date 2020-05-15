@@ -6,6 +6,7 @@ export const setPlateNumber = (state, plateNumber) =>{
 	var plateNumberList = state.plateNumbers.data 
 	var item = plateNumberList.find(item => item.plateNumber === plateNumber);
 
+
 	var details = {
 		id: item ? item.id : null, 
 		plateNumber: item ? item.plateNumber : plateNumber, 
@@ -15,6 +16,7 @@ export const setPlateNumber = (state, plateNumber) =>{
 		lastName: item ? item.lastName : null, 
 		phone: item ? item.phone : null, 
 		email: item ? item.email : null, 
+		userId: item ? item.userId : null, 
 		freeWash: item ? item.freeWash : null, 
 	}
 
@@ -43,6 +45,7 @@ export const updatePlateNumber = (state, plateNumber) =>{
 			lastName: item ? item.lastName : null, 
 			phone: item ? item.phone : null, 
 			email: item ? item.email : null, 
+			userId: item ? item.userId : null, 
 			freeWash: item ? item.freeWash : null, 
 		}
 		

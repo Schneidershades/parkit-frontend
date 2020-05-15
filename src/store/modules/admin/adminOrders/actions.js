@@ -80,21 +80,22 @@ export const payAtLocation = ({ commit }, item) =>{
 
 
 export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
+	console.log(order)
 	commit('setOrder', order)
-	var receipt = LocalStorage.getItem('receiptOrderNumber')
 	// console.log(receipt)
 	LocalStorage.set('orders', JSON.stringify(state.orders))
-	var newNumber = receipt + 1
-	LocalStorage.set('receiptOrderNumber', newNumber)
-	dispatch('updateRecieptNumber')
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 	commit('adminShopping/applyResetDiscountData', null, { root: true })
 	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
+	var receipt = LocalStorage.getItem('receiptOrderNumber')
+	var newNumber = receipt + 1
+	LocalStorage.set('receiptOrderNumber', newNumber)
+	dispatch('updateRecieptNumber')
 }
 
 export const updateRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{
-	commit('setNewPhoneNumber', LocalStorage.getItem('receiptOrderNumber'))
+	commit('setNewOrderNumber', LocalStorage.getItem('receiptOrderNumber'))
 } 
 
 export const checkRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{
@@ -166,4 +167,22 @@ export const getUserDeletePrivilege = async ({ commit }, item) =>{
         // commit('updateDiscountData', null)
         return Promise.reject()
     }) 
+}
+
+export const sendOfflineOrders = async ({ commit }, item) =>{
+	// console.log(items)
+	// 
+	var orders = state.orders
+
+	if (orders != [] || orders != null){
+		await axios.post('api/v1/admin/user/offline-orders', {'orders' : orders}).then((response) => {
+			// console.log(response.data)
+			LocalStorage.set('orders', [])
+			return Promise.resolve()
+		}).catch((error) => {
+			// console.log(error.response.data)
+	        // commit('updateDiscountData', null)
+	        return Promise.reject()
+	    }) 
+	}
 }

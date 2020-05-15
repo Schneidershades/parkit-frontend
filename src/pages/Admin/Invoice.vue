@@ -7,8 +7,10 @@
 			</q-breadcrumbs>
 		</div>
 
-		<!-- {{couponDetails}}
-		{{connectOnline}} -->
+		{{order}}
+		<!-- {{this.user.location.code+'0000000'+this.receiptNo}} -->
+		<!-- {{user.location.code+'0000000'+receiptNo}} -->
+		<!-- {{user.location.code+'0000000'+receiptNo}} -->
 
 		<div id="ticketPrinter">
 			<div class="ticket print-only" v-if="order">
@@ -376,7 +378,8 @@
         data(){
             return{
                 order:{
-                	receipt_number : null,
+	                date: null,
+	                time: null,
                 	vehicle: {
 	                    id : null,
 	                    phone : null,
@@ -386,12 +389,16 @@
 	                    first_name: null,
 	                    last_name: null,
 	                    plate_number: null,
+	                    userId: null,
 	                },
 	                packages: null,
-	                customer_id: this.checkPlateNumber ? this.checkPlateNumber.user.id : null,
+	                customer_id: null,
 					location: null,
+					location_id: null,
 					discount: null,
+					discount_id: null,
 					coupon: null,
+					coupon_id: null,
 	                payment_method: 'not_paid',
 	                sub_total: null,
 	                total: null,
@@ -400,9 +407,9 @@
 	                reason: null,
 	                cashier_id: null,
 	                cashier: null,
-	                date: null,
-	                time: null,
 	                free_wash: 'no',
+	                discounted_amount: 0,
+                	receipt_number : null
                 },
                 
                 errorMessages: [],
@@ -439,6 +446,13 @@
             }
         },
 
+        watch:{
+        	watchReceiptNo (){
+	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
+        	}
+        },
+
+
         computed: {
             ...mapGetters({
                 connectOnline: 'auth/onlineStatus',
@@ -471,7 +485,6 @@
 
             beginStep(){
             	this.step = 1
-
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -479,7 +492,29 @@
 	            this.order.vehicle.first_name = ''
 	            this.order.vehicle.last_name = ''
 	            this.order.vehicle.vehicle_type = ''
-	            this.order.vehicle.vehicle_model = ''  	
+	            this.order.vehicle.vehicle_model = ''
+	            this.order.receipt_number = ''
+	            this.plateNumber.number = ''
+	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
+	        	this.readonly= false
+	            this.order.customer_id = null
+				this.order.location = null
+				this.order.location_id = null
+				this.order.discount = null
+				this.order.discount_id = null
+				this.order.coupon = null
+				this.order.coupon_id = null
+	            this.order.payment_method = 'not_paid'
+	            this.order.sub_total =  null
+	            this.order.total= null
+	            this.order.status = 'pending'
+	            this.order.action= null
+	            this.order.reason= null
+	            this.order.cashier_id= null
+	            this.order.cashier= null
+	            this.order.free_wash = 'no'
+	            this.order.discounted_amount =  0
+             	this.order.receipt_number= null
             },
 
             placeOrder(){
@@ -488,11 +523,17 @@
 	        	this.order.time = this.time()
 	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
 	        	this.order.location = this.user.location
+	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
 	        	this.order.cashier = this.user.firstName
+	        	this.order.cashier_id = this.user.id
 	        	this.order.discount = this.discountDetails
+	        	this.order.discount_id = this.discountDetails!=null ? this.discountDetails.id : null
 	        	this.order.coupon = this.couponDetails
+	        	this.order.coupon_id = this.couponDetails!=null ? this.couponDetails.id : null
 	        	this.order.sub_total = this.subTotal
+	        	// this.order.discounted_amount = this.subTotal
+	        	this.order.vehicle.userId = this.checkPlateNumber.userId
 
 				this.placeCustomerOrder(this.order).then((response) => {
 					this.step = 5
@@ -504,6 +545,7 @@
 	                }
 	            })           
 			},
+
 
             submitFindVehicle(){
             	this.sendPlatenumber(this.plateNumber.number).then((res) => {
