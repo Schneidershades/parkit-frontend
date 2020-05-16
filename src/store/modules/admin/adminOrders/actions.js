@@ -78,13 +78,19 @@ export const payAtLocation = ({ commit }, item) =>{
 	})
 }
 
+export const saveTransaction = ({ state, commit, dispatch, rootState }, order) =>{
+	commit('updateTransaction', order)
+	dispatch('storeTransactionInLocalStorage')
+}
 
-export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
-	console.log(order)
-	commit('setOrder', order)
-	// console.log(receipt)
+export const storeTransactionInLocalStorage = ({ state, commit, dispatch}) =>{
 	LocalStorage.set('orders', JSON.stringify(state.orders))
-	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
+	commit('setCurrentOrders', JSON.parse(LocalStorage.getItem('orders')))
+}
+
+export const clearTransaction = ({ state, commit, dispatch, rootState }, order) =>{
+	commit('clearOrder')
+	LocalStorage.set('transaction', null)
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 	commit('adminShopping/applyResetDiscountData', null, { root: true })
 	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
@@ -92,6 +98,16 @@ export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
 	var newNumber = receipt + 1
 	LocalStorage.set('receiptOrderNumber', newNumber)
 	dispatch('updateRecieptNumber')
+	dispatch('storeTransactionInLocalStorage')
+}
+
+
+export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
+	console.log(state.transaction, 390)
+	LocalStorage.set('orders', JSON.stringify(state.orders))
+	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
+	commit('adminShopping/applyResetDiscountData', null, { root: true })
+	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
 }
 
 export const updateRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{

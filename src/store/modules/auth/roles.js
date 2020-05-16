@@ -13,13 +13,10 @@ store.watch(
     isAuth => {
 
       	if (isAuth) {
-
-			// localForageService.setItem('roles', store.getters['auth/user'])
-			// 
 			const testOffline = async () => {
 				axios.defaults.baseURL = 'http://localhost:8000/'
+				axios.defaults.baseURL = 'https://api.parkit.ng/'
 				await store.dispatch('locationHistory/getLocationHistory')
-			  // console.log('BEFORE:', await localForageService.getItem('roles3'))
 			}
 
 			// async function returns a promise

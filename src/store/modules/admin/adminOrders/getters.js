@@ -31,3 +31,7 @@ export const deletePrivilege = (state) => {
 export const usersWithRights = (state) => {
 	return state.usersWithRights 
 }
+
+export const transaction = (state) => {
+	return state.transaction 
+}

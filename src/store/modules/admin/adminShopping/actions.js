@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { LocalStorage } from 'quasar'
+import { localForageService } from '../dispatchApi/localForageService'
 
 // get products
 export const getProducts = ({ commit }) => {
@@ -28,6 +29,10 @@ export const storeCart = ({ state, commit}) =>{
 	LocalStorage.set('cart', JSON.stringify(state.cart))
 	commit('setCart', state.cart)
 }
+
+// export const reInitializeProducts = ({ state, commit}) =>{
+// 	localForageService.setItem('products', state.products)
+// }
 
 export const storeCartFromSession = ({ state }) =>{
 	
@@ -68,8 +73,9 @@ export const removeAllProductFromCart = ({ commit, dispatch }) =>{
 	dispatch('storeCart')
 }
 
-export const removeAllProductFromCartLocalStorage = ({ commit }) =>{
+export const removeAllProductFromCartLocalStorage = ({ commit, dispatch  }) =>{
 	commit('clearCart')
+	dispatch('storeCart')
 }
 
 

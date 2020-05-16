@@ -19,12 +19,25 @@ export const stopPaymentTimeout = (state) =>{
 	state.paymentTimeout = null
 }
 
+export const updateTransaction = (state, order) =>{
+	state.transaction = order
+	state.orders.push(state.transaction)
+}
+
 export const setOrder = (state, order) =>{
 	state.orders.push(order)
 }
 
+export const setCurrentOrders = (state, orders) =>{
+	state.orders = orders
+}
+
 export const setNewOrderNumber = (state, no) =>{
 	state.receiptOrderNumber = no
+}
+
+export const clearOrder = (state) =>{
+	state.transaction = null
 }
 
 

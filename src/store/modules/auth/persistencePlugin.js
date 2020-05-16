@@ -10,9 +10,7 @@ import { localForageService } from './localForageService'
 
 const testOffline = async () => {
   axios.defaults.baseURL = 'http://localhost:8000/'
-  // await store.dispatch('customerPlateNumbers/getPlateNumbers')
-  // await store.dispatch('shopping/getProducts')
-  // await store.dispatch('locationHistory/getLocationHistory')
+  // axios.defaults.baseURL = 'https://api.parkit.ng/'
 }
 // async function returns a promise
 testOffline()

@@ -22,8 +22,10 @@ export const setPlateNumber = (state, plateNumber) =>{
 
 	if (details.freeWash == true){
 		state.freeWash = true
+		state.useFreeWash = 'no'
 	}else{
 		state.freeWash = false
+		state.useFreeWash = 'no'
 	}
 
 	
@@ -55,11 +57,14 @@ export const updatePlateNumber = (state, plateNumber) =>{
 			state.freeWash = false
 		}
 	}
+	
 	state.plateNumber = plateNumber
 }
 
 export const clearPlateNumber = (state) =>{
 	state.plateNumber = []
+	state.useFreeWash = null
+	state.freeWash = null
 }
 
 export const setFreeWashStatus = (state, status) =>{

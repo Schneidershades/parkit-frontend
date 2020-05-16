@@ -7,13 +7,19 @@
 			</q-breadcrumbs>
 		</div>
 
-		{{order}}
-		<!-- {{this.user.location.code+'0000000'+this.receiptNo}} -->
-		<!-- {{user.location.code+'0000000'+receiptNo}} -->
-		<!-- {{user.location.code+'0000000'+receiptNo}} -->
+		<div class="print-hide" >
+			<!-- receipt number <br>
+			{{receiptNo}}<br>
+			last transaction <br>
+			{{orderTransaction}} <br>
+			all orders<br>
+		{{allOrders}} <br> -->
+		<!-- {{freeWashStatus}} {{freeWash}}<br> -->
+		</div>
+
 
 		<div id="ticketPrinter">
-			<div class="ticket print-only" v-if="order">
+			<div class="ticket print-only" v-if="orderTransaction">
 
 				<q-card-actions align="center">
 		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
@@ -21,58 +27,58 @@
 		        </q-card-actions>
 
 		        <div class="q-py-sm">
-		        	<b>Location : {{order.location ? order.location.code : ''}} -  {{order.location ? order.location.address : ''}}<br>
+		        	<b>Location : {{orderTransaction.location ? orderTransaction.location.code : ''}} -  {{orderTransaction.location ? orderTransaction.location.address : ''}}<br>
 					Phone   : +234-903-152-6466 <br> 
 					Email   : info@parkit.ng<br>
 					Website   : www.parkit.ng<br></b>
 				</div>
 				<div class="q-py-sm">
-					<b>Bill ID   : {{order.receipt_number}}<br>
-					Date   : {{order.date}}<br>
-					Time   : {{order.time}}<br>
-					Cashier   : {{order.cashier}}<br>
-					To   : {{order.vehicle.first_name ? order.vehicle.first_name : 'N/A'}} {{order.vehicle.last_name}}<br>
-					Transaction ID   : {{order.vehicle.plate_number}}<br>
-					Payment Method   : {{order.payment_method == 'not_paid' ? 'Not Paid' : ''}}
-					{{order.payment_method == 'pos' ? 'POS' : ''}}
-					{{order.payment_method == 'cash' ? 'Cash' : ''}}
-					{{order.payment_method == 'transfer' ? 'Transfer' : ''}}
+					<b>Bill ID   : {{orderTransaction.receipt_number}}<br>
+					Date   : {{orderTransaction.date}}<br>
+					Time   : {{orderTransaction.time}}<br>
+					Cashier   : {{orderTransaction.cashier}}<br>
+					To   : {{orderTransaction.vehicle.first_name ? orderTransaction.vehicle.first_name : 'N/A'}} {{orderTransaction.vehicle.last_name}}<br>
+					Transaction ID   : {{orderTransaction.vehicle.plate_number}}<br>
+					Payment Method   : {{orderTransaction.payment_method == 'not_paid' ? 'Not Paid' : ''}}
+					{{orderTransaction.payment_method == 'pos' ? 'POS' : ''}}
+					{{orderTransaction.payment_method == 'cash' ? 'Cash' : ''}}
+					{{orderTransaction.payment_method == 'transfer' ? 'Transfer' : ''}}
 
 					<br></b>
 		        </div>
 		       		
 				<div class="text-h6">Items</div>
 				
-				<div class="q-py-sm" v-for="item in order.packages">
+				<div class="q-py-sm" v-for="item in orderTransaction.packages">
 					<p>
 						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
 					</p>
 				</div>
 				<div class="q-py-sm"  align="right">
-					<b>Sub-total: ₦{{order.sub_total}}<br>
-					<template v-if="order.discount!=null">
-						<template v-if="order.discount.amountDiscount != null">
-							Net-Total: ₦ {{ order.discount.amountDiscount }}
+					<b>Sub-total: ₦{{orderTransaction.sub_total}}<br>
+					<template v-if="orderTransaction.discount!=null">
+						<template v-if="orderTransaction.discount.amountDiscount != null">
+							Net-Total: ₦ {{ orderTransaction.discount.amountDiscount }}
 						</template>
-						<template v-if="order.discount.percentageDiscount != null">
-							Net-Total: ₦ {{ orderdiscount.percentageDiscount/100 * orderdiscount.sub_total }}
+						<template v-if="orderTransaction.discount.percentageDiscount != null">
+							Net-Total: ₦ {{ orderTransaction.percentageDiscount/100 * orderTransaction.sub_total }}
 						</template>
 					</template>
-					<template v-if="order.coupon!=null">
-						<template v-if="order.coupon.amountDiscount != null">
-							Net-Total: ₦ {{ order.coupon.amountDiscount }}
+					<template v-if="orderTransaction.coupon!=null">
+						<template v-if="orderTransaction.coupon.amountDiscount != null">
+							Net-Total: ₦ {{ orderTransaction.coupon.amountDiscount }}
 						</template>
-						<template v-if="order.coupon.percentageDiscount != null">
-							Net-Total: ₦ {{ order.coupon.percentageDiscount/100 * order.sub_total }}
+						<template v-if="orderTransaction.coupon.percentageDiscount != null">
+							Net-Total: ₦ {{ orderTransaction.coupon.percentageDiscount/100 * orderTransaction.sub_total }}
 						</template>
 					</template>
 
-					<template v-if="order.discount==null && order.coupon==null">
+					<template v-if="orderTransaction.discount==null && orderTransaction.coupon==null">
 						Net-Total: ₦ 0.00
 					</template>
 					
 					<br>
-					Total: ₦ {{order.total}}</b>
+					Total: ₦ {{orderTransaction.total}}</b>
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
 					<br>
@@ -138,17 +144,20 @@
 		                                    :value="order.vehicle.plate_number"
 		                                />
 		                            </div>
+
 		                            <div class="col-4 q-pa-sm">
 		                                <q-input
-		                                    ref="name"
+			                                filled
 		                                    :dense="dense"
 		                                    :readonly="readonly"
-		                                    filled
 			                                v-model="order.vehicle.phone"
 			                                label="Phone Number"
+			                                mask="(###) - ### - ### - ####"
+			                                unmasked-value
+			                                hint="Hint : (234) - 702 - 222 - 2222"
 			                                lazy-rules
 		                                    :value="order.vehicle.phone"
-		                                />
+			                                />
 		                            </div>
 		                            <div class="col-4 q-pa-sm">
 										<q-select 
@@ -219,7 +228,8 @@
                         </template>
 
                         <q-stepper-navigation >
-				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true" @click="step = 2" color="primary" label="Continue" />
+				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true && order.vehicle.vehicle_type!=null" @click="step = 2" color="primary" label="Continue" />
+				          	<q-btn v-else color="red" label="Please Make sure you Enter a plate number and select a Vehicle Type" disabled />
 				        </q-stepper-navigation> 
 			      </q-step>
 
@@ -289,12 +299,6 @@
 			        icon="print"
 			      >
 
-
-			      	<!-- {{printData}} -->
-			      	<!-- <Receipt/> -->
-					
-			        
-
 			        <q-stepper-navigation>
 			          <q-btn @click="beginStep" color="primary" label="Create new Transaction" />
 			        </q-stepper-navigation>
@@ -363,8 +367,6 @@
   	import PackageTabList from 'components/Admin/Tabs/PackageTabList.vue'
     import Cart from 'components/Admin/Cart/Cart.vue'
 	import { date } from 'quasar'
-	import print  from 'print-js'
-	import VueHtmlToPaper from 'vue-html-to-paper';
 	const { remote } = require('electron')
 
 	const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
@@ -377,9 +379,8 @@
 	    },
         data(){
             return{
-                order:{
-	                date: null,
-	                time: null,
+                order: {
+                	receipt_number : null,
                 	vehicle: {
 	                    id : null,
 	                    phone : null,
@@ -409,7 +410,8 @@
 	                cashier: null,
 	                free_wash: 'no',
 	                discounted_amount: 0,
-                	receipt_number : null
+	                date: null,
+	                time: null
                 },
                 
                 errorMessages: [],
@@ -446,13 +448,6 @@
             }
         },
 
-        watch:{
-        	watchReceiptNo (){
-	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
-        	}
-        },
-
-
         computed: {
             ...mapGetters({
                 connectOnline: 'auth/onlineStatus',
@@ -472,6 +467,8 @@
                 online: 'auth/onlineStatus',
                 freeWash: 'customerPlateNumbers/freeWash',
                 freeWashStatus: 'customerPlateNumbers/useFreeWash',
+                orderTransaction: 'adminOrders/transaction',
+                allOrders: 'adminOrders/orders',
             }),
         },
             
@@ -481,10 +478,21 @@
               	updateCustomer: 'customerPlateNumbers/updateCustomer',
 				placeCustomerOrder: 'adminOrders/storeOrder',
 				setFreeWashStatus: 'customerPlateNumbers/useFreeWash',
+				saveTransaction: 'adminOrders/saveTransaction',
+				clearTransaction: 'adminOrders/clearTransaction',
             }),
 
             beginStep(){
-            	this.step = 1
+            	// this.step = 1
+            	this.clearTransaction().then((response) => {
+					this.step = 1
+	            }).catch((error) => {
+	                console.log(error)
+	                if(this.errorMessage){
+	                    this.negativeNotification('cannot process order at the moment')
+	                }
+	            })    
+	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -495,7 +503,6 @@
 	            this.order.vehicle.vehicle_model = ''
 	            this.order.receipt_number = ''
 	            this.plateNumber.number = ''
-	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
 	        	this.readonly= false
 	            this.order.customer_id = null
 				this.order.location = null
@@ -521,7 +528,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
+	        	this.order.receipt_number = '0000000'+this.receiptNo
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
@@ -535,15 +542,16 @@
 	        	// this.order.discounted_amount = this.subTotal
 	        	this.order.vehicle.userId = this.checkPlateNumber.userId
 
-				this.placeCustomerOrder(this.order).then((response) => {
+	            this.saveTransaction(this.order).then((response) => {
 					this.step = 5
-					remote.getCurrentWebContents().print({silent:true, copies : 1})
+					remote.getCurrentWebContents().print({silent:true, copies : 2})
 	            }).catch((error) => {
 	                console.log(error)
 	                if(this.errorMessage){
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
-	            })           
+	            })    
+	               
 			},
 
 
@@ -558,6 +566,7 @@
 		            this.order.vehicle.last_name = this.checkPlateNumber.lastName
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.VehicleType
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.VehicleModel
+	        		this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)
@@ -631,16 +640,6 @@
 
         mounted()
         {
-        	if(this.checkPlateNumber != null){
-    			this.order.vehicle.id = this.checkPlateNumber.id
-    			this.order.vehicle.email = this.checkPlateNumber.email
-        		this.order.vehicle.plate_number = this.checkPlateNumber.plateNumber
-	            this.order.vehicle.phone = this.checkPlateNumber.phone
-	            this.order.vehicle.first_name = this.checkPlateNumber.firstName
-	            this.order.vehicle.last_name = this.checkPlateNumber.lastName
-	            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicleType
-	            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicleModel
-        	}
 	        	
         }
     }

@@ -10,21 +10,7 @@ import localforage from 'localforage'
 
 const testOffline = async () => {
   axios.defaults.baseURL = 'http://localhost:8000/'
-
-  // console.log(await localForageService.getItem('orders'))
-
-  // if(await localForageService.getItem('cart') == null){
-  //   localForageService.setItem('cart', [])
-  //   console.log('cart created')
-  // }
-  // if(await localForageService.getItem('plateNumber') == null){
-  //   localForageService.setItem('plateNumber', [])
-  //   console.log('plateNumber created')
-  // }
-  // if(await localForageService.getItem('orders') == null){
-  //   localForageService.setItem('orders', [])
-  //   console.log('orders created')
-  // }
+  // axios.defaults.baseURL = 'https://api.parkit.ng/'
 
 }
 // async function returns a promise
@@ -39,8 +25,8 @@ testOffline()
 const mutationsOfInterest = [
   'customerPlateNumbers/setPlateNumbers',
   'auth/SET_USER',
-  // 'adminShopping/setCart',
-  // 'adminOrders/setOrder',
+  'adminShopping/setProducts',
+  'adminOrders/setOrder',
 ];
 
 const ofInterest = (mutation) => {

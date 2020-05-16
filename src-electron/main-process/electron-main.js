@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu } from 'electron'
 
 /**
  * Set `__statics` path to static files in production;
@@ -27,6 +27,8 @@ function createWindow () {
   })
 
   mainWindow.loadURL(process.env.APP_URL)
+
+  mainWindow.setMenu(null)
 
   mainWindow.on('closed', () => {
     mainWindow = null

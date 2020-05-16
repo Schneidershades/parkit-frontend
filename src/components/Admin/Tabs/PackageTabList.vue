@@ -2,7 +2,6 @@
 	<q-card flat>
         <h4 class="header-text">Select a Package </h4>
 
-        <!-- if its a free wash -->
 		<q-tabs
           v-model="tab"
           vertical
@@ -17,7 +16,6 @@
 			</div>
 		</q-tabs>
 		
-        <!-- if its not a free wash -->
 		<q-tabs
           v-model="tab"
           vertical
@@ -92,9 +90,9 @@
 
 										<q-item-section top side>
 											<div class="text-grey-8 q-gutter-xs q-pt-md">
-												<q-btn color="primary" icon="cart" size="10px" icon-right="shopping_cart" stack glossy label="Add to Cart" v-if="cart.length <= 0 " @click.prevent="addToCart(content)" />
+												<q-btn color="primary" icon="cart" size="10px" icon-right="shopping_cart" stack glossy label="Add to Cart" v-if="cart.length <= 0 " @click.prevent="removeAllThenAddToCart(content)" />
 
-												<q-btn color="red" icon="cart" size="10px" icon-right="shopping_cart" stack glossy label="Remove Cart" v-else @click.prevent="removeProductFromCart(content.id)" />
+												<q-btn color="red" icon="cart" size="10px" icon-right="shopping_cart" stack glossy label="Remove Cart" v-else @click.prevent="removeAllProductFromCart" />
 											</div>
 										</q-item-section>
 									</q-item>
@@ -375,9 +373,15 @@ export default {
 			getProducts: 'adminShopping/getProducts',
 			addProductToCart: 'adminShopping/addProductToCart',
             removeProductFromCart: 'adminShopping/removeProductFromCart',
+            removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
 		}),
 
 		addToCart(vehiclePackage){
+			this.addProductToCart(vehiclePackage)
+		},
+
+		removeAllThenAddToCart(vehiclePackage){
+			this.removeAllProductFromCart()
 			this.addProductToCart(vehiclePackage)
 		}
 	},

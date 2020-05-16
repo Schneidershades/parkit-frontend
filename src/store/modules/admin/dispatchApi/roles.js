@@ -14,16 +14,13 @@ store.watch(
 
       	if (isAuth) {
 
-			// localForageService.setItem('roles', store.getters['auth/user'])
-			// 
 			const testOffline = async () => {
 				axios.defaults.baseURL = 'http://localhost:8000/'
-		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
+				// axios.defaults.baseURL = 'https://api.parkit.ng/'
 			  	await store.dispatch('adminShopping/getProducts')
+		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
 			  	await store.dispatch('adminOrders/checkRecieptNumber')
 				await store.dispatch('locationHistory/getLocationHistory')
-				// await store.dispatch('offlineOrders/getOrders')
-			  	// console.log('BEFORE:', await localForageService.getItem('cart'))
 			}
 
 			// async function returns a promise
@@ -36,7 +33,6 @@ store.watch(
 
 			let abilities =  AbilityBuilder.define(can => {
 				user.permissions.forEach((permission)=>{
-					// console.log(permission)
 					can(...permission)
 				})
 			})
