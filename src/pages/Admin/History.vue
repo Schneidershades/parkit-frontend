@@ -9,12 +9,14 @@
 
 	    <div id="ticketPrinter" v-if="orderDetails!=null">
 			<div class="ticket print-only">
+
 				<q-card-actions align="center">
 		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+		            <i>Welcome to parkit</i>
 		        </q-card-actions>
 
 		        <div class="q-py-sm">
-		        	<b>Location : {{orderDetails.location}} - {{orderDetails.location.address}}<br>
+		        	<b>Location : {{orderDetails.location ? orderDetails.location.code : ''}} -  {{orderDetails.location ? orderDetails.location.address : ''}}<br>
 					Phone   : +234-903-152-6466 <br> 
 					Email   : info@parkit.ng<br>
 					Website   : www.parkit.ng<br></b>
@@ -24,9 +26,9 @@
 					Date   : {{orderDetails.date}}<br>
 					Time   : {{orderDetails.time}}<br>
 					Cashier   : {{orderDetails.cashier}}<br>
-					Transaction ID  : {{orderDetails.vehicle ? orderDetails.vehicle.plate_number : 'N/A' }}<br>
-					To   : {{orderDetails.vehicle ? orderDetails.vehicle.first_name : 'N/A' }}<br>
-					Payment Method  : {{orderDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
+					To   : {{orderDetails.vehicle.first_name ? orderDetails.vehicle.first_name : 'N/A'}} {{orderDetails.vehicle.last_name}}<br>
+					Transaction ID   : {{orderDetails.vehicle.plate_number}}<br>
+					Payment Method   : {{orderDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
 					{{orderDetails.payment_method == 'pos' ? 'POS' : ''}}
 					{{orderDetails.payment_method == 'cash' ? 'Cash' : ''}}
 					{{orderDetails.payment_method == 'transfer' ? 'Transfer' : ''}}
@@ -43,12 +45,35 @@
 				</div>
 				<div class="q-py-sm"  align="right">
 					<b>Sub-total: ₦{{orderDetails.sub_total}}<br>
-					Discount: ₦ {{orderDetails.discount==null ? orderDetails.discount : '0.00'}}
+					<template v-if="orderDetails.discount!=null">
+						<template v-if="orderDetails.discount.amountDiscount != null">
+							Net-Total: ₦ {{ orderDetails.discount.amountDiscount }}
+						</template>
+						<template v-if="orderDetails.discount.percentageDiscount != null">
+							Net-Total: ₦ {{ orderDetails.percentageDiscount/100 * orderDetails.sub_total }}
+						</template>
+					</template>
+					<template v-if="orderDetails.coupon!=null">
+						<template v-if="orderDetails.coupon.amountDiscount != null">
+							Net-Total: ₦ {{ orderDetails.coupon.amountDiscount }}
+						</template>
+						<template v-if="orderDetails.coupon.percentageDiscount != null">
+							Net-Total: ₦ {{ orderDetails.coupon.percentageDiscount/100 * orderDetails.sub_total }}
+						</template>
+					</template>
+
+					<template v-if="orderDetails.discount==null && orderDetails.coupon==null">
+						Net-Total: ₦ 0.00
+					</template>
+					
 					<br>
 					Total: ₦ {{orderDetails.total}}</b>
-					<br><br><br><br>
+					<br><br><br>
+		            	<i>Thank you for your patronage</i>
+					<br>
+					<br><br>
+					<br>
 					<hr>
-					
 				</div>
 			</div>
 	    </div>
@@ -132,7 +157,7 @@
 				    </template>
 			    </q-table>
 
-			    <!-- {{history}} -->
+			    {{history}}
  				
  				<!-- <q-table
 				    title="All Transactions"

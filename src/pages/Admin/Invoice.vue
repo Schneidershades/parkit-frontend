@@ -615,7 +615,7 @@
 		      	
 	     		console.log(new Date())
 	     		var timeStamp = Date.now()
-				var formattedString = date.formatDate(timeStamp, 'DD-MM-YYYY')
+				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 				return formattedString
 		    },
 

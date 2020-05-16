@@ -107,6 +107,7 @@ export default ({
 		},
 		
 		signOut({ commit, rootState }){
+			commit('adminOrders/sendOfflineOrders', null, { root: true })
 			return axios.post('api/v1/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
