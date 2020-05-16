@@ -528,7 +528,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = '0000000'+this.receiptNo
+	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
