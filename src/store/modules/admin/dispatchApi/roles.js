@@ -20,6 +20,7 @@ store.watch(
 			  	await store.dispatch('adminShopping/getProducts')
 		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
 			  	await store.dispatch('adminOrders/checkRecieptNumber')
+	  			await store.dispatch('adminOrders/sendOfflineOrders')
 				await store.dispatch('locationHistory/getLocationHistory')
 			}
 

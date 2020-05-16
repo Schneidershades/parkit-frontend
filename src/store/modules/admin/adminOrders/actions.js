@@ -185,20 +185,43 @@ export const getUserDeletePrivilege = async ({ commit }, item) =>{
     }) 
 }
 
-export const sendOfflineOrders = async ({ commit }, item) =>{
+export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, item) =>{
 	// console.log(items)
-	// 
 	var orders = state.orders
 
-	if (orders != [] || orders != null){
-		await axios.post('api/v1/admin/user/offline-orders', {'orders' : orders}).then((response) => {
-			// console.log(response.data)
-			LocalStorage.set('orders', [])
-			return Promise.resolve()
-		}).catch((error) => {
-			// console.log(error.response.data)
-	        // commit('updateDiscountData', null)
-	        return Promise.reject()
-	    }) 
+	var concludedOrders = state.orders.filter(x => x.status == 'completed' || x.status == 'edit' || x.status == 'delete');
+
+	// var notConcludedOrders = state.orders.filter(x => x.status != 'completed' || x.status != 'edit' || x.status != 'delete');
+	var notConcludedOrders = state.orders.filter(function( obj ) {
+	    return obj.status == 'pending';
+	});
+
+	console.log(1, concludedOrders)
+	console.log(0, notConcludedOrders)
+
+	// online status
+	let online = rootState.internetStatus.connected
+
+	// store notes
+	if(online == false){
+		console.log('offline')
+		return
 	}
+
+	if (orders == [] || orders == null){
+		console.log('empty')
+		return 
+	}
+
+	console.log('online and with content')
+
+	await axios.post('api/v1/admin/user/offline-orders', {'orders' : concludedOrders}).then((response) => {
+		LocalStorage.set('orders', JSON.stringify(notConcludedOrders))
+		dispatch('locationHistory/getLocationHistory', null, { root: true })
+		return Promise.resolve()
+	}).catch((error) => {
+        return Promise.reject()
+    })
+
+	
 }

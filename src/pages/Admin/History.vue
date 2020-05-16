@@ -7,14 +7,14 @@
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div id="ticketPrinter" v-if="orderDetails">
+	    <div id="ticketPrinter" v-if="orderDetails!=null">
 			<div class="ticket print-only">
 				<q-card-actions align="center">
 		            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
 		        </q-card-actions>
 
 		        <div class="q-py-sm">
-		        	<!-- <b>Location : {{orderDetails.location.code}} - {{orderDetails.location.address}}<br> -->
+		        	<b>Location : {{orderDetails.location}} - {{orderDetails.location.address}}<br>
 					Phone   : +234-903-152-6466 <br> 
 					Email   : info@parkit.ng<br>
 					Website   : www.parkit.ng<br></b>
@@ -24,8 +24,8 @@
 					Date   : {{orderDetails.date}}<br>
 					Time   : {{orderDetails.time}}<br>
 					Cashier   : {{orderDetails.cashier}}<br>
-					<!-- Transaction ID  : {{orderDetails.vehicle.plate_number ? orderDetails.vehicle.plate_number : 'N/A' }}<br> -->
-					<!-- To   : {{orderDetails.vehicle.plate_number ? orderDetails.vehicle.plate_number : 'N/A' }}<br> -->
+					Transaction ID  : {{orderDetails.vehicle ? orderDetails.vehicle.plate_number : 'N/A' }}<br>
+					To   : {{orderDetails.vehicle ? orderDetails.vehicle.first_name : 'N/A' }}<br>
 					Payment Method  : {{orderDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
 					{{orderDetails.payment_method == 'pos' ? 'POS' : ''}}
 					{{orderDetails.payment_method == 'cash' ? 'Cash' : ''}}
@@ -131,8 +131,10 @@
 				      	</q-tr>
 				    </template>
 			    </q-table>
+
+			    <!-- {{history}} -->
  				
- 				<q-table
+ 				<!-- <q-table
 				    title="All Transactions"
 			      	:data="history"
 			      	:columns="columns"
@@ -149,12 +151,12 @@
 
 				    <template slot="body" slot-scope="props">
 				      	<q-tr :props="props">
-				      		<q-td key="date" :props="props">{{ props.row.created_at }}</q-td>
-				      		<q-td key="receipt_number" :props="props">{{props.row.receipt_number}}</q-td>
-				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle.plate_number }}</q-td>
-				      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
-				      		<q-td key="sub_total" :props="props">{{ props.row.subtotal }}</q-td>
-				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
+				      		<q-td key="date" :props="props"></q-td>
+				      		<q-td key="receipt_number" :props="props"></q-td>
+				      		<q-td key="vehicle" :props="props"></q-td>
+				      		<q-td key="packages" :props="props"></q-td>
+				      		<q-td key="sub_total" :props="props"></q-td>
+				      		<q-td key="discount" :props="props"></q-td>
 				      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 
 				      		<q-td key="action" :props="props">
@@ -181,7 +183,7 @@
 				      		</q-td>
 				      	</q-tr>
 				    </template>
-			    </q-table>
+			    </q-table> -->
 
 			    <q-dialog v-model="completeTransaction" width="500">
 			    	<q-card>
