@@ -9,8 +9,8 @@ import localforage from 'localforage'
 //decide which mutations you want to listen in on, for persisting app data
 
 const testOffline = async () => {
-  axios.defaults.baseURL = 'http://localhost:8000/'
-  // axios.defaults.baseURL = 'https://api.parkit.ng/'
+  // axios.defaults.baseURL = 'http://localhost:8000/'
+  axios.defaults.baseURL = 'https://api.parkit.ng/'
 
 }
 // async function returns a promise

@@ -8,12 +8,12 @@ export default async ({ app, router, store, Vue }) => {
   	axios.defaults.withCredentials = true
 
   	// axios.defaults.baseURL= process.env.BACKEND_API_URL 
-  	// axios.defaults.baseURL = 'https://api.parkit.ng/'
-  	axios.defaults.baseURL = 'http://localhost:8000/'
+  	axios.defaults.baseURL = 'https://api.parkit.ng/'
+  	// axios.defaults.baseURL = 'http://localhost:8000/'
   	try{
   		// await store.dispatch('customerPlateNumbers/getPlateNumbers')
 	  	// await store.dispatch('adminShopping/getProducts')
-	  	// await store.dispatch('adminOrders/checkRecieptNumber')
+	  	await store.dispatch('adminOrders/checkRecieptNumber')
 	  	await store.dispatch('adminOrders/sendOfflineOrders')
 		await store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
 			new Vue({

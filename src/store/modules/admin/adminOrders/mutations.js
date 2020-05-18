@@ -46,7 +46,7 @@ export const setUpdateOrderDetails = (state, order) =>{
 	var item = state.orders.find(item => item.receipt_number === order.orderDetails.receipt_number)
 
 	if(order.action == 'complete'){
-		item.status = 'completed'
+		item.status = 'complete'
 	}
 
 	if(order.action == 'edit'){

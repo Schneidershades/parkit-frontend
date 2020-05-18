@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, Menu } from 'electron'
+var AutoLaunch = require('auto-launch');
 
 /**
  * Set `__statics` path to static files in production;
@@ -17,7 +18,9 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
-    useContentSize: true,
+    useContentSize: false,
+    frame : true,
+    fullscreen : true,
     webPreferences: {
       // keep in sync with /quasar.conf.js > electron > nodeIntegration
       // (where its default value is "true")
@@ -52,3 +55,30 @@ app.on('activate', () => {
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() });
 });
+
+
+require('update-electron-app')({
+  repo: 'github-user/repo',
+  updateInterval: '1 hour',
+  logger: require('electron-log')
+})
+
+// var parkitAutoLauncher = new AutoLaunch({
+//     name: 'Parkit App',
+//     path: require('electron').app.getAppPath(),
+// });
+ 
+// parkitAutoLauncher.enable();
+ 
+// //parkitAutoLauncher.disable();
+ 
+// parkitAutoLauncher.isEnabled()
+// .then(function(isEnabled){
+//     if(isEnabled){
+//         return;
+//     }
+//     parkitAutoLauncher.enable();
+// })
+// .catch(function(err){
+//     // handle error
+// });

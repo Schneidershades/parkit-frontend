@@ -81,11 +81,17 @@ export const payAtLocation = ({ commit }, item) =>{
 export const saveTransaction = ({ state, commit, dispatch, rootState }, order) =>{
 	commit('updateTransaction', order)
 	dispatch('storeTransactionInLocalStorage')
+	var receipt = LocalStorage.getItem('receiptOrderNumber')
+	var newNumber = ++receipt
+	LocalStorage.set('receiptOrderNumber', newNumber)
+	dispatch('updateRecieptNumber')
+	dispatch('storeTransactionInLocalStorage')
+	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 }
 
 export const storeTransactionInLocalStorage = ({ state, commit, dispatch}) =>{
 	LocalStorage.set('orders', JSON.stringify(state.orders))
-	commit('setCurrentOrders', JSON.parse(LocalStorage.getItem('orders')))
+	commit('setCurrentOrders', JSON.parse(LocalStorage.getItem('orders')) ? JSON.parse(LocalStorage.getItem('orders')) : [])
 }
 
 export const clearTransaction = ({ state, commit, dispatch, rootState }, order) =>{
@@ -94,18 +100,12 @@ export const clearTransaction = ({ state, commit, dispatch, rootState }, order) 
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 	commit('adminShopping/applyResetDiscountData', null, { root: true })
 	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
-	var receipt = LocalStorage.getItem('receiptOrderNumber')
-	var newNumber = receipt + 1
-	LocalStorage.set('receiptOrderNumber', newNumber)
-	dispatch('updateRecieptNumber')
-	dispatch('storeTransactionInLocalStorage')
 }
 
 
 export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
 	console.log(state.transaction, 390)
 	LocalStorage.set('orders', JSON.stringify(state.orders))
-	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 	commit('adminShopping/applyResetDiscountData', null, { root: true })
 	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
 }
@@ -117,7 +117,7 @@ export const updateRecieptNumber = ({ state, commit, dispatch, rootState }, orde
 export const checkRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{
 	console.log(LocalStorage.getItem('receiptOrderNumber'))
 	if(LocalStorage.getItem('receiptOrderNumber') <= 0){
-		LocalStorage.set('receiptOrderNumber', JSON.stringify(10000))
+		LocalStorage.set('receiptOrderNumber', JSON.stringify(1001))
 	}
 }
 
@@ -189,9 +189,9 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 	// console.log(items)
 	var orders = state.orders
 
-	var concludedOrders = state.orders.filter(x => x.status == 'completed' || x.status == 'edit' || x.status == 'delete');
+	var concludedOrders = state.orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete');
 
-	// var notConcludedOrders = state.orders.filter(x => x.status != 'completed' || x.status != 'edit' || x.status != 'delete');
+	// var notConcludedOrders = state.orders.filter(x => x.status != 'complete' || x.status != 'edit' || x.status != 'delete');
 	var notConcludedOrders = state.orders.filter(function( obj ) {
 	    return obj.status == 'pending';
 	});
@@ -217,11 +217,23 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 
 	await axios.post('api/v1/admin/user/offline-orders', {'orders' : concludedOrders}).then((response) => {
 		LocalStorage.set('orders', JSON.stringify(notConcludedOrders))
-		dispatch('locationHistory/getLocationHistory', null, { root: true })
+
+		let auth = rootState.auth.user
+
+		if(auth){
+			dispatch('locationHistory/getLocationHistory', null, { root: true })
+		}	
+		
 		return Promise.resolve()
 	}).catch((error) => {
         return Promise.reject()
-    })
+    })	
+}
 
-	
+
+export const clearofflineOrders = ({ state, commit, dispatch, rootState }, order) =>{
+	LocalStorage.set('orders', JSON.stringify([]))
+	LocalStorage.set('transaction', null)
+	LocalStorage.set('plateNumber', null)
+	dispatch('storeTransactionInLocalStorage')
 }

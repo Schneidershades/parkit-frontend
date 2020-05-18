@@ -54,7 +54,9 @@ export default ({
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/auth/signin', credentials).then(response => {
 	            	// console.log(response.data.token)
+					dispatch('adminOrders/sendOfflineOrders', null, { root: true })
 	                dispatch('attempt', response.data.token)
+
 	                resolve()
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
@@ -106,8 +108,8 @@ export default ({
 			}
 		},
 		
-		signOut({ commit, rootState }){
-			commit('adminOrders/sendOfflineOrders', null, { root: true })
+		signOut({ commit, dispatch, rootState }){
+			dispatch('adminOrders/sendOfflineOrders', null, { root: true })
 			return axios.post('api/v1/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)

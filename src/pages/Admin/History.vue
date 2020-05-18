@@ -133,9 +133,9 @@
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' ">
-				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
-					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
+				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
 
 				      			<template v-if="props.row.status == 'edit' ">
@@ -146,8 +146,8 @@
 					      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'delete' ? true : false"/>
 				      			</template>
 
-				      			<template v-if="props.row.status == 'completed' ">
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
+				      			<template v-if="props.row.status == 'complete' ">
+					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
 
 				      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOrderTransaction(props.row)"/>
@@ -157,14 +157,15 @@
 				    </template>
 			    </q-table>
 
-			    {{history}}
+			    <!-- {{history}} -->
  				
- 				<!-- <q-table
+ 				<q-table
 				    title="All Transactions"
 			      	:data="history"
 			      	:columns="columns"
 			      	row-key="name"
 		      		:filter="filterExpense"
+		      		v-if="history!=null"
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
@@ -176,19 +177,19 @@
 
 				    <template slot="body" slot-scope="props">
 				      	<q-tr :props="props">
-				      		<q-td key="date" :props="props"></q-td>
-				      		<q-td key="receipt_number" :props="props"></q-td>
-				      		<q-td key="vehicle" :props="props"></q-td>
-				      		<q-td key="packages" :props="props"></q-td>
-				      		<q-td key="sub_total" :props="props"></q-td>
-				      		<q-td key="discount" :props="props"></q-td>
+				      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
+				      		<q-td key="receipt_number" :props="props">{{ props.row.receipt_number }}</q-td>
+				      		<q-td key="vehicle" :props="props">{{ props.row.plate_number }}</q-td>
+				      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
+				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
+				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
 				      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' ">
-				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
-					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
+				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
 
 				      			<template v-if="props.row.status == 'edit' ">
@@ -199,16 +200,16 @@
 					      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'delete' ? true : false"/>
 				      			</template>
 
-				      			<template v-if="props.row.status == 'completed' ">
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'completed' ? true : false"/>
+				      			<template v-if="props.row.status == 'complete' ">
+					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
 
-				      			<q-btn color="purple" class="q-mx-sm" icon="print" />
+				      			<!-- <q-btn color="purple" class="q-mx-sm" icon="print" /> -->
 
 				      		</q-td>
 				      	</q-tr>
 				    </template>
-			    </q-table> -->
+			    </q-table>
 
 			    <q-dialog v-model="completeTransaction" width="500">
 			    	<q-card>
@@ -224,7 +225,7 @@
 				                ref="form"
 				                >
 
-				                <input type="hidden" v-model="action.action" value="completed">
+				                <input type="hidden" v-model="action.action" value="complete">
 				                <q-btn
 				                  type="submit"
 				                  label="Complete Transaction"

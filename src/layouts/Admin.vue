@@ -21,7 +21,7 @@
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
                         <q-btn color="purple" icon="home" class="q-ma-sm" :label="presentLocation" />
-                        <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" v-bind:disabled="online === true || online === null ? false : true"/>                        
+                        <q-btn color="red" icon="settings_power" @click="shutDown" class="q-ma-sm" label="Shutdown" v-bind:disabled="online === true || online === null ? false : true"/>                        
 
                         <q-btn color="black" v-if="online==false" ><offline @detected-condition="handleConnectivityChange"></offline>Offline</q-btn>
                         <q-btn color="green"  v-if="online==true"><offline @detected-condition="handleConnectivityChange"></offline>Online</q-btn>
@@ -153,6 +153,15 @@
                             <q-item-label>Location</q-item-label>
                         </q-item-section>
                     </q-item>
+
+                    <q-item clickable @click="clearOfflineOrders">
+                        <q-item-section avatar>
+                            <q-icon name="house" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Clear</q-item-label>
+                        </q-item-section>
+                    </q-item>
                 </template>
 
                 <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
@@ -216,7 +225,7 @@
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
     import offline from 'v-offline'
-    // import ConnectionLight from 'components/Connectivity/Connectivity.vue'
+    const shutdown = require('electron-shutdown-command');
 
     export default {
         name: 'Admin',
@@ -263,6 +272,7 @@
                 removeAllProductFromCart: 'adminShopping/removeAllProductFromCart',
                 signOutAction: 'auth/signOut',
                 connectOnline: 'auth/onlineStatus',
+                clearOfflineOrders: 'adminOrders/clearofflineOrders',
             }),
 
             signOut(){
@@ -298,6 +308,21 @@
                 })
                 
                 
+            },
+
+            shutDown(){
+
+                if(this.online === false ){
+                    return this.negativeNotification('you must be connected to the internet to proceed')
+                }
+
+                shutdown.shutdown({
+                    force: true,
+                    timerseconds: 20,
+                    sudo: true,
+                    debug: true,
+                    quitapp: true
+                })
             },
 
             positiveNotification(message){

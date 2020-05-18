@@ -123,6 +123,7 @@
         methods:{
             ...mapActions({
               	login: 'auth/adminSignIn',
+                online: 'auth/onlineStatus',
                 // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
             }),
 
@@ -138,6 +139,11 @@
             },
 
            loginUser(){
+
+                if(this.online === false ){
+                    return this.negativeNotification('you must be connected to the internet to login')
+                }
+
                 this.login(this.form).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
                     return this.$router.replace({name: 'adminDashboard'})
