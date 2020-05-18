@@ -235,5 +235,5 @@ export const clearofflineOrders = ({ state, commit, dispatch, rootState }, order
 	LocalStorage.set('orders', JSON.stringify([]))
 	LocalStorage.set('transaction', null)
 	LocalStorage.set('plateNumber', null)
-	dispatch('storeTransactionInLocalStorage')
+	commit('setCurrentOrders', JSON.stringify([]))
 }

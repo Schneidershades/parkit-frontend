@@ -16,11 +16,11 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
-    useContentSize: false,
-    frame : true,
-    fullscreen : true,
+    width: 2000,
+    height: 1000,
+    useContentSize: true,
+    // frame : true,
+    // fullscreen : true,
     webPreferences: {
       // keep in sync with /quasar.conf.js > electron > nodeIntegration
       // (where its default value is "true")
@@ -58,7 +58,7 @@ ipcMain.on('app_version', (event) => {
 
 
 require('update-electron-app')({
-  repo: 'github-user/repo',
+  repo: 'Schneidershades/parkit-frontend',
   updateInterval: '1 hour',
   logger: require('electron-log')
 })
