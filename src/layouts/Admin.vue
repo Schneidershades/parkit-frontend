@@ -48,7 +48,7 @@
 
         <q-drawer
             v-model="leftDrawerOpen"
-            show-if-above
+            behavior="mobile"
             bordered
             content-class="bg-white-2"
             class="lt-xl print-hide"
