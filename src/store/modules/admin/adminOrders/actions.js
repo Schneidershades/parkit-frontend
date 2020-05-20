@@ -1,5 +1,7 @@
 import axios from 'axios'
+import localforage from 'localforage'
 import { LocalStorage } from 'quasar'
+import { localForageService } from '../dispatchApi/localForageService'
 
 
 // get products
@@ -19,6 +21,19 @@ export const getOrders = ({ commit, dispatch, rootState }) => {
 	}
 }
 
+export const getOfflineOrders = async({state, commit, dispatch, rootState }, item) => {
+	if (await localForageService.getItem('orders') == null){
+		return localForageService.setItem('orders', [])
+	}
+	if(item==null){
+		return localForageService.setItem('orders', state.orders)
+	}
+	return localForageService.setItem('orders', item)
+}
+
+
+
+
 export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 	return axios.post('api/v1/auth/orders', order).then((response) => {
 		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
@@ -32,7 +47,6 @@ export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 export const getOrderId = ({ commit }, item) => {
 	var URL = "api/v1/auth/orders/"+item
 	return axios.get(URL).then((response) => {
-		// console.log(response.data.data)
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
 	})
@@ -78,20 +92,23 @@ export const payAtLocation = ({ commit }, item) =>{
 	})
 }
 
-export const saveTransaction = ({ state, commit, dispatch, rootState }, order) =>{
+export const saveTransaction = async({ state, commit, dispatch, rootState }, order) =>{
 	commit('updateTransaction', order)
 	dispatch('storeTransactionInLocalStorage')
+
+	console.log(await localForageService.getItem('orders'))
+
+	commit('setOrders', await localForageService.getItem('orders'))
 	var receipt = LocalStorage.getItem('receiptOrderNumber')
 	var newNumber = ++receipt
 	LocalStorage.set('receiptOrderNumber', newNumber)
 	dispatch('updateRecieptNumber')
-	dispatch('storeTransactionInLocalStorage')
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
 }
 
-export const storeTransactionInLocalStorage = ({ state, commit, dispatch}) =>{
-	LocalStorage.set('orders', JSON.stringify(state.orders))
-	commit('setCurrentOrders', JSON.parse(LocalStorage.getItem('orders')) ? JSON.parse(LocalStorage.getItem('orders')) : [])
+export const storeTransactionInLocalStorage = async({ state, commit, dispatch}) =>{
+	// console.log({ "data": state.orders })
+	await dispatch('getOfflineOrders', state.orders)
 }
 
 export const clearTransaction = ({ state, commit, dispatch, rootState }, order) =>{
@@ -104,8 +121,7 @@ export const clearTransaction = ({ state, commit, dispatch, rootState }, order) 
 
 
 export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
-	console.log(state.transaction, 390)
-	LocalStorage.set('orders', JSON.stringify(state.orders))
+    localForageService.setItem('orders', state.orders)
 	commit('adminShopping/applyResetDiscountData', null, { root: true })
 	dispatch('customerPlateNumbers/removeCurrentPlateNumberFromLocalStorage', null, { root: true })
 }
@@ -125,9 +141,9 @@ export const sendOrder = ({ state, commit, dispatch, rootState }, order) =>{
 	commit('setOrderDetails', order)
 }
 
-export const processRequest = ({ state, commit, dispatch, rootState }, order) =>{
+export const processRequest = async({ state, commit, dispatch, rootState }, order) =>{
 	commit('setUpdateOrderDetails', order)
-	LocalStorage.set('orders', JSON.stringify(state.orders))
+	return dispatch('getOfflineOrders', state.orders)
 }
 
 
@@ -186,13 +202,14 @@ export const getUserDeletePrivilege = async ({ commit }, item) =>{
 }
 
 export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, item) =>{
-	// console.log(items)
-	var orders = state.orders
+	var orders = await dispatch('getOfflineOrders')
 
-	var concludedOrders = state.orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete');
+	commit('setOrders', orders)
+
+	var concludedOrders = orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete');
 
 	// var notConcludedOrders = state.orders.filter(x => x.status != 'complete' || x.status != 'edit' || x.status != 'delete');
-	var notConcludedOrders = state.orders.filter(function( obj ) {
+	var notConcludedOrders = orders.filter(function( obj ) {
 	    return obj.status == 'pending';
 	});
 
@@ -216,11 +233,11 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 	console.log('online and with content')
 
 	await axios.post('api/v1/admin/user/offline-orders', {'orders' : concludedOrders}).then((response) => {
-		LocalStorage.set('orders', JSON.stringify(notConcludedOrders))
-
+		dispatch('getOfflineOrders', notConcludedOrders)
 		let auth = rootState.auth.user
 
 		if(auth){
+			console.log('checking online')
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
 		}	
 		
@@ -232,7 +249,8 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 
 
 export const clearofflineOrders = ({ state, commit, dispatch, rootState }, order) =>{
-	LocalStorage.set('orders', JSON.stringify([]))
+	// LocalStorage.set('orders', JSON.stringify([]))
+	localForageService.setItem('orders', [])
 	LocalStorage.set('transaction', null)
 	LocalStorage.set('plateNumber', null)
 	commit('setCurrentOrders', JSON.stringify([]))

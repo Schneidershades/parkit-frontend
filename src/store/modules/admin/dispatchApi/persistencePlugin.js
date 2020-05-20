@@ -26,7 +26,7 @@ const mutationsOfInterest = [
   'customerPlateNumbers/setPlateNumbers',
   'auth/SET_USER',
   'adminShopping/setProducts',
-  'locationHistory/setLocationHistory',
+  // 'locationHistory/setLocationHistory',
 ];
 
 const ofInterest = (mutation) => {

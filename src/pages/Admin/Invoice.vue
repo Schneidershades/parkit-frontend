@@ -12,6 +12,8 @@
 			{{receiptNo}}<br>
 			last transaction <br>
 			{{orderTransaction}} <br>
+			order<br>
+			{{order}} <br>
 			all orders<br>
 		{{allOrders}} <br> -->
 		<!-- {{freeWashStatus}} {{freeWash}}<br> -->
@@ -148,13 +150,14 @@
 		                            <div class="col-4 q-pa-sm">
 		                                <q-input
 			                                filled
+			                                v-model="order.vehicle.phone"
 		                                    :dense="dense"
 		                                    :readonly="readonly"
-			                                v-model="order.vehicle.phone"
+		                                    prefix="+234"
 			                                label="Phone Number"
-			                                mask="(###) - ### - ### - ####"
+			                                mask="(###) ### - ####"
 			                                unmasked-value
-			                                hint="Hint : (234) - 702 - 222 - 2222"
+			                                hint="Hint : (222) 222 - 2222"
 			                                lazy-rules
 		                                    :value="order.vehicle.phone"
 			                                />
@@ -483,7 +486,6 @@
             }),
 
             beginStep(){
-            	// this.step = 1
             	this.clearTransaction().then((response) => {
 					this.step = 1
 	            }).catch((error) => {
@@ -542,6 +544,13 @@
 	        	// this.order.discounted_amount = this.subTotal
 	        	this.order.vehicle.userId = this.checkPlateNumber.userId
 
+
+	        	var n = this.order.vehicle.phone ? this.order.vehicle.phone : null
+
+	        	if(n!=null && n.length == 10){
+        			this.order.vehicle.phone = "234"+n
+        		}
+
 	            this.saveTransaction(this.order).then((response) => {
 					this.step = 5
 					remote.getCurrentWebContents().print({silent:true, copies : 2})
@@ -561,7 +570,15 @@
         			this.order.vehicle.id = this.checkPlateNumber.id
         			this.order.vehicle.email = this.checkPlateNumber.email
 	        		this.order.vehicle.plate_number = this.checkPlateNumber.plateNumber
-		            this.order.vehicle.phone = this.checkPlateNumber.phone
+	        		
+	        		var n = this.checkPlateNumber.phone ? this.checkPlateNumber.phone : null
+
+	        		if(n!=null && n.length == 13 && n.startsWith("234")){
+	        			var phoneNum = n.slice(3)
+	        			this.order.vehicle.phone = phoneNum
+	        		}
+
+		            
 		            this.order.vehicle.first_name = this.checkPlateNumber.firstName
 		            this.order.vehicle.last_name = this.checkPlateNumber.lastName
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.VehicleType

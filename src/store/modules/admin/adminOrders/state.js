@@ -1,7 +1,10 @@
 import { LocalStorage } from 'quasar'
+import localforage from 'localforage';
+import { localForageService } from '../dispatchApi/localForageService'
 
 export default{
-	orders: LocalStorage.getItem('orders') ? JSON.parse(LocalStorage.getItem('orders')) : [],
+	// orders: LocalStorage.getItem('orders') ? JSON.parse(LocalStorage.getItem('orders')) : [],
+	orders: localForageService.getItem('orders') !== undefined ? localForageService.getItem('orders') : [],
 	
 	receiptOrderNumber: LocalStorage.getItem('receiptOrderNumber') ? JSON.parse(LocalStorage.getItem('receiptOrderNumber')) : 0,
 	orderDetails:null,

@@ -225,7 +225,7 @@
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
     import offline from 'v-offline'
-    const shutdown = require('electron-shutdown-command');
+    const shutdown = require('electron-shutdown-command')
 
     export default {
         name: 'Admin',
@@ -311,17 +311,11 @@
             },
 
             shutDown(){
-
                 if(this.online === false ){
                     return this.negativeNotification('you must be connected to the internet to proceed')
                 }
-
-                shutdown.shutdown({
-                    force: true,
-                    timerseconds: 20,
-                    sudo: true,
-                    debug: true,
-                    quitapp: true
+                this.signOutAction().then(() => {
+                    shutdown.shutdown()
                 })
             },
 
