@@ -15,6 +15,8 @@ const
   express = require('express'),
   compression = require('compression')
 
+var sslRedirect = require('heroku-ssl-redirect');
+
 const
   ssr = require('quasar-ssr'),
   extension = require('./extension'),
@@ -24,6 +26,8 @@ const
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
 })
+
+app.use(sslRedirect());
 
 // gzip
 app.use(compression({ threshold: 0 }))
@@ -35,6 +39,8 @@ if (ssr.settings.pwa) {
 
 // serve "www" folder
 app.use('/', serve('.', true))
+
+
 
 // we extend the custom common dev & prod parts here
 extension.extendApp({ app, ssr })
