@@ -7,6 +7,73 @@
 	      	</q-breadcrumbs>
 	    </div>
 
+	    <div class="q-pa-md q-gutter-sm print-hide row">
+	    	<div class="col">
+	    		<q-card
+			      class="my-card text-white"
+			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    >
+			      <q-card-section>
+			        <div class="text-subtitle2">Recent Transactions</div>
+
+			        <div class="text-h5">₦ {{todaysOrderTransaction ? todaysOrderTransaction : '0'}}.00</div>
+			      </q-card-section>
+			    </q-card>
+	    	</div>
+	    	<div class="col">
+	    		<q-card
+			      class="my-card text-white"
+			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    >
+			      <q-card-section>
+			        <div class="text-subtitle2">Today</div>
+
+			        <div class="text-h5">₦ {{user.location.dailyAmount}}.00</div>
+
+			      </q-card-section>
+			    </q-card>
+	    	</div>
+
+	    	<div class="col">
+	    		<q-card
+			      class="my-card text-white"
+			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    >
+			      <q-card-section>
+			        <div class="text-subtitle2">Yesterday</div>
+
+			        <div class="text-h5">₦ {{user.location.yesterdayAmount}}.00</div>
+
+			      </q-card-section>
+			    </q-card>
+	    	</div>
+	    	<div class="col">
+	    		<q-card
+			      class="my-card text-white"
+			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    >
+			      <q-card-section>
+			        <div class="text-subtitle2">This Week</div>
+
+			        <div class="text-h5">₦ {{user.location.weeklyAmount}}.00</div>
+
+			      </q-card-section>
+			    </q-card>
+	    	</div>
+	    	<div class="col">
+	    		<q-card
+			      class="my-card text-white"
+			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    >
+			      <q-card-section>
+			        <div class="text-subtitle2">This Month</div>
+
+			        <div class="text-h5">₦ {{user.location.monthlyAmount}}.00</div>
+
+			      </q-card-section>
+			    </q-card>
+	    	</div>
+	    </div>
 	    <div id="ticketPrinter" v-if="orderDetails!=null">
 			<div class="ticket print-only">
 
@@ -43,8 +110,8 @@
 						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
 					</p>
 				</div>
-				<div class="q-py-sm"  align="right">
-					<b>Sub-total: ₦{{orderDetails.sub_total}}<br>
+				<div class="q-py-sm" >
+					<b align="right">Sub-total: ₦{{orderDetails.sub_total}}<br>
 					<template v-if="orderDetails.discount!=null">
 						<template v-if="orderDetails.discount.amountDiscount != null">
 							Net-Total: ₦ {{ orderDetails.discount.amountDiscount }}
@@ -70,10 +137,12 @@
 					Total: ₦ {{orderDetails.total}}</b>
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
-					<br>
+		            	<hr>
+		            <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
+						Call: 09031526466 or send a mail to franchise@parkit.ng
+					</i></b>
 					<br><br>
 					<br>
-					<hr>
 				</div>
 			</div>
 	    </div>
@@ -398,6 +467,7 @@ import { mapActions, mapGetters } from 'vuex'
 import Orders from 'components/Admin/Orders/Orders.vue'
 import EditRequest from 'components/Admin/Modal/EditRequest.vue'
 import DeleteRequest from 'components/Admin/Modal/DeleteRequest.vue'
+import { date } from 'quasar'
 const { remote } = require('electron')
 const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
 const path = require("path")
@@ -501,6 +571,8 @@ export default {
           	orderDetails: 'adminOrders/orderDetails',
           	editPrivilege: 'adminOrders/editPrivilege',
           	deletePrivilege: 'adminOrders/deletePrivilege',
+          	todaysOrderTransaction: 'adminOrders/totalTransactionToday',
+          	todaysHistoryTransaction: 'locationHistory/totalTransactionToday',
         }),
     },
 
@@ -573,6 +645,23 @@ export default {
                 }
             }) 
     	},
+
+    	optionsFn () {
+     		var today = new Date();
+  			var bu = today.getDate();
+	      	
+     		console.log(new Date())
+     		var timeStamp = Date.now()
+			var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+			return formattedString
+	    },
+
+	    time(){
+	    	var today = new Date();
+	    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+        	today.getSeconds();
+        	return time
+	    },
     },
     mounted(){
     	if(this.$can('edit', 'orders')){
@@ -586,6 +675,9 @@ export default {
 		}else{
 			this.setCurrentDeleteRight(false)
 		}
+
+		this.filterExpense =  this.optionsFn()
+
     }
 }
 </script>

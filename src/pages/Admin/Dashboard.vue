@@ -7,6 +7,7 @@
 			</q-breadcrumbs>
 		</div>
 
+		<!-- {{user}} -->
 		<div class="q-pa-md">
 			<div class="q-gutter-y-md">
 				<div class="row">

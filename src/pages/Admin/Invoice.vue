@@ -56,8 +56,8 @@
 						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
 					</p>
 				</div>
-				<div class="q-py-sm"  align="right">
-					<b>Sub-total: ₦{{orderTransaction.sub_total}}<br>
+				<div class="q-py-sm" >
+					<b align="right">Sub-total: ₦{{orderTransaction.sub_total}}<br>
 					<template v-if="orderTransaction.discount!=null">
 						<template v-if="orderTransaction.discount.amountDiscount != null">
 							Net-Total: ₦ {{ orderTransaction.discount.amountDiscount }}
@@ -80,13 +80,16 @@
 					</template>
 					
 					<br>
-					Total: ₦ {{orderTransaction.total}}</b>
+					Total: ₦ {{orderTransaction.total}}
+					</b>
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
-					<br>
+		            	<hr>
+		            <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
+						Call: 09031526466 or send a mail to franchise@parkit.ng
+					</i></b>
 					<br><br>
 					<br>
-					<hr>
 				</div>
 			</div>
 	    </div>

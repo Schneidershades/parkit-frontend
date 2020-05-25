@@ -7,14 +7,10 @@ export const cart = (state) =>{
 	return state.cart
 }
 
-// cart
-// cart item count
-// 
 export const cartItemCount = (state)=>{
 	return state.cart.length
 }
-// cart total
-// 
+
 export const cartTotal = (state) => {
 	const barArray = [];
 	var arraySum = state.cart.reduce((a, b) => {

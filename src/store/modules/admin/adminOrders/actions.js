@@ -143,7 +143,9 @@ export const sendOrder = ({ state, commit, dispatch, rootState }, order) =>{
 
 export const processRequest = async({ state, commit, dispatch, rootState }, order) =>{
 	commit('setUpdateOrderDetails', order)
-	return dispatch('getOfflineOrders', state.orders)
+	dispatch('sendOfflineOrders', state.orders)
+	dispatch('getOfflineOrders', state.orders)
+	commit('setOrders', await localForageService.getItem('orders'))
 }
 
 
@@ -234,11 +236,13 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 
 	await axios.post('api/v1/admin/user/offline-orders', {'orders' : concludedOrders}).then((response) => {
 		dispatch('getOfflineOrders', notConcludedOrders)
+		// commit('setOrders', notConcludedOrders)
 		let auth = rootState.auth.user
 
 		if(auth){
 			console.log('checking online')
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
+			dispatch('auth/attempt', rootState.auth.token, { root: true })
 		}	
 		
 		return Promise.resolve()
