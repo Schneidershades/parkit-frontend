@@ -5,19 +5,11 @@
                 <tr>
                 	<td>
                       	<p class="text-left"><b> ID No</b></p>
-                      	<template v-if="order.location != null && order.address != null">
-                      		<p class="text-left">HS/{{order.location.name}}000000000{{order.id}}</p>
-                      	</template>
-                      	<template v-if="order.location == null && order.address != null">
-                      		<p class="text-left">HS000000000{{order.id}}</p>
-                      	</template>
-                      	<template v-if="order.location != null && order.address == null">
-                      		<p class="text-left">{{order.location.name}}000000000{{order.id}}</p>
-                      	</template>
+                      	<p class="text-left">{{order ? order.receipt_number : 'N/A'}}</p>
                   	</td>
                 	<td>
-                		<p class="text-left"><b> Action Status</b></p>
-                      	<p class="text-left">{{order.action}}<template v-if="order.action == 'online-payment'"> - {{order.payment_status}}</template> </p>
+                		<p class="text-left"><b>Status</b></p>
+                      	<p class="text-left">{{order.status}}</p>
                 	</td>
 
                 	<td>
@@ -26,7 +18,7 @@
                 	</td>
                 	<td  colspan="2">
                 		<p class="text-left"><b> Location</b></p>
-
+						
                 		<template v-if="order.location != null && order.address != null">
                       		<p class="text-left">Home-Service Address: {{order.address.address}}</p>
                       		<p class="text-left">Location : {{order.location.short_name}}</p>
@@ -70,7 +62,7 @@
                 <tr v-if="order.subtotal">
                 	<td></td>
                 	<td colspan="3"><b>Subtotal</b></td>
-                	<td colspan="1"><b>₦ {{order.subtotal}}</b></td>
+                	<td colspan="1"><b>₦ {{order.sub_total}}</b></td>
                 </tr>
                 <tr v-if="order.discount">
                 	<td></td>

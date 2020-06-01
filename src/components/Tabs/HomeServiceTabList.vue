@@ -79,7 +79,7 @@
 							</q-list>
 						</div>
 						<div class="row wrap tab-card gt-sm">
-							<div class="q-pa-sm col-md-3" v-for="content in product.packages" v-if="content.venue=='parkit-location'">
+							<div class="q-pa-sm col-md-3" v-for="content in product.packages" v-if="content.venue=='home-office'">
 							<!-- <div class="q-pa-sm col-md-3 " v-for="content in product.packages" v-if="content.package!='SINGLE WASH'"> -->
 								<q-card class="my-card" >
 									<q-card-section class="bg-primary text-white card-style" >

@@ -11,21 +11,13 @@
 		    >
 		      <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
-		      		<template v-if="props.row.location != null && props.row.address != null">
-		      			<q-td key="id" :props="props">HS/{{props.row.location.name}}000000000{{props.row.id}}</q-td>
-                  	</template>
-                  	<template v-if="props.row.location == null && props.row.address != null">
-		      			<q-td key="id" :props="props">HS000000000{{props.row.id}}</q-td>
-                  	</template>
-                  	<template v-if="props.row.location != null && props.row.address == null">
-		      			<q-td key="id" :props="props">{{props.row.location.name}}000000000{{props.row.id}}</q-td>
-                  	</template>
+		      		<q-td key="id" :props="props">{{props.row.receipt_number? props.row.receipt_number : 'N/A'}}</q-td>
 		      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
-		      		<q-td key="subtotal" :props="props">{{ props.row.subtotal }}</q-td>
+		      		<q-td key="subtotal" :props="props">{{ props.row.sub_total }}</q-td>
 		      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
 		      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 		      		<q-td key="date" :props="props">{{ props.row.created_at }}</q-td>
-		      		<q-td key="status" :props="props">{{ props.row.action }}: <b>{{ props.row.status }}</b></q-td>
+		      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 		      		<q-td key="action" :props="props">
 		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.id)"/>
 		      		</q-td>
