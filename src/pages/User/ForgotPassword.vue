@@ -10,11 +10,11 @@
                 {{message}}
             </q-banner>
 
-            <q-banner dense rounded inline-actions v-if="errorMessage" class="q-my-lg text-white bg-red">
+            <q-banner dense rounded inline-actions v-if="errorMessage!=null" class="q-my-lg text-white bg-red">
                 {{errorMessage}}
             </q-banner>
 
-            <q-form
+            <!-- <q-form
                 @submit="sendLinkBtn"
                 class="q-gutter-md q-"
                 ref="form"
@@ -30,9 +30,9 @@
                 <q-stepper-navigation>
                   <q-btn type="submit" color="primary" label="Send Reset Link" :disable="disable"/>
                 </q-stepper-navigation>
-            </q-form>
+            </q-form> -->
         
-            <!-- <div class="gi">
+            <div class="gi">
                 <q-stepper
                   v-model="step"
                   header-nav
@@ -158,7 +158,7 @@
                     </q-form>
                   </q-step>
                 </q-stepper>
-            </div> -->
+            </div>
 
         </q-card-section>
         <q-separator />
