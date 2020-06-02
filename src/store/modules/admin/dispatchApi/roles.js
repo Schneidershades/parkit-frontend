@@ -17,6 +17,7 @@ store.watch(
 			const testOffline = async () => {
 				// axios.defaults.baseURL = 'http://localhost:8000/'
 				axios.defaults.baseURL = 'https://api.parkit.ng/'
+			  	await store.dispatch('internetStatus/getProducts')
 			  	await store.dispatch('adminShopping/getProducts')
 		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
 			  	await store.dispatch('adminOrders/checkRecieptNumber')

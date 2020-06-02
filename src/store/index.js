@@ -1,8 +1,11 @@
 import Vue from 'vue'
 
 import Vuex from 'vuex'
+import VueOffline from 'vue-offline'
+
 
 Vue.use(Vuex)
+Vue.use(VueOffline)
 
 
 

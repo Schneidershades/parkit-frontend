@@ -49,6 +49,7 @@
     "vue-apexcharts": "^1.5.3",
     "vue-gallery": "^2.0.1",
     "vue-gallery-slideshow": "^1.5.0",
+    "vue-offline": "^2.0.8",
     "vue-ravepayment": "^2.0.2",
     "vue-runtime-helpers": "^1.1.2"
   },

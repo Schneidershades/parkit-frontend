@@ -92,8 +92,8 @@ export default ({
 				return new Promise((resolve, reject) => {
 		            axios.get('api/v1/auth/me').then(response => {
 		                commit('SET_USER', response.data.data)
-						dispatch('shopping/storeCart', null, { root: true })
-						dispatch('shopping/getCart', null, { root: true })
+						// dispatch('shopping/storeCart', null, { root: true })
+						// dispatch('shopping/getCart', null, { root: true })
 						resolve()
 		            }, error => {
 		                // dispatch('flashErrorMessage', error.response.data, {root:true})

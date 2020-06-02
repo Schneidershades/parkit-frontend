@@ -1,3 +1,3 @@
 export default{
-	connected: null
+	connected: navigator.onLine
 }

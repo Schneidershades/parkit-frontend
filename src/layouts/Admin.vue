@@ -30,6 +30,18 @@
                         <template v-if="cart.length">
                             <q-btn color="primary"  :label="carTotalLength"  />
                         </template>
+
+                        <v-offline
+                          online-class="online"
+                          offline-class="offline"
+                          @detected-condition="amIOnline">
+                          <template v-slot:[onlineSlot] :slot-name="onlineSlot">
+                            ( Online: {{ onLine }} )
+                          </template>
+                          <template v-slot:[offlineSlot] :slot-name="offlineSlot">
+                            ( Online: {{ onLine }} )
+                          </template>
+                        </v-offline>
                     </template>
                 </div>
 
@@ -224,7 +236,8 @@
     import { getPersistedState } from '../store/modules/auth/statemapper.js';
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
-    import offline from 'v-offline'
+    // import offline from 'v-offline'
+    import VOffline from 'v-offline'
     const shutdown = require('electron-shutdown-command')
 
     export default {
@@ -243,7 +256,10 @@
                 listOver: false,
                 signInModal: false,
                 signUpModal: false,
-                right: false
+                right: false,
+                onLine: null,
+                onlineSlot: 'online',
+                offlineSlot: 'offline',
             }
         },
 
@@ -274,6 +290,13 @@
                 connectOnline: 'auth/onlineStatus',
                 clearOfflineOrders: 'adminOrders/clearofflineOrders',
             }),
+
+            amIOnline(e) {
+                this.onLine = e;
+                if(e){
+                    return this.positiveNotification('You are now online')
+                }
+            },
 
             signOut(){
 
