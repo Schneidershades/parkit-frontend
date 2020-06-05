@@ -10,9 +10,9 @@
                 {{message}}
             </q-banner>
 
-            <q-banner dense rounded inline-actions v-if="errorMessage!=null" class="q-my-lg text-white bg-red">
+            <!-- <q-banner dense rounded inline-actions v-if="errorMessage!=null" class="q-my-lg text-white bg-red">
                 {{errorMessage}}
-            </q-banner>
+            </q-banner> -->
 
             <!-- <q-form
                 @submit="sendLinkBtn"
@@ -188,7 +188,7 @@
                 errorMessages: null,
                 error: '',
                 form : {
-                    email : ''
+                    phone : ''
                 },
                 password_confirmation: '',
                 step: 1,
