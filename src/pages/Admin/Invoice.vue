@@ -377,6 +377,7 @@
 
 	const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
 	const path = require("path")
+    const isOnline = require('is-online');
 
     export default{
     	components:{
@@ -486,6 +487,7 @@
 				setFreeWashStatus: 'customerPlateNumbers/useFreeWash',
 				saveTransaction: 'adminOrders/saveTransaction',
 				clearTransaction: 'adminOrders/clearTransaction',
+                connected: 'internetStatus/setConnection',
             }),
 
             beginStep(){
@@ -497,7 +499,7 @@
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
 	            })    
-	        	this.order.receipt_number = this.user.location.code+'0000000'+this.receiptNo
+	        	this.order.receipt_number = this.user.location.code+'0000200'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -569,6 +571,7 @@
 
             submitFindVehicle(){
             	this.sendPlatenumber(this.plateNumber.number).then((res) => {
+            		
             		this.trigger = true
         			this.order.vehicle.id = this.checkPlateNumber.id
         			this.order.vehicle.email = this.checkPlateNumber.email

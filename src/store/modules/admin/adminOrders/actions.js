@@ -39,7 +39,12 @@ export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch((error) => {
+		if (!error.response) {
+    		return dispatch('internetStatus/setConnection', false, {root:true})
+        }
+  		return Promise.reject()
+  	}) 
 }
 
 
@@ -104,6 +109,14 @@ export const saveTransaction = async({ state, commit, dispatch, rootState }, ord
 	LocalStorage.set('receiptOrderNumber', newNumber)
 	dispatch('updateRecieptNumber')
 	dispatch('adminShopping/removeAllProductFromCart', null, { root: true })
+
+	let auth = rootState.auth.user
+
+	dispatch('sendOfflineOrders', state.orders)
+
+
+	dispatch('locationHistory/getLocationHistory', null, { root: true })
+	
 }
 
 export const storeTransactionInLocalStorage = async({ state, commit, dispatch}) =>{
@@ -208,7 +221,7 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 
 	commit('setOrders', orders)
 
-	var concludedOrders = orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete');
+	var concludedOrders = orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete' || x.status == 'pending' || x.status == 'processing');
 
 	// var notConcludedOrders = state.orders.filter(x => x.status != 'complete' || x.status != 'edit' || x.status != 'delete');
 	var notConcludedOrders = orders.filter(function( obj ) {
@@ -222,10 +235,10 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 	let online = rootState.internetStatus.connected
 
 	// store notes
-	if(online == false){
-		console.log('offline')
-		return
-	}
+	// if(online == false){
+	// 	console.log('offline')
+	// 	return
+	// }
 
 	if (orders == [] || orders == null){
 		console.log('empty')
@@ -243,12 +256,18 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 			console.log('checking online')
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
 			dispatch('auth/attempt', rootState.auth.token, { root: true })
-		}	
+		}else{
+			dispatch('locationHistory/getLocationHistory', null, { root: true })
+		}
+
 		
 		return Promise.resolve()
 	}).catch((error) => {
-        return Promise.reject()
-    })	
+		if (!error.response) {
+    		return dispatch('internetStatus/setConnection', false, {root:true})
+        }
+  		return Promise.reject()
+  	})	
 }
 
 

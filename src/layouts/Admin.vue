@@ -20,28 +20,17 @@
 
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
-                        <q-btn color="purple" icon="home" class="q-ma-sm" :label="presentLocation" />
-                        <q-btn color="red" icon="settings_power" @click="shutDown" class="q-ma-sm" label="Shutdown" v-bind:disabled="online === true || online === null ? false : true"/>                        
+                        <q-btn color="purple" unelevated icon="home" class="q-ma-sm" :label="presentLocation" />
+                        <q-btn color="red" unelevated icon="settings_power" @click="shutDown" class="q-ma-sm" label="Shutdown"/>
+                        <q-btn color="green" unelevated align="right" @click="checkOnline">check internet status</q-btn>                        
 
-                        <q-btn color="black" v-if="online==false" ><offline @detected-condition="handleConnectivityChange"></offline>Offline</q-btn>
-                        <q-btn color="green"  v-if="online==true"><offline @detected-condition="handleConnectivityChange"></offline>Online</q-btn>
-                        <q-btn color="orange"  v-if="online==null"><offline @detected-condition="handleConnectivityChange"></offline>Connected</q-btn>
-                        
+                        <!-- <q-btn color="black"  v-if="connectedOnline==false">Offline</q-btn>
+                        <q-btn color="grey"  v-if="connectedOnline==null">Connecting</q-btn>
+                        <q-btn color="green"  v-if="connectedOnline==true">Online</q-btn> -->
+                                                
                         <template v-if="cart.length">
                             <q-btn color="primary"  :label="carTotalLength"  />
                         </template>
-
-                        <v-offline
-                          online-class="online"
-                          offline-class="offline"
-                          @detected-condition="amIOnline">
-                          <template v-slot:[onlineSlot] :slot-name="onlineSlot">
-                            ( Online: {{ onLine }} )
-                          </template>
-                          <template v-slot:[offlineSlot] :slot-name="offlineSlot">
-                            ( Online: {{ onLine }} )
-                          </template>
-                        </v-offline>
                     </template>
                 </div>
 
@@ -165,15 +154,6 @@
                             <q-item-label>Location</q-item-label>
                         </q-item-section>
                     </q-item>
-
-                    <q-item clickable @click="clearOfflineOrders">
-                        <q-item-section avatar>
-                            <q-icon name="house" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Clear</q-item-label>
-                        </q-item-section>
-                    </q-item>
                 </template>
 
                 <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
@@ -213,15 +193,6 @@
                         </q-item-section>
                     </q-item>
                 </template>
-
-                <q-item clickable @click.prevent="signOut">
-                    <q-item-section avatar>
-                        <q-icon name="logout" />
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label>Logout</q-item-label>
-                    </q-item-section>
-                </q-item>
             </q-list>
         </q-drawer>
         <q-page-container class="page-con">
@@ -230,14 +201,24 @@
     </q-layout>
 </template>
 
+<style>
+    .offline {
+      background-color: #fc9842;
+      background-image: linear-gradient(315deg, #fc9842 0%, #fe5f75 74%);
+    }
+    .online {
+      background-color: #00b712;
+      background-image: linear-gradient(315deg, #00b712 0%, #5aff15 74%);
+    }
+</style>
 
 <script>
     import CartDrawer from 'components/Cart/CartDrawer.vue'
     import { getPersistedState } from '../store/modules/auth/statemapper.js';
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
-    // import offline from 'v-offline'
     import VOffline from 'v-offline'
+    const isOnline = require('is-online');
     const shutdown = require('electron-shutdown-command')
 
     export default {
@@ -245,7 +226,7 @@
 
         components:{
             CartDrawer,
-            offline,
+            VOffline
         },
         
         data () {
@@ -271,6 +252,7 @@
                 authenticated: 'auth/user',
                 user: 'auth/user',
                 online: 'auth/onlineStatus',
+                connectedOnline: 'internetStatus/connected',
             }),
             
             carTotalLength(){
@@ -278,7 +260,7 @@
             }, 
 
             presentLocation(){
-                return "Location : " + this.user.location.code
+                return 'Hello '+this.user.firstName + " - " + this.user.location.locationName
             }
         },
 
@@ -289,6 +271,7 @@
                 signOutAction: 'auth/signOut',
                 connectOnline: 'auth/onlineStatus',
                 clearOfflineOrders: 'adminOrders/clearofflineOrders',
+                checkOnlineStatus: 'internetStatus/checkOnline',
             }),
 
             amIOnline(e) {
@@ -319,27 +302,29 @@
                     this.negativeNotification('You are offline. Please connect to an available internet')
                 }
 
-                this.connectOnline(status).then((res) => {
-                        
-                }).catch((error) => {
-                    // console.log(error)
-                    // this.disable = false 
-                    // this.errorMessages = error
-                    // if(error){
-                    //     this.negativeNotification(error.error)
-                    // }
-                })
-                
-                
+            },
+
+            amIOnline(e) {
+              this.onLine = e;
             },
 
             shutDown(){
-                if(this.online === false ){
-                    return this.negativeNotification('you must be connected to the internet to proceed')
-                }
-                this.signOutAction().then(() => {
-                    shutdown.shutdown()
-                })
+                shutdown.shutdown()
+            },
+
+
+            checkOnline(){
+                (async () => {
+                    var check = await isOnline()
+                    this.checkOnlineStatus(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }
+                        if(check == true){
+                            return this.positiveNotification('You are online')
+                        }
+                    })
+                })();
             },
 
             positiveNotification(message){
@@ -375,6 +360,21 @@
                     // tsk tsk... handle this error too
                 });
             }
+
+            if(this.user==null){
+                return this.$router.push({name: 'adminLogin'})
+            }
+
+            // (async () => {
+            //     var check = await isOnline()
+            //     console.log(check);
+            //     this.connectOnline(check).then((res) => {
+            //         if(check === false){
+            //             return this.negativeNotification('You are offline. Please connect to an available internet')
+            //         }
+            //     })
+                
+            // })();
         },
     }
 </script>

@@ -4,6 +4,8 @@ import { AbilityBuilder } from '@casl/ability'
 import store from 'app/src/store/index'
 import axios from 'axios'
 import { localForageService } from './localForageService'
+import { LocalStorage, SessionStorage } from 'quasar'
+const isOnline = require('is-online');
 
 Vue.component('Can', Can)
 
@@ -16,13 +18,15 @@ store.watch(
 
 			const testOffline = async () => {
 				// axios.defaults.baseURL = 'http://localhost:8000/'
-				axios.defaults.baseURL = 'https://api.parkit.ng/'
-			  	await store.dispatch('internetStatus/getProducts')
-			  	await store.dispatch('adminShopping/getProducts')
-		  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
-			  	await store.dispatch('adminOrders/checkRecieptNumber')
-	  			await store.dispatch('adminOrders/sendOfflineOrders')
-				await store.dispatch('locationHistory/getLocationHistory')
+				// axios.defaults.baseURL = 'https://api.parkit.ng/'
+				// var online = await isOnline()
+				// await store.dispatch('internetStatus/setConnection', online)
+			  	// await store.dispatch('auth/attempt', LocalStorage.getItem('token'))
+			  	// await store.dispatch('adminShopping/getProducts')
+		  		// await store.dispatch('customerPlateNumbers/getPlateNumbers')
+			  	// await store.dispatch('adminOrders/checkRecieptNumber')
+	  			// await store.dispatch('adminOrders/sendOfflineOrders')
+				// await store.dispatch('locationHistory/getLocationHistory')
 			}
 
 			// async function returns a promise

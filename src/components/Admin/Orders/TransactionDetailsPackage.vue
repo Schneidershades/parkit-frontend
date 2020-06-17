@@ -7,7 +7,7 @@
                     <th scope="col">Package</th>
                     <th scope="col">Plate Number</th>
                     <th scope="col">Location</th>
-                    <th scope="col">Quantity</th>
+                    <th scope="col">Vehicle</th>
                     <th scope="col">Amount</th>
                 </tr>
             </thead>
@@ -16,25 +16,37 @@
                     <td data-label="Package"><b>{{item.vehicle}}</b> - {{item.package}}</td>
                     <td data-label="Quantity">
 						<q-input
-					      	ref="platenumber"
+					      	ref="plate_number"
+                    		v-model="form.plate_number"
 					        label="Plate Number *"
 					        filled
-					        dense
-					        readonly
+                            :dense="dense"
+                            :readonly="readonly"
 					        lazy-rules
 					        :rules="[
 					          val => val !== null && val !== '' || 'Please type a plate number'
 					        ]"
 					    />
 					</td>
-					<td data-label="Venue">{{item.venue}}</td>
+					<td data-label="Venue">
+						<q-select 
+                    		filled 
+                    		v-model="form.vehicle_type" 
+                    		:options="vehicles" 
+                            label="Get Vehicle Type *"
+                            lazy-rules
+                            :dense="dense"
+                            :readonly="readonly"
+                        	:rules="[ val => val && val.length > 0 || 'Select a vehicle type']"
+                    	/>
+					</td>
 					<td data-label="Quantity">{{item.quantity}}</td>
                     <td data-label="Unit">₦ {{item.amount}}</td>
                 </tr>
                 <tr>
 					
                 	<td colspan="2">
-					   <q-btn color="primary" label="Save Plate Number" />
+					   <q-btn color="primary" @click="vehicleDetails" label="Save Plate Number" />
                 	</td>
                 	<td colspan="3"></td>
                 </tr>
@@ -50,7 +62,7 @@
                 	<td colspan="4">
 					    <b>Subtotal</b>
                 	</td>
-                	<td><b v-if="transactionDetails.subtotal">₦ {{transactionDetails.subtotal}}.00 </b></td>
+                	<td><b v-if="transactionDetails.sub_total">₦ {{transactionDetails.sub_total}}.00 </b></td>
                 </tr>
 
                 <tr>
@@ -149,17 +161,66 @@
 
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	data () {
 		return {
+			form : {
+				plate_number : '',
+				vehicle_type : ''
+			},
+			dense: false,
+			readonly: false,
+
+			vehicles: [
+		        'SALOON CAR', 
+		        'SUV & SPACE BUS', 
+		        'TRUCK', 
+		        '14 SEATER BUS', 
+		        '18 SEATER BUS', 
+		        '32 SEATER BUS', 
+		        '36 SEATER BUS', 
+		        'PICKUP TRUCK', 
+		        'CARGO TRUCK', 
+		        'MOTOCYCLE', 
+		    ],
 		}
 	},
 	computed: {
         ...mapGetters({
 			transactionDetails: 'onlineTransaction/transactionDetails',
         }),
+    },
+
+    methods: {
+
+    	...mapActions({
+			sendVehicleDetails: 'onlineTransaction/updateOrderPlateNumber',
+        }),
+
+    	vehicleDetails(){
+    		this.sendVehicleDetails(this.form).then((res) => {
+                this.readonly = true
+            }).catch((error) => {
+                this.errorMessages = error
+                console.log(this.errorMessages)
+                if(this.errorMessages){
+                    this.negativeNotification(this.errorMessages)
+                }
+            }) 
+    	}
+    },
+
+    mounted(){
+    	if(this.transactionDetails.vehicle!=null){
+    		this.form.plate_number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null;
+    		this.readonly = true
+    	}
+    	if(this.transactionDetails.vehicle!=null){
+    		this.form.vehicle_type = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.vehicle_type : null;
+    		this.readonly = true
+    	}
     }
 }
 </script>

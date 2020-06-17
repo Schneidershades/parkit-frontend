@@ -39,10 +39,10 @@
 		                                <q-input
 		                                    ref="name"
 		                                    filled
-		                                    v-model="form.invoice"
+		                                    v-model="form.invoice_number"
 		                                    :dense="dense"
 		                                    label="Invoice Number/Identity *"
-		                                    hint="Please insert a invoice id"
+		                                    hint="Please insert an invoice number id"
 		                                />
 		                            </div>
 
@@ -86,7 +86,7 @@
 
 
 							        <q-card-actions align="right">
-							            <q-btn flat type="submit" label="Save" color="white" text-color="primary" />
+							            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
 							        </q-card-actions>
 
 		                        </div>  
@@ -105,16 +105,19 @@
     
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
+    const isOnline = require('is-online');
 
     export default{
         data(){
             return{
                 form: {
                     item : '',
-                    invoice : '',
+                    invoice_number : '',
                     quantity: '',
                     total_amount: '',
                     description: '',
+                    location_id: '',
+                    user_id: ''
                 },
                 dense: false,
             }
@@ -122,6 +125,7 @@
 
         computed: {
             ...mapGetters({
+		        user: 'auth/user',
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
@@ -132,21 +136,34 @@
         methods:{
             ...mapActions({
               	sendStaffPurchaseOrders: 'purchaseOrders/sendStaffPurchaseOrders',
+                connected: 'internetStatus/setConnection',
             }),
 
             submitRequest(){
-            	if(this.online === false ){
-            		return this.negativeNotification('you must be connected to the internet to proceed')
-            	}
-                this.sendStaffPurchaseOrders(this.form).then((res) => {
-                    this.positiveNotification('your request has been sent')
-                }).catch((error) => {
-                    this.errorMessages = error
-                    console.log(this.errorMessages)
-                    if(this.errorMessages){
-                        this.negativeNotification(this.errorMessages)
+            	(async () => {
+                    var check = await isOnline()
+                    console.log(check);
+                    if(check == false){
+                        return this.negativeNotification('You are offline. Please connect to an available internet')
                     }
-                })    
+                    this.connected(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }else{
+                            this.sendStaffPurchaseOrders(this.form).then((res) => {
+			                    this.positiveNotification('your request has been sent')
+			                }).catch((error) => {
+			                    this.errorMessages = error
+			                    console.log(this.errorMessages)
+			                    if(this.errorMessages){
+			                        this.negativeNotification(this.errorMessages)
+			                    }
+			                }) 
+                        }
+                    })
+                    
+                })(); 
+			                    
             },
             
 
@@ -169,6 +186,14 @@
                     message: error
                 })
             },
+        },
+
+        mounted(){
+        	if(this.user){
+        		console.log(this.user.location)
+        		this.form.user_id = this.user.id
+        		this.form.location_id = this.user.location.id
+        	}
         }
     }
 </script>

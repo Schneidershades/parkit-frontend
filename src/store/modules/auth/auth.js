@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { LocalStorage } from 'quasar'
 
 export default ({
 	namespaced: true,
@@ -66,14 +67,19 @@ export default ({
 			
 		},
 
-		async adminSignIn({dispatch}, credentials){
+		async adminSignIn({commit,dispatch, rootState }, credentials){
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/admin/user/signin', credentials).then(response => {
+
+			        dispatch('adminOrders/sendOfflineOrders', null, { root: true })
+			        dispatch('adminShopping/getProducts', null, { root: true })
+			        dispatch('locationHistory/getLocationHistory', null, { root: true })
+			        dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
+			        
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
 	                dispatch('flashMessage', error.response.data.data.error, {root:true})
-	                // console.log(error.response.data.data.error)
 	                reject()
 	            })
 		    })			
@@ -91,9 +97,10 @@ export default ({
 			try{
 				return new Promise((resolve, reject) => {
 		            axios.get('api/v1/auth/me').then(response => {
+						LocalStorage.set('user', JSON.stringify(response.data.data))
 		                commit('SET_USER', response.data.data)
-						// dispatch('shopping/storeCart', null, { root: true })
-						// dispatch('shopping/getCart', null, { root: true })
+		                commit('SET_USER', JSON.parse(LocalStorage.getItem('user')))
+
 						resolve()
 		            }, error => {
 		                // dispatch('flashErrorMessage', error.response.data, {root:true})
@@ -109,7 +116,6 @@ export default ({
 		},
 		
 		signOut({ commit, dispatch, rootState }){
-			dispatch('adminOrders/sendOfflineOrders', null, { root: true })
 			return axios.post('api/v1/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)

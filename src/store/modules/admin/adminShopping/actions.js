@@ -3,11 +3,16 @@ import { LocalStorage } from 'quasar'
 import { localForageService } from '../dispatchApi/localForageService'
 
 // get products
-export const getProducts = ({ commit }) => {
+export const getProducts = ({ commit, dispatch, rootState }) => {
 	return axios.get('api/v1/vehicles').then((response) => {
 		commit('setProducts', response.data)
 		return Promise.resolve()
-	})
+	}).catch((error) => {
+		if (!error.response) {
+    		return dispatch('internetStatus/setConnection', false, {root:true})
+        }
+  		return Promise.reject()
+  	})
 }
 
 // add product to cart

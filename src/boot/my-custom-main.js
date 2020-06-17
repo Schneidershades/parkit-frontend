@@ -11,10 +11,11 @@ export default async ({ app, router, store, Vue }) => {
   	axios.defaults.baseURL = 'https://api.parkit.ng/'
   	// axios.defaults.baseURL = 'http://localhost:8000/'
   	try{
-  		// await store.dispatch('customerPlateNumbers/getPlateNumbers')
-	  	// await store.dispatch('adminShopping/getProducts')
+  		await store.dispatch('customerPlateNumbers/getPlateNumbers')
+	  	await store.dispatch('adminShopping/getProducts')
 	  	await store.dispatch('adminOrders/checkRecieptNumber')
 	  	await store.dispatch('adminOrders/sendOfflineOrders')
+		await store.dispatch('locationHistory/getLocationHistory')
 		await store.dispatch('auth/attempt', LocalStorage.getItem('token')).then(() => {
 			new Vue({
 				router,

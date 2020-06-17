@@ -1,11 +1,13 @@
 import Vue from 'vue'
-
 import Vuex from 'vuex'
 import VueOffline from 'vue-offline'
+import VueOnlineProp from "vue-online-prop"
 
-
+const isOnline = require('is-online');
+Vue.use(VueOnlineProp)
 Vue.use(Vuex)
 Vue.use(VueOffline)
+Vue.component('VOffline', require('v-offline'));
 
 
 
@@ -37,6 +39,7 @@ import customerPlateNumbers from './modules/admin/customerPlateNumbers'
 import locationHistory from './modules/admin/locationHistory'
 import adminShopping from './modules/admin/adminShopping'
 import adminOrders from './modules/admin/adminOrders'
+import errorbag from './modules/errorbag'
 
 // import adminAuth from './modules/admin/adminAuth'
 
@@ -74,6 +77,7 @@ export default new Vuex.Store({
 		content,
 		contact,
 		country,
+		errorbag,
 		internetStatus,
 		adminShopping,
 		adminOrders,
@@ -99,6 +103,6 @@ export default new Vuex.Store({
 
 
 require('./modules/admin/dispatchApi/subscriber.js')
-require('./modules/admin/dispatchApi/roles.js')
 require('./modules/admin/dispatchApi/persistencePlugin.js')
+require('./modules/admin/dispatchApi/roles.js')
 // require('./modules/auth/prefetchData.js')

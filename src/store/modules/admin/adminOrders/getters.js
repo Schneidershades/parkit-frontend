@@ -50,7 +50,7 @@ export const totalTransactionToday = (state) => {
 	console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
-	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)
+	var orders = state.orders.filter(x => x.status == 'complete' || x.status == 'pending' || x.status == 'processing' && x.date == formattedString)
 	// return formattedString
 	// return state.orders.reduce(function(total, item){
 	// 	if(item.date == formattedString){

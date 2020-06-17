@@ -33,7 +33,6 @@
 			      </q-card-section>
 			    </q-card>
 	    	</div>
-
 	    	<div class="col">
 	    		<q-card
 			      class="my-card text-white"
@@ -134,7 +133,7 @@
 					</template>
 					
 					<br>
-					Total: ₦ {{orderDetails.total}}</b>
+					Total: ₦ {{orderDetails.total ? orderDetails.total : '0.00'}}</b>
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
 		            	<hr>
@@ -192,16 +191,16 @@
 					      			</template>
 				      			</template>
 				      			<template v-if="props.row.coupon ==null && props.row.discount==null">
-					      			0.00
+					      			{{ props.row.discounted_amount ? props.row.discounted_amount : 0.00}}
 				      			</template>
 					      	</q-td>
 
 
 
-				      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
+				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00' }}</q-td>
 
 				      		<q-td key="action" :props="props">
-				      			<template v-if="props.row.status == 'pending' ">
+				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing' ">
 				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
@@ -248,17 +247,18 @@
 				      	<q-tr :props="props">
 				      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
 				      		<q-td key="receipt_number" :props="props">{{ props.row.receipt_number }}</q-td>
-				      		<q-td key="vehicle" :props="props">{{ props.row.plate_number }}</q-td>
+				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle ? props.row.vehicle.plate_number : null }}</q-td>
 				      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
 				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
 				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
-				      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
+				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00'}}</q-td>
 
 				      		<q-td key="action" :props="props">
-				      			<template v-if="props.row.status == 'pending' ">
-				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing'">
+				      				<q-btn color="purple" icon="swap_vertical_circle" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'pending' ? true : false"/>
+				      				<!-- <q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/> -->
 				      			</template>
 
 				      			<template v-if="props.row.status == 'edit' ">

@@ -14,15 +14,14 @@
                 </tr>
             </thead>
             <tbody>
-            	<!-- {{allTransactions}} -->
                 <tr v-for="item in allTransactions" :key="item.id">
                     <td data-label="Initiate">
                     	<q-radio v-model="transactionId" :val="item" :key="item.id" @input="pickTransaction(item)"/>
                     </td>
-                    <td data-label="Order">{{item.id}}</td>
+                    <td data-label="Order">{{item.receipt_number}}</td>
                     <td data-label="Type">{{item.action}}</td>
                     <td data-label="Quantity">{{item.packages}}</td>
-                    <td data-label="Subtotal">₦ {{item.subtotal}}</td>
+                    <td data-label="Subtotal">₦ {{item.sub_total}}</td>
                     <td data-label="Discount">₦ {{item.discount}}</td>
                     <td data-label="Total">₦ {{item.total}}</td>
                 </tr>

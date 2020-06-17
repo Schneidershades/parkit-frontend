@@ -3,12 +3,17 @@ import { localForageService } from '../dispatchApi/localForageService'
 import { LocalStorage } from 'quasar'
 
 // get products
-export const getPlateNumbers = ({ commit }) => {
+export const getPlateNumbers = ({ commit, rootState }) => {
 	return axios.get('api/v1/admin/user/customers-plate-numbers').then((response) => {
 		console.log(response.data.data)
 		commit('setPlateNumbers', response.data)
 		return Promise.resolve()
-	})
+	}).catch((error) => {
+		if (!error.response) {
+    		return dispatch('internetStatus/setConnection', false, {root:true})
+        }
+  		return Promise.reject()
+  	})
 }
 
 export const checkPlateNumber = ({state, commit }, plateNumber) =>{

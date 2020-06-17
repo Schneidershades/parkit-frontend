@@ -1,9 +1,10 @@
 import axios from 'axios'
 import { localForageService } from '../dispatchApi/localForageService'
 import { LocalStorage } from 'quasar'
+const isOnline = require('is-online');
 
 // get products
-export const getPlateNumbers = ({ commit }) => {
+export const getPlateNumbers = ({ commit, rootState }) => {
 	return axios.get('api/v1/admin/user/customers-plate-numbers').then((response) => {
 		console.log(response.data.data)
 		commit('setPlateNumbers', response.data)
@@ -54,3 +55,4 @@ export const useFreeWash = ({ commit,  dispatch, rootState }, item) =>{
 		commit('adminShopping/applyResetDiscountData', null, { root: true })
 	}
 }
+

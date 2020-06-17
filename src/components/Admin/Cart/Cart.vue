@@ -262,6 +262,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { Notify } from 'quasar'
 import SignInDiscountModal from 'components/Admin/Modal/SignInDiscountModal.vue'
 import { Platform } from 'quasar'
+    const isOnline = require('is-online');
 
 export default {
 	components:{
@@ -346,6 +347,7 @@ export default {
 			getUsersWithDiscountPrivilege: 'adminShopping/getUsersWithDiscountPrivilege',
 			defaultDiscountOnWeb: 'adminShopping/defaultDiscountOnWeb',
 			defaultDiscountToZeroOnLocationManagerApp: 'adminShopping/defaultDiscountToZeroOnLocationManagerApp',
+            connected: 'internetStatus/setConnection',
 		}),
 
 		updateCart(item,quantity){
@@ -372,9 +374,17 @@ export default {
 	    },
 
 	    simulateSubmit () {
-	    	if(this.online === false ){
-        		return this.negativeNotification('you must be connected to the internet to proceed')
-        	}
+	    	(async () => {
+                var check = await isOnline()
+                console.log(check);
+                if(check == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+                this.connected(check).then((res) => {
+                    
+                })
+                
+            })(); 
         	
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
@@ -403,9 +413,17 @@ export default {
 			// 	return this.negativeNotification('You are not authorized to give discounts at this moment')
 			// }
 			
-        	if(this.online === false ){
-        		return this.negativeNotification('you must be connected to the internet to proceed')
-        	}
+        	(async () => {
+                var check = await isOnline()
+                console.log(check);
+                if(check == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+                this.connected(check).then((res) => {
+                    
+                })
+                
+            })(); 
 			
 			if(type == 'percentage' && parseInt(number) > 0 ){
 				this.number.amount = 0

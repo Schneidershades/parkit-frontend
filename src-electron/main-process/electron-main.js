@@ -19,8 +19,8 @@ function createWindow () {
     width: 2000,
     height: 900,
     useContentSize: false,
-    frame : true,
-    // fullscreen : true,
+    frame : false,
+    fullscreen : true,
     webPreferences: {
       // keep in sync with /quasar.conf.js > electron > nodeIntegration
       // (where its default value is "true")

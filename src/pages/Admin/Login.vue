@@ -9,8 +9,12 @@
 				                <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
 				            </q-card-actions> 
 
-                            <offline @detected-condition="handleConnectivityChange"></offline>
+                            <!-- <offline @detected-condition="handleConnectivityChange"></offline> -->
                             <!-- <connection-light></connection-light> -->
+                            <!-- <div>{{connected}}</div> -->
+
+                            <!-- <q-btn color="black"  v-if="connectedOnline==false">Offline</q-btn> -->
+                            <!-- <q-btn color="green"  v-if="connectedOnline==true">Online</q-btn> -->
 
                             <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
                               {{message}}
@@ -38,6 +42,9 @@
 								<q-card-actions>
 									<q-btn type="submit" unelevated color="primary" size="lg" class="full-width" label="Login" />
 								</q-card-actions>
+                                <q-card-actions align="right">
+                                    <q-btn color="green" unelevated align="right" @click="checkOnline">check internet status</q-btn>
+                                </q-card-actions>
 							</q-form>
 						</q-card-section>
 					</q-card>
@@ -93,6 +100,7 @@
     import { Notify } from 'quasar'
     import offline from 'v-offline'
     import ConnectionLight from 'components/Connectivity/Connectivity.vue'
+    const isOnline = require('is-online');
 
     export default{
         data(){
@@ -114,49 +122,67 @@
 
         computed: {
             ...mapGetters({
+                user: 'auth/user',
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
+                connectedOnline: 'internetStatus/connected',
             })
         },
             
         methods:{
             ...mapActions({
               	login: 'auth/adminSignIn',
-                online: 'auth/onlineStatus',
+                connected: 'internetStatus/setConnection',
+                checkOnlineStatus: 'internetStatus/checkOnline',
                 // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
             }),
 
             handleConnectivityChange(status) {
                 console.log(status);
 
-                if(status == true){
-                    return this.positiveNotification('You are now online')
-                }
                 if(status == false){
                     return this.negativeNotification('You are offline. Please connect to an available internet')
                 }
             },
 
            loginUser(){
-
-                if(this.online === false ){
-                    return this.negativeNotification('you must be connected to the internet to login')
-                }
-
-                this.login(this.form).then((res) => {
-                    this.positiveNotification('Welcome!! you are now logged in')
-                    return this.$router.replace({name: 'adminDashboard'})
-                    // return this.$router.push({name: 'adminDashboard'})
-                }).catch((error) => {
-                    // console.log(error)
-                    this.disable = false 
-                    this.errorMessages = error
-                    if(error){
-                        this.negativeNotification(error.error)
-                    }
-                })
+                (async () => {
+                    var check = await isOnline()
+                    this.connected(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }else{
+                            this.login(this.form).then((res) => {
+                                this.positiveNotification('Welcome!! you are now logged in')
+                                return this.$router.replace({name: 'adminDashboard'})
+                                // return this.$router.push({name: 'adminDashboard'})
+                            }).catch((error) => {
+                                this.disable = false 
+                                this.errorMessages = error
+                                if(error){
+                                    this.negativeNotification(error.error)
+                                }
+                            })
+                        }
+                    })
+                })();
             },
+
+            checkOnline(){
+                (async () => {
+                    var check = await isOnline()
+                    this.checkOnlineStatus(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }
+                        if(check == true){
+                            return this.positiveNotification('You are online')
+                        }
+                    })
+                })();
+            },
+
             positiveNotification(message){
                 Notify.create({
                     type: 'positive',
@@ -176,10 +202,6 @@
                     message: error
                 })
             },
-        },
-        
-        mounted(){
-            // this.plateNumbers()
         }
     }
 </script>
