@@ -129,7 +129,7 @@
                     </q-item>
                 </template>
 
-                <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+                <!-- <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
                     <q-item-label header>Accounts</q-item-label>
 
                     <q-item clickable to="/admin/account">
@@ -140,7 +140,7 @@
                             <q-item-label>Account</q-item-label>
                         </q-item-section>
                     </q-item>
-                </template>
+                </template> -->
 
                 <q-item clickable @click.prevent="signOut">
                     <q-item-section avatar>

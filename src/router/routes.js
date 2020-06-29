@@ -17,9 +17,9 @@ const routes = [
         name:'home', 
         component: () => import('pages/Website/Index.vue'),
         meta: {
-          middleware:[
-            isWeb
-          ]
+          // middleware:[
+          //   isWeb
+          // ]
         },
       }
     ]
@@ -32,9 +32,9 @@ const routes = [
       { path: '', 
         component: () => import('pages/Website/Cart.vue'),
         meta: {
-          middleware:[
-            authCheckout
-          ]
+          // middleware:[
+          //   authCheckout
+          // ]
         },
       }
     ]
@@ -110,7 +110,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -127,7 +127,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -183,7 +183,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },  
       },
@@ -195,7 +195,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
         props: true,
@@ -207,7 +207,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -224,7 +224,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -240,7 +240,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -256,7 +256,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            admin
+            // admin
           ]
         },
       }
@@ -293,6 +293,7 @@ const routes = [
         component: () => import('pages/Admin/Dashboard.vue'),
         meta: {
           middleware:[
+            websiteAuth,
             // isElectron,
             // desktopAuth
           ]
@@ -309,10 +310,10 @@ const routes = [
         name: 'admin-invoice', 
         component: () => import('pages/Admin/Invoice.vue'),
         meta: {
-          middleware:[
-            // isElectron,
-            // desktopAuth
-          ]
+          // middleware:[
+          //   // isElectron,
+          //   // desktopAuth
+          // ]
         },
       }
     ]
@@ -325,9 +326,9 @@ const routes = [
         name: 'admin-history', 
         component: () => import('pages/Admin/History.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -340,9 +341,9 @@ const routes = [
         name: 'admin-inbox', 
         component: () => import('pages/Admin/Inbox.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -355,9 +356,9 @@ const routes = [
         name: 'admin-online-transactions', 
         component: () => import('pages/Admin/OnlineTransaction.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -370,9 +371,9 @@ const routes = [
         name: 'admin-personnel-requests', 
         component: () => import('pages/Admin/PersonnelRequests.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -385,9 +386,9 @@ const routes = [
         name: 'admin-purchase-order', 
         component: () => import('pages/Admin/PurchaseOrder.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -400,9 +401,9 @@ const routes = [
         name: 'admin-report-fault', 
         component: () => import('pages/Admin/ReportFault.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -425,9 +426,9 @@ const routes = [
         name: 'admin-suggestions-complaints', 
         component: () => import('pages/Admin/SuggestionsComplaints.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -440,9 +441,9 @@ const routes = [
         name: 'admin-camera-feed', 
         component: () => import('pages/Admin/CameraFeed.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       }
     ]
@@ -455,9 +456,9 @@ const routes = [
         name: 'admin-account', 
         component: () => import('pages/Admin/Account/Account.vue'),
         meta: {
-          middleware:[
+          // middleware:[
             
-          ]
+          // ]
         },
       },
       { 
@@ -465,10 +466,10 @@ const routes = [
         name: 'accountLocationShow',  
         component: () => import('pages/Admin/Account/Location.vue'), 
         meta: {
-          middleware:[
-            websiteAuth,
-            desktopAuth
-          ]
+          // middleware:[
+          //   websiteAuth,
+          //   desktopAuth
+          // ]
         },
         props: true,
       },
@@ -477,10 +478,10 @@ const routes = [
         name: 'accountExpenseShow',  
         component: () => import('pages/Admin/Account/Expense.vue'), 
         meta: {
-          middleware:[
-            websiteAuth,
-            desktopAuth
-          ]
+          // middleware:[
+          //   websiteAuth,
+          //   desktopAuth
+          // ]
         },
         props: true,
       },
@@ -489,10 +490,10 @@ const routes = [
         name: 'accountIncomeShow',  
         component: () => import('pages/Admin/Account/Income.vue'), 
         meta: {
-          middleware:[
-            websiteAuth,
-            desktopAuth
-          ]
+          // middleware:[
+          //   websiteAuth,
+          //   desktopAuth
+          // ]
         },
         props: true,
       },

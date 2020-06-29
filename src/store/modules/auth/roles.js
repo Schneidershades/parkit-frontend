@@ -31,6 +31,7 @@ export default({ app, store }) =>{
 	      	if (isAuth) {
 	         	var user = store.getters['auth/user']
 
+
 				let abilities =  AbilityBuilder.define(can => {
 					user.permissions.forEach((permission)=>{
 						// console.log(permission)
