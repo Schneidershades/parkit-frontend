@@ -17,10 +17,9 @@
                 <!-- <q-space /> -->
                 <div class="gt-sm">
                     <template v-if="authenticated" class="gt-sm">
-                        <q-btn color="purple" icon="home" class="q-ma-sm" label="Location" />
-                        <q-btn color="red" icon="settings_power" class="q-ma-sm" label="Shutdown" />
+                        <q-btn color="purple" unelevated icon="home" class="q-ma-sm" label="Location" />
                         <template v-if="cart.length">
-                            <q-btn color="primary"  :label="carTotalLength"  />
+                            <q-btn color="primary" unelevated :label="carTotalLength"  />
                         </template>
                     </template>
                 </div>
@@ -83,53 +82,10 @@
                         </q-item-section>
                     </q-item>
 
-                    <q-item clickable to="/admin/personnel/requests">
-                        <q-item-section avatar>
-                            <q-icon name="person_add" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Personnel Request</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/purchase/order">
-                        <q-item-section avatar>
-                            <q-icon name="shopping_basket" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Purchase Order</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/report/fault">
-                        <q-item-section avatar>
-                            <q-icon name="build" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Report Fault</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/requisition/order">
-                        <q-item-section avatar>
-                            <q-icon name="reorder" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Requistion Order</q-item-label>
-                        </q-item-section>
-                    </q-item>
-
-                    <q-item clickable to="/admin/suggestions/complaints">
-                        <q-item-section avatar>
-                            <q-icon name="contact_support" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label>Suggestions & Complaints</q-item-label>
-                        </q-item-section>
-                    </q-item>
+                    
                 </template>
 
-                <!-- <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+                <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
                     <q-item-label header>Accounts</q-item-label>
 
                     <q-item clickable to="/admin/account">
@@ -140,7 +96,7 @@
                             <q-item-label>Account</q-item-label>
                         </q-item-section>
                     </q-item>
-                </template> -->
+                </template>
 
                 <q-item clickable @click.prevent="signOut">
                     <q-item-section avatar>

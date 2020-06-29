@@ -9,7 +9,7 @@
 
 		<div class="q-pa-md">
 			<div class="q-gutter-y-md">
-				n
+				
 			</div>
 		</div>
 
@@ -17,8 +17,17 @@
 </template>
 
 
-<script>    
+<script>  
+    import { mapActions, mapGetters } from 'vuex' 
+
     export default {
-    
+    	computed: {
+            ...mapGetters({
+                message: 'message',
+                errorMessage: 'errorMessage',
+                newPhoneNumber: 'auth/phone',
+                user: 'auth/user',
+            })
+        }     
     }
 </script>

@@ -110,7 +110,7 @@ const routes = [
         meta: {
           middleware:[
             websiteAuth,
-            // admin
+            admin
           ]
         },
       }
