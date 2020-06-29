@@ -1,7 +1,7 @@
 export default function auth({ next, store }){
-	if(!store.getters["auth/user"].role.){
+	if(store.state.auth.user){
 		return next({
-			name: 'home'
+			name: 'adminDashboard'
 		})
 	}
 
