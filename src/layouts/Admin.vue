@@ -272,6 +272,7 @@
                 connectOnline: 'auth/onlineStatus',
                 clearOfflineOrders: 'adminOrders/clearofflineOrders',
                 checkOnlineStatus: 'internetStatus/checkOnline',
+                onlineConnection: 'internetStatus/setConnection',
             }),
 
             amIOnline(e) {
@@ -309,7 +310,17 @@
             },
 
             shutDown(){
-                shutdown.shutdown()
+                (async () => {
+                    var check = await isOnline()
+                    this.onlineConnection(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet to shutdown')
+                        }
+                        if(check == true){
+                            return shutdown.shutdown()
+                        }
+                    })
+                })();
             },
 
 
