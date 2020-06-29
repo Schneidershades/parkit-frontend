@@ -14,11 +14,11 @@ module.exports = function (ctx) {
     boot: [
       'my-custom-main.js',
       'notify-defaults',
-      'roles.js',
-      'localstorage.js',
-      'platform.js',
-      'dexieoffline.js',
-      'initiateDexie.js',
+      // 'roles.js',
+      // 'localstorage.js',
+      // 'platform.js',
+      // 'dexieoffline.js',
+      // 'initiateDexie.js',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
