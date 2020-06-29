@@ -1,5 +1,4 @@
 import auth from './middleware/auth'
-import admin from './middleware/admin'
 import login from './middleware/login'
 import isWeb from './middleware/isWeb'
 import isElectron from './middleware/isElectron'
@@ -109,8 +108,7 @@ const routes = [
         component: () => import('pages/User/Dashboard.vue'),  
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -126,8 +124,7 @@ const routes = [
         component: () => import('pages/User/Profile.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -182,8 +179,7 @@ const routes = [
         component: () => import('pages/User/Orders.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },  
       },
@@ -194,8 +190,7 @@ const routes = [
         component: () => import('pages/User/OrderDetails.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
         props: true,
@@ -206,8 +201,7 @@ const routes = [
         component: () => import('pages/User/Payment.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -223,8 +217,7 @@ const routes = [
         component: () => import('pages/User/Security.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -239,8 +232,7 @@ const routes = [
         component: () => import('pages/User/Cart.vue'), 
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -255,8 +247,7 @@ const routes = [
         component: () => import('pages/User/Checkout.vue'),
         meta: {
           middleware:[
-            websiteAuth,
-            admin
+            websiteAuth
           ]
         },
       }
@@ -276,7 +267,7 @@ const routes = [
         component: () => import('pages/Admin/Login.vue'),
         meta: {
           middleware:[
-            // isElectron
+            isElectron
           ]
         },
       }
@@ -293,8 +284,8 @@ const routes = [
         component: () => import('pages/Admin/Dashboard.vue'),
         meta: {
           middleware:[
-            // isElectron,
-            // desktopAuth
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -310,8 +301,8 @@ const routes = [
         component: () => import('pages/Admin/Invoice.vue'),
         meta: {
           middleware:[
-            // isElectron,
-            // desktopAuth
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -326,7 +317,8 @@ const routes = [
         component: () => import('pages/Admin/History.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -341,7 +333,8 @@ const routes = [
         component: () => import('pages/Admin/Inbox.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -356,7 +349,8 @@ const routes = [
         component: () => import('pages/Admin/OnlineTransaction.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -371,7 +365,8 @@ const routes = [
         component: () => import('pages/Admin/PersonnelRequests.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -386,7 +381,8 @@ const routes = [
         component: () => import('pages/Admin/PurchaseOrder.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -401,7 +397,8 @@ const routes = [
         component: () => import('pages/Admin/ReportFault.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -426,7 +423,8 @@ const routes = [
         component: () => import('pages/Admin/SuggestionsComplaints.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -441,7 +439,8 @@ const routes = [
         component: () => import('pages/Admin/CameraFeed.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       }
@@ -456,7 +455,8 @@ const routes = [
         component: () => import('pages/Admin/Account/Account.vue'),
         meta: {
           middleware:[
-            
+            isElectron,
+            desktopAuth
           ]
         },
       },
