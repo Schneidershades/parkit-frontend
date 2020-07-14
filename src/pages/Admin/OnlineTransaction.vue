@@ -123,7 +123,7 @@
 
 				      		<TransactionDetailsPackage/>
 				        <q-stepper-navigation>
-				          	<q-btn v-if="transactionDetails!=null" @click="step = 3" color="primary" label="Continue" />
+				          	<q-btn v-if="transactionDetails!=null && transactionDetails.vehicle!=null" @click="step = 3" color="primary" label="Continue" />
 				          	<q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
 				        </q-stepper-navigation>
 				    </q-step>
@@ -134,24 +134,33 @@
 				        icon="money"
 				        :done="step > 3"
 				      >
-				      	<!-- {{transactionDetails}} -->
+						<!-- {{order}} -->
+	
 				        <div class="q-pa-md" v-if="transactionDetails">
-						    <div class="q-gutter-sm" v-if="transactionDetails.status != 'successful' || transactionDetails.payment_status!='free' ">
-						      <q-radio v-model="payment_method" val="pos" label="POS Machine" />
-						      <q-radio v-model="payment_method" val="cash" label="Cash" />
-						      <q-radio v-model="payment_method" val="online" label="Online" />
-						    </div>
-						    <div v-else> {{transactionDetails.payment_status}}</div>
+				        	<div v-if="transactionDetails.payment_status=='pending'">
+								<div class="q-gutter-sm" v-if="transactionDetails.free==true">
+							      		<q-radio v-model="order.payment_method" val="free" label="Free Wash" checked/>
+							    </div>
+							    <div class="q-gutter-sm" v-if="transactionDetails.free==false">
+							      		<q-radio v-model="order.payment_method" val="not_paid" label="Not Paid" />
+							      		<q-radio v-model="order.payment_method" val="pos" label="POS Machine" />
+							      		<q-radio v-model="order.payment_method" val="cash" label="Cash" />
+							      		<q-radio v-model="order.payment_method" val="transfer" label="Transafer" />
+							      		<q-radio v-model="order.payment_method" val="online" label="Online" />
+							    </div>
+				        	</div>
 
-						    <!-- {{transactionDetails.status}} -->
+				        	<div v-if="transactionDetails.payment_status=='successful' && payment_method=='card'">
+				        		<q-radio v-model="order.payment_method" val="card" label="Card" checked/>
+				        		User Paid Online (<i>Please proceed</i>)
+				        	</div>
 
-						    <!-- <div class="q-px-sm">
-						      Your selection is: <strong>{{ payment_method }}</strong>
-						    </div> -->
+							    
+
 						</div>
 
 				        <q-stepper-navigation>
-				          	<q-btn @click="step = 4" color="primary" label="Continue" />
+				          	<q-btn @click="storeOnlineTransactionOffline" color="primary" label="Continue" />
 				          	<q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
 				        </q-stepper-navigation>
 				    </q-step>
@@ -161,11 +170,83 @@
 					        title="Print Invoice"
 					        icon="print"
 					      >
-				        
-						<PrintTransaction/>
+				        <div id="ticketPrinter">
+							<div class="ticket print-only" v-if="transactionDetails">
+
+								<q-card-actions align="center">
+						            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+						            <i>Welcome to parkit</i>
+						        </q-card-actions>
+
+						        <div class="q-py-sm">
+						        	<b>Location : {{transactionDetails.location ? transactionDetails.location.code : ''}} -  {{transactionDetails.location ? transactionDetails.location.address : ''}}<br>
+									Phone   : +234-903-152-6466 <br> 
+									Email   : info@parkit.ng<br>
+									Website   : www.parkit.ng<br></b>
+								</div>
+								<div class="q-py-sm">
+									<b>Bill ID   : {{transactionDetails.receipt_number}}<br>
+									Date   : {{transactionDetails.date}}<br>
+									Time   : {{transactionDetails.time}}<br>
+									Cashier   : {{transactionDetails.cashier}}<br>
+									To   : {{transactionDetails.vehicle.first_name ? transactionDetails.vehicle.first_name : 'N/A'}} {{transactionDetails.vehicle.last_name}}<br>
+									Transaction ID   : {{transactionDetails.vehicle.plate_number}}<br>
+									Payment Method   : {{transactionDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
+									{{transactionDetails.payment_method == 'pos' ? 'POS' : ''}}
+									{{transactionDetails.payment_method == 'cash' ? 'Cash' : ''}}
+									{{transactionDetails.payment_method == 'transfer' ? 'Transfer' : ''}}
+
+									<br></b>
+						        </div>
+						       		
+								<div class="text-h6">Items</div>
+								
+								<div class="q-py-sm" v-for="item in transactionDetails.packages">
+									<p>
+										<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
+									</p>
+								</div>
+								<div class="q-py-sm" >
+									<b align="right">Sub-total: ₦{{transactionDetails.sub_total}}<br>
+									<template v-if="transactionDetails.discount!=null">
+										<template v-if="transactionDetails.discount.amountDiscount != null">
+											Net-Total: ₦ {{ transactionDetails.discount.amountDiscount }}
+										</template>
+										<template v-if="transactionDetails.discount.percentageDiscount != null">
+											Net-Total: ₦ {{ transactionDetails.percentageDiscount/100 * transactionDetails.sub_total }}
+										</template>
+									</template>
+									<template v-if="transactionDetails.coupon!=null">
+										<template v-if="transactionDetails.coupon.amountDiscount != null">
+											Net-Total: ₦ {{ transactionDetails.coupon.amountDiscount }}
+										</template>
+										<template v-if="transactionDetails.coupon.percentageDiscount != null">
+											Net-Total: ₦ {{ transactionDetails.coupon.percentageDiscount/100 * transactionDetails.sub_total }}
+										</template>
+									</template>
+
+									<template v-if="transactionDetails.discount==null && transactionDetails.coupon==null">
+										Net-Total: ₦ 0.00
+									</template>
+									
+									<br>
+									Total: ₦ {{transactionDetails.total}}
+									</b>
+									<br><br><br>
+						            	<i>Thank you for your patronage</i>
+						            	<hr>
+						            <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
+										Call: 09031526466 or send a mail to franchise@parkit.ng
+									</i></b>
+									<br><br>
+									<br>
+								</div>
+							</div>
+					    </div>
+						
 				        <q-stepper-navigation>
-				          	<q-btn color="primary" label="Finish" />
-				          	<q-btn flat @click="step = 3" color="primary" label="Back" class="q-ml-sm" />
+				          	<q-btn @click="begin" color="primary" label="Finish" />
+				          	<!-- <q-btn flat @click="step = 3" color="primary" label="Back" class="q-ml-sm" /> -->
 				        </q-stepper-navigation>
 				    </q-step>
 			    </q-stepper>
@@ -177,12 +258,18 @@
 <script>
     
     import { mapActions, mapGetters } from 'vuex'
+	import { date } from 'quasar'
     import { Notify } from 'quasar'
   	import TabList from 'components/Tabs/TabList.vue'
     import Cart from 'components/Admin/Cart/Cart.vue'
     import Transactions from 'components/Admin/Orders/Transactions.vue'
     import TransactionDetailsPackage from 'components/Admin/Orders/TransactionDetailsPackage.vue'
     import PrintTransaction from 'components/Admin/Orders/PrintTransaction.vue'
+	const { remote } = require('electron')
+
+	const {PosPrinter} = require('electron').remote.require("electron-pos-printer")
+	const path = require("path")
+    const isOnline = require('is-online');
 
     export default{
     	components:{
@@ -201,6 +288,41 @@
                     first_name: '',
                     last_name: '',
                     plate_number: '',
+                },
+
+                order: {
+                	receipt_number : null,
+                	vehicle: {
+	                    id : null,
+	                    phone : null,
+	                    email : null,
+	                    vehicle_type: null,
+	                    vehicle_model: null,
+	                    first_name: null,
+	                    last_name: null,
+	                    plate_number: null,
+	                    userId: null,
+	                },
+	                packages: null,
+	                customer_id: null,
+					location: null,
+					location_id: null,
+					discount: null,
+					discount_id: null,
+					coupon: null,
+					coupon_id: null,
+	                payment_method: '',
+	                sub_total: null,
+	                total: null,
+	                status: 'pending',
+	                action: null,
+	                reason: null,
+	                cashier_id: null,
+	                cashier: null,
+	                free_wash: null,
+	                discounted_amount: 0,
+	                date: null,
+	                time: null
                 },
 
                 transaction:{
@@ -253,11 +375,12 @@
                 newPhoneNumber: 'auth/phone',
                 plateVehicleDetails: 'plateNumber/plateNumberDetails',
                 cart: 'shopping/cart',
-				userDiscountPriviledge: 'shopping/userDiscountPriviledge',
+				userDiscountPrivilege: 'shopping/userDiscountPrivilege',
 				discount: 'shopping/discount',
 				discountDetails: 'shopping/discountDetails',
 				allTransactions: 'onlineTransaction/allTransactions',
 				transactionDetails: 'onlineTransaction/transactionDetails',
+		        user: 'auth/user',
             }),
         },
             
@@ -267,32 +390,46 @@
               	updateCustomer: 'plateNumber/updateCustomer',
 				placeCustomerOrder: 'orders/placeOrder',
 				getTransactionOrdersOnline: 'onlineTransaction/getTransactionOrdersOnline',
+				clearTransaction: 'onlineTransaction/transactionOrderSelected',
+				saveTransaction: 'adminOrders/saveTransaction',
+                connected: 'internetStatus/setConnection',
             }),
 
 			findTransaction(type, item){
-				if(type == 'phoneNumber'){
-					console.log(item)
-					this.getTransactionOrdersOnline({phone: item}).then((response) => {
-						// this.$router.push({name: 'userOrderShow'})      		
-		            }).catch((error) => {
-		                console.log(error)
-		                if(this.errorMessage){
-		                    this.negativeNotification('cannot process order at the moment')
-		                }
-		            }) 
-				}
+				(async () => {
+                    var check = await isOnline()
+                    console.log(check);
+                    this.connected(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }else{
+			                if(type == 'phoneNumber'){
+								console.log(item)
+								this.getTransactionOrdersOnline({phone: item}).then((response) => {
+									// this.$router.push({name: 'userOrderShow'})      		
+					            }).catch((error) => {
+					                console.log(error)
+					                if(this.errorMessage){
+					                    this.negativeNotification('cannot process order at the moment')
+					                }
+					            }) 
+							}
 
-				if(type== 'orderNumber'){
-					console.log(item)
-					this.getTransactionOrdersOnline({email: item}).then((response) => {
-						// this.$router.push({name: 'userOrderShow'})      		
-		            }).catch((error) => {
-		                console.log(error)
-		                if(this.errorMessage){
-		                    this.negativeNotification('cannot process order at the moment')
-		                }
-		            }) 
-				}
+							if(type== 'orderNumber'){
+								console.log(item)
+								this.getTransactionOrdersOnline({email: item}).then((response) => {
+									// this.$router.push({name: 'userOrderShow'})      		
+					            }).catch((error) => {
+					                console.log(error)
+					                if(this.errorMessage){
+					                    this.negativeNotification('cannot process order at the moment')
+					                }
+					            }) 
+							}  
+                        }
+                    })
+                    
+                })(); 		
 			},
 
             submitFindVehicle(){
@@ -333,125 +470,82 @@
                 })
             },
 
-            // print () {
-            // 	navigator.bluetooth
-            // 	.requestDevice(
-            // 	{
-            // 		filters: [
-            // 		{
-            // 			name: 'BlueTooth Printer',
-            // 			services: ['000018f0-0000-1000-8000-00805f9b34fb']
-            // 		}
-            // 		]
-            // 	},
-            // 	{
-            // 		optionalServices: ['00002af1-0000-1000-8000-00805f9b34fb']
-            // 	}
-            // 	)
-            // 	.then(device => {
-            // 		console.log('device', device)
-            // 		if (device.gatt.connected) {
-            // 			device.gatt.disconnect()
-            // 		}
-            // 		console.log('connect')
-            // 		return this.connect(device)
-            // 	})
-            // 	.catch(this.handleError)
-            // },
-            // connect (device) {
-            // 	const self = this
-            // 	device.addEventListener('gattserverdisconnected', this.onDisconnected)
-            // 	return device.gatt
-            // 	.connect()
-            // 	.then(server =>
-            // 		server.getPrimaryService('000018f0-0000-1000-8000-00805f9b34fb')
-            // 		)
-            // 	.then(service =>
-            // 		service.getCharacteristic('00002af1-0000-1000-8000-00805f9b34fb')
-            // 		)
-            // 	.then(characteristic => {
-            // 		console.log('characteristic', characteristic)
-            // 		self.printCharacteristic = characteristic
-            // 		self.sendTextData(device)
-            // 	})
-            // 	.catch(error => {
-            // 		this.handleError(error, device)
-            // 	})
-            // },
-            // handleError (error, device) {
-            // 	console.error('handleError => error', error)
-            // 	if (device != null) {
-            // 		device.gatt.disconnect()
-            // 	}
-            // 	let erro = JSON.stringify({
-            // 		code: error.code,
-            // 		message: error.message,
-            // 		name: error.name
-            // 	})
-            // 	console.log('handleError => erro', erro)
-            // 	if (error.code !== 8) {
-            // 		this.$q.notify('Could not connect with the printer. Try it again')
-            // 	}
-            // },
-            // getBytes (text) {
-            // 	console.log('text', text)
-            // 	let br = '\u000A\u000D'
-            // 	text = text === undefined ? br : text
-            // 	let replaced = this.$languages.replace(text)
-            // 	console.log('replaced', replaced)
-            // 	let bytes = new TextEncoder('utf-8').encode(replaced + br)
-            // 	console.log('bytes', bytes)
-            // 	return bytes
-            // },
-            // addText (arrayText) {
-            // 	let text = this.msg
-            // 	arrayText.push(text)
-            // 	if (this.isMobile) {
-            // 		while (text.length >= 20) {
-            // 			let text2 = text.substring(20)
-            // 			arrayText.push(text2)
-            // 			text = text2
-            // 		}
-            // 	}
-            // },
-            // sendTextData (device) {
-            // 	let arrayText = []
-            // 	this.addText(arrayText)
-            // 	console.log('sendTextData => arrayText', arrayText)
-            // 	this.loop(0, arrayText, device)
-            // },
-            // loop (i, arrayText, device) {
-            // 	let arrayBytes = this.getBytes(arrayText[i])
-            // 	this.write(device, arrayBytes, () => {
-            // 		i++
-            // 		if (i < arrayText.length) {
-            // 			this.loop(i, arrayText, device)
-            // 		} else {
-            // 			let arrayBytes = this.getBytes()
-            // 			this.write(device, arrayBytes, () => {
-            // 				device.gatt.disconnect()
-            // 			})
-            // 		}
-            // 	})
-            // },
-            // write (device, array, callback) {
-            // 	this.printCharacteristic
-            // 	.writeValue(array)
-            // 	.then(() => {
-            // 		console.log('Printed Array: ' + array.length)
-            // 		setTimeout(() => {
-            // 			if (callback) {
-            // 				callback()
-            // 			}
-            // 		}, 250)
-            // 	})
-            // 	.catch(error => {
-            // 		this.handleError(error, device)
-            // 	})
-            // },
+            storeOnlineTransactionOffline(){
+            	this.order.receipt_number = this.transactionDetails.receipt_number ? this.transactionDetails.receipt_number : null
+				this.order.vehicle.id = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.id : null
+    			this.order.vehicle.email = this.transactionDetails.customer ? this.transactionDetails.customer.email : null
+        		this.order.vehicle.plate_number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null
+	            this.order.vehicle.phone =  this.transactionDetails.customer ? this.transactionDetails.customer.phone : null
+	            this.order.vehicle.first_name =  this.transactionDetails.customer ? this.transactionDetails.customer.first_name : null
+	            this.order.vehicle.userId =  this.transactionDetails.customer ? this.transactionDetails.customer.id : null
+	            this.order.vehicle.last_name = this.transactionDetails.customer ? this.transactionDetails.customer.last_name : null
+	            this.order.vehicle.vehicle_type = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.vehicle_type : null
+	            this.order.vehicle.vehicle_model = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.vehicle_model : null
+	            this.order.receipt_number = this.transactionDetails ? this.transactionDetails.receipt_number : null
+	            this.plateNumber.number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null
+	            this.order.customer_id = this.transactionDetails.customer ? this.transactionDetails.customer.id : null
+				this.order.location = this.user.location ? this.user.location.id : null
+				this.order.location_id = this.user.location ? this.user.location.id : null
+				this.order.discount = this.transactionDetails.discountDetails ? this.transactionDetails.discountDetails : null
+				this.order.discount_id = this.transactionDetails.discountDetails ? this.transactionDetails.discountDetails.id : null
+				this.order.coupon = this.transactionDetails.coupontDetails ? this.transactionDetails.couponDetails : null
+				this.order.coupon_id = this.transactionDetails.couponDetails ? this.transactionDetails.couponDetails.id : null
+	            this.order.sub_total =  this.transactionDetails.sub_total ? this.transactionDetails.sub_total : null
+	            this.order.total= this.transactionDetails.total ? this.transactionDetails.total : null
+	            this.order.status = 'processing'
+	            this.order.action= null
+	            this.order.reason= null
+	            this.order.cashier = this.user.firstName
+	        	this.order.cashier_id = this.user.id
+
+	        	if(this.order.payment_method === 'free'){
+	        		this.order.free_wash = 'yes' 
+	        	}else{
+	        		this.order.free_wash = 'no'; 
+	        	}
+	            
+	            this.order.discounted_amount =  this.transactionDetails.discount
+             	this.order.receipt_number= this.transactionDetails.receipt_number
+	            this.order.date = this.optionsFn()
+	            this.order.time = this.time()
+	            this.order.packages =  this.transactionDetails.products ? this.transactionDetails.products : null
+
+        		this.saveTransaction(this.order).then((response) => {
+					this.step = 4
+					remote.getCurrentWebContents().print({silent:true, copies : 2})
+	            }).catch((error) => {
+	                console.log(error)
+	                if(this.errorMessage){
+	                    this.negativeNotification('cannot process order at the moment')
+	                }
+	            })
+            },
+
+            begin(){
+            	this.clearTransaction(null).then((response) => {
+            		this.step = 1
+	            })  
+            },
 
             reset () {
 		      	this.theModel = null
+		    },
+
+		    optionsFn () {
+	     		var today = new Date();
+	  			var bu = today.getDate();
+		      	
+	     		console.log(new Date())
+	     		var timeStamp = Date.now()
+				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+				return formattedString
+		    },
+
+		    time(){
+		    	var today = new Date();
+		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+            	today.getSeconds();
+            	return time
 		    },
             
 
