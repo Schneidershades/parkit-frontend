@@ -13,7 +13,6 @@ export const getLocationHistory = ({state, commit, rootState }) => {
 	}
 
 	if(!user){
-		console.log(user.location.id)
 		console.log('login now')
 		return
 	}
