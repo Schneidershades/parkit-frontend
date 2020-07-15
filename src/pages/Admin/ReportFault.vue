@@ -68,8 +68,15 @@
 	                                    	label="Additional Information *"
 									    />
 		                            </div>
+
+
+		                            <div class="col-6 q-pl-sm">
+		                                <input type="hidden" />
+		                                <input type="hidden" />
+		                            </div>
+
 		                            <q-card-actions align="right">
-							            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
+							            <q-btn type="submit" label="Save" color="white" text-color="primary" />
 							        </q-card-actions>
 		                        </div>  
 	                        </q-form> 	
@@ -88,7 +95,6 @@
 <script>
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
-    const isOnline = require('is-online');
 
     export default{
         data(){
@@ -98,8 +104,6 @@
                     summary: '',
                     description: '',
                     additional_information: '',
-                    location_id: '',
-                    user_id: ''
                 },
                 dense: false,
                 options: [
@@ -112,44 +116,26 @@
 
         computed: {
             ...mapGetters({
-		        user: 'auth/user',
                 message: 'message',
                 errorMessage: 'errorMessage',
-                online: 'auth/onlineStatus',
             }),
         },
             
         methods:{
             ...mapActions({
               	sendRequest: 'reportFaults/sendReportFaults',
-                connected: 'internetStatus/setConnection',
             }),
 
             submitRequest(){
-            	(async () => {
-                    var check = await isOnline()
-                    console.log(check);
-                    if(check == false){
-                        return this.negativeNotification('You are offline. Please connect to an available internet')
+                this.sendRequest(this.form).then((res) => {
+                    this.positiveNotification('your request has been sent')
+                }).catch((error) => {
+                    this.errorMessages = error
+                    console.log(this.errorMessages)
+                    if(this.errorMessages){
+                        this.negativeNotification(this.errorMessages)
                     }
-                    this.connected(check).then((res) => {
-                        if(check == false){
-                            return this.negativeNotification('You are offline. Please connect to an available internet')
-                        }else{
-                            this.sendRequest(this.form).then((res) => {
-			                    this.positiveNotification('your request has been sent')
-			                }).catch((error) => {
-			                    this.errorMessages = error
-			                    console.log(this.errorMessages)
-			                    if(this.errorMessages){
-			                        // this.negativeNotification(this.errorMessages)
-			                        return this.negativeNotification('you must be connected to the internet to proceed')
-			                    }
-			                }) 
-                        }
-                    })
-                    
-                })();        
+                })    
             },
             
 
@@ -172,14 +158,6 @@
                     message: error
                 })
             },
-        },
-
-        mounted(){
-        	if(this.user){
-        		console.log(this.user.location)
-        		this.form.user_id = this.user.id
-        		this.form.location_id = this.user.location.id
-        	}
         }
     }
 </script>

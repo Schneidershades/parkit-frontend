@@ -9,29 +9,9 @@
 
     <div class="q-pa-md">
       <div class="q-gutter-y-md">
-        <div class="row" v-if="user.location">  
-          <q-card class="q-ma-sm my-card bg-primary  text-white">
-            <q-card-section>
-              <div class="text-h6">{{user.location.code}}</div>
-              <div class="text-subtitle2">{{user.location.locationName}}</div>
-            </q-card-section>
-
-            <q-card-section>
-              <p >Income: {{user.location.incomeAmount}}</p> 
-              <p >Expense: {{user.location.expenseAmount}}</p> 
-              <p >Carry Forward: {{user.location.carryForwardAmount}}</p> 
-            </q-card-section>
-
-            <q-separator dark />
-
-            <q-card-actions>
-              <q-btn flat @click="viewLocation(user.location)">View Account Details</q-btn>
-            </q-card-actions>
-          </q-card>
-
-          <!-- children -->
-
-          <q-card  v-if="user.location.childrenLocations" v-for="locate in user.location.childrenLocations" :key="locate.id" class="q-ma-sm my-card bg-primary text-white">
+        <div class="row" v-if="locations">
+          <!-- {{locations}} -->
+          <q-card v-for="locate in locations" :key="locate.id" class="q-ma-sm my-card bg-primary col-md-4 text-white">
             <q-card-section>
               <div class="text-h6">{{locate.code}}</div>
               <div class="text-subtitle2">{{locate.locationName}}</div>
@@ -46,6 +26,7 @@
             <q-separator dark />
 
             <q-card-actions>
+              <!-- <q-btn flat>Action 1</q-btn> -->
               <q-btn flat @click="viewLocation(locate)">View Account Details</q-btn>
             </q-card-actions>
           </q-card>
@@ -64,12 +45,13 @@ export default {
  
   computed: {
       ...mapGetters({
-          user: 'auth/user',
+          locations: 'accountLocation/allLocations',
       })
   },
 
   methods:{
       ...mapActions({
+          getLocations: 'accountLocation/getAccountLocation',
           sendLocationsDetails: 'accountLocation/setAccountLocationSelected',
       }),
 
@@ -84,7 +66,7 @@ export default {
   },
 
   mounted(){
-
+    this.getLocations()
   }
 }
 </script>

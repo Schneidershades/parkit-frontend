@@ -356,6 +356,9 @@ const routes = [
         name: 'admin-online-transactions', 
         component: () => import('pages/Admin/OnlineTransaction.vue'),
         meta: {
+          // middleware:[
+            
+          // ]
         },
       }
     ]
