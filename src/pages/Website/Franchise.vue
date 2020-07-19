@@ -318,9 +318,7 @@ h4 {
   } 
 </style>
 
-<script>
-    import HomeServiceTabList from 'components/Tabs/HomeServiceTabList.vue'
-    
+<script>    
     export default {
       data () {
         return {
@@ -329,7 +327,6 @@ h4 {
         }
       },
       components:{
-        HomeServiceTabList
       }
     }
 </script>
