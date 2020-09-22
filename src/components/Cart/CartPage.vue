@@ -1,5 +1,8 @@
 <template>
 	<div class="q-pa-sm"  v-if="cart.length">
+		<q-banner dense rounded inline-actions v-if="packageLocationCount > 0 && packageHomeOfficeCount > 0" class="q-my-lg text-white bg-red">
+            <div class="">Sorry for the location in your cart column you can only merge home service and location service at a time please remove the mixed category</div>
+        </q-banner>
 		<table>
             <thead>
                 <tr>
@@ -48,15 +51,25 @@
                 	<td></td>
                 	<td></td>
                 	<td colspan="">
-                		<h6>
                 		<q-btn
+                			v-if="packageLocationCount > 0 && packageHomeOfficeCount > 0 "
+                			to="/user/checkout"
+                			disable
+					        type="submit"
+					        label="Checkout"
+					        class="q-mt-md"
+					        color="primary"
+					    ></q-btn>
+
+                		<q-btn
+                			v-else
                 			to="/user/checkout"
 					        type="submit"
 					        label="Checkout"
 					        class="q-mt-md"
 					        color="primary"
 					    ></q-btn>
-					</h6></td>
+					</td>
                 </tr>
             </tbody>
         </table>
@@ -152,6 +165,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
+import { Notify } from 'quasar'
 
 export default {
 	data () {
@@ -176,7 +190,10 @@ export default {
       			country_id: '',
       		},
 
+      		mergeCheckout: false,
+
       		date: '2019/02/01',
+      		
       		options: [ '2019/02/01', '2019/02/05', '2019/02/06', '2019/02/09', '2019/02/23' ]
 		}
 	},
@@ -213,6 +230,7 @@ export default {
 			applyCoupon: 'shopping/applyCoupon',
 			getLocations: 'location/getLocations',
 			getAddresses: 'address/getAddresses',
+			getCart: 'shopping/getCart',
 		}),
 		updateCart(item,quantity){
 			this.updateCartTotals([{
@@ -220,6 +238,7 @@ export default {
 				quantity: quantity
 			}])
 		},
+
 
 
         optionsFn (date) {
@@ -232,7 +251,6 @@ export default {
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
                 console.log(response)
-                // console.log(response.data.data)
             }).catch((error) => {
                 // this.errorMessage = error
                 // console.log(this.errorMessage)
@@ -241,14 +259,7 @@ export default {
                 //     this.negativeNotification(this.errorMessage)
                 // }
             })           
-
-	      	// Simulating a delay here.
-	      	// When we are done, we reset "submitting"
-	      	// Boolean to false to restore the
-	      	// initial state.
 	      	setTimeout(() => {
-		        // delay simulated, we are done,
-		        // now restoring submit to its initial state
 		        this.submitting = false
 	      	}, 3000)
 	    },
@@ -276,6 +287,14 @@ export default {
 	mounted(){
 		this.getLocations()
 		this.getAddresses()
+		if(this.authenticated){
+            this.getCart()
+        }
+
+  //       if(this.packageLocationCount > 0 && this.packageHomeOfficeCount > 0 ){
+  //       	this.mergeCheckout = true
+		// 	return this.negativeNotification('sorry you can only group home-office and parkit-location at a time')
+		// }
 	}
 }
 </script>

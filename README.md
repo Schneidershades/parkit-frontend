@@ -1,6 +1,6 @@
-# Quasar App (quasar-todo)
+# Parkit Technology (parkit-app)
 
-A Quasar Framework app
+Parkit is a technology driven vehicle wash and care service. We pride ourselves in having; unparalleled customer experience; with our easy to use booking, payment and location finder system via our app, customers enjoy seamless booking experiences.
 
 ## Install the dependencies
 ```bash
@@ -12,6 +12,10 @@ npm install
 quasar dev
 ```
 
+### Lint the files
+```bash
+npm run lint
+```
 
 ### Build the app for production
 ```bash

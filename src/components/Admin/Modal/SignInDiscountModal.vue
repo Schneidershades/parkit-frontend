@@ -3,12 +3,12 @@
         <q-card-section>
             <div class="text-h6 text-center">Authorize Discounts</div>
             <q-card-actions align="center">
-                <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
+                <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
             </q-card-actions> 
            
         </q-card-section>
         <!-- <q-separator /> -->
-        <q-card-section style="max-height: 50vh" class="scroll">
+        <q-card-section style="max-height: 50vh" class="scroll" v-if="online === true || online === null">
             <q-select 
                 filled 
                 v-model="form.username" 
@@ -33,13 +33,9 @@
                         />
                 </template>
             </q-input>
-            <!-- <q-select 
-                filled 
-                :v-model="form.permission" 
-                label="Permission *"
-                readonly
-                value="create-discounts"
-            /> -->
+        </q-card-section>
+        <q-card-section style="max-height: 50vh" class="scroll" v-else>
+            please connect to an internet
         </q-card-section>
         <q-separator />
 
@@ -71,13 +67,16 @@
         },computed: {
             ...mapGetters({
                 message: 'message',
-                usersWithDiscountPriviledge: 'shopping/usersWithDiscountPriviledge',
+                usersWithDiscountPrivilege: 'adminShopping/usersWithDiscountPrivilege',
+                online: 'auth/onlineStatus',
             })
         },
             
         methods:{
             ...mapActions({
-                login: 'shopping/signInaUserWithDiscountPriviledge',
+                login: 'shopping/signInaUserWithDiscountPrivilege',
+                getUserPrivilege: 'adminShopping/getUsersWithDiscountPrivilege',
+                getUsersWithRight: 'adminShopping/getUsersWithRight',
             }),
 
             loginUser(){
@@ -119,7 +118,9 @@
             },
         }, 
         mounted(){
-            this.usernames = this.usersWithDiscountPriviledge
+            if(this.getUsersWithRight('create_discounts')){
+                this.usernames = this.usersWithDiscountPrivilege
+            }
         }
     }
 </script>

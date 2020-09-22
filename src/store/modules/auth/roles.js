@@ -4,12 +4,14 @@ import { AbilityBuilder } from '@casl/ability'
 import store from 'app/src/store/index'
 import axios from 'axios'
 
+Vue.component('Can', Can)
+
 store.watch(
     (state, getters) => getters['auth/user'],
     isAuth => {
 
       	if (isAuth) {
-
+      		
 			const testOffline = async () => {
 				// axios.defaults.baseURL = 'http://localhost:8000/'
 				// axios.defaults.baseURL = 'https://api.parkit.ng/'
@@ -39,7 +41,7 @@ store.watch(
 
 			Vue.use(abilitiesPlugin, abilities)
       	}else{
-
+      		console.log('fnei')
       	}
     }
 )

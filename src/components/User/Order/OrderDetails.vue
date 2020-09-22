@@ -34,7 +34,7 @@
 
                 <tr v-if="order.address != null">
                 	<td colspan="3">
-                      	Home Service Date: {{order.home_service_booking_Date}}
+                      	Home Service Date: {{order.home_service_booking_date}}
                   	</td>
 
                   	<td colspan="2">
@@ -76,43 +76,52 @@
                 	<td colspan="1"><b>₦ {{order.total}}</b></td>
                 </tr>
 
-                <tr v-if="order.action == 'online-payment' && order.status != 'successful'">
+                <tr v-if="order.payment_status != 'successful'">
                 	<td></td>
                 	<td colspan="2">
-
                 		<Rave
-					       :email="email"
-					       :amount="order.total"
-					       :reference="reference"
-					       :rave-key="raveKey"
-					       :callback="callback"
-					       :close="close"
-					       :metadata="meta"
-					       :subaccounts="sub"
-					       :redirectUrl="redirect"
-					       :paymentPlan="plan"
-					       :customerFirstname="fname"
-					       :customerLastname="fname"
-					       paymentOptions="card,barter,account,ussd"
-					       hostedPayemt="1"
-					       customTitle="Car Wash Package Purchase"
-					       currency="NGN"
-					       country="NG"
-					   ><i>Make Payment</i></Rave>
+					       	:email="email"
+					       	:amount="payAmount"
+					       	:reference="reference"
+					       	:rave-key="raveKey"
+					       	:callback="callback"
+					       	:close="close"
+					       	:metadata="meta"
+					       	:subaccounts="sub"
+					       	:redirectUrl="redirect"
+					       	:paymentPlan="plan"
+					       	:customerFirstname="fname"
+					       	:customerLastname="fname"
+					       	paymentOptions="card,barter,account,ussd"
+					       	hostedPayemt="1"
+					       	customTitle="Car Wash Package Purchase"
+					       	currency="NGN"
+					       	country="NG"
+					       	class="q-btn q-mt-md"
+					   		>
+					   		<q-btn :label="payWithCardAmountLabel" @click="payAtLocation(order.id)" color="primary"></q-btn>
+						</Rave>
                 	</td>
 
                 	<td colspan="2">
-                		<q-btn label="Pay at location" @click="payAtLocation(order.id)" color="primary"></q-btn>
-                		<br>
-                		<i>if you select pay at location discounts would not be applied</i>
+                		<q-btn :label="payAtLocationAmountLabel" @click="payAtLocation(order.id)" color="primary"></q-btn>
                 	</td>
-                </tr>   
+                </tr> 
+                <tr v-else>
+                	<td></td>
+                	<td colspan="2"><b>Status</b> <br>{{order.payment_status}}</td>
+                	<td colspan="2"><b>Wash Status</b> <br>{{order.status}}</td>
+                </tr>  
             </tbody>
         </table>
 	</div>	
 </template>
 
 <style scoped>
+	.rave-btn{
+
+	}
+	
 	table {
 		border: 1px solid #ccc;
 		border-collapse: collapse;
@@ -209,7 +218,7 @@ export default {
     },
 	data () {
 		return {
-			raveKey: process.env.FLUTTERWAVE_PUBLIC_KEY,
+			raveKey: '',
 	        email: "parkitng@gmail.com",
 	        amount: "",
 	        plan: 0,
@@ -228,6 +237,7 @@ export default {
 	computed: {
         ...mapGetters({
             order: 'orders/orderDetails',
+            discount: 'shopping/payWithCard',
             authenticated: 'auth/user',
         }),
 
@@ -239,7 +249,22 @@ export default {
 	        text += possible.charAt(Math.floor(Math.random() * possible.length));
 	 
 	        return text;
-	    }
+	    },
+
+	    payAmount(){
+	    	var amt = this.discount / 100 * this.order.total
+	    	return this.order.total - amt
+	    },
+
+	    payWithCardAmountLabel(){
+	    	var amt = this.discount / 100 * this.order.total
+	    	var amount = this.order.total - amt
+	    	return  'Pay ₦' + amount + ' with card '
+	    },
+
+	    payAtLocationAmountLabel(){
+	    	return  'Pay ₦' + this.order.total + ' at location '
+	    },
     },
 
 	methods:{
@@ -262,7 +287,7 @@ export default {
 	        console.log(response.data)
 	        
 	        var content = {
-	        	responseDetails : response
+	        	payment_reference : response.tx.txRef
 	        }
 
 	        this.gatewayResponse(content).then((response) => {
@@ -297,5 +322,9 @@ export default {
             })
         },
 	},
+	mounted()
+	{
+		this.raveKey = 'FLWPUBK_TEST-89dd826197ba331a9c3545690f8d2416-X'
+	}
 }
 </script>

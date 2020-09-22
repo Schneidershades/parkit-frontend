@@ -1,6 +1,5 @@
 <template>
 	<div class="q-pa-sm"  v-if="orders">
-		<!-- {{authenticated}} -->
          <q-table
 		      title="Orders"
 		      :columns="columns"
@@ -17,9 +16,10 @@
 		      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
 		      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 		      		<q-td key="date" :props="props">{{ props.row.created_at }}</q-td>
+		      		<q-td key="payment_status" :props="props"><b>{{ props.row.payment_status }}</b></q-td>
 		      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 		      		<q-td key="action" :props="props">
-		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.id)"/>
+		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.receipt_number)"/>
 		      		</q-td>
 		      	</q-tr>
 		      </template>
@@ -31,11 +31,9 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex'
-import Rave from 'vue-ravepayment'
 
 export default {
 	components: {
-        Rave
     },
 	data () {
 		return {
@@ -89,9 +87,17 @@ export default {
 		       },
 
 		       {
+		          name: 'payment_status',
+		          align: 'left',
+		          label: 'Payment',
+		          field: 'status',
+		          sortable: true
+		       },
+
+		       {
 		          name: 'status',
 		          align: 'left',
-		          label: 'Status',
+		          label: 'Wash Status',
 		          field: 'status',
 		          sortable: true
 		       },

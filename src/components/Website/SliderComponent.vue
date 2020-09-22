@@ -48,8 +48,6 @@
     }
 </style>
 <script>
-    import TabList from 'components/Tabs/TabList.vue'
-    import Animation from 'components/Website/Animation.vue'
     import SignUp from 'components/Website/SignUp.vue'
     import SignIn from 'components/Website/SignIn.vue'
     import { mapActions, mapGetters } from 'vuex'
@@ -64,8 +62,6 @@
         }
       },
       components:{
-        TabList,
-        Animation,
         SignUp,
         SignIn,
       },

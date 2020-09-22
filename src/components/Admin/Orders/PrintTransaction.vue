@@ -1,13 +1,12 @@
 <template>
 	<div class="ticket">
-		<div id="ticket">
+		<!-- <div id="ticket">
 
 			<q-card-actions align="center">
-	            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+	            <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="150">
 	        </q-card-actions>
 
 	        <div class="q-py-sm">
-	        	<!-- <b>Location : {{transactionDetails.location.name}}000000000{{transactionDetails.id}} <br> -->
 				Phone   : +234-903-152-6466 <br> 
 				Email   : info@parkit.ng<br>
 				Website   : www.parkit.ng<br></b>
@@ -22,10 +21,8 @@
 	        </div>
 	       		
 			<div class="text-h6">Purchase Items</div>
-
-			<!-- {{transactionDetails}} -->
 			
-			<div class="q-py-sm" v-for="item in transactionDetails.products">
+			<div class="q-py-sm" v-for="item in transactionDetails.products" :key="item.id">
 				<p>
 					<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
 				</p>
@@ -39,7 +36,7 @@
 
 	    <button type="button" @click="pr">
 		    Print Form
-		 </button>
+		 </button> -->
     </div>
 </template>
 
@@ -99,35 +96,12 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import print  from 'print-js'
-// const { remote } = require('electron')
-// import {PosPrinter, PosPrintData, PosPrintOptions} from "electron-pos-printer";
-// import * as path from "path";
-const {PosPrinter} = require('electron').remote.require("electron-pos-printer");
-const path = require("path");
 
 export default {
 	data () {
-		return {
-			options : {
-			   preview: false,               // Preview in window or print
-			   width: '170px',               //  width of content body
-			   margin: '0 0 0 0',            // margin of content body
-			   copies: 1,                    // Number of copies to print
-			   printerName: 'XP-76C',        // printerName: string, check it at webContent.getPrinters()
-			   timeOutPerLine: 40000
-			},
-
-			data :[
-				{
-			      type: 'text',                                       // 'text' | 'barCode' | 'qrCode' | 'image'
-			      value: 'SAMPLE HEADING',
-			      style: `text-align:center;`,
-			      css: {"font-weight": "700", "font-size": "18px"}
-			   }
-			]
-		}
+		
 	},
+	
 	computed: {
         ...mapGetters({
 			transactionDetails: 'onlineTransaction/transactionDetails',
@@ -135,24 +109,7 @@ export default {
     },
 
     methods: {
-    	pr(){
-    		PosPrinter.print(this.data, this.options)
-			 .then(() => {})
-			 .catch((error) => {
-			    console.error(error);
-			  });
 
-
-    		// remote.getCurrentWebContents().print()
-
-   //  		var printContents = document.getElementById('ticket').innerHTML;
-			// var originalContents = document.body.innerHTML;
-			// document.body.innerHTML = printContents;
-			// window.print();
-			// document.body.innerHTML = originalContents;
-
-    		// print({printable: 'ticket', type: 'html'})
-    	}
     }
 }
 </script>

@@ -6,23 +6,23 @@
             v-model="slide"
             height="550px"
             >
-            <q-carousel-slide name="first" img-src="statics/selected/slider1.jpg" class="column no-wrap flex-center">
+            <q-carousel-slide name="first" img-src="~assets/selected/slider1.jpg" class="column no-wrap flex-center">
               <SliderComponent/>
             </q-carousel-slide>
-            <q-carousel-slide name="second" img-src="statics/slider-bg2.jpg" class="column no-wrap flex-center">
+            <q-carousel-slide name="second" img-src="~assets/slider-bg2.jpg" class="column no-wrap flex-center">
               <SliderComponent/> 
             </q-carousel-slide>
-            <q-carousel-slide name="third" img-src="statics/selected/slider2.jpg" class="column no-wrap flex-center">
+            <q-carousel-slide name="third" img-src="~assets/selected/slider2.jpg" class="column no-wrap flex-center">
               <SliderComponent/>  
             </q-carousel-slide>
-            <q-carousel-slide name="fourth" img-src="statics/selected/slider3.jpg" class="column no-wrap flex-center">
+            <q-carousel-slide name="fourth" img-src="~assets/selected/slider3.jpg" class="column no-wrap flex-center">
               <SliderComponent/>  
             </q-carousel-slide>
         </q-carousel>
         <div class="q-pa-xl">
             <div class="row justify-around">
                 <div class="col-md-6">
-                    <img class="responsive-img" src="statics/car.png" width="100%" alt="Parkit Home service">
+                    <img class="responsive-img" src="~assets/car.png" width="100%" alt="Parkit Home service">
                 </div>
                 <div class="col-md-6 text-center align-center">
                     <h5 class="center-align"><strong>Rather have us come over instead?<br>Home or Office</strong></h5>
@@ -37,14 +37,12 @@
 
             <div class="q-px-lg">
               <h4>Interested in owning a parkit franchise ?</h4>
-              <img class="responsive-img" src="statics/CAR00.png" width="100%" alt="Parkit Home service" @click="corporate">
+              <img class="responsive-img" src="~assets/CAR00.png" width="100%" alt="Parkit Home service" @click="corporate">
             </div>
-            <!-- <div class="q-gutter-y-md gt-sm">
-                <Animation/>
-            </div> -->
         </div>
     </q-page>
 </template>
+
 <style  scoped>
   h4 {
       display: inline-block;
@@ -58,7 +56,6 @@
 </style>
 <script>
     import TabList from 'components/Tabs/TabList.vue'
-    import Animation from 'components/Website/Animation.vue'
     import SliderComponent from 'components/Website/SliderComponent.vue'
     import { mapActions, mapGetters } from 'vuex'
     
@@ -71,7 +68,6 @@
       },
       components:{
         TabList,
-        Animation,
         SliderComponent,
       },
       computed: {

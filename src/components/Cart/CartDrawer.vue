@@ -1,10 +1,15 @@
 <template>
 	<div class="q-pa-sm">
-		<table v-if="cart.length">
+		<table v-if="cart && cart.length > 0">
             <q-card-actions align="around">
-                <q-btn color="red" icon="remove_shopping_cart" @click.prevent="removeAllProductFromCart()">Clear Cart</q-btn>
-                <q-btn color="green" icon="subdirectory_arrow_right" to="/cart">Proceed</q-btn>
+                <q-btn color="red"  icon="remove_shopping_cart" @click.prevent="removeAllProductFromCart()">Clear Cart</q-btn>
+                <q-btn color="green" disabled v-if="packageLocationCount > 0 && packageHomeOfficeCount > 0 " icon="subdirectory_arrow_right" to="/cart">Proceed</q-btn>
+                <q-btn color="green" v-else icon="subdirectory_arrow_right" to="/cart">Proceed</q-btn>
             </q-card-actions>
+
+            <q-banner dense rounded inline-actions v-if="mergeCheckout==true" class="q-my-lg text-white bg-red">
+	            <div class="">Sorry for the location in your cart column you can only merge home-service and parkit-location service at a time please remove the mixed category</div>
+	        </q-banner>
             <thead>
                 <tr>
                     <th scope="col">Package</th>
@@ -121,7 +126,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
 	data () {
 		return {
-
+      		mergeCheckout: false,
 		}
 	},
 
@@ -132,6 +137,8 @@ export default {
             cartItemCount: 'shopping/cartItemCount',
             cartTotal: 'shopping/cartTotal',
             authenticated: 'auth/user',
+			packageLocationCount: 'shopping/packageLocationCount',
+			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
         }),
         
         carTotalLength(){
@@ -144,8 +151,19 @@ export default {
 			removeProductFromCart: 'shopping/removeProductFromCart',
 			removeAllProductFromCart: 'shopping/removeAllProductFromCart',
 			updateCartTotals: 'shopping/updateCartTotals',
+			getCart: 'shopping/getCart',
 		}),
+	},
 
+	mounted(){
+		if(this.authenticated){
+            this.getCart()
+        }
+
+        if(this.packageLocationCount > 0 && this.packageHomeOfficeCount > 0 ){
+        	this.mergeCheckout = true
+			return this.negativeNotification('sorry you can only group home-office and parkit-location at a time')
+		}
 	}
 }
 </script>

@@ -138,7 +138,7 @@
     import Partner from 'components/Website/Partner.vue'
     import TrainingAndConsultancy from 'components/Website/TrainingAndConsultancy.vue'
     import Career from 'components/Website/Career.vue'
-    import SocialMedia from 'components/Website/SocialMedia.vue'
+    // import SocialMedia from 'components/Website/SocialMedia.vue'
     import { mapActions, mapGetters } from 'vuex'
 
     export default {
@@ -149,7 +149,7 @@
             Partner,
             TrainingAndConsultancy,
             Career,
-            SocialMedia,
+            // SocialMedia,
         },
         
         data () {

@@ -10,6 +10,7 @@
 
     <div class="q-pa-md">
         <div class="q-gutter-y-md">
+            <HomeServiceTabList/>
             <tab-list></tab-list>
         </div>
     </div>
@@ -31,6 +32,7 @@
 
 <script>
   import TabList from 'components/Tabs/TabList.vue'
+  import HomeServiceTabList from 'components/Tabs/HomeServiceTabList.vue'
   import auth from '../../router/middleware/auth.js'
     
     export default {
@@ -40,7 +42,8 @@
         }
       },
       components:{
-        TabList
+        TabList,
+        HomeServiceTabList
       },
 
       middleware: [

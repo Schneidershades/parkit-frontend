@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-img src="statics/selected/franchise-banner.jpg" style="height:600px">
+    <q-img src="~assets/selected/franchise-banner.jpg" style="height:600px">
       <div class="absolute-full text-subtitle2 flex flex-center">
         <div class="row">
           <div class="col-md-12 q-pa-sm" >
@@ -318,7 +318,8 @@ h4 {
   } 
 </style>
 
-<script>    
+<script>
+    
     export default {
       data () {
         return {
@@ -327,6 +328,7 @@ h4 {
         }
       },
       components:{
+        
       }
     }
 </script>

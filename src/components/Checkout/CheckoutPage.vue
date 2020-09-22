@@ -137,7 +137,7 @@
 			                                    ref="name"
 			                                    v-model="newUserAddress.address"
 			                                    label="Your Address *"
-			                                    hint="Please insert your last name"
+			                                    hint="Please insert your full address"
 			                                    lazy-rules
 			                                    :rules="[ val => val && val.length > 0 || 'Please type something']"
 			                                />
@@ -194,40 +194,23 @@
 	                	<td><h6>₦ {{cartTotal}}</h6></td>
 	                </tr>
                 </template>
-
                 <tr>
-                	<td colspan="3" >
-                		<h6>
-	                		<q-btn
-	                			@click="placeOrder('book')"
-						        label="Pay at Location"
-						        class="q-mt-md"
-						        color="primary"
-						        v-if="authenticated"
-						    ></q-btn>
-						</h6><i>if you select pay at location discounts would not be applied</i>
-					</td>
-                	
-
-					<td colspan="2" >
-                		<h6>
-                		<q-btn
-                			@click="placeOrder('pay')"
-					        label="Pay now"
-					        class="q-mt-md"
-					        color="primary"
-					        v-if="authenticated"
-					    ></q-btn>
-					</h6><i>proceed to payment with discounts applied</i></td>
-                </tr>
-                <tr>
-					<td colspan="5">
+					<td colspan="3">
                 		<q-btn
                 			to="/user/cart"
 					        type="submit"
 					        label="Back to Cart Page for Changes"
 					        class="q-mt-md"
 					        color="primary"
+					    ></q-btn>
+					</td>
+					<td colspan="2">
+                		<q-btn
+	            			@click="placeOrder('book')"
+					        label="Proceed"
+					        class="q-mt-md"
+					        color="primary"
+					        v-if="authenticated"
 					    ></q-btn>
 					</td>
                 </tr>
@@ -435,13 +418,14 @@ export default {
 				address_id: this.address_id,
 				location_id: this.location_id,
 				coupon_id: this.coupon_id,
+				platform_initiated: 'web',
 				action: action,
-				booking_date: this.date,
-				booking_time: this.time,
+				home_service_booking_date: this.date,
+				home_service_booking_time: this.time,
 				discount_id: this.discountDetails ? this.discountDetails.id : null,
 			}).then((response) => {
 				if(this.order != null){
-					return this.$router.push({ path: `/user/order/${this.order.id}` })
+					return this.$router.push({ path: `/user/order/${this.order.receipt_number}` })
 				}else{
 					return this.$router.push({ name: 'userOrder'})
 				}

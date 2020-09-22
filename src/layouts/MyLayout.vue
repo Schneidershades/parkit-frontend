@@ -3,12 +3,9 @@
 
     <q-header elevated class="bg-white" height-hint="100">
       <q-toolbar class="q-pl-xl text-primary">
-        <!-- <q-btn dense flat round icon="menu" @click="left = !left" />
-        <q-btn dense flat round icon="menu" @click="right = !right" /> -->
           <q-toolbar-title >
-            <q-img src="statics/parkit_logo.png" spinner-color="white" style="height: 100px; max-width: 300px" @click="home"/>
+            <q-img src="~assets/parkit_logo.png" spinner-color="white" style="height: 100px; max-width: 300px" @click="home"/>
           </q-toolbar-title>
-          <!-- <q-space /> -->
           <div class="gt-sm">
               <template v-if="authenticated">
                   <q-btn flat color="primary" to="/user/dashboard" label="Dashboard" />
@@ -25,7 +22,13 @@
           </div>
           
           <div class="q-pa-md gt-sm" v-if="cart.length">
-              <q-btn-dropdown color="primary" @click="right = !right"  :label="carTotalLength" v-model="menu" @mouseover.native="menuOver = true" @mouseout.native="menuOver = false"></q-btn-dropdown>
+              <q-btn-dropdown color="primary" 
+                  @click="right = !right"  
+                  :label="carTotalLength" 
+                  v-model="menu" 
+                  @mouseover.native="menuOver = true" 
+                  @mouseout.native="menuOver = false">
+              </q-btn-dropdown>
           </div>
 
           <q-btn

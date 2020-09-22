@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { LocalStorage } from 'quasar'
 
 export default ({
 	namespaced: true,
@@ -7,6 +8,7 @@ export default ({
 		token: null,
 		user: null,
 		phone: null,
+		onlineStatus: null,
 	},
 
 	getters:{
@@ -20,6 +22,10 @@ export default ({
 
 		phone(state){
 			return state.phone
+		},
+
+		onlineStatus(state){
+			return state.onlineStatus
 		}
 	},
 
@@ -34,17 +40,18 @@ export default ({
 
 		SET_PHONE_NUMBER (state, phone) {
 			state.phone = phone
+		},
+
+		SET_ONLINE_STATUS (state, onlineStatus) {
+			state.onlineStatus = onlineStatus
 		}
 	},
 
 	actions: {
 		async signIn({dispatch}, credentials){
-			// let response = await axios.get('airlock/csrf-cookie', credentials);
-			// dispatch('attempt', response.data.token)
-
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/auth/signin', credentials).then(response => {
-	            	// console.log(response.data.token)
+					// dispatch('adminOrders/sendOfflineOrders', null, { root: true })
 	                dispatch('attempt', response.data.token)
 	                resolve()
 	            }, error => {
@@ -55,14 +62,19 @@ export default ({
 			
 		},
 
-		async adminSignIn({dispatch}, credentials){
+		async adminSignIn({commit, dispatch, rootState }, credentials){
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/admin/user/signin', credentials).then(response => {
+
+			        dispatch('adminOrders/sendOfflineOrders', null, { root: true })
+			        dispatch('adminShopping/getProducts', null, { root: true })
+			        dispatch('locationHistory/getLocationHistory', null, { root: true })
+			        dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
 	                dispatch('attempt', response.data.token)
 	                resolve()
+
 	            }, error => {
-	                dispatch('flashMessage', error.response.data.data.error, {root:true})
-	                // console.log(error.response.data.data.error)
+	                dispatch('errorbag/flashMessage', error.response.data.data.error, {root:true})
 	                reject()
 	            })
 		    })			
@@ -80,9 +92,10 @@ export default ({
 			try{
 				return new Promise((resolve, reject) => {
 		            axios.get('api/v1/auth/me').then(response => {
+						LocalStorage.set('user', JSON.stringify(response.data.data))
 		                commit('SET_USER', response.data.data)
-						dispatch('shopping/storeCart', null, { root: true })
-						dispatch('shopping/getCart', null, { root: true })
+		                commit('SET_USER', JSON.parse(LocalStorage.getItem('user')))
+
 						resolve()
 		            }, error => {
 		                // dispatch('flashErrorMessage', error.response.data, {root:true})
@@ -97,7 +110,7 @@ export default ({
 			}
 		},
 		
-		signOut({ commit, rootState }){
+		signOut({ commit, dispatch, rootState }){
 			return axios.post('api/v1/auth/signout').then(() =>{
 				commit('SET_USER', null)
 				commit('SET_TOKEN', null)
@@ -113,7 +126,6 @@ export default ({
 					commit('SET_PHONE_NUMBER', phone_number)
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data.error)
 	                reject(error.response.data.data.error);
 	            })
 	        })
@@ -126,7 +138,6 @@ export default ({
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -139,8 +150,7 @@ export default ({
 	                resolve(response);
 					commit('SET_PHONE_NUMBER', phone_number)
 	            }, error => {
-	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
-	                // console.log(error.response.data.data.error)
+	                dispatch('flashErrorMessage', error.response.data, {root:true})
 	                reject(error.response.data.data.error);
 	            })
 	        })
@@ -148,12 +158,11 @@ export default ({
 
 		async verifyForgotPasswordOTP({commit, dispatch}, credentials){
 			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/verify-otp', credentials).then(response => {
+	            axios.post('api/v1/forgot-password/verify-otp', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -166,7 +175,43 @@ export default ({
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+
+		async PasswordReset({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.post('api/v1/auth/password-reset', credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+		async CheckPasswordResetToken({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.get('api/v1/auth/password-reset/'+ credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
+	                reject(error.response.data.data);
+	            })
+	        })
+		},
+
+		async NewPasswordReset({commit, dispatch}, credentials){
+			return new Promise((resolve, reject) => {
+	            axios.patch('api/v1/auth/password-reset/update', credentials).then(response => {
+	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                resolve(response);
+	            }, error => {
+	                dispatch('flashErrorMessage', error.response.data.data.error, {root:true})
 	                reject(error.response.data.data);
 	            })
 	        })
@@ -176,19 +221,16 @@ export default ({
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/auth/profile/update', credentials).then(response => {
 	                dispatch('flashMessage', response.data.data.message, {root:true})
+	                dispatch('attempt', response.data.token)
 	                resolve(response);
 	            }, error => {
 	                dispatch('flashErrorMessage', error.response.data, {root:true})
-	                // console.log(error.response.data.data)
 	                reject(error.response.data.data);
 	            })
 	        })
 		},
 
 		async signUp({dispatch}, credentials){
-			// let response = await axios.post('api/v1/auth/signup', credentials);
-			// console.log(response.data.data.message)
-			// return dispatch('attempt', response.data.data.message.token)
 			return new Promise((resolve, reject) => {
 	            axios.post('api/v1/auth/signup', credentials).then(response => {
 	                dispatch('attempt', response.data.token)
@@ -198,6 +240,10 @@ export default ({
 	                reject()
 	            })
 		    })	
+		},
+
+		onlineStatus({ commit, rootState }, credentials){
+	        commit('SET_ONLINE_STATUS', credentials)
 		},
 	},
 })

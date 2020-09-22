@@ -1,15 +1,40 @@
 <template>
 	<q-list>
+
         <q-item-label header>Menu</q-item-label>
-        
-        <q-item clickable to="/user/dashboard">
+
+        <q-item clickable to="/">
             <q-item-section avatar>
-                <q-icon name="home" />
+                <q-icon name="subdirectory_arrow_left" />
+            </q-item-section>
+            <q-item-section>
+                <q-item-label>Back to Website</q-item-label>
+            </q-item-section>
+        </q-item>
+        
+        <template v-if="authenticated">
+            <template v-if="authenticated.role!='user'">
+                <q-item clickable to="/web/admin/dashboard" v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+                    <q-item-section avatar>
+                        <q-icon name="switch_right" />
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Switch To Admin Dashboard</q-item-label>
+                    </q-item-section>
+                </q-item>
+            </template>
+        </template>
+            
+
+        <q-item clickable to="/user/dashboard/">
+            <q-item-section avatar>
+                <q-icon name="business" />
             </q-item-section>
             <q-item-section>
                 <q-item-label>Dashboard</q-item-label>
             </q-item-section>
         </q-item>
+
         <q-item clickable to="/user/cart">
             <q-item-section avatar>
                 <q-icon name="shopping_cart" />
@@ -61,8 +86,6 @@
 
 
 <script>
-    import CartDrawer from 'components/Cart/CartDrawer.vue'
-    import UserMenu from 'components/Menus/UserMenu.vue'
 
     import { mapActions, mapGetters } from 'vuex'
 
@@ -70,8 +93,7 @@
         name: 'User',
 
         components:{
-           CartDrawer,
-           UserMenu
+
         },
         
         data () {
@@ -111,7 +133,6 @@
             }),
 
             signOut(){
-                // console.log('ko')
                 this.signOutAction().then(() => {
                     this.$router.replace({
                         name: 'home'

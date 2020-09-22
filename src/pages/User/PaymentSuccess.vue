@@ -1,26 +1,19 @@
 <template>
-	<q-card style="width: 400px; max-width: 80vw; margin: auto; margin-top:50px" class="q-pt-md">  
+	<q-card class="q-pt-md fixed-center bg">  
         <q-card-actions align="center">
-            <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
+            <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
         </q-card-actions> 
 
         <q-card-section  class="row" align="center">  
         	<div class="col-sm-12">
         		<p>Transaction ID : 
                     <b>
-                        <template v-if="order.location != null && order.address != null">
-                            <p class="text-left">HS/{{order.location.name}}000000000{{order.id}}</p>
-                        </template>
-                        <template v-if="order.location == null && order.address != null">
-                            <p class="text-left">HS000000000{{order.id}}</p>
-                        </template>
-                        <template v-if="order.location != null && order.address == null">
-                            <p class="text-left">{{order.location.name}}000000000{{order.id}}</p>
-                        </template>
+                        {{order.receipt_number}}
                     </b>
                 </p>
         		<p>Transaction Status : <b>{{order.status}}</b></p>
-        		<p>Payment Method  : <b>{{order.action}}</b></p>
+                <p>Payment Status : <b>{{order.payment_status}}</b></p>
+        		<p>Payment Method  : <b>{{order.payment_method}}</b></p>
         		<p>Payment Amount  : <b>₦{{order.total}}.00</b></p>
         	
         	</div> 

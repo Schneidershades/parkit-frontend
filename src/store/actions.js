@@ -1,5 +1,5 @@
 export const flashMessage = ({commit}, message) =>{
-	// console.log(message)
+	console.log(message, 0)
 	commit('setMessage', message)
 
 	setTimeout(() => {
@@ -9,7 +9,6 @@ export const flashMessage = ({commit}, message) =>{
 
 export const flashErrorMessage = ({commit}, errors) =>{
 	commit('setErrorMessage', errors)
-
 
 	setTimeout(() => {
 		commit('clearErrorMessage')

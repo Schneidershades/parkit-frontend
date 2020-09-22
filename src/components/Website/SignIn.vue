@@ -4,7 +4,7 @@
             <q-card flat class="my-card">
                 <q-card-section>
                     <q-card-actions align="center">
-                        <img src="statics/parkit_logo.png" align="center" alt="Parkit Home service" width="200">
+                        <img src="~assets/parkit_logo.png" align="center" alt="Parkit Home service" width="200">
                     </q-card-actions> 
 
                     <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">

@@ -1,9 +1,9 @@
 <template>
 	<q-layout view="hHh lpR lfr">
 		<q-page-container>
-			<q-page class="login-register" style="background-image:url(statics/exp.jpg);">
+			<q-img class="login-register" src="~/assets/exp.jpg">
 				<router-view />
-			</q-page>
+			</q-img>
 		</q-page-container>
 	</q-layout>
 </template>

@@ -34,7 +34,7 @@
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your first name']"
 		                                    :readonly="readonly"
-		                                    :value="user.firstName"
+		                                    v-model="form.first_name"
 		                                />
 		                            </div>
 
@@ -47,7 +47,7 @@
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your last name']"
 		                                    :readonly="readonly"
-		                                    :value="user.lastName"
+		                                    v-model="form.last_name"
 		                                />
 		                            </div>
 
@@ -55,12 +55,12 @@
 		                                <q-input
 		                                    ref="name"
 		                                    filled
-		                                    :dense="dense"
+		                                    dense
 		                                    label="Your Email *"
 		                                    lazy-rules
 		                                    :rules="[ val => val && val.length > 0 || 'Please in your email']"
 		                                    :readonly="readonly"
-		                                    :value="user.email"
+		                                    v-model="form.email"
 		                                />
 		                            </div>
 
@@ -72,50 +72,37 @@
 		                                    label="Your Phone *"
 		                                    lazy-rules
 		                                    readonly="readonly"
-		                                    :value="user.phone"
+		                                    v-model="form.phone"
 		                                />
 		                            </div>
 
 		                            <div class="col-md-6 q-pa-sm">
-		                                <q-input
-		                                    ref="name"
-		                                    filled
-		                                    :dense="dense"
-		                                    label="Your username *"
-		                                    lazy-rules
-		                                    readonly="readonly"
-		                                    :value="user.username"
-		                                />
-		                            </div>
-
-		                            <div class="col-md-6 q-pa-sm">
-		                            	Male <q-toggle toggle-indeterminate v-model="userSex" :dense="dense"  :readonly="readonly" :disable="disableRadio && readonly == true" :value="sex" label="Female" />
+		                            	Male <q-toggle toggle-indeterminate v-model="sexOptions" :dense="dense"  :readonly="readonly" :disable="disableRadio && readonly == true" label="Female" />
 		                                
 		                            </div>
 
-		                            <!-- <div class="col-md-6 q-pa-sm">
+		                            <div class="col-md-6 q-pa-sm">
 		                            	<q-input 
 		                            	 	filled 
 		                            	 	ref="name" 
-		                            	 	v-model="profile.user" 
 		                            	 	mask="date" 
 		                            	 	:dense="dense"
 		                                    label="Date of Birth *"
 		                                    hint="We care about you"
 		                                    lazy-rules
 		                                    :readonly="readonly" 
-		                                    :value="user.dob" 
+		                                    v-model="form.dob" 
 		                                    :rules="['date']"
 		                                    >
 									      	<template v-slot:append>
 										        <q-icon name="event" class="cursor-pointer">
 										          	<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-										            	<q-date v-model="profile.user" @input="() => $refs.qDateProxy.hide()" />
+										            	<q-date v-model="form.dob" @input="() => $refs.qDateProxy.hide()" />
 										          	</q-popup-proxy>
 										        </q-icon>
 									      	</template>
 									    </q-input>
-		                            </div> -->
+		                            </div>
 		                        </div>
 
 		                        <q-card-actions align="left">
@@ -139,20 +126,21 @@
     
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
+    import { Date } from 'quasar'
 
     export default{
         data(){
             return{
-
-                profile: {
+                form: {
                     phone : '',
-                    firstName: '',
-                    lastName: '',
+                    first_name: '',
+                    last_name: '',
                     email: '',
-                    username: '',
                     dob: '',
                     sex: '',
                 },
+
+                sexOptions: '',
 
                 errorMessages: [],
                 error: '',
@@ -171,18 +159,8 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
-                user: 'auth/user',
+                authenticated: 'auth/user',
             }),
-
-            sex(){
-            	if(this.user.sex == 'male'){
-            		this.userSex = "male"
-            	}
-
-            	if(this.user.sex == 'female'){
-            		this.userSex = 'female'
-            	}
-            }
         },
             
         methods:{
@@ -191,11 +169,23 @@
             }),
 
             updateProfile(){
-                this.profileData(this.profile).then((res) => {
+
+            	if(this.sexOptions == null){
+            		this.form.sex = ''
+            	}
+
+            	if(this.sexOptions == false){
+            		this.form.sex = 'male'
+            	}
+
+            	if(this.sexOptions == true){
+            		this.form.sex = 'female'
+            	}
+
+                this.profileData(this.form).then((res) => {
                     this.positiveNotification('Your profile has been updated')
                 	this.disable=true
                 }).catch((error) => {
-                    // console.log(error)
                     this.errorMessages = error
                     if(error){
                         this.negativeNotification(error.error)
@@ -223,6 +213,26 @@
                     message: error
                 })
             },
+        },
+        mounted(){
+        	if(this.authenticated){
+        		this.form.first_name = this.authenticated.firstName
+        		this.form.last_name = this.authenticated.lastName
+        		this.form.email = this.authenticated.email
+        		this.form.phone = this.authenticated.phone
+        		this.form.dob = this.authenticated.dob
+
+        		if(this.authenticated.sex == 'male'){
+        			this.sexOptions = false
+        		}
+        		if(this.authenticated.sex == 'female'){
+        			this.sexOptions = true
+        		}
+        		if(this.authenticated.sex == '' || this.authenticated.sex == null){
+        			this.sexOptions = null
+        		}
+        		
+        	}
         }
     }
 </script>

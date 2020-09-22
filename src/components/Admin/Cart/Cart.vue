@@ -13,7 +13,6 @@
             </thead>
             <tbody>
                 <tr v-for="item in cart" :key="item.id">
-                    <!-- <td data-label="Action"><q-btn flat color="danger" @click.prevent="removeProductFromCart(item.id)">Remove</q-btn></td> -->
                     <td data-label="Action">
                     	<q-btn flat color="danger" icon="delete_outline" @click.prevent="removeProductFromCart(item.id)"></q-btn>
                     </td>
@@ -26,6 +25,7 @@
 					        min="1"
 					        v-model="item.quantity"
 					        label="Your quantity *"
+
 					        @change="updateCart(item, item.quantity)"
 					        lazy-rules
 					        :rules="[
@@ -37,11 +37,9 @@
                     <td data-label="Unit">₦ {{item.amount}}</td>
                     <td data-label="Amount">₦ {{item.amount * item.quantity}}</td>
                 </tr>
-
-                <!-- {{userDiscountPriviledge}} -->
                 <tr>
                 	<td colspan="4">
-						<template v-if="userDiscountPriviledge != null">
+						<template v-if="userDiscountPrivilege == true">
 					    	<q-card-actions align="left">
 							    <div class="q-px-sm row no-wrap items-center">
 							    	<div class="col-3">
@@ -161,7 +159,7 @@
 						</template>
                 	</td>
                 	<td>{{errorMessage}} {{errorMessage}}</td>
-                	<td><b v-if="discount"> {{percentageDiscount}}</b></td>
+                	<td><b v-if="discount"> {{discount}}</b></td>
                 </tr>
                 <tr>
                 	<td></td>
@@ -264,6 +262,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { Notify } from 'quasar'
 import SignInDiscountModal from 'components/Admin/Modal/SignInDiscountModal.vue'
 import { Platform } from 'quasar'
+    const isOnline = require('is-online');
 
 export default {
 	components:{
@@ -322,18 +321,16 @@ export default {
 			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
 			locations: 'location/locations',
 			addresses: 'address/addresses',
-			userDiscountPriviledge: 'shopping/userDiscountPriviledge',
+			userDiscountPrivilege: 'shopping/userDiscountPrivilege',
 			discountDetails: 'shopping/discountDetails',
 			setDefaultDiscountToZero: 'shopping/setDefaultDiscountToZero',
+            online: 'auth/onlineStatus',
         }),
         
         carTotalLength(){
             return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
         },
 
-        percentageDiscount(){
-        	return this.discount + '% Discount Applied'
-        }
     },
 
 	methods:{
@@ -346,10 +343,11 @@ export default {
 			getAddresses: 'address/getAddresses',
 			applyDiscount: 'shopping/applyCustomerDiscount',
 			resetDiscount: 'shopping/applyResetDiscount',
-			setUserDiscountPriviledge: 'shopping/setUserDiscountPriviledge',
-			getUsersWithDiscountPriviledge: 'shopping/getUsersWithDiscountPriviledge',
+			setUserDiscountPrivilege: 'shopping/setUserDiscountPrivilege',
+			getUsersWithDiscountPrivilege: 'shopping/getUsersWithDiscountPrivilege',
 			defaultDiscountOnWeb: 'shopping/defaultDiscountOnWeb',
 			defaultDiscountToZeroOnLocationManagerApp: 'shopping/defaultDiscountToZeroOnLocationManagerApp',
+            connected: 'internetStatus/setConnection',
 		}),
 
 		updateCart(item,quantity){
@@ -376,6 +374,18 @@ export default {
 	    },
 
 	    simulateSubmit () {
+	    	(async () => {
+                var check = await isOnline()
+                console.log(check);
+                if(check == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+                this.connected(check).then((res) => {
+                    
+                })
+                
+            })(); 
+        	
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
             }).catch((error) => {
@@ -403,6 +413,18 @@ export default {
 			// 	return this.negativeNotification('You are not authorized to give discounts at this moment')
 			// }
 			
+        	(async () => {
+                var check = await isOnline()
+                console.log(check);
+                if(check == false){
+                    return this.negativeNotification('You are offline. Please connect to an available internet')
+                }
+                this.connected(check).then((res) => {
+                    
+                })
+                
+            })(); 
+			
 			if(type == 'percentage' && parseInt(number) > 0 ){
 				this.number.amount = 0
 			}
@@ -420,12 +442,11 @@ export default {
 				return this.negativeNotification('please your amount should not be more than total amount ' + this.cartTotal)
 			}
 
-			if(this.userDiscountPriviledge == null || this.userDiscountPriviledge == []){
+			if(this.userDiscountPrivilege == null || this.userDiscountPrivilege == []){
 				var user_discount_operator_id = this.user.id
 			}else{
-				var user_discount_operator_id = this.userDiscountPriviledge.id
+				var user_discount_operator_id = this.userDiscountPrivilege.id
 			}
-			console.log('good')
 
 			this.applyDiscount({
 				percentage: this.number.percentage,
@@ -433,7 +454,6 @@ export default {
 				user_discount_operator_id: user_discount_operator_id
 			}).then((response) => {
 	      		this.submitting = true
-                // console.log(response.data.data)
             }).catch((error) => {
                 // this.errorMessage = error
                 // console.log(this.errorMessage)
@@ -477,13 +497,11 @@ export default {
 	mounted(){
 
 		if(this.$can('create', 'discounts')){
-			this.setUserDiscountPriviledge(this.user)
+			this.setUserDiscountPrivilege(true)
+		}else{
+			this.setUserDiscountPrivilege(false)
 		}
-
-		if(this.userDiscountPriviledge != null){
-			this.signInDiscountModal = false
-		}
-		this.getUsersWithDiscountPriviledge()
+		this.getUsersWithDiscountPrivilege()
 
 
 		// if(Platform.is.electron){

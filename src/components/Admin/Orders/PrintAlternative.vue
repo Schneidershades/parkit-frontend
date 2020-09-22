@@ -3,7 +3,7 @@
 	<div class="ticket">
 		<div id="ticket" class="print-only">
 			<q-card-actions align="center">
-	            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="150">
+	            <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="150">
 	        </q-card-actions>
 	        <p>Location : street city, state 0000 <br>
 				Phone   : 555-555-5555 <br> 
@@ -138,7 +138,7 @@ export default {
 	<div class="ticket">
 		<div id="invoice-POS" >
 			<q-card-actions align="center">
-	            <img src="statics/parkit_logo.png" alt="Parkit Home service" width="120">
+	            <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="120">
 	        </q-card-actions> 
 	        <q-card-actions align="center">
 	            <p align="center">Book Online to get 10% off <br><b>PARKIT.NG</b></p>

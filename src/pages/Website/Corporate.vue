@@ -1,6 +1,6 @@
 <template>
 	<q-page>
-		<q-img src="statics/selected/corporate-mtn.jpg" style="height:400px">
+		<q-img src="~assets/selected/corporate-mtn.jpg" style="height:400px">
 			<div class="absolute-full text-subtitle2 flex flex-center">
 				<div class="row">
 					<div class="col-md-6 q-pa-sm" >

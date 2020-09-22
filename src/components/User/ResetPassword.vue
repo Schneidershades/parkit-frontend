@@ -1,7 +1,7 @@
 <template>
     <q-card-section>
         <q-card-actions align="center">
-            <img src="statics/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
+            <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
         </q-card-actions> 
         <q-stepper
           v-model="step"

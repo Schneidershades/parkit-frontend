@@ -12,7 +12,7 @@
                     class="lt-xl"
                     />
                 <q-toolbar-title clickable to="/" >
-                    <q-img src="statics/parkit_logo.png" spinner-color="white" style="height: 120px; max-width: 300px" @click="home"/>
+                    <q-img src="~assets/parkit_logo.png" spinner-color="white" style="height: 120px; max-width: 300px" @click="home"/>
                 </q-toolbar-title>
                 <!-- <q-space /> -->
                 <div class="gt-sm">
@@ -90,20 +90,15 @@
             }
         },
 
-        mounted(){
-            this.authenticated
-        },
-
-
         methods:{
             ...mapActions({
               removeProductFromCart: 'shopping/removeProductFromCart',
               removeAllProductFromCart: 'shopping/removeAllProductFromCart',
-              signOutAction: 'auth/signOut'
+              signOutAction: 'auth/signOut',
+              getCart: 'shopping/getCart',
             }),
 
             signOut(){
-                // console.log('ko')
                 this.signOutAction().then(() => {
                     this.$router.replace({
                         name: 'home'
@@ -116,6 +111,12 @@
                   name: 'home'
               })
             }
-        }
+        },
+
+        mounted(){
+            if(this.authenticated){
+                this.getCart()
+            }
+        },
     }
 </script>

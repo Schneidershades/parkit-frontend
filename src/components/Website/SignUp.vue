@@ -3,7 +3,7 @@
         <q-card-section  style="max-height: 80vh" class="scroll"> 
             <div class="text-h6 text-center">Sign Up</div>
             <q-card-actions align="center">
-                <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
+                <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
             </q-card-actions>  
             <q-banner dense rounded inline-actions v-if="message" class="text-white bg-green">
                 {{message}}

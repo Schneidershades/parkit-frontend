@@ -1,7 +1,7 @@
 <template>   
     <q-card style="width: 800px;" class="q-pa-sm">
         <!-- <q-card-actions align="center">
-            <img src="statics/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="100">
+            <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="100">
         </q-card-actions>  -->
 
         <q-card-section >            
