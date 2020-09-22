@@ -21,8 +21,6 @@ const port = process.env.PORT || 3000
 
 var enforce = require('express-sslify')
 
-// import sslRedirect from 'heroku-ssl-redirect';
-
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
 })
@@ -39,8 +37,6 @@ if (ssr.settings.pwa) {
 
 // serve "www" folder
 app.use(ssr.resolveUrl('/'), serve('.', true))
-
-// app.use(sslRedirect);
 
 // we extend the custom common dev & prod parts here
 extension.extendApp({ app, ssr })
