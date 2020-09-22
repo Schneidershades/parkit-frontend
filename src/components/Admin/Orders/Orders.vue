@@ -1,0 +1,131 @@
+<template>
+	<div class="q-pa-sm"  v-if="orders">
+		{{orders}}
+         <!-- <q-table
+		      title="Orders"
+		      :columns="columns"
+		      row-key="name"
+		      :data="orders"
+		      :grid="$q.screen.xs"
+		      rows-per-page-label="50"
+		    >
+		      <template slot="body" slot-scope="props">
+		      	<q-tr :props="props">
+		      		<template v-if="props.row.location != null && props.row.address != null">
+		      			<q-td key="id" :props="props">HS/{{props.row.location.name}}000000000{{props.row.id}}</q-td>
+                  	</template>
+                  	<template v-if="props.row.location == null && props.row.address != null">
+		      			<q-td key="id" :props="props">HS000000000{{props.row.id}}</q-td>
+                  	</template>
+                  	<template v-if="props.row.location != null && props.row.address == null">
+		      			<q-td key="id" :props="props">{{props.row.location.name}}000000000{{props.row.id}}</q-td>
+                  	</template>
+		      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
+		      		<q-td key="subtotal" :props="props">{{ props.row.subtotal }}</q-td>
+		      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
+		      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
+		      		<q-td key="date" :props="props">{{ props.row.created_at }}</q-td>
+		      		<q-td key="status" :props="props">{{ props.row.action }}: <b>{{ props.row.status }}</b></q-td>
+		      		<q-td key="action" :props="props">
+		      			<q-btn color="red"  label="View" @click="viewOrder(props.row.id)"/>
+		      		</q-td>
+		      	</q-tr>
+		      </template>
+	    </q-table>  -->
+	</div>	
+</template>
+
+
+<script>
+
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+	data () {
+		return {
+			pagination: {
+		        rowsPerPage: 0
+		    },
+
+		    text: '',
+		    columns: [
+		       {
+		          name: 'id',
+		          align: 'left',
+		          label: 'Order ID',
+		          field: 'id',
+		          sortable: true
+		       },
+		       {
+		          name: 'packages',
+		          align: 'left',
+		          label: 'Package(s)',
+		          field: 'packages',
+		          sortable: true
+		       },
+		       {
+		          name: 'subtotal',
+		          align: 'left',
+		          label: 'Subtotal (₦)',
+		          field: 'subtotal',
+		          sortable: true
+		       },
+		       {
+		          name: 'discount',
+		          align: 'left',
+		          label: 'Discount (₦)',
+		          field: 'discount',
+		          sortable: true
+		       },
+		       {
+		          name: 'total',
+		          align: 'left',
+		          label: 'Total (₦)',
+		          field: 'total',
+		          sortable: true
+		       },
+		       {
+		          name: 'date',
+		          align: 'left',
+		          label: 'Date',
+		          field: 'date',
+		          sortable: true
+		       },
+
+		       {
+		          name: 'status',
+		          align: 'left',
+		          label: 'Status',
+		          field: 'status',
+		          sortable: true
+		       },
+		       {
+		          name: 'action',
+		          align: 'left',
+		          label: 'Action',
+		          field: 'action',
+		       }
+		    ],
+		}
+	},
+	computed: {
+        ...mapGetters({
+            orders: 'offlineOrders/orders',
+            authenticated: 'auth/user',
+        }),
+    },
+
+	methods:{
+		...mapActions({
+			// getOrders: 'o/getOrders',
+		}),
+
+	    viewOrder(orderId) {
+	      	return this.$router.push({ path: `/user/order/${orderId}` })
+		},		
+	},
+	mounted (){
+		// this.getOrders()
+	},
+}
+</script>
