@@ -19,13 +19,13 @@ const extension = require('./extension')
 const app = express()
 const port = process.env.PORT || 3000
 
-var enforce = require('express-sslify')
+import sslRedirect from 'heroku-ssl-redirect';
 
 const serve = (path, cache) => express.static(ssr.resolveWWW(path), {
   maxAge: cache ? 1000 * 60 * 60 * 24 * 30 : 0
 })
 
-app.use(enforce.HTTPS())
+app.use(sslRedirect(['production'], 301));
 
 // gzip
 app.use(compression({ threshold: 0 }))

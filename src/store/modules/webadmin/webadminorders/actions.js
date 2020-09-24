@@ -30,6 +30,14 @@ export const pendingOrders = ({ commit, dispatch, rootState }) => {
 	}
 }
 
+export const updateOrder = ({ commit, dispatch }, credentials) => {
+	var url = 'api/v1/admin/user/online-orders/' + credentials.id
+	return axios.put(url, credentials).then((response) => {
+		dispatch('getOrderId', credentials.id)
+		return Promise.resolve()
+	})
+}
+
 export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 	return axios.post('api/v1/admin/user/online-orders', order).then((response) => {
 		dispatch('webAdminShopping/removeAllProductFromCartLocalStorage', null, { root: true })
@@ -99,7 +107,7 @@ export const storeOrder = ({ commit, dispatch, rootState }, order) =>{
 export const deleteOrder = ({ commit, dispatch }, item) => {
 	var URL = "api/v1/admin/user/online-orders/"+item
 	return axios.delete(URL).then((response) => {
-		dispatch('getOrders')
+		// dispatch('getOrders')
 		return Promise.resolve()
 	})
 }
