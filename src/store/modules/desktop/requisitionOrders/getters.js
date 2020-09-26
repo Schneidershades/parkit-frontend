@@ -1,4 +1,4 @@
 // products
-export const requisitionOrder = (state) => {
-	return state.requisitionOrder
+export const requisitionOrders = (state) => {
+	return state.requisitionOrders
 }

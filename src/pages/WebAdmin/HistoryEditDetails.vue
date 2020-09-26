@@ -4,16 +4,13 @@
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Edit Number" />
-		        <q-breadcrumbs-el :label="orderId" v-if="order.id"/>
+		        <q-breadcrumbs-el :label="orderDetails.receipt_number" v-if="orderDetails"/>
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md" v-if="order.id">
-	        <div class="q-gutter-y-md">
-	            <OrderEditDetails />
-	        </div>
-	    </div>
-	    <div class="q-pa-md" v-else>No order item found</div>
+
+	    <OrderEditDetails />
+
   	</q-page>
 </template>
 
@@ -37,31 +34,14 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            order: 'orders/orderDetails',
+            orderDetails: 'webAdminOrders/orderDetails',
         })
     },
 
 	methods:{
 		...mapActions({
-			getOrderId: 'orders/getOrderId',
+            getOrderId: 'webAdminOrders/getOrderId',
 		}),
-		
-		placeOrder(){
-			this.placeUserOrder([{
-				customer_id: this.authenticatedUser.id,
-				address_id: this.address_id,
-				location_id: this.location_id,
-				coupon_id: this.coupon_id,
-				discount_id: this.discount_id,
-			}]).then((response) => {
-				this.$router.push({name: 'userOrderShow'})      		
-            }).catch((error) => {
-                console.log(error)
-                if(this.errorMessage){
-                    this.negativeNotification('cannot process order at the moment')
-                }
-            })           
-		},
 
 	    positiveNotification(message){
             Notify.create({

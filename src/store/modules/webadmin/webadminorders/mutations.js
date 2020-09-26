@@ -1,9 +1,11 @@
+
+
 export const setOrderDetails = (state, order) =>{
 	state.orderDetails = order
 }
 
-export const setOrders = (state, order) =>{
-	state.orders = order
+export const setOrders = (state, orders) =>{
+	state.orders = orders
 }
 
 export const setPendingOrders = (state, order) =>{
@@ -21,4 +23,8 @@ export const setPaymentTimeout = (state, { callback, delay }) =>{
 export const stopPaymentTimeout = (state) =>{
 	clearInterval(state.setTimeout)
 	state.paymentTimeout = null
+}
+
+export const setOrder = (state, orders) =>{
+	state.setOrderDetails = orders
 }

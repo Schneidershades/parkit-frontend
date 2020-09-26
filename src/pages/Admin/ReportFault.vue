@@ -7,21 +7,51 @@
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md">
-	        <div class="q-gutter-y-md" >
-	        	<q-card >
+	    <div class="q-pa-sm"  v-if="reportFaults">
+			<q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create New" @click="createModelType = true" />
+
+	        <q-table
+			    title="Report Fault"
+			    :columns="columns"
+			    row-key="name"
+			    :data="reportFaults"
+			    :grid="$q.screen.xs"
+			    :pagination.sync="pagination"
+		      	:filter="filterModel"
+			    >
+		    	<template v-slot:top-right>
+			        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
+			          <template v-slot:append>
+			            <q-icon name="search" v-model="filterModel"/>
+			          </template> 
+			        </q-input>
+		      	</template>
+
+			    <template slot="body" slot-scope="props">
+			      	<q-tr :props="props">
+			      		<q-td key="created_at" :props="props">{{props.row.created_at}}</q-td>
+			      		<q-td key="severity" :props="props">{{props.row.severity}}</q-td>
+			      		<q-td key="summary" :props="props">{{props.row.summary}}</q-td>
+			      		<q-td key="location" :props="props">{{props.row.location}}</q-td>
+			      		<q-td key="requestingUser" :props="props">{{props.row.requestingUser  ? props.row.requestingUser : 'None'}}</q-td>
+			      		<q-td key="approvingUser" :props="props">{{props.row.approvingUser ? props.row.approvingUser : 'None'}}</q-td>
+			      	</q-tr>
+			    </template>
+		    </q-table> 
+
+		    <q-dialog v-model="createModelType" >
+	          	<q-card >
 			        <q-card-section>
 			            <div class="text-h6 text-center">Report a fault</div>
 			        </q-card-section>
 
 			        <q-card-section >            
 			            <div class="q-pa-md">
-			                <!-- <div class="bg-primary">{{message}}</div> -->
 							<q-form
 	                            @submit="submitRequest"
 	                            class="q-gutter-md"
 	                            ref="form"
-	                        >
+	                        	>
 	                        	<div class="row">
 		                            <div class="col-6 q-pl-sm">
 		                            	<q-select 
@@ -79,8 +109,8 @@
 			        <q-separator />
 			        
 			    </q-card>
-		    </div>
-	    </div>
+	        </q-dialog>
+		</div>
 	</q-page>
 </template>
 
@@ -102,11 +132,61 @@
                     user_id: ''
                 },
                 dense: false,
+                filterModel: '',
+                createModelType: false,
+                editModelType: false,
+                expenseDetails: null,
+
                 options: [
 			        'Low Priority', 
 			        'Medium Priority', 
 			        'High Priority', 
-			    ]
+			    ],
+
+			    columns: [
+			       	{
+			          	name: 'created_at',
+			          	align: 'left',
+			          	label: 'Created',
+			          	field: 'created_at',
+			          	sortable: true
+			       	},
+			       	{
+			          	name: 'severity',
+			          	align: 'left',
+			          	label: 'Severity',
+			          	field: 'severity',
+			          	sortable: true
+			       	},
+			       	{
+			          	name: 'summary',
+			          	align: 'left',
+			          	label: 'Summary',
+			          	field: 'summary',
+			          	sortable: true
+			       	},
+			       	{
+			          	name: 'location',
+			          	align: 'left',
+			          	label: 'Location',
+			          	field: 'location',
+			          	sortable: true
+			       	},
+			       	{
+			          	name: 'requestingUser',
+			          	align: 'left',
+			          	label: 'User',
+			          	field: 'requestingUser',
+			          	sortable: true
+			       	},
+			       	{
+			          	name: 'approvingUser',
+			          	align: 'left',
+			          	label: 'approvingUser',
+			          	field: 'approvingUser',
+			          	sortable: true
+			       	},
+			    ],
             }
         },
 
@@ -116,12 +196,14 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 online: 'auth/onlineStatus',
+                reportFaults: 'reportFaults/reportFaults',
             }),
         },
             
         methods:{
             ...mapActions({
               	sendRequest: 'reportFaults/sendReportFaults',
+              	getReportFaults: 'reportFaults/getReportFaults',
                 connected: 'internetStatus/setConnection',
             }),
 
@@ -137,6 +219,7 @@
                             return this.negativeNotification('You are offline. Please connect to an available internet')
                         }else{
                             this.sendRequest(this.form).then((res) => {
+                            	this.createModelType = false
 			                    this.positiveNotification('your request has been sent')
 			                }).catch((error) => {
 			                    this.errorMessages = error
@@ -177,6 +260,7 @@
         mounted(){
         	if(this.user){
         		console.log(this.user.location)
+        		this.getReportFaults(this.user.location.id)
         		this.form.user_id = this.user.id
         		this.form.location_id = this.user.location.id
         	}

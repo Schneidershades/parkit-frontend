@@ -37,13 +37,13 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            order: 'orders/orderDetails',
+            orderDetails: 'webAdminOrders/orderDetails',
         })
     },
 
 	methods:{
 		...mapActions({
-			getOrderId: 'orders/getOrderId',
+            getOrderId: 'webAdminOrders/getOrder',
 		}),
 		
 		placeOrder(){

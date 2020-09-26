@@ -6,8 +6,10 @@
             </q-btn-group>
         </div>
 
+        {{orderDetails}}
+
         <q-card v-if="orderDetails">
-        	<!-- {{orderDetails}} -->
+        	{{form.transaction_initiated_date}}
             <q-card-section>
                 <div class="text-h6 text-center">View Order</div>
             </q-card-section>
@@ -36,11 +38,12 @@
                             </div>
 
                             <div class="col-6 q-pl-sm">
-                                <q-input filled v-model="form.transaction_initiated_date" :dense="dense" :readonly="readonly" label="Transaction Date *"  mask="date" :rules="['date']">
-                                    <template v-slot:append>
-                                        <q-icon name="event" class="cursor-pointer" :dense="dense" :readonly="readonly">
-                                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                <q-date v-model="form.transaction_initiated_date" :dense="dense" :readonly="readonly"  v-close-popup>
+
+                                <q-input filled v-model="form.transaction_initiated_date" :dense="dense" :readonly="readonly">
+                                    <template v-slot:prepend>
+                                        <q-icon name="event" class="cursor-pointer">
+                                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                                <q-date v-model="form.transaction_initiated_date" :dense="dense" :readonly="readonly"  v-close-popup mask="YYYY-MM-DD">
                                                     <div class="row items-center justify-end">
                                                         <q-btn v-close-popup label="Close" color="primary" flat />
                                                     </div>
@@ -53,7 +56,7 @@
 
 
 
-                            <!-- <div class="col-4 q-pl-sm q-pb-md">
+                            <div class="col-4 q-pl-sm q-pb-md">
                                 <q-select 
                                     filled 
                                     v-model="form.status"
@@ -63,7 +66,7 @@
                                     :dense="dense"
                                     :readonly="readonly"
                                 />
-                            </div> -->
+                            </div>
 
                             <!-- <div class="col-4 q-pl-sm">
                                 <q-input
@@ -746,6 +749,7 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import { date } from 'quasar'
+import { Notify } from 'quasar'
 
 export default {
 	props :[
@@ -757,8 +761,8 @@ export default {
 		return {
             date: '',
 			form:{
-            	id : null,
-            	receipt_number : null,
+            	id : this.orderDetails ? this.orderDetails.id : null,
+            	receipt_number : this.orderDetails ? this.orderDetails.receipt_number : null,
     //         	customer_id : null,
 				// customer_plate_number_id : null,
     //         	user_operator_id : null,
@@ -789,7 +793,7 @@ export default {
     //         	payment_code : null,
     //         	payment_message : null,
     //         	payment_status : 'pending',
-            	transaction_initiated_date : null,
+            	transaction_initiated_date : this.orderDetails ? this.orderDetails.transaction_initiated : null,
     //         	transaction_initiated_time : null,
     //         	date_cancelled : null,
     //         	date_time_paid : null,
@@ -798,7 +802,7 @@ export default {
     //         	home_service_booking_time : null,
     //         	served_location_id : null,
     //         	service_status : null,
-            	// status : 'pending'
+            	status : 'pending'
             },
 
             action :[
@@ -823,8 +827,7 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            orderDetails: 'orders/orderDetails',
-            authenticated: 'auth/user',
+            orderDetails: 'webAdminOrders/orderDetails',
         }),
     },
 
@@ -833,19 +836,19 @@ export default {
 			gatewayResponse: 'orders/paymentProcess',
 			payNowAtLocation: 'orders/payAtLocation',
 			deleteOrder: 'webAdminOrders/deleteOrder',
-			getOrderId: 'orders/getOrderId',
+            getOrderId: 'webAdminOrders/getOrderId',
 			updateOrder: 'webAdminOrders/updateOrder',
 		}),
 
-        optionsFn () {
-     		var today = new Date();
-  			var bu = today.getDate();
-	      	
-     		console.log(new Date())
-     		var timeStamp = Date.now()
-			var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
-			return formattedString
-	    },
+        optionsFn (mon) {
+            var today = new Date();
+            var bu = today.getDate();
+            
+            console.log(new Date())
+            var timeStamp = Date.now()
+            var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+            return mon >= formattedString
+        },
 
 	    time(){
 	    	var today = new Date();
@@ -874,7 +877,9 @@ export default {
             })
         },
 
-        submitRequest(){ 	
+        submitRequest(){ 
+
+            this.form.transaction_initiated_date = (date.formatDate(this.form.transaction_initiated_date, 'YYYY-MM-DD'))
             this.updateOrder(this.form).then((res) => {
                 this.positiveNotification('Resource has been created')
             }).catch((error) => {
@@ -888,7 +893,10 @@ export default {
 	},
 
     mounted(){
-    	if(this.getOrderId(this.$route.params.orderId)){
+    	if(this.orderDetails){
+            // alert(this.orderDetails.vehicle.plateNumber)
+            // 
+            // 
     		this.form.id = this.orderDetails.id
     		this.form.receipt_number = this.orderDetails.receipt_number
     		// this.form.customer_id = this.orderDetails.customer_id
@@ -930,7 +938,7 @@ export default {
     		// this.form.home_service_booking_time = this.orderDetails.home_service_booking_time
     		// this.form.served_location_id = this.orderDetails.served_location_id
     		// this.form.service_status = this.orderDetails.service_status
-    		// this.form.status = this.orderDetails.status
+    		this.form.status = this.orderDetails.status
     	}
     },
 }

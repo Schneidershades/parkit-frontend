@@ -2,7 +2,7 @@ import axios from 'axios'
 
 // get products
 export const getComplaintsAndSuggestions = ({ commit }) => {
-	var URL = 'api/v1/admin/user/complaints-suggestions'
+	var URL = 'api/v1/admin/user/location-complaints-suggestions/' + item
 	return axios.get(URL).then((response) => {
 		console.log(response.data)
 		commit('setReportFaults', response.data)

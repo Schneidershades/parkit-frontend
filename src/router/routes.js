@@ -385,7 +385,8 @@ const routes = [
             admin,
             // isElectron,
             // desktopAuth
-          ]
+          ],
+          props: true,
         },
       },
 
@@ -398,7 +399,8 @@ const routes = [
             admin,
             // isElectron,
             // desktopAuth
-          ]
+          ],
+          props: true,
         },
       },
     ]

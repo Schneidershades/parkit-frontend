@@ -32,7 +32,7 @@ import plateNumber from './modules/desktop/plateNumber'
 import reportFaults from './modules/desktop/reportFaults'
 import complaintsAndSuggestions from './modules/desktop/complaintsAndSuggestions'
 import personnelRequests from './modules/desktop/personnelRequests'
-import requisitionOrder from './modules/desktop/requisitionOrders'
+import requisitionOrders from './modules/desktop/requisitionOrders'
 import purchaseOrders from './modules/desktop/purchaseOrders'
 import onlineTransaction from './modules/desktop/onlineTransaction'
 import customerPlateNumbers from './modules/desktop/customerPlateNumbers'
@@ -93,7 +93,7 @@ export default new Vuex.Store({
 		reportFaults,
 		complaintsAndSuggestions,
 		personnelRequests,
-		requisitionOrder,
+		requisitionOrders,
 		purchaseOrders,
 		onlineTransaction,
 		customerPlateNumbers,

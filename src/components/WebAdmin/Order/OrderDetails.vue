@@ -369,6 +369,10 @@ export default {
                 message: error
             })
         },
+
+        mounted(){
+        	
+        }
 	},
 }
 </script>
