@@ -119,6 +119,11 @@
                     location_id: '',
                     user_id: ''
                 },
+                
+				pagination: {
+			        rowsPerPage: 30,
+			        page: 1
+			    },
                 dense: false,
             }
         },

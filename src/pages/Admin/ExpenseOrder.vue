@@ -373,7 +373,7 @@
         methods:{
             ...mapActions({
               	sendExpenseOrders: 'expenseOrders/sendExpenseOrder',
-              	getExpenseOrders: 'expenseOrders/getExpenseOrders',
+              	getLocationExpenseOrders: 'expenseOrders/getLocationExpenseOrders',
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
             }),
@@ -453,14 +453,12 @@
         },
 
         mounted(){
-        	console.log('fnro')
-    		this.getExpenseOrders()
-
     		this.getClassifications()
 
     		this.expenseDetails = null
 
         	if(this.user){
+        		this.getLocationExpenseOrders(this.user.location.id)
         		console.log(this.user.location)
         		this.form.user_id = this.user.id
         		this.form.location_id = this.user.location.id

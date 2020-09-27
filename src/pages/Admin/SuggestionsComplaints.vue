@@ -3,15 +3,47 @@
 	  	<div class="q-pa-md q-gutter-sm">
 	      	<q-breadcrumbs>
 	        	<q-breadcrumbs-el label="Home" />
-	        	<q-breadcrumbs-el label="Personal Request" />
+	        	<q-breadcrumbs-el label="Suggestions & Complaints" />
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md">
-	        <div class="q-gutter-y-md" >
+        <div class="q-pa-sm"  v-if="complaintsAndSuggestions">
+            <q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create New" @click="createModelType = true" />
+
+            <q-table
+                title="Complaints & Suggestions"
+                :columns="columns"
+                row-key="name"
+                :data="complaintsAndSuggestions"
+                :grid="$q.screen.xs"
+                :pagination.sync="pagination"
+                :filter="filterModel"
+                >
+                <template v-slot:top-right>
+                    <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
+                      <template v-slot:append>
+                        <q-icon name="search" v-model="filterModel"/>
+                      </template> 
+                    </q-input>
+                </template>
+
+                <template slot="body" slot-scope="props">
+                    <q-tr :props="props">
+                        <q-td key="created_at" :props="props">{{props.row.created_at}}</q-td>
+                        <q-td key="requestingUser" :props="props">{{props.row.requestingUser  ? props.row.requestingUser : 'None'}}</q-td>
+                        <q-td key="severity" :props="props">{{props.row.severity}}</q-td>
+                        <q-td key="summary" :props="props">{{props.row.summary}}</q-td>
+                        <!-- <q-td key="quantity" :props="props">{{props.row.quantity}}</q-td> -->
+                        <q-td key="location" :props="props">{{props.row.location}}</q-td>
+                    </q-tr>
+                </template>
+            </q-table> 
+
+            <q-dialog v-model="createModelType" >
+                
 	        	<q-card >
 			        <q-card-section>
-			            <div class="text-h6 text-center">Make Suggestions & Complaints </div>
+			            <div class="text-h6 text-center">Create Suggestions & Complaints </div>
 			        </q-card-section>
 
 			        <q-card-section >            
@@ -77,8 +109,8 @@
 			            </div>
 			        </q-card-section>
 			    </q-card>
-		    </div>
-	    </div>
+            </q-dialog>
+        </div>
 	</q-page>
 </template>
 
@@ -100,7 +132,57 @@
                     location_id: '',
                     user_id: ''
                 },
+                
                 dense: false,
+                filterModel: '',
+                createModelType: false,
+                editModelType: false,
+                expenseDetails: null,
+				separator: 'cell',
+
+				pagination: {
+			        rowsPerPage: 30,
+			        page: 1
+			    },
+
+                columns: [
+                    {
+                        name: 'created_at',
+                        align: 'left',
+                        label: 'Created',
+                        field: 'created_at',
+                        sortable: true
+                    },
+                    {
+                        name: 'requestingUser',
+                        align: 'left',
+                        label: 'User',
+                        field: 'requestingUser',
+                        sortable: true
+                    },
+                    {
+                        name: 'severity',
+                        align: 'left',
+                        label: 'Severity',
+                        field: 'severity',
+                        sortable: true
+                    },
+                    {
+                        name: 'summary',
+                        align: 'left',
+                        label: 'Summary',
+                        field: 'summary',
+                        sortable: true
+                    },
+                    {
+                        name: 'location',
+                        align: 'left',
+                        label: 'Location',
+                        field: 'location',
+                        sortable: true
+                    },
+                ],
+			    
                 options: [
 			        'Low Priority', 
 			        'Medium Priority', 
@@ -115,6 +197,7 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
+                complaintsAndSuggestions: 'complaintsAndSuggestions/complaintsAndSuggestions',
             }),
         },
             
@@ -122,31 +205,33 @@
             ...mapActions({
               	sendRequest: 'complaintsAndSuggestions/sendComplaintsAndSuggestion',
                 connected: 'internetStatus/setConnection',
+              	getLocationComplaintsAndSuggestions: 'complaintsAndSuggestions/getLocationComplaintsAndSuggestions',
             }),
 
+            
+
             submitRequest(){
-            	(async () => {
+                (async () => {
                     var check = await isOnline()
                     console.log(check);
-                    if(check == false){
-                        return this.negativeNotification('You are offline. Please connect to an available internet')
-                    }
                     this.connected(check).then((res) => {
                         if(check == false){
                             return this.negativeNotification('You are offline. Please connect to an available internet')
                         }else{
                             this.sendRequest(this.form).then((res) => {
-			                    this.positiveNotification('your request has been sent')
-			                }).catch((error) => {
-			                    this.errorMessages = error
-			                    console.log(this.errorMessages)
-			                    if(this.errorMessages){
-			                        this.negativeNotification(this.errorMessages)
-			                    }
-			                })
+                                this.createModelType = false
+                                this.positiveNotification('your request has been sent')
+                            }).catch((error) => {
+                                this.errorMessages = error
+                                console.log(this.errorMessages)
+                                if(this.errorMessages){
+                                    this.negativeNotification(this.errorMessages)
+                                }
+                            })  
                         }
                     })
-                })();              
+                    
+                })();         
             },
             
 
@@ -173,6 +258,7 @@
 
         mounted(){
         	if(this.user){
+        		this.getLocationComplaintsAndSuggestions(this.user.location.id)
         		console.log(this.user.location)
         		this.form.user_id = this.user.id
         		this.form.location_id = this.user.location.id

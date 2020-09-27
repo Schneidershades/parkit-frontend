@@ -7,13 +7,11 @@
 	      	</q-breadcrumbs>
 	    </div>
 
-
-
         <div class="q-pa-sm"  v-if="requisitionOrders">
             <q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create New" @click="createModelType = true" />
 
             <q-table
-                title="Report Fault"
+                title="Requisition Orders"
                 :columns="columns"
                 row-key="name"
                 :data="requisitionOrders"
@@ -32,11 +30,10 @@
                 <template slot="body" slot-scope="props">
                     <q-tr :props="props">
                         <q-td key="created_at" :props="props">{{props.row.created_at}}</q-td>
-                        <q-td key="severity" :props="props">{{props.row.item}}</q-td>
-                        <q-td key="summary" :props="props">{{props.row.quantity}}</q-td>
-                        <q-td key="location" :props="props">{{props.row.location}}</q-td>
                         <q-td key="requestingUser" :props="props">{{props.row.requestingUser  ? props.row.requestingUser : 'None'}}</q-td>
-                        <q-td key="approvingUser" :props="props">{{props.row.approvingUser ? props.row.approvingUser : 'None'}}</q-td>
+                        <q-td key="item" :props="props">{{props.row.item}}</q-td>
+                        <!-- <q-td key="quantity" :props="props">{{props.row.quantity}}</q-td> -->
+                        <q-td key="location" :props="props">{{props.row.location}}</q-td>
                     </q-tr>
                 </template>
             </q-table> 
@@ -92,8 +89,6 @@
                                         />
                                     </div>
 
-
-
                                     <q-card-actions align="right">
                                         <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
                                     </q-card-actions>
@@ -130,33 +125,16 @@
                 createModelType: false,
                 editModelType: false,
                 expenseDetails: null,
+                pagination: {
+                    rowsPerPage: 30,
+                    page: 1
+                },
                 columns: [
                     {
                         name: 'created_at',
                         align: 'left',
                         label: 'Created',
                         field: 'created_at',
-                        sortable: true
-                    },
-                    {
-                        name: 'item',
-                        align: 'left',
-                        label: 'Item',
-                        field: 'item',
-                        sortable: true
-                    },
-                    {
-                        name: 'quantity',
-                        align: 'left',
-                        label: 'Quantity',
-                        field: 'quantity',
-                        sortable: true
-                    },
-                    {
-                        name: 'location',
-                        align: 'left',
-                        label: 'Location',
-                        field: 'location',
                         sortable: true
                     },
                     {
@@ -167,10 +145,17 @@
                         sortable: true
                     },
                     {
-                        name: 'approvingUser',
+                        name: 'item',
                         align: 'left',
-                        label: 'approvingUser',
-                        field: 'approvingUser',
+                        label: 'Item',
+                        field: 'item',
+                        sortable: true
+                    },
+                    {
+                        name: 'location',
+                        align: 'left',
+                        label: 'Location',
+                        field: 'location',
                         sortable: true
                     },
                 ],
@@ -242,7 +227,7 @@
         },
         mounted(){
         	if(this.user){
-                this.getLocationRequisitionOrder(this.user.location.id)
+                this.getLocationRequisitionOrders(this.user.location.id)
         		console.log(this.user.location)
         		this.form.user_id = this.user.id
         		this.form.location_id = this.user.location.id

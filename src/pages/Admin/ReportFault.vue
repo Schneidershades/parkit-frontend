@@ -136,6 +136,11 @@
                 createModelType: false,
                 editModelType: false,
                 expenseDetails: null,
+                
+				pagination: {
+			        rowsPerPage: 30,
+			        page: 1
+			    },
 
                 options: [
 			        'Low Priority', 
@@ -207,32 +212,30 @@
                 connected: 'internetStatus/setConnection',
             }),
 
+            
+
             submitRequest(){
-            	(async () => {
+                (async () => {
                     var check = await isOnline()
                     console.log(check);
-                    if(check == false){
-                        return this.negativeNotification('You are offline. Please connect to an available internet')
-                    }
                     this.connected(check).then((res) => {
                         if(check == false){
                             return this.negativeNotification('You are offline. Please connect to an available internet')
                         }else{
                             this.sendRequest(this.form).then((res) => {
-                            	this.createModelType = false
-			                    this.positiveNotification('your request has been sent')
-			                }).catch((error) => {
-			                    this.errorMessages = error
-			                    console.log(this.errorMessages)
-			                    if(this.errorMessages){
-			                        // this.negativeNotification(this.errorMessages)
-			                        return this.negativeNotification('you must be connected to the internet to proceed')
-			                    }
-			                }) 
+                                this.createModelType = false
+                                this.positiveNotification('your request has been sent')
+                            }).catch((error) => {
+                                this.errorMessages = error
+                                console.log(this.errorMessages)
+                                if(this.errorMessages){
+                                    this.negativeNotification(this.errorMessages)
+                                }
+                            })  
                         }
                     })
                     
-                })();        
+                })();         
             },
             
 

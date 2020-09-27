@@ -298,21 +298,20 @@
 
 					<hr>
 
-			        <div class="q-pa-md" v-if="order.status">
-			        	
+			        <div class="q-pa-md">
 			      		<i>Payment Method</i>
 					    <div class="q-gutter-sm" v-if="freeWashStatus=='yes' && freeWash == true">
 					      <q-radio v-model="order.payment_method" val="free" label="Free" />
 					    </div>
 					    <div class="q-gutter-sm" v-else >
-					      	<q-radio v-model="order.payment_method" v-if="order.status == 'pending'" val="not_paid" label="Not Paid" />
-					      	<q-radio v-model="order.payment_method" v-if="order.status == 'complete'" val="pos" label="POS Machine" />
-					      	<q-radio v-model="order.payment_method" v-if="order.status == 'complete'" val="cash" label="Cash" />
+					      	<q-radio v-model="order.payment_method" val="not_paid" label="Not Paid" />
+					      	<q-radio v-model="order.payment_method" val="pos" label="POS Machine" />
+					      	<q-radio v-model="order.payment_method" val="cash" label="Cash" />
 					    </div>
 					</div>
 
 			        <q-stepper-navigation>
-			          <q-btn @click="placeOrder" v-if="order.payment_method!=null && order.status!=null" color="primary" label="Continue" />
+			          <q-btn @click="placeOrder" v-if="order.payment_method!=null" color="primary" label="Continue" />
 			          <q-btn flat @click="step = 3" color="primary" label="Back" class="q-ml-sm" />
 			        </q-stepper-navigation>
 			      </q-step>
@@ -428,7 +427,7 @@
 	                payment_method: '',
 	                sub_total: null,
 	                total: null,
-	                status: '',
+	                status: 'pending',
 	                action: null,
 	                reason: null,
 	                cashier_id: null,

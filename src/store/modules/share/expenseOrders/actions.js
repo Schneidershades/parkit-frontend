@@ -1,6 +1,15 @@
 import axios from 'axios'
 
 // get products
+export const getLocationExpenseOrders = ({ commit }, item) => {
+	var URL = 'api/v1/admin/user/location-expense-orders/'+ item
+	return axios.get(URL).then((response) => {
+		console.log(response.data)
+		commit('setOrders', response.data.data)
+		return Promise.resolve()
+	})
+}
+
 export const getExpenseOrders = ({ commit }) => {
 	var URL = 'api/v1/admin/user/expense-orders'
 	return axios.get(URL).then((response) => {

@@ -140,6 +140,11 @@
                 createModelType: false,
                 editModelType: false,
                 expenseDetails: null,
+                
+				pagination: {
+			        rowsPerPage: 30,
+			        page: 1
+			    },
 
                 columns: [
 			       	{
