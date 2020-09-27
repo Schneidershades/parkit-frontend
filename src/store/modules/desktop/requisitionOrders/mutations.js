@@ -1,3 +1,3 @@
-export const setRequisitionOrder = (state, requisitionOrder) =>{
+export const setRequisitionOrders = (state, requisitionOrder) =>{
 	state.requisitionOrder = requisitionOrder
 }

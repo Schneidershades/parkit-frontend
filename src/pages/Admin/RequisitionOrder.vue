@@ -191,7 +191,7 @@
         methods:{
             ...mapActions({
               	sendRequest: 'requisitionOrders/sendRequisitionOrder',
-                getLocationRequisitionOrder: 'requisitionOrders/getLocationRequisitionOrder',
+                getLocationRequisitionOrders: 'requisitionOrders/getLocationRequisitionOrders',
                 connected: 'internetStatus/setConnection',
             }),
 
