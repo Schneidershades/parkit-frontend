@@ -577,6 +577,26 @@ const routes = [
     ]
   },
 
+
+  
+  {
+    path: '/web/admin/expense/order',
+    component: () => import('layouts/WebAdmin.vue'),
+    children: [
+      { path: '', 
+        name: 'adminExpenseOrder', 
+        component: () => import('pages/Admin/ExpenseOrder.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            // isElectron,
+            // desktopAuth
+          ]
+        },
+      }
+    ]
+  },
+
   {
     path: '/web/admin/income-expense-category',
     component: () => import('layouts/WebAdmin.vue'),

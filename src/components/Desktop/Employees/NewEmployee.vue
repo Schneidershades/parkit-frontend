@@ -8,10 +8,10 @@
 
         <q-card >
             <q-card-section>            
-                <div class="q-pa-md">
+                <div class="q-pa-sm">
     				<q-form
                         @submit="submitRequest"
-                        class="q-gutter-md"
+                        class="q-gutter-sm"
                         ref="form"
                         >
                     	<div class="row">
@@ -47,7 +47,8 @@
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
     			            </div>
-                            <div class="col-4 q-pl-sm">
+
+                            <div class="col-3 q-pl-sm">
                             	<q-input
                                     ref="name"
                                     filled
@@ -57,7 +58,17 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-3 q-pl-sm">
+                                <q-input
+                                    ref="name"
+                                    filled
+                                    v-model="form.phone"
+                                    :dense="dense"
+                                    label="Phone *" 
+                                    lazy-rules
+                                />
+                            </div>
+                            <div class="col-3 q-pl-sm">
                             	<q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
                             		<template v-slot:append>
                             			<q-icon name="event" class="cursor-pointer">
@@ -72,7 +83,7 @@
                             		</template>
                             	</q-input>
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-3 q-pl-sm">
                                 <q-select 
                             		filled 
                                     v-model="form.sex"
@@ -94,7 +105,7 @@
                                 />
                             </div>
 
-                            <div class="col-4 q-pl-sm q-pb-md">
+                            <!-- <div class="col-4 q-pl-sm q-pb-md">
                                 <q-select 
                             		filled 
                                     v-model="form.city_id"
@@ -128,7 +139,7 @@
                                     :dense="dense"
                                     :readonly="readonly"
                             	/>
-                            </div>
+                            </div> -->
 
                             <div class="col-12">
                                 <hr>
@@ -749,6 +760,7 @@
                     last_name: '',
                     middle_name: '',
                     email : '',
+                    phone : '',
                     sex: '',
                     dob: '',
                     address: '',
@@ -955,6 +967,7 @@
                         	
                             this.postEmployee(this.form).then((res) => {
 			                    this.positiveNotification('Resource has been created')
+                                return this.$router.push({ path: `/desktop/employees/view` }) 
 			                }).catch((error) => {
 			                    this.errorMessages = error
 			                    console.log(this.errorMessages)

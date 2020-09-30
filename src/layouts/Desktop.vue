@@ -38,7 +38,7 @@
 
 
         <q-drawer v-model="right" side="right"  behavior="mobile" bordered class="print-hide">
-          <CartDrawer/>
+          <CartDrawerDesktop/>
         </q-drawer>
 
 
@@ -162,7 +162,7 @@
 </style>
 
 <script>
-    import CartDrawer from 'components/Cart/CartDrawer.vue'
+    import CartDrawerDesktop from 'components/Cart/CartDrawerDesktop.vue'
     import { getPersistedState } from '../store/modules/auth/statemapper.js';
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
@@ -173,7 +173,7 @@
         name: 'Admin',
 
         components:{
-            CartDrawer
+            CartDrawerDesktop
         },
         
         data () {

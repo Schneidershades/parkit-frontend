@@ -288,16 +288,6 @@
 			        icon="money"
 			        :done="step > 4"
 			      >
-			      	<div class="q-pa-md">
-			      		<i>Payment Status</i>
-					    <div class="q-gutter-sm">
-					      	<q-radio v-model="order.status" val="pending" label="Pending" />
-					      	<q-radio v-model="order.status" val="complete" label="Complete" />
-					    </div>
-					</div>
-
-					<hr>
-
 			        <div class="q-pa-md">
 			      		<i>Payment Method</i>
 					    <div class="q-gutter-sm" v-if="freeWashStatus=='yes' && freeWash == true">

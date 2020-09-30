@@ -27,7 +27,7 @@ export const getPermissions = ({ commit, dispatch, root }, item) => {
 }
 
 export const sendRolesPermissions = ({ commit, dispatch, rootState}, item) => {
-	var URL = "api/v1/admin/user/update/roles/permissions"
+	var URL = "api/v1/admin/user/roles-permissions"
 	var transactions = {
 		"contentRolesPermissions": item
 	}

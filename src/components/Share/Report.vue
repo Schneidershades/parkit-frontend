@@ -29,8 +29,6 @@
             	</div>
             </div>
             
-            <!-- {{locations}} -->
-
           	<q-card-actions>
             	<q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Report" />
           	</q-card-actions>

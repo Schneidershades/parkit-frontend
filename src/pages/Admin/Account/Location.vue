@@ -39,7 +39,6 @@
 				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
 				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
 				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
-				      		<q-td key="datePosted" :props="props">{{ props.row.postedDate }}</q-td>
 				      		<q-td key="action" :props="props">
 				      			<q-btn color="warning"  label="View Transaction"  @click="viewTransaction(props.row)"/>
 				      		</q-td>
@@ -70,7 +69,6 @@
 				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
 				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
 				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
-				      		<q-td key="datePosted" :props="props">{{ props.row.postedDate }}</q-td>
 				      		<q-td key="action" :props="props">
 				      			<q-btn color="warning" label="View Transaction" @click="viewTransaction(props.row)"/>
 				      		</q-td>
@@ -94,7 +92,13 @@
 			    			<p>Transaction Amount : ₦ {{transactionId.amount}}</p>
 			    			<p>Transaction Date : {{transactionId.date}}</p>
 			    			<p>Transaction Posted Date : {{transactionId.postedDate}}</p>
-			    			<q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" />
+
+			    			<template v-if="user">
+					            <template v-if="user.role=='Super Admin'">
+					               <q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" />
+					            </template>
+					        </template>
+			    			
 			    		</q-card-section>
 
 			    		<q-separator />
@@ -174,13 +178,13 @@ export default {
 		          field: 'date',
 		          sortable: true
 		       },
-		       {
-		          name: 'datePosted',
-		          align: 'left',
-		          label: 'Posted',
-		          field: 'datePosted',
-		          sortable: true
-		       },
+		       // {
+		       //    name: 'datePosted',
+		       //    align: 'left',
+		       //    label: 'Posted',
+		       //    field: 'datePosted',
+		       //    sortable: true
+		       // },
 
 		       {
 		          name: 'action',

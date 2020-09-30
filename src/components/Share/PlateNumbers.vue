@@ -21,15 +21,19 @@
 
 		    <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
+		      		<q-td key="name" :props="props">{{ props.row.firstName ? props.row.firstName : 'N/A' }} {{ props.row.lastName }}</q-td>
 		      		<q-td key="plate_number" :props="props">{{props.row.plateNumber ?  props.row.plateNumber : 'N/A'}}</q-td>
 		      		<q-td key="type" :props="props">{{ props.row.vehicleType ?  props.row.vehicleType : 'N/A'}}</q-td>
-		      		<q-td key="model" :props="props">{{ props.row.vehicleModel  ?  props.row.vehicleModel : 'N/A'}}</q-td>
+		      		<!-- <q-td key="model" :props="props">{{ props.row.vehicleModel  ?  props.row.vehicleModel : 'N/A'}}</q-td> -->
 		      		<q-td key="phone" :props="props">{{ props.row.phone  ?  props.row.phone : 'N/A'}}</q-td>
-		      		<q-td key="email" :props="props">{{ props.row.email  ?  props.row.email : 'N/A'}}</q-td>
-		      		<q-td key="free" :props="props">{{ props.row.freeWash }}</q-td>
-		      		<q-td key="number_of_washes" :props="props">{{ props.row.vehicleWashes}}</q-td>
-		      		<q-td key="next_wash_free" :props="props">{{ props.row.vehicleFreeWash}}</q-td>
-		      		<q-td key="action" :props="props">ncie</q-td>
+		      		<!-- <q-td key="email" :props="props">{{ props.row.email  ?  props.row.email : 'N/A'}}</q-td> -->
+		      		<!-- <q-td key="number_of_washes" :props="props">{{ props.row.vehicleWashes}}</q-td> -->
+		      		<!-- <q-td key="next_wash_free" :props="props">{{ props.row.vehicleFreeWash}}</q-td> -->
+		      		<q-td key="action" :props="props">
+		      			<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewModel(props.row.id)"/>
+		      			<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editModel(props.row.id)"/>
+	        			<q-btn color="red" unelevated icon="delete" @click="deleteModel(props.row.id)"/>
+		      		</q-td>
 		      	</q-tr>
 		    </template>
 	    </q-table> 
@@ -145,6 +149,13 @@ export default {
 		    columns: [
 
 		       {
+		          name: 'name',
+		          align: 'left',
+		          label: 'Name',
+		          field: 'name',
+		          sortable: true
+		       },
+		       {
 		          name: 'plate_number',
 		          align: 'left',
 		          label: 'Number',
@@ -159,13 +170,13 @@ export default {
 		          field: 'type',
 		          sortable: true
 		       },
-		       {
-		          name: 'model',
-		          align: 'left',
-		          label: 'Model',
-		          field: 'model',
-		          sortable: true
-		       },
+		       // {
+		       //    name: 'model',
+		       //    align: 'left',
+		       //    label: 'Model',
+		       //    field: 'model',
+		       //    sortable: true
+		       // },
 		       {
 		          name: 'phone',
 		          align: 'left',
@@ -173,34 +184,27 @@ export default {
 		          field: 'phone',
 		          sortable: true
 		       },
-		       {
-		          name: 'email',
-		          align: 'left',
-		          label: 'Email(s)',
-		          field: 'email',
-		          sortable: true
-		       },
-		       {
-		          name: 'free',
-		          align: 'left',
-		          label: 'Free',
-		          field: 'free',
-		          sortable: true
-		       },
-		       {
-		          name: 'number_of_washes',
-		          align: 'left',
-		          label: 'Wash(es)',
-		          field: 'number_of_washes',
-		          sortable: true
-		       },
-		       {
-		          name: 'next_wash_free',
-		          align: 'left',
-		          label: 'Next Free Wash',
-		          field: 'next_wash_free',
-		          sortable: true
-		       },
+		       // {
+		       //    name: 'email',
+		       //    align: 'left',
+		       //    label: 'Email(s)',
+		       //    field: 'email',
+		       //    sortable: true
+		       // },
+		       // {
+		       //    name: 'number_of_washes',
+		       //    align: 'left',
+		       //    label: 'Wash(es)',
+		       //    field: 'number_of_washes',
+		       //    sortable: true
+		       // },
+		       // {
+		       //    name: 'next_wash_free',
+		       //    align: 'left',
+		       //    label: 'Next Free Wash',
+		       //    field: 'next_wash_free',
+		       //    sortable: true
+		       // },
 		       {
 		          name: 'action',
 		          align: 'left',
@@ -220,7 +224,15 @@ export default {
 	methods:{
 		...mapActions({
 			getPlateNumbers: 'plateNumber/getPlateNumbers',
-		})		
+			updatePlateNumbers: 'plateNumber/updatePlateNumber',
+			deletePlateNumber: 'plateNumber/deletePlateNumber',
+		}),
+
+		deleteModel(id){
+			this.deletePlateNumber(id).then((response) => {
+        		this.positiveNotification('Action was deleted')
+            }) 
+		},		
 	},
 	mounted (){
 		this.getPlateNumbers()

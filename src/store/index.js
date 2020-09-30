@@ -61,6 +61,7 @@ import discounts from './modules/share/discounts'
 import coupons from './modules/share/coupons'
 import expenseOrders from './modules/share/expenseOrders'
 import employees from './modules/share/employees'
+import staff from './modules/share/staff'
 
 export default new Vuex.Store({
 	state,
@@ -123,6 +124,7 @@ export default new Vuex.Store({
 		coupons,
 		expenseOrders,
 		employees,
+		staff,
 	},
 })
 

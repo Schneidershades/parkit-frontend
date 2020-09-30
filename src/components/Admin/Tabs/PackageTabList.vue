@@ -4,6 +4,7 @@
         <!-- {{freeWash}} -->
         <!-- {{useFreeWash}} -->
         <!-- {{checkPlateNumber}} -->
+        <!-- {{products.data}} -->
 
 		<q-tabs
           v-model="tab"
@@ -16,7 +17,7 @@
 				<template v-for="product in products.data" >
 					<q-tab @click="dialog = true" 
 						class="col-md-3 vehicle-cbs" 
-						:name="product.slug" 
+						:name="product.id" 
 						:label="product.type" 
 						v-if="product.type == checkPlateNumber.vehicleType || product.type == checkPlateNumber.vehicleModel" 
 						:icon="product.svg_path" 
@@ -36,7 +37,7 @@
           v-else
 			>
 			<div class="cbs-vehicle-list">
-				<q-tab @click="dialog = true" class="col-md-3 vehicle-cbs"  v-for="product in products.data" :name="product.slug" :label="product.type" 
+				<q-tab @click="dialog = true" class="col-md-3 vehicle-cbs"  v-for="product in products.data" :name="product.id" :label="product.type" 
 				:icon="product.svg_path" size="xl" :key="product.slug" style="font-size:60px">
 		        </q-tab>
 			</div>
@@ -67,7 +68,7 @@
 
 		        <q-card-section class="q-pt-none">
 		          	<q-tab-panels bordered v-model="tab" animated class="row" id="items" >
-						<q-tab-panel :name="product.slug" v-for="product in products.data" :key="product.id" >
+						<q-tab-panel :name="product.id" v-for="product in products.data" :key="product.id" >
 							 <q-card-section>
 					          <div class="text-h5 text-center">{{product.type}}</div>
 					        </q-card-section>
@@ -172,6 +173,7 @@
 
 		
 		<!-- if its not a free wash -->
+
 	     <q-dialog
 		    v-model="dialog"
 		    persistent
@@ -195,7 +197,7 @@
 
 		        <q-card-section class="q-pt-none">
 		          	<q-tab-panels bordered v-model="tab" animated class="row" id="items" >
-						<q-tab-panel :name="product.slug" v-for="product in products.data" :key="product.id">
+						<q-tab-panel :name="product.id" v-for="product in products.data" :key="product.id">
 							 <q-card-section>
 					          <div class="text-h5 text-center">{{product.type}}</div>
 					        </q-card-section>

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { LocalStorage } from 'quasar'
 
 // get products
 export const getLocationExpenseOrders = ({ commit }, item) => {
@@ -6,6 +7,15 @@ export const getLocationExpenseOrders = ({ commit }, item) => {
 	return axios.get(URL).then((response) => {
 		console.log(response.data)
 		commit('setOrders', response.data.data)
+		return Promise.resolve()
+	})
+}
+
+export const updateExpenseOrders = ({ commit, dispatch }, item) => {
+	var URL = 'api/v1/admin/user/expense-orders/'+ item.id
+	return axios.put(URL, item).then((response) => {
+		console.log(response.data)
+		dispatch('getExpenseOrders')
 		return Promise.resolve()
 	})
 }
@@ -47,10 +57,17 @@ export const getLoanAndOutstanding = ({ commit }) => {
 	})
 }
 
-export const sendExpenseOrder = ({ commit }, information) => {
+export const sendExpenseOrder = ({ commit, dispatch}, information) => {
 	var URL = 'api/v1/admin/user/expense-orders'
 	return axios.post(URL, information).then((response) => {
 		console.log(response.data)
+		let user = JSON.parse(LocalStorage.getItem('user'))
+
+		// store notes
+		if(!user){
+			return console.log('user location not found')
+		}
+		dispatch('getLocationExpenseOrders', user.location.id)
 		return Promise.resolve()
 	})
 }

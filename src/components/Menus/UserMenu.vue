@@ -13,8 +13,8 @@
         </q-item>
         
         <template v-if="authenticated">
-            <template v-if="authenticated.role!='user'">
-                <q-item clickable to="/web/admin/dashboard" v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+            <template v-if="authenticated.role != 'user'">
+                <q-item clickable to="/web/admin/dashboard" >
                     <q-item-section avatar>
                         <q-icon name="switch_right" />
                     </q-item-section>

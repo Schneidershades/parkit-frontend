@@ -67,7 +67,7 @@
 			       {
 			          name: 'identifier',
 			          align: 'left',
-			          label: 'identifier',
+			          label: 'Identifier',
 			          field: 'identifier',
 			          sortable: true
 			       },

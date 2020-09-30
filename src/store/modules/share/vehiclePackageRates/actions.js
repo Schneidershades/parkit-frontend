@@ -26,3 +26,11 @@ export const updateRate = ({ commit, dispatch }, credentials) => {
 		return Promise.resolve()
 	})
 }
+
+export const deleteRate = ({ commit, dispatch }, credentials) => {
+	var url = 'api/v1/admin/user/vehicle-package-settings/' + credentials.id
+	return axios.delete(url, credentials).then((response) => {
+		dispatch('getRates')
+		return Promise.resolve()
+	})
+}

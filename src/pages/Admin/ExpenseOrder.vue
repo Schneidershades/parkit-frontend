@@ -8,7 +8,16 @@
 		</div>
 
 		<div class="q-pa-sm"  v-if="orders">
-			<q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create New" @click="createModelType = true" />
+
+			<q-btn type="submit"  
+				v-if="$can('create', 'expenseOrders')"
+				unelevated 
+				color="primary" 
+				class="q-my-md" 
+				size="md" 
+				label="Create New" 
+				@click="createModelType = true" 
+				/>
 
 	        <q-table
 			    title="Expense Orders Requests"
@@ -31,22 +40,19 @@
 			      	<q-tr :props="props">
 			      		<q-td key="created_at" :props="props">{{props.row.created_at}}</q-td>
 			      		<q-td key="account_classification" :props="props">{{props.row.account_classification}}</q-td>
-			      		<q-td key="quantity" :props="props">{{props.row.quantity}}</q-td>
-			      		<q-td key="amount" :props="props">{{props.row.amount}}</q-td>
+			      		<!-- <q-td key="quantity" :props="props">{{props.row.quantity}}</q-td> -->
+			      		<!-- <q-td key="amount" :props="props">{{props.row.amount}}</q-td> -->
 			      		<q-td key="total" :props="props">{{props.row.total}}</q-td>
 			      		<q-td key="user" :props="props">{{props.row.user}}</q-td>
+			      		<q-td key="location" :props="props">{{props.row.location}}</q-td>
 			      		<q-td key="reminder_count" :props="props">{{props.row.reminder_count}}</q-td>
 			      		<q-td key="status" :props="props">{{props.row.status}}</q-td>
 			      		<q-td key="actions" :props="props">
 
 			      			<q-btn color="orange" unelevated class="q-mx-sm" icon="remove_red_eye" @click="viewDetails(props.row)"/>
 
-			      			<template unelevated v-if="props.row.status == 'pending' && props.row.sendReminder == 'no'">
-				      			<q-btn color="purple" unelevated icon="notification_important" v-bind:disabled="true"/>
-			      			</template>
-
-			      			<template unelevated v-if="props.row.status == 'pending' && props.row.sendReminder == 'yes'">
-				      			<q-btn color="purple" unelevated icon="notification_important" v-bind:disabled="false"/>
+			      			<template unelevated v-if="props.row.status == 'pending' && $can('send', 'lmNotification')">
+				      			<q-btn color="purple" unelevated icon="notification_important" v-bind:disabled="props.row.sendReminder == 'no' ? true : false"/>
 			      			</template>
 
 			      			<template unelevated v-if="props.row.status == 'failed'">
@@ -164,6 +170,22 @@
 									    />
 		                            </div>
 
+		                            <div class="col-12 q-pt-sm" 
+		                            	v-if="user.role != 'Front Desk' || user.role != 'Manager'">
+		                                <q-select
+						                	filled 
+							                label="Select Location *"
+							                lazy-rules
+							                v-model="form.location_id" 
+							                :options="locations" 
+						                	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+						                	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
+						                	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+									        emit-value
+									        map-options
+						                    :rules="[ val => val && val.length == null || 'Please select a location']" />
+		                            </div>
+
 							        <q-card-actions align="right">
 							            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
 							        </q-card-actions>
@@ -180,7 +202,7 @@
 			            <div class="text-h6 text-center">View Expense Details</div>
 			        </q-card-section>
 
-			        <q-card-section>          
+			        <q-card-section>         
 		            	<div class="row">
                     		<div class="col-6 q-pt-md">
 								Item : {{expenseDetails.item}}
@@ -240,6 +262,18 @@
                             <div class="col-6 q-pt-md">
 								Updated : {{expenseDetails.updated_at}}
                             </div>
+
+
+                            <q-card-actions class="col-12" align="center" v-if="expenseDetails.status == 'pending'" 
+                            	>
+					            <q-btn label="Approve" v-if="$can('delete', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
+					            <q-btn label="Decline"  v-if="$can('delete', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'decline')" color="red" />
+					        </q-card-actions>
+
+					        <!-- <q-card-actions class="col-12" align="center" v-else>					            
+					        	<q-btn label="Approve" v-if="user.role == 'Super Admin'" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
+					            <q-btn label="Decline" v-if="user.role == 'Super Admin'" @click="updateOrder(expenseDetails.id, 'decline')" color="red" />
+					        </q-card-actions> -->
                         </div>  
 			        </q-card-section>
 			    </q-card>
@@ -254,6 +288,8 @@
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
 	import { date } from 'quasar'
+	import { AbilityBuilder } from '@casl/ability';
+	const { can, rules } = new AbilityBuilder();
     const isOnline = require('is-online');
 
     export default{
@@ -301,20 +337,20 @@
 			          field: 'account_classification',
 			          sortable: true
 			       },
-			       {
-			          name: 'quantity',
-			          align: 'left',
-			          label: 'Quantity',
-			          field: 'quantity',
-			          sortable: true
-			       },
-			       {
-			          name: 'amount',
-			          align: 'left',
-			          label: 'Amount',
-			          field: 'amount',
-			          sortable: true
-			       },
+			       // {
+			       //    name: 'quantity',
+			       //    align: 'left',
+			       //    label: 'Quantity',
+			       //    field: 'quantity',
+			       //    sortable: true
+			       // },
+			       // {
+			       //    name: 'amount',
+			       //    align: 'left',
+			       //    label: 'Amount',
+			       //    field: 'amount',
+			       //    sortable: true
+			       // },
 			       {
 			          name: 'total',
 			          align: 'left',
@@ -327,6 +363,13 @@
 			          align: 'left',
 			          label: 'User(s)',
 			          field: 'user',
+			          sortable: true
+			       },
+			       {
+			          name: 'location',
+			          align: 'left',
+			          label: 'Location',
+			          field: 'location',
 			          sortable: true
 			       },
 			       {
@@ -363,6 +406,7 @@
                 online: 'auth/onlineStatus',
               	orders: 'expenseOrders/getExpenseOrders',
           		classifications: 'accountClassification/allAccountClassification',
+          		locations: 'locationSettings/locations',
             }),
 
             total_amount(){
@@ -374,8 +418,11 @@
             ...mapActions({
               	sendExpenseOrders: 'expenseOrders/sendExpenseOrder',
               	getLocationExpenseOrders: 'expenseOrders/getLocationExpenseOrders',
+              	getExpenseOrders: 'expenseOrders/getExpenseOrders',
+              	updateExpenseOrders: 'expenseOrders/updateExpenseOrders',
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
+        		getLocations: 'locationSettings/getLocations',
             }),
 
             submitRequest(){
@@ -395,6 +442,7 @@
 	        				this.form.transaction_initiated_time = this.time()
 
                             this.sendExpenseOrders(this.form).then((res) => {
+                            	this.createModelType=false
 			                    this.positiveNotification('your request has been sent')
 			                }).catch((error) => {
 			                    this.errorMessages = error
@@ -412,6 +460,14 @@
             	this.editModelType = true
 
             	this.expenseDetails = item
+            },
+
+            updateOrder(id, status){
+            	var form = {id: id, status:status}
+            	this.updateExpenseOrders(form).then((res) => {
+                	this.editModelType=false
+                    this.positiveNotification('your request has been sent')
+                })
             },
 
             positiveNotification(message){
@@ -453,15 +509,26 @@
         },
 
         mounted(){
+
+
     		this.getClassifications()
+
+    		this.getLocations()
 
     		this.expenseDetails = null
 
         	if(this.user){
-        		this.getLocationExpenseOrders(this.user.location.id)
-        		console.log(this.user.location)
-        		this.form.user_id = this.user.id
-        		this.form.location_id = this.user.location.id
+
+	        	this.form.user_id = this.user.id
+
+        		if(this.user.role == "Front Desk" || this.user.role != "Manager"){
+        			this.getExpenseOrders()
+        		}else{
+        			this.getLocationExpenseOrders(this.user.location.id)
+	        		console.log(this.user.location)
+	        		this.form.location_id = this.user.location.id
+        		}
+        		
         	}
         }
     }

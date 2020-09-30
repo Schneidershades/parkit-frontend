@@ -324,7 +324,8 @@ export default {
 	},
 	mounted()
 	{
-		this.raveKey = 'FLWPUBK_TEST-89dd826197ba331a9c3545690f8d2416-X'
+		this.raveKey = 'FLWPUBK-72e04b9d48100203d0feebf417fd01df-X'
+		this.raveKeyTest = 'FLWPUBK_TEST-89dd826197ba331a9c3545690f8d2416-X'
 	}
 }
 </script>

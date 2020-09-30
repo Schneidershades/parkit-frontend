@@ -252,6 +252,16 @@
                         </q-item-section>
                     </q-item>
 
+
+                    <q-item clickable to="/web/admin/expense/order">
+                        <q-item-section avatar>
+                            <q-icon name="toc" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Expense Orders</q-item-label>
+                        </q-item-section>
+                    </q-item>
+
                     <q-item clickable to="/web/admin/income-expense-category">
                         <q-item-section avatar>
                             <q-icon name="account_balance" />
@@ -333,7 +343,7 @@
 
             signOut(){
                 this.signOutAction().then(() => {
-                    return this.$router.push({name: 'login'})
+                    return this.$router.push({name: 'home'})
                 })
             }
         }

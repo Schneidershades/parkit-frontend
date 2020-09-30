@@ -36,6 +36,7 @@
                                     :dense="dense"
                                     label="First Name *" 
                                     lazy-rules
+                                    :readonly="readonly"
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
                             </div>
@@ -45,6 +46,7 @@
                                     filled
                                     v-model="form.middle_name"
                                     :dense="dense"
+                                    :readonly="readonly"
                                     label="Middle Name *" 
                                     lazy-rules
                                 />
@@ -56,26 +58,39 @@
                                     v-model="form.last_name"
                                     :dense="dense"
                                     label="Last Name *" 
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-3 q-pl-sm">
                                 <q-input
                                     ref="name"
                                     filled
                                     v-model="form.email"
                                     :dense="dense"
                                     label="Email Address *" 
+                                    :readonly="readonly"
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
-                                <q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
+                            <div class="col-3 q-pl-sm">
+                                <q-input
+                                    ref="name"
+                                    filled
+                                    v-model="form.phone"
+                                    :readonly="readonly"
+                                    :dense="dense"
+                                    label="Phone *" 
+                                    lazy-rules
+                                />
+                            </div>
+                            <div class="col-3 q-pl-sm">
+                                <q-input filled v-model="form.dob" :readonly="readonly" label="Date of Birth *"  mask="date" :rules="['date']">
                                     <template v-slot:append>
                                         <q-icon name="event" class="cursor-pointer">
                                             <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                <q-date v-model="form.dob" v-close-popup>
+                                                <q-date v-model="form.dob" :readonly="readonly" v-close-popup>
                                                     <div class="row items-center justify-end">
                                                         <q-btn v-close-popup label="Close" color="primary" flat />
                                                     </div>
@@ -85,7 +100,7 @@
                                     </template>
                                 </q-input>
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-3 q-pl-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.sex"
@@ -101,13 +116,14 @@
                                     ref="name"
                                     filled
                                     v-model="form.address"
+                                    :readonly="readonly"
                                     :dense="dense"
                                     label="Residential Address *" 
                                     lazy-rules
                                 />
                             </div>
 
-                            <div class="col-4 q-pl-sm q-pb-md">
+                            <!-- <div class="col-4 q-pl-sm q-pb-md">
                                 <q-select 
                                     filled 
                                     v-model="form.city_id"
@@ -141,7 +157,7 @@
                                     :dense="dense"
                                     :readonly="readonly"
                                 />
-                            </div>
+                            </div> -->
 
                             <div class="col-12">
                                 <hr>
@@ -164,6 +180,7 @@
                             <div class="col-4 q-pl-sm" v-if="form.first_employment == 'yes'">
                                 <q-input
                                     v-model="form.previous_employer_name"
+                                    :readonly="readonly"
                                     filled
                                     label="Previous Employer Company *"
                                     lazy-rules
@@ -174,6 +191,7 @@
                             <div class="col-4 q-pl-sm" v-if="form.first_employment == 'yes'">
                                 <q-input
                                     v-model="form.previous_employment_position"
+                                    :readonly="readonly"
                                     filled
                                     label="Previous Employment Position *"
                                     lazy-rules
@@ -204,6 +222,7 @@
                                     v-model="form.account_bank"
                                     filled
                                     label="Bank Name *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -214,6 +233,7 @@
                                     v-model="form.account_name"
                                     filled
                                     label="Account Name *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -222,6 +242,7 @@
                             <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
                                 <q-input
                                     v-model="form.account_number"
+                                    :readonly="readonly"
                                     filled
                                     label="Account Number *"
                                     lazy-rules
@@ -272,7 +293,8 @@
                                         filled
                                         v-model="form.qualification1"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
+                                        :readonly="readonly" 
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
@@ -291,11 +313,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification1_start_date" label="Date From *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification1_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_start_date" v-close-popup>
+                                                    <q-date :readonly="readonly" v-model="form.qualification1_start_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -307,11 +329,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification1_end_date" label="Date To *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification1_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_end_date" v-close-popup>
+                                                    <q-date :readonly="readonly" v-model="form.qualification1_end_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -346,6 +368,7 @@
                                     <q-input
                                         ref="name"
                                         filled
+                                        :readonly="readonly"
                                         v-model="form.qualification2"
                                         :dense="dense"
                                         label="Name of Institutions*" 
@@ -367,11 +390,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification2_start_date" label="Date From *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification2_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification2_start_date" v-close-popup>
+                                                    <q-date :readonly="readonly"  v-model="form.qualification2_start_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -383,11 +406,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification2_end_date" label="Date To *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification2_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification2_end_date" v-close-popup>
+                                                    <q-date :readonly="readonly" v-model="form.qualification2_end_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -443,11 +466,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification3_start_date" label="Date From *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification3_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_start_date" v-close-popup>
+                                                    <q-date :readonly="readonly" v-model="form.qualification3_start_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -459,11 +482,11 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification3_end_date" label="Date To *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification3_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_end_date" v-close-popup>
+                                                    <q-date :readonly="readonly" v-model="form.qualification3_end_date" v-close-popup>
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -519,7 +542,7 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification4_start_date" label="Date From *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification4_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
@@ -535,7 +558,7 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification4_end_date" label="Date To *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification4_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
@@ -595,7 +618,7 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification5_start_date" label="Date From *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification5_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
@@ -611,7 +634,7 @@
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-input filled v-model="form.qualification5_end_date" label="Date To *"  mask="date" :rules="['date']">
+                                    <q-input filled :readonly="readonly" v-model="form.qualification5_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
@@ -638,6 +661,7 @@
                                     v-model="form.parent_name"
                                     filled
                                     label="Parent's Name *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -648,6 +672,7 @@
                                     v-model="form.parent_phone"
                                     filled
                                     label="Parent's Phone *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -658,6 +683,7 @@
                                     v-model="form.parent_address"
                                     filled
                                     label="Parent's Address *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -674,6 +700,7 @@
                                     v-model="form.referee_name"
                                     filled
                                     label="Referee's Name *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -684,6 +711,7 @@
                                     v-model="form.referee_phone"
                                     filled
                                     label="Referee's Phone *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -694,6 +722,7 @@
                                     v-model="form.referee_address"
                                     filled
                                     label="Referee's Address *"
+                                    :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
                                 />
@@ -706,11 +735,11 @@
                             </div>
 
                             <div class="col-6 q-pl-sm">
-                                <q-input filled v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
+                                <q-input filled :readonly="readonly" v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
                                     <template v-slot:append>
                                         <q-icon name="event" class="cursor-pointer">
                                             <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                <q-date v-model="form.resumption_start_date" v-close-popup>
+                                                <q-date :readonly="readonly" v-model="form.resumption_start_date" v-close-popup>
                                                     <div class="row items-center justify-end">
                                                         <q-btn v-close-popup label="Close" color="primary" flat />
                                                     </div>
@@ -732,7 +761,7 @@
                                 />
                             </div> -->
 
-                            <div class="col-12 q-pl-sm">
+                            <div class="col-12 q-pl-sm" v-if="$can('edit', 'employees')">
                                 <q-card-actions align="right">
                                     Toggle to Edit Profile <q-toggle color="warning" v-model="readonly" label="Disable" />
                                 </q-card-actions>  
@@ -770,6 +799,7 @@
                     first_name: '',
                     last_name: '',
                     middle_name: '',
+                    phone : '',
                     email : '',
                     sex: '',
                     dob: '',
@@ -1036,6 +1066,7 @@
                 this.form.last_name = this.selectedEmployee.last_name
                 this.form.middle_name = this.selectedEmployee.middle_name
                 this.form.email  = this.selectedEmployee.email
+                this.form.phone  = this.selectedEmployee.phone
                 this.form.sex = this.selectedEmployee.sex
                 this.form.dob = this.selectedEmployee.dob
                 this.form.address = this.selectedEmployee.address

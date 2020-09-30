@@ -37,3 +37,15 @@ export const updateCustomer = async ({ commit }, items) =>{
         return Promise.reject()
     }) 
 }
+
+export const deletePlateNumber = async ({ commit, dispatch }, plate) => {
+	var plateURL = 'api/v1/admin/user/customers-plate-numbers/' + plate
+	await axios.delete(plateURL).then((response) => {
+		console.log(response.data.data)
+		dispatch('getPlateNumbers')
+		return Promise.resolve()
+	}).catch((error) => {
+		console.log(error.response.data)
+        return Promise.reject()
+    }) 
+}

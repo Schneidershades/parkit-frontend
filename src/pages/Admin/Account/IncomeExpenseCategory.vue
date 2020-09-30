@@ -37,7 +37,7 @@
 
 			      			<q-btn color="orange" unelevated class="q-mx-sm" icon="edit" @click="editModel(props.row)"/>
 			      			
-			      			<q-btn color="red" unelevated icon="delete"/>
+			      			<q-btn color="red" unelevated icon="delete" @click="deleteModel(props.row.id)"/>
 			      		</q-td>
 			      	</q-tr>
 			    </template>
@@ -88,7 +88,7 @@
 	                        		<div class="col-12 q-pa-sm">
 						                <q-select 
 						                  filled 
-						                  v-model="form.location"
+						                  v-model="form.area"
 						                  :options="coverage" 
 						                  label="Category *"
 						                  lazy-rules
@@ -119,7 +119,7 @@
 			        <q-card-section>            
 			            <div class="q-pa-md">
 							<q-form
-	                            @submit="submitRequest"
+	                            @submit="submitUpdateRequest"
 	                            class="q-gutter-md"
 	                            ref="form"
 	                        >
@@ -278,14 +278,23 @@
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
 				selectModel: 'accountClassification/selectClassification',
+				saveModel: 'accountClassification/sendAccountClassification',
 				updateModel: 'accountClassification/updateClassification',
+				deleteClassification: 'accountClassification/deleteClassification',
             }),
 
             submitRequest(){
+            	this.saveModel(this.form).then((response) => {
+            		this.positiveNotification('Action was saved')
+					this.createModelType = false
+	            })      
+            },
+
+            submitUpdateRequest(){
             	this.updateModel(this.updateForm).then((response) => {
             		this.positiveNotification('Action was saved')
 					this.editModelType = false
-	            })      
+	            })  
             },
 
             editModel(item){
@@ -299,8 +308,8 @@
 	            })
 			},	
 
-			deleteClassification(vehicle){
-				this.deleteModel(vehicle).then((response) => {
+			deleteModel(id){
+				this.deleteClassification(id).then((response) => {
             		this.positiveNotification('Action was deleted')
 	            }) 
 			},	

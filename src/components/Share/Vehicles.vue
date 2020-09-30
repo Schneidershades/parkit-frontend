@@ -1,6 +1,8 @@
 <template>
 	<div class="q-pa-sm"  v-if="vehicles">
 
+		<!-- {{vehicles}} -->
+
 		<q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create New Vehicle Type" @click="createVehicleType = true" />
 
         <q-table
@@ -22,11 +24,12 @@
 
 			    <template slot="body" slot-scope="props">
 			      	<q-tr :props="props">
+			      		<q-td key="type" :props="props">{{props.row.location ? props.row.location : 'Universal'}}</q-td>
 			      		<q-td key="type" :props="props">{{props.row.type}}</q-td>
 			      		<q-td key="packages" :props="props">{{ props.row.packages.length }}</q-td>
 			      		<q-td key="actions" :props="props">
 			      			<q-btn color="orange" unelevated class="q-mx-sm" icon="edit" @click="editVehicle(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
-				      		<q-btn color="red" unelevated class="q-mx-sm" icon="delete"  @click="deleteVehicle(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+				      		<!-- <q-btn color="red" unelevated class="q-mx-sm" icon="delete"  @click="deleteVehicle(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/> -->
 			      		</q-td>
 			      	</q-tr>
 			    </template>
@@ -175,6 +178,13 @@ export default {
 
 		    text: '',
 		    columns: [
+		       {
+		          name: 'location',
+		          align: 'left',
+		          label: 'Location',
+		          field: 'location',
+		          sortable: true
+		       },
 		       {
 		          name: 'type',
 		          align: 'left',

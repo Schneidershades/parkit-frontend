@@ -2,6 +2,8 @@
 	<div class="q-pa-sm"  v-if="rates">
 
 		<q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create Price" @click="createModel = true" />
+
+		<!-- {{form}} -->
 		
         <q-table
 		    title="Price Lists"
@@ -14,19 +16,21 @@
 		    >
 	    	<template v-slot:top-right>
 		        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
-		          <template v-slot:append>
-		            <q-icon name="search" v-model="filterModel"/>
-		          </template> 
+		          	<template v-slot:append>
+		            	<q-icon name="search" v-model="filterModel"/>
+		          	</template> 
 		        </q-input>
 	      	</template>
 
 		    <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
+		      		<q-td key="location" :props="props">{{props.row.location}}</q-td>
 		      		<q-td key="vehicle_type" :props="props">{{props.row.vehicle}}</q-td>
 		      		<q-td key="package_type" :props="props">{{props.row.package}}</q-td>
 		      		<q-td key="amount" :props="props">{{props.row.amount}}</q-td>
 		      		<q-td key="action" :props="props">
-		      			action
+			      		<q-btn color="orange" unelevated class="q-mx-sm" icon="edit" @click="editModel(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
+			      		<!-- <q-btn color="red" unelevated class="q-mx-sm" icon="delete" @click="deleteModel(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/> -->
 		      		</q-td>
 		      	</q-tr>
 		    </template>
@@ -54,13 +58,15 @@
 					                label="Select Vehicle type*"
 					                lazy-rules
 							        :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
-							        :option-label="opt => Object(opt) === opt && 'type' in opt ? opt.type : null"
+							        :option-label="opt => Object(opt) === opt && 'type' in opt ? opt.location +' - '+ opt.type   : null"
 							        :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
 							        emit-value
 							        map-options
-				                    :rules="[ val => val && val.length > 0 || 'Please select a vehicle']"
+				                    :rules="[ val => val.length == null || 'Please use maximum 3 characters' ]"
 					            />
 			                </div>
+
+			                
 
 			                <div class="col-12 q-pa-sm">
 			                    <q-select 
@@ -74,7 +80,7 @@
 							        :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
 							        emit-value
 							        map-options
-				                    :rules="[ val => val && val.length > 0 || 'Please select a package']"
+				                    :rules="[ val => val && val.length == null || 'Please select a package']"
 					            />
 			                </div>
 
@@ -82,9 +88,10 @@
 			                    <q-input
 				                    filled
 				                    v-model="form.amount"
+				                    type="number"
 				                    label="How much are we selling *"
 				                    lazy-rules
-				                    :rules="[ val => val && val.length > 0 || 'Please type in an amount']"
+				                    :rules="[ val => val && val.length == 0 || 'Please type in an amount']"
 				                />
 			                </div>
 				               
@@ -126,9 +133,6 @@ export default {
 
       		createModel: null,
 
-      		vehicleList: [],
-      		packageList: [],
-
 		    filterModel: '',
 
 			separator: 'cell',
@@ -140,6 +144,13 @@ export default {
 
 		    text: '',
 		    columns: [
+		       {
+		          name: 'location',
+		          align: 'left',
+		          label: 'Location',
+		          field: 'location',
+		          sortable: true
+		       },
 		       {
 		          name: 'vehicle_type',
 		          align: 'left',
@@ -188,11 +199,25 @@ export default {
 			getPackages: 'packages/getPackages',
 			getVehicles: 'vehicles/getVehicles',
             getRates: 'vehiclePackageRates/getRates',
-		})		
+            deleteRate: 'vehiclePackageRates/deleteRate',
+		}),
+
+		saveRole(){
+
+		},
+
+		editModel(){
+
+		},	
+
+		deleteModel(id){
+			this.deleteRate(id).then((response) => {
+            })
+		},	
 	},
 	mounted (){
-		var forPackageOption = this.getPackages()
-		var forVehicleOption = this.getVehicles()
+		this.getPackages()
+		this.getVehicles()
 		this.getRates()
 	},
 }
