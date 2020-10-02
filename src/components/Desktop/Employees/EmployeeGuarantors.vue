@@ -1,0 +1,465 @@
+<template>
+	<div class="q-pa-sm"  v-if="guarantors">
+
+		<div class="q-gutter-y-md q-pb-md">
+            <q-btn-group push class="q-mr-sm" align="right">
+                <q-btn color="green" label="Back to Employees" to="/Desktop/employees"/>
+            </q-btn-group>
+            <br>
+        </div>
+
+		<q-btn type="submit" 
+			unelevated 
+			color="primary" 
+			class="q-my-md" 
+			size="md" 
+			label="Create New" 
+			@click="createModelType = true"
+		/>
+
+        <q-table
+		    title="Guarantors"
+		    :columns="columns"
+		    row-key="name"
+		    :data="guarantors"
+		    :grid="$q.screen.xs"
+		    :pagination.sync="pagination"
+	      	:filter="filterModel"
+		    >
+	    	<template v-slot:top-right>
+		        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
+		          <template v-slot:append>
+		            <q-icon name="search" v-model="filterModel"/>
+		          </template> 
+		        </q-input>
+	      	</template>
+
+		    <template slot="body" slot-scope="props">
+		      	<q-tr :props="props">
+		      		<q-td key="created_at" :props="props">{{props.row.created_at}}</q-td>
+		      		<q-td key="amount" :props="props">{{props.row.amount}}</q-td>
+		      		<q-td key="user" :props="props">{{props.row.user}}</q-td>
+		      		<q-td key="reminder_count" :props="props">{{props.row.reminder_count}}</q-td>
+		      		<q-td key="status" :props="props">{{props.row.status}}</q-td>
+		      		<q-td key="actions" :props="props">
+
+		      			<q-btn color="orange" unelevated class="q-mx-sm" icon="remove_red_eye" @click="viewDetails(props.row)"/>
+
+		      			<template unelevated v-if="props.row.status == 'pending' && props.row.sendReminder == 'no'">
+			      			<q-btn color="purple" unelevated icon="notification_important" v-bind:disabled="true"/>
+		      			</template>
+
+		      			<template unelevated v-if="props.row.status == 'pending' && props.row.sendReminder == 'yes'">
+			      			<q-btn color="purple" unelevated icon="notification_important" v-bind:disabled="false"/>
+		      			</template>
+
+		      			<template unelevated v-if="props.row.status == 'failed'">
+			      			<q-btn color="red" unelevated icon="delete" v-bind:disabled="props.row.status === 'failed' ? true : false"/>
+		      			</template>
+
+		      			<template unelevated v-if="props.row.status == 'success'">
+			      			<q-btn color="green" unelevated icon="check" v-bind:disabled="props.row.status === 'success' ? true : false"/>
+		      			</template>
+
+		      		</q-td>
+		      	</q-tr>
+		    </template>
+	    </q-table> 
+
+	    <q-dialog v-model="createModelType" >
+          	<q-card >
+		        <q-card-section>
+		            <div class="text-h6 text-center">Create a Guarantor</div>
+		        </q-card-section>
+
+		        <q-card-section>            
+		            <div class="q-pa-sm">
+						<q-form
+                            @submit="submitRequest"
+                            class="q-gutter-sm"
+                            ref="form"
+                        >
+                        	<div class="row">
+
+                        		<div class="col-4 q-pl-sm">
+	    			                <q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.first_name"
+	                                    :dense="dense"
+	                            		label="First Name *" 
+	                                    lazy-rules
+	                                    :rules="[ val => val && val.length > 0 || 'Please type a title']"
+	                                />
+	    			            </div>
+	                    		<div class="col-4 q-pl-sm">
+	    			                <q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.middle_name"
+	                                    :dense="dense"
+	                            		label="Middle Name *" 
+	                                    lazy-rules
+	                                />
+	    			            </div>
+	                    		<div class="col-4 q-pl-sm">
+	    			                <q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.last_name"
+	                                    :dense="dense"
+	                            		label="Last Name *" 
+	                                    lazy-rules
+	                                    :rules="[ val => val && val.length > 0 || 'Please type a title']"
+	                                />
+	    			            </div>
+
+	                            <div class="col-6 q-pl-sm">
+	                            	<q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.email"
+	                                    :dense="dense"
+	                            		label="Email Address *" 
+	                                    lazy-rules
+	                                />
+	                            </div>
+	                            <div class="col-6 q-pl-sm">
+	                                <q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.phone"
+	                                    :dense="dense"
+	                                    label="Phone *" 
+	                                    lazy-rules
+	                                />
+	                            </div>
+	                            <div class="col-6 q-pa-sm ">
+	                            	<q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
+	                            		<template v-slot:append>
+	                            			<q-icon name="event" class="cursor-pointer">
+	                            				<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
+	                            					<q-date v-model="form.dob" v-close-popup>
+	                            						<div class="row items-center justify-end">
+	                            							<q-btn v-close-popup label="Close" color="primary" flat />
+	                            						</div>
+	                            					</q-date>
+	                            				</q-popup-proxy>
+	                            			</q-icon>
+	                            		</template>
+	                            	</q-input>
+	                            </div>
+	                            <div class="col-6 q-pa-sm">
+	                                <q-select 
+	                            		filled 
+	                                    v-model="form.sex"
+	                            		:options="sex" 
+	                                    label="Sex *"
+	                                    lazy-rules
+	                                    :dense="dense"
+	                            	/>
+	                            </div>
+	                            <div class="col-12 q-pl-sm q-pb-md">
+	                            	<q-input
+	                                    ref="name"
+	                                    filled
+	                                    v-model="form.address"
+	                                    :dense="dense"
+	                            		label="Residential Address *" 
+	                                    lazy-rules
+	                                />
+	                            </div>
+
+	                            
+
+						        <q-card-actions align="left">
+						            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="md" label="Save" />
+						        </q-card-actions>
+	                        </div>  
+                        </q-form> 	
+		            </div>
+		        </q-card-section>
+		    </q-card>
+        </q-dialog>
+
+        <q-dialog v-model="editModelType">
+          	<q-card v-if="expenseDetails" class="text-center">
+		        <q-card-section>
+		            <div class="text-h6 text-center">View Expense Details</div>
+		        </q-card-section>
+
+		        <q-card-section>          
+	            	<div class="row">
+                		<div class="col-6 q-pt-md">
+							Item : {{expenseDetails.item}}
+			            </div>
+                        <div class="col-6 q-pt-md">
+							Class : {{expenseDetails.account_classification}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Quantity : {{expenseDetails.quantity}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Amount : {{expenseDetails.amount}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Total : {{expenseDetails.total}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Invoice Number : {{expenseDetails.invoice_number}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Location : {{expenseDetails.location}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							User Requesting : {{expenseDetails.user}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Reminder : {{expenseDetails.reminder_count}}
+                        </div>
+
+                        <div class="col-12 q-pt-md">
+							Item : {{expenseDetails.description}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							User Response : {{expenseDetails.user_approval}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Status : {{expenseDetails.status}}
+                        </div>
+
+                        <div class="col-12 q-pt-md">
+							Comment : {{expenseDetails.comment}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Created : {{expenseDetails.created_at}}
+                        </div>
+
+                        <div class="col-6 q-pt-md">
+							Updated : {{expenseDetails.updated_at}}
+                        </div>
+                    </div>  
+		        </q-card-section>
+		    </q-card>
+        </q-dialog>
+	</div>
+</template>
+
+<script>
+    
+    import { mapActions, mapGetters } from 'vuex'
+    import { Notify } from 'quasar'
+	import { date } from 'quasar'
+    const isOnline = require('is-online');
+
+    export default{
+        data(){
+            return{
+                form: {
+                    item : 'Loans & Outstandings',
+                    quantity: 1,
+                    amount: '',
+                    total: '',
+                    description: '',
+                    location_id: '',
+                    user_id: '',
+                    reminder_count: 1,
+                    transaction_initiated_date: '',
+                    transaction_initiated_time: '',
+                    expense_orderable_id: '',
+                    status: 'pending',
+                    user_approval_id: '',
+                    comment: '',
+                },
+
+                dense: false,
+                filterModel: '',
+                createModelType: false,
+                editModelType: false,
+                expenseDetails: null,
+				separator: 'cell',
+
+				pagination: {
+			        rowsPerPage: 30,
+			        page: 1
+			    },
+
+                columns: [
+			       {
+			          name: 'created_at',
+			          align: 'left',
+			          label: 'Created',
+			          field: 'created_at',
+			          sortable: true
+			       },
+			       {
+			          name: 'amount',
+			          align: 'left',
+			          label: 'Amount',
+			          field: 'amount',
+			          sortable: true
+			       },
+			       {
+			          name: 'user',
+			          align: 'left',
+			          label: 'User(s)',
+			          field: 'user',
+			          sortable: true
+			       },
+			       {
+			          name: 'reminder_count',
+			          align: 'left',
+			          label: 'Notice(s)',
+			          field: 'reminder_count',
+			          sortable: true
+			       },
+			       {
+			          name: 'status',
+			          align: 'left',
+			          label: 'Status',
+			          field: 'status',
+			          sortable: true
+			       },
+			       {
+			          name: 'actions',
+			          align: 'left',
+			          label: 'Action(s)',
+			          field: 'actions',
+			          sortable: true
+			       },
+			    ],
+			    sex: [
+			        'Male', 
+			        'Female', 
+			    ],
+            }
+        },
+
+        computed: {
+            ...mapGetters({
+		        user: 'auth/user',
+                message: 'message',
+                errorMessage: 'errorMessage',
+                newPhoneNumber: 'auth/phone',
+                online: 'auth/onlineStatus',
+              	orders: 'expenseOrders/getExpenseOrders',
+                selectedEmployee: 'employees/selectedEmployee',
+                guarantors: 'employees/guarantors',
+            }),
+
+            envHelper(){
+            	return env
+            },
+
+            total_amount(){
+            	return this.form.amount * this.form.quantity
+            }
+        },
+            
+        methods:{
+            ...mapActions({
+                connected: 'internetStatus/setConnection',
+              	postEmployeeGuarantors: 'employees/postEmployeeGuarantors',
+              	getEmployeeGuarantors : 'employees/getEmployeeGuarantors',
+            }),
+
+            submitRequest(){
+            	(async () => {
+                    var check = await isOnline()
+                    console.log(check);
+                    if(check == false){
+                        return this.negativeNotification('You are offline. Please connect to an available internet')
+                    }
+                    this.connected(check).then((res) => {
+                        if(check == false){
+                            return this.negativeNotification('You are offline. Please connect to an available internet')
+                        }else{
+
+                        	this.form.total = this.total_amount
+	        				this.form.transaction_initiated_date = this.optionsFn()
+	        				this.form.transaction_initiated_time = this.time()
+
+                            this.postEmployeeGuarantors(this.form).then((res) => {
+			                    this.positiveNotification('your request has been sent')
+			                    this.createModelType = false
+			                }).catch((error) => {
+			                    this.errorMessages = error
+			                    console.log(this.errorMessages)
+			                    if(this.errorMessages){
+			                        this.negativeNotification(this.errorMessages)
+			                    }
+			                }) 
+                        }
+                    })
+                })();      
+            },
+
+            viewDetails(item){
+            	this.editModelType = true
+
+            	this.expenseDetails = item
+            },
+
+            positiveNotification(message){
+                Notify.create({
+                    type: 'positive',
+                    color: 'positive',
+                    timeout: 3000,
+                    position: 'center',
+                    message: message
+                })
+            },
+
+            negativeNotification(error){
+                Notify.create({
+                    type: 'negative',
+                    color: 'negative',
+                    timeout: 3000,
+                    position: 'center',
+                    message: error
+                })
+            },
+
+            optionsFn () {
+	     		var today = new Date();
+	  			var bu = today.getDate();
+		      	
+	     		console.log(new Date())
+	     		var timeStamp = Date.now()
+				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+				return formattedString
+		    },  
+
+		    time(){
+		    	var today = new Date();
+		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+            	today.getSeconds();
+            	return time
+		    },
+        },
+
+        mounted(){
+
+    		if(this.selectedEmployee != null){
+    			this.getEmployeeGuarantors(this.selectedEmployee)
+    			this.form.expense_orderable_id = this.selectedEmployee.id
+            }
+
+        	if(this.user){
+        		console.log(this.user.location)
+        		this.form.user_id = this.user.id
+        		this.form.location_id = this.user.location.id
+        	}
+        }
+    }
+</script>
