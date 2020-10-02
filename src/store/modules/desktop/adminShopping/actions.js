@@ -4,15 +4,30 @@ import { localForageService } from '../dispatchApi/localForageService'
 
 // get products
 export const getProducts = ({ commit, dispatch, rootState }) => {
-	return axios.get('api/v1/vehicles').then((response) => {
+
+	let user = JSON.parse(LocalStorage.getItem('user'))
+
+	// store notes
+	if(!user){
+		return console.log('user location not found')
+	}
+	
+	return axios.get('api/v1/admin/user/location-vehicles/' + user.location.id).then((response) => {
+		console.log(response.data.data)
 		commit('setProducts', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		if (!error.response) {
-    		return dispatch('internetStatus/setConnection', false, {root:true})
-        }
-  		return Promise.reject()
-  	})
+	})
+
+
+	// return axios.get('api/v1/vehicles').then((response) => {
+	// 	commit('setProducts', response.data)
+	// 	return Promise.resolve()
+	// }).catch((error) => {
+	// 	if (!error.response) {
+ //    		return dispatch('internetStatus/setConnection', false, {root:true})
+ //        }
+ //  		return Promise.reject()
+ //  	})
 }
 
 // add product to cart
