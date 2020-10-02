@@ -63,5 +63,28 @@ export const postEmployeePenaltiesAndDeductions = ({ commit, dispatch }, payload
 	})
 }
 
+// 
+export const getEmployeeGuarantors = ({ commit, dispatch }, payload) => {
+	return axios.get('api/v1/admin/user/guarantors').then((response) => {
+		commit('setEmployeeGuarantors', response.data.data)
+		return Promise.resolve()
+	})
+}
+
+export const getLocationEmployeeGuarantors = ({ commit, dispatch }, payload) => {
+	return axios.get('api/v1/admin/user/guarantors/' + payload.id).then((response) => {
+		commit('setEmployeeGuarantors', response.data.data)
+		return Promise.resolve()
+	})
+}
+
+export const postEmployeeGuarantor = ({ commit, dispatch }, payload) => {
+	return axios.post('api/v1/admin/user/guarantors', payload).then((response) => {
+		console.log(payload.expense_orderable_id)
+		dispatch('getLocationEmployeeGuarantors', { id: payload.expense_orderable_id })
+		return Promise.resolve()
+	})
+}
+
 
 

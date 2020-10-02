@@ -14,3 +14,7 @@ export const loansAndOutstandings = (state) => {
 export const penaltiesAndDeductions = (state) => {
 	return state.penaltiesAndDeductions
 }
+
+export const guarantors = (state) => {
+	return state.guarantors
+}

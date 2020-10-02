@@ -14,3 +14,6 @@ export const setEmployeePenaltiesAndDeductions = (state, payload) =>{
 	state.penaltiesAndDeductions = payload
 }
 
+export const setEmployeeGuarantors = (state, payload) =>{
+	state.guarantors = payload
+}
