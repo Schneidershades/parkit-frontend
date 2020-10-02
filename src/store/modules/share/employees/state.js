@@ -3,4 +3,5 @@ export default{
 	selectedEmployee: null,
 	loansAndOutstandings:[],
 	penaltiesAndDeductions:[],
+	guarantors:[],
 }
