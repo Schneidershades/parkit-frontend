@@ -22,7 +22,7 @@
 						v-if="product.type == checkPlateNumber.vehicleType || product.type == checkPlateNumber.vehicleModel" 
 						:icon="product.svg_path" 
 						size="xl" 
-						:key="product.slug" 
+						:key="product.id" 
 						style="font-size:60px">
 					</q-tab>
 				</template>
@@ -38,7 +38,7 @@
 			>
 			<div class="cbs-vehicle-list">
 				<q-tab @click="dialog = true" class="col-md-3 vehicle-cbs"  v-for="product in products.data" :name="product.id" :label="product.type" 
-				:icon="product.svg_path" size="xl" :key="product.slug" style="font-size:60px">
+				:icon="product.svg_path" size="xl" :key="product.id" style="font-size:60px">
 		        </q-tab>
 			</div>
 		</q-tabs>
