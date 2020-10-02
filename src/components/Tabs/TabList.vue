@@ -16,7 +16,7 @@
 						:label="product.type" 
 						:icon="product.svg_path" 
 						size="xl" 
-						:key="product.slug" 
+						:key="product.id" 
 						v-if="product.slug != 'inspections'"
 						style="font-size:60px">
 			        </q-tab>
