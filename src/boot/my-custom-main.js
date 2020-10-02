@@ -8,8 +8,8 @@ export default async ({ app, router, store, Vue }) => {
   	axios.defaults.withCredentials = true
 
   	// axios.defaults.baseURL= process.env.BACKEND_API_URL 
-  	// axios.defaults.baseURL = 'https://api.parkit.ng'
-  	axios.defaults.baseURL = 'http://localhost:8000/'
+  	axios.defaults.baseURL = 'https://api.parkit.ng'
+  	// axios.defaults.baseURL = 'http://localhost:8000/'
   	try{
   		if(process.env.MODE != 'ssr'){
   			// await store.dispatch('customerPlateNumbers/getPlateNumbers')
