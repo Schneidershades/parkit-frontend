@@ -5,11 +5,14 @@
                 <q-btn color="green" label="Back to Employees" to="/Desktop/employees"/>
             </q-btn-group>
             <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="blue" label="Loans & Outstanding" to="/desktop/employees/loans-and-outstanding"/>
+                <q-btn color="blue" label="Loans & Outstanding" v-if="$can('create', 'loansAndOustanding')" to="/desktop/employees/loans-and-outstanding"/>
             </q-btn-group>
 
             <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="red" label="Penalties & Deducations" to="/desktop/employees/penalties-and-deductions"/>
+                <q-btn color="red" label="Penalties & Deductions" v-if="$can('create', 'penaltiesAndDeductions')" to="/desktop/employees/penalties-and-deductions"/>
+            </q-btn-group>
+            <q-btn-group push class="q-mr-sm" align="right">
+                <q-btn color="purple" label="Guarantors" v-if="$can('create', 'guarantors')" to="/desktop/employees/guarantors"/>
             </q-btn-group>
             <br>
         </div>
@@ -750,7 +753,7 @@
                                 </q-input>
                             </div>
 
-                            <!-- <div class="col-6 q-pl-sm">
+                            <div class="col-6 q-pl-sm" v-if="$can('edit', 'salaries')">
                                 <q-input
                                     v-model="form.salary"
                                     filled
@@ -759,7 +762,7 @@
                                     label="Salary Payment *"
                                     lazy-rules
                                 />
-                            </div> -->
+                            </div>
 
                             <div class="col-12 q-pl-sm" v-if="$can('edit', 'employees')">
                                 <q-card-actions align="right">

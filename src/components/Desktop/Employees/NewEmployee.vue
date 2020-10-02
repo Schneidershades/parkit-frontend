@@ -719,7 +719,7 @@
                             	</q-input>
                             </div>
 
-                            <!-- <div class="col-6 q-pl-sm">
+                            <div class="col-6 q-pl-sm" v-if="$can('create', 'salaries')">
                                 <q-input
     						      	v-model="form.salary"
     						      	filled
@@ -728,7 +728,7 @@
                                 	label="Salary Payment *"
                                     lazy-rules
     						    />
-                            </div> -->
+                            </div>
 
     				        <q-card-actions align="right" class="col-12">
     				            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
