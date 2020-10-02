@@ -673,7 +673,18 @@ const routes = [
             // desktopAuth
           ]
         },
-      }
+      },
+      { path: '/web/admin/employees/guarantors', 
+        name: 'adminEmployeesGuarantors', 
+        component: () => import('pages/WebAdmin/Employees/EmployeeGuarantors.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            // isElectron,
+            // desktopAuth
+          ]
+        },
+      },
     ]
   },
 
@@ -1044,6 +1055,17 @@ const routes = [
       { path: '/desktop/employees/penalties-and-deductions', 
         name: 'desktopEmployeesPenaltiesAndDeductions', 
         component: () => import('pages/Admin/Employees/EmployeePenaltiesAndDeductions.vue'),
+        meta: {
+          middleware:[
+            // websiteAuth,
+            isElectron,
+            // desktopAuth
+          ]
+        },
+      },
+      { path: '/desktop/employees/guarantors', 
+        name: 'desktopEmployeesGuarantors', 
+        component: () => import('pages/Admin/Employees/EmployeeGuarantors.vue'),
         meta: {
           middleware:[
             // websiteAuth,
