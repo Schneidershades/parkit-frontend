@@ -8,7 +8,7 @@
 			>
 			<div class="cbs-vehicle-list">
 				<template v-for="product in products.data" >
-					<q-tab :key="product.slug"  @click="dialog = true" class="col-md-3 vehicle-cbs" :name="product.slug" :label="product.type" :icon="product.svg_path" size="xl"  style="font-size:60px" v-if="product.slug == 'saloon_car' || product.slug == 'suv_space_bus' || product.slug == 'truck'">
+					<q-tab :key="product.id"  @click="dialog = true" class="col-md-3 vehicle-cbs" :name="product.slug" :label="product.type" :icon="product.svg_path" size="xl"  style="font-size:60px" v-if="product.slug == 'saloon_car' || product.slug == 'suv_space_bus' || product.slug == 'truck'">
 			        </q-tab>
 				</template>
 			</div>
