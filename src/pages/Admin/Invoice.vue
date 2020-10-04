@@ -4,6 +4,7 @@
 			<q-breadcrumbs>
 				<q-breadcrumbs-el label="Home" />
 				<q-breadcrumbs-el label="Invoice"/>
+				<q-breadcrumbs-el :label="titleId"/>
 			</q-breadcrumbs>
 		</div>
 
@@ -87,12 +88,12 @@
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
 		            	<hr>
-		            <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
+		            <!-- <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
 						Call: 09031526466 or send a mail to franchise@parkit.ng
 					</i></b>
-					<br><br>
 					<br>
-					<hr>	
+					<hr> -->
+					<br><br>	
 				</div>
 			</div>
 	    </div>
@@ -394,6 +395,7 @@
             return{
                 order: {
                 	receipt_number : null,
+                	titleId : null,
                 	vehicle: {
 	                    id : null,
 	                    phone : null,
@@ -485,6 +487,10 @@
                 orderTransaction: 'adminOrders/transaction',
                 allOrders: 'adminOrders/orders',
             }),
+
+            titleId(){
+            	return this.user.location.code+'00v0020'+this.receiptNo 
+            }
         },
             
         methods:{
@@ -508,7 +514,7 @@
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
 	            })    
-	        	this.order.receipt_number = this.user.location.code+'00v0010'+this.receiptNo
+	        	this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -550,7 +556,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = this.user.location.code+'00v0010'+this.receiptNo
+	        	this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
@@ -606,7 +612,7 @@
 		            this.order.vehicle.last_name = this.checkPlateNumber.lastName
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicleType
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicleModel
-	        		this.order.receipt_number = this.user.location.code+'00v0010'+this.receiptNo
+	        		this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
 	        		
                 }).catch((error) => {
                     this.errorMessages = error
