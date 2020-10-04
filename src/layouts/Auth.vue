@@ -1,5 +1,6 @@
 <template>
 	<q-layout view="hHh lpR lfr">
+		{{orders}}
 		<q-page-container>
 			<q-img class="login-register" src="~/assets/exp.jpg">
 				<router-view />
@@ -19,4 +20,18 @@
 	    position: fixed; 
 	}
 </style>
+
+<script>
+
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+	computed: {
+        ...mapGetters({
+            orders: 'adminOrders/orders',
+        }),
+    },
+}
+
+</script>
 

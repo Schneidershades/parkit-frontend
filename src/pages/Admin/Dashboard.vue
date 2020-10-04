@@ -11,6 +11,7 @@
 		<div class="q-pa-md">
 			<div class="q-gutter-y-md">
 				<div class="row">
+
 					<!-- <div class="col-8">
   						<apexchart type="line" :options="options" :series="series"></apexchart>
 					</div>
@@ -33,6 +34,16 @@
 		        user: 'auth/user',
 		        locations: 'location/locations',
 		    })
+	  	},
+
+	  	method:{
+            ...mapActions({
+              	getLocationDashboard: 'dashboard/getLocationDashboard',
+            }),
+	  	}
+
+	  	mounted(){
+
 	  	}
     }
 </script>
