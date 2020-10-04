@@ -171,7 +171,7 @@
 		                            </div>
 
 		                            <div class="col-12 q-pt-sm" 
-		                            	v-if="user.role != 'Front Desk' || user.role != 'Manager'">
+		                            	v-if="$can('set', 'formLocations')">
 		                                <q-select
 						                	filled 
 							                label="Select Location *"
@@ -521,14 +521,11 @@
 
 	        	this.form.user_id = this.user.id
 
-        		if(this.user.role == "Front Desk" || this.user.role != "Manager"){
-        			this.getExpenseOrders()
-        		}else{
+        		if(this.user.location.id){
         			this.getLocationExpenseOrders(this.user.location.id)
 	        		console.log(this.user.location)
 	        		this.form.location_id = this.user.location.id
-        		}
-        		
+        		}        		
         	}
         }
     }
