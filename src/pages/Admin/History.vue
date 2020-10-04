@@ -212,11 +212,7 @@
 					<br><br><br>
 		            	<i>Thank you for your patronage</i>
 		            	<hr>
-		            <b align="center"><i>Would you like to own a parkit car wash Franchise or be a parkit car wash mobile operator
-						Call: 09031526466 or send a mail to franchise@parkit.ng
-					</i></b>
 					<br><br>
-					<br>
 					
 					<hr>
 				</div>
@@ -276,6 +272,8 @@
 
 				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00' }}</q-td>
 
+				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
+
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing' ">
 				      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
@@ -327,6 +325,8 @@
 				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
 				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
 				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00'}}</q-td>
+
+				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing'">
@@ -677,7 +677,13 @@ export default {
 		          field: 'total',
 		          sortable: true
 		       },
-
+		       {
+		          name: 'payment_method',
+		          align: 'left',
+		          label: 'Method',
+		          field: 'payment_method',
+		          sortable: true
+		       },
 		       {
 		          name: 'action',
 		          align: 'left',
