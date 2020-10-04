@@ -73,7 +73,7 @@
                             		<template v-slot:append>
                             			<q-icon name="event" class="cursor-pointer">
                             				<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                            					<q-date v-model="form.dob" v-close-popup>
+                            					<q-date v-model="form.dob" :readonly="readonly" :dense="dense">
                             						<div class="row items-center justify-end">
                             							<q-btn v-close-popup label="Close" color="primary" flat />
                             						</div>
@@ -293,7 +293,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification1_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -309,7 +309,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification1_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -334,7 +334,7 @@
                             		:options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
-                                    :dense="dense"
+                                    
                                     :readonly="readonly"
                             	/>
                             </div>
@@ -445,7 +445,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification3_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -461,7 +461,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification3_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -521,7 +521,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification4_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification4_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -537,7 +537,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification4_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification4_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -597,7 +597,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification5_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification5_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -613,7 +613,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification5_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification5_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -708,7 +708,7 @@
                             		<template v-slot:append>
                             			<q-icon name="event" class="cursor-pointer">
                             				<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                            					<q-date v-model="form.resumption_start_date" v-close-popup>
+                            					<q-date v-model="form.resumption_start_date" :readonly="readonly" :dense="dense">
                             						<div class="row items-center justify-end">
                             							<q-btn v-close-popup label="Close" color="primary" flat />
                             						</div>

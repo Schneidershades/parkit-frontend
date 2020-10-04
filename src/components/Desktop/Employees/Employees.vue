@@ -127,7 +127,7 @@
             
         methods:{
             ...mapActions({
-              	getEmployees: 'employees/getLocationEmployees',
+              	getLocationEmployees: 'employees/getLocationEmployees',
               	selectEmployee: 'employees/selectEmployee',
                 connected: 'internetStatus/setConnection',
             }),
@@ -177,9 +177,9 @@
         },
 
         mounted(){
-        	// let x = process.env
-        	// console(x)
-    		console.log(this.getEmployees())
+        	if(this.user && this.user.location!=null){
+        		console.log(this.getLocationEmployees(this.user.location.id))
+        	}
         }
     }
 </script>
