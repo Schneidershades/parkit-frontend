@@ -420,6 +420,7 @@
               	getLocationExpenseOrders: 'expenseOrders/getLocationExpenseOrders',
               	getExpenseOrders: 'expenseOrders/getExpenseOrders',
               	updateExpenseOrders: 'expenseOrders/updateExpenseOrders',
+              	getExpenseOrders: 'expenseOrders/getExpenseOrders',
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
         		getLocations: 'locationSettings/getLocations',
@@ -519,13 +520,20 @@
 
         	if(this.user){
 
-	        	this.form.user_id = this.user.id
+        		if(this.user.role == 'Front Desk' || this.user.role == 'Manager'){
+        			this.form.user_id = this.user.id
 
-        		if(this.user.location.id){
-        			this.getLocationExpenseOrders(this.user.location.id)
-	        		console.log(this.user.location)
-	        		this.form.location_id = this.user.location.id
-        		}        		
+	        		if(this.user.location.id){
+	        			this.getLocationExpenseOrders(this.user.location.id)
+		        		console.log(this.user.location)
+		        		this.form.location_id = this.user.location.id
+	        		} 
+	        		
+        		}else{
+        			this.getExpenseOrders()
+        		}
+
+	        	       		
         	}
         }
     }

@@ -23,6 +23,7 @@
 			      	:columns="columns"
 			      	row-key="username"
 		      		:filter="filterUsers"
+			    	:pagination.sync="pagination"
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="filterUsers" placeholder="Search">
@@ -35,11 +36,12 @@
 				      	<q-tr :props="props">
 				      		<q-td key="username" :props="props">{{props.row.username}}</q-td>
 				      		<q-td key="email" :props="props">{{ props.row.email }}</q-td>
+				      		<q-td key="status" :props="props">{{ props.row.activate == true ? 'Active' : 'Not Active' }}</q-td>
 				      		<q-td key="role" :props="props">{{ props.row.role ?  props.row.role : 'No Role' }}</q-td>
 				      		<q-td key="action" :props="props">
-		      					<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewModel(props.row.id)"/>
-		      					<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editModel(props.row.id)"/>
-	        					<q-btn color="red" unelevated icon="delete" @click="deleteModel(props.row.id)"/>
+		      					<!-- <q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewModel(props.row.id)"/> -->
+		      					<!-- <q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editModel(props.row.id)"/> -->
+	        					<q-btn color="red" unelevated icon="delete" @click="deleteModel(props.row)"/>
 				      		</q-td>
 				      	</q-tr>
 				    </template>
@@ -225,6 +227,13 @@ export default {
 		          sortable: true
 		       },
 		       {
+		          name: 'status',
+		          align: 'left',
+		          label: 'Status',
+		          field: 'status',
+		          sortable: true
+		       },
+		       {
 		          name: 'role',
 		          align: 'left',
 		          label: 'Role',
@@ -265,6 +274,7 @@ export default {
         	getLocations: 'locationSettings/getLocations',
           	getRoles: 'roles/getRoles',
           	postStaff: 'staff/postStaff',
+          	deleteStaff: 'staff/deleteStaff',
 	    }),	
 
 		saveUser(){
@@ -274,17 +284,11 @@ export default {
 		},
 
 
-		postIncome(location){
-
-		},
-
-		viewTransaction(location){
-			
-		},
-
-
-		deleteTransaction(locationId){
-			
+		deleteModel(item){
+			this.deleteStaff(item).then((response) => {
+				this.getLocationUsers(this.$route.params.locationId)
+				return this.positiveNotification('resource deleted')
+            })
 		},
 
 	    positiveNotification(message){
@@ -312,8 +316,7 @@ export default {
     	this.getRoles()
 
 		if(this.$route.params.locationId != null){
-			// this.getAccountLocationTransactions(this.$route.params.locationId)
-			// this.getAccountLocationDetails(this.$route.params.locationId)
+
 			if(this.getLocations()){
 				this.form.location_id = this.$route.params.locationId
 			}

@@ -8,16 +8,63 @@
 	    </div>
 
 	    <div class="q-pa-md q-gutter-sm print-hide row">
+	    	<!-- {{dashboard}} -->
 	    	<div class="col">
 	    		<q-card
 			      class="my-card text-white"
 			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >
-			      <q-card-section>
-			        <div class="text-subtitle2">Recent Transactions</div>
+			    >	
 
-			        <div class="text-h5">₦ {{todaysOrderTransaction ? todaysOrderTransaction : '0'}}.00</div>
-			      </q-card-section>
+
+			      	<q-card-section class="row">
+
+			      		<div class="col-12">
+				        	<div class="text-h5 q-mb-md">Recent Transactions</div>
+				      	</div>
+
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">Recent</div>
+				      		<div class="text-h6">₦ {{todaysOrderTransaction ? todaysOrderTransaction : '0'}}.00</div>
+				      	</div>
+
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">CARS</div>
+				      		<div class="text-h6">{{carTransactionToday ? carTransactionToday : '0'}}</div>
+				      	</div>
+
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">POS</div>
+				      		<div class="text-h6">₦ {{posTransactionToday ? posTransactionToday : '0'}}.00</div>
+				      	</div>
+
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">CASH</div>
+				      		<div class="text-h6">₦ {{cashTransactionToday ? cashTransactionToday : '0'}}.00</div>
+				      	</div>
+
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">NOT PAID</div>
+				      		<div class="text-h6">₦ {{notPaidTransactionToday ? notPaidTransactionToday : '0'}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">PENDING</div>
+				      		<div class="text-h6">₦ {{pendingTransactionToday ? pendingTransactionToday : '0'}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">EDIT</div>
+				      		<div class="text-h6">₦ {{editTransactionToday ? editTransactionToday : '0'}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">DELETE</div>
+				      		<div class="text-h6">₦ {{deleteTransactionToday ? deleteTransactionToday : '0'}}.00</div>
+				      	</div>
+				      	<!-- <div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">BALANCED</div>
+				      		<div class="text-h6">no</div>
+				      	</div> -->
+			      	</q-card-section>
+
+			        <!-- <div class="text-h5">₦ {{user.location.weeklyAmount}}.00</div> -->
 			    </q-card>
 	    	</div>
 	    	<div class="col">
@@ -25,51 +72,59 @@
 			      class="my-card text-white"
 			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
 			    >
-			      <q-card-section>
-			        <div class="text-subtitle2">Today</div>
 
-			        <div class="text-h5">₦ {{user.location.dailyAmount}}.00</div>
+			      	<q-card-section class="row">
 
-			      </q-card-section>
-			    </q-card>
-	    	</div>
-	    	<div class="col">
-	    		<q-card
-			      class="my-card text-white"
-			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >
-			      <q-card-section>
-			        <div class="text-subtitle2">Yesterday</div>
+			      		<div class="col-12">
+				        	<div class="text-h5 q-mb-md">Today's Transactions</div>
+				      	</div>
 
-			        <div class="text-h5">₦ {{user.location.yesterdayAmount}}.00</div>
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">Today</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.transaction}}.00</div>
+				      	</div>
 
-			      </q-card-section>
-			    </q-card>
-	    	</div>
-	    	<div class="col">
-	    		<q-card
-			      class="my-card text-white"
-			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >
-			      <q-card-section>
-			        <div class="text-subtitle2">This Week</div>
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">CARS</div>
+				      		<div class="text-h6">{{dashboard.orders.today.cars}}</div>
+				      	</div>
 
-			        <div class="text-h5">₦ {{user.location.weeklyAmount}}.00</div>
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">POS</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.pos}}.00</div>
+				      	</div>
 
-			      </q-card-section>
-			    </q-card>
-	    	</div>
-	    	<div class="col">
-	    		<q-card
-			      class="my-card text-white"
-			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >
-			      <q-card-section>
-			        <div class="text-subtitle2">This Month</div>
+				      	<div class="col-3">
+				        	<div class="text-subtitle2">CASH</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.cash}}.00</div>
+				      	</div>
 
-			        <div class="text-h5">₦ {{user.location.monthlyAmount}}.00</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">NOT PAID</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.not_paid}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">PENDING</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.pending}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">EDIT</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.edit}}.00</div>
+				      	</div>
+				      	<div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">DELETE</div>
+				      		<div class="text-h6">₦ {{dashboard.orders.today.delete}}.00</div>
+				      	</div>
+				      	<!-- <div class="col-3 q-pt-md">
+				        	<div class="text-subtitle2">BALANCED</div>
+				        	{{dashboard.orders.today.transaction}}
+				        	{{todaysOrderTransaction}}
+				      		<div class="text-h6" 
+				      			v-if="dashboard.orders.today.transaction == todaysOrderTransaction ? todaysOrderTransaction :0">yes</div>
+				      		<div class="text-h6" v-else>no</div>
+				      	</div> -->
 
-			      </q-card-section>
+			      	</q-card-section>
 			    </q-card>
 	    	</div>
 	    </div>
@@ -226,12 +281,13 @@
 			      	:data="orders"
 			      	:columns="columns"
 			      	row-key="name"
-		      		:filter="filterExpense"
+		      		:filter="recentFilter"
+		    		:pagination.sync="pagination"
 				    >
 				    <template v-slot:top-right>
-				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
+				        <q-input borderless dense debounce="300" v-model="recentFilter" placeholder="Search">
 				          <template v-slot:append>
-				            <q-icon name="search" v-model="filterExpense"/>
+				            <q-icon name="search" v-model="recentFilter"/>
 				          </template> 
 				        </q-input>
 			      	</template>
@@ -307,6 +363,7 @@
 			      	row-key="name"
 		      		:filter="filterExpense"
 		      		v-if="history!=null"
+		    		:pagination.sync="pagination"
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
@@ -608,16 +665,27 @@ export default {
       		fixedIncomeDialog: false,
       		fixedExpenseDialog: false,
       		seeTransaction: false,
-			pagination: {
-		        rowsPerPage: 1
-		    },
+			// pagination: {
+		 //        rowsPerPage: 1
+		 //    },
 
 		    filterExpense: '',
+		    recentFilter: '',
 		    action: {
 		    	orderDetails: null,
 		    	reason: null,
 		    	action: null,
 		    	payment_method: null,
+		    },
+
+
+
+			pagination: {
+		        rowsPerPage: 10,
+		        page: 1,
+		        sortBy: 'desc',
+        		descending: false,
+        		// rowsNumber: 100
 		    },
 
 		    
@@ -703,8 +771,19 @@ export default {
           	orderTransactionDetails: 'adminOrders/orderTransactionDetails',
           	editPrivilege: 'adminOrders/editPrivilege',
           	deletePrivilege: 'adminOrders/deletePrivilege',
+
           	todaysOrderTransaction: 'adminOrders/totalTransactionToday',
+          	posTransactionToday: 'adminOrders/posTransactionToday',
+          	completeTransactionToday: 'adminOrders/completeTransactionToday',
+          	editTransactionToday: 'adminOrders/editTransactionToday',
+          	deleteTransactionToday: 'adminOrders/deleteTransactionToday',
+          	cashTransactionToday: 'adminOrders/cashTransactionToday',
+          	notPaidTransactionToday: 'adminOrders/notPaidTransactionToday',
+          	carTransactionToday: 'adminOrders/carTransactionToday',
+          	pendingTransactionToday: 'adminOrders/pendingTransactionToday',
+
           	todaysHistoryTransaction: 'locationHistory/totalTransactionToday',
+		    dashboard: 'dashboard/dashboard',
         }),
     },
 
@@ -715,6 +794,7 @@ export default {
           	processRequest: 'adminOrders/processRequest',
           	setCurrentEditRight: 'adminOrders/setCurrentUserEditRight',
           	setCurrentDeleteRight: 'adminOrders/setCurrentUserDeleteRight',
+            getLocationDashboard: 'dashboard/getLocationDashboard',
         }),
 
     	editRequestOrderTransaction(data){
@@ -834,6 +914,9 @@ export default {
         },
     },
     mounted(){
+
+	  	this.getLocationDashboard()
+
     	if(this.$can('edit', 'orders')){
 			this.setCurrentEditRight(true)
 		}else{

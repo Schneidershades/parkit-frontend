@@ -7,74 +7,318 @@
 	      </q-breadcrumbs>
 	    </div>
 
+	    <div class="container">
+		  	<div class="row">
+		      	<div class="col-12 col-md-12">
+				    <q-card
+				      	class="q-my-md my-card text-white"
+				      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+				    	>
+
+				      	<q-card-section class="row">
+
+				      		<div class="col-12">
+					        	<div class="text-h5 q-mb-md">TRANSACTIONS</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-lg">
+					        	<div class="text-subtitle2">CARS</div>
+					      	</div>
+
+					      	<div class="col-2">
+					        	<div class="text-subtitle2">TODAY <br>{{dashboard.orders.today.cars}}</div>
+					      	</div>
+
+					      	<div class="col-2">
+					        	<div class="text-subtitle2">YESTERDAY <br>{{dashboard.orders.yesterday.cars}}</div>
+					      	</div>
+
+					      	<div class="col-2">
+					        	<div class="text-subtitle2">WEEK <br>{{dashboard.orders.week.cars}}</div>
+					      	</div>
+
+					      	<div class="col-2">
+					        	<div class="text-subtitle2">MONTH <br>{{dashboard.orders.month.cars}}</div>
+					      	</div>
+
+					      	<div class="col-2">
+
+					      	</div>
+
+
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">AMOUNT</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.transaction}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.transaction}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.transaction}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.transaction}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">POS</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.pos}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.pos}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.pos}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.pos}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">CASH</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.cash}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.cash}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.cash}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.cash}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">NOT PAID</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.not_paid}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.not_paid}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.not_paid}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.not_paid}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">PENDING</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.pending}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.pending}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.pending}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.pending}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">EDIT</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.edit}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.edit}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.edit}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.edit}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">DELETE</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.delete}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.delete}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.delete}}.00</div>
+					      	</div>
+
+					      	<div class="col-2 q-pt-sm">
+					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.delete}}.00</div>
+					      	</div>
+					      	<div class="col-2">
+
+					      	</div>
+
+
+				      	</q-card-section>
+				    </q-card>
+		      	</div>
+		    </div>
+		</div>
+
+
 	    <div class="q-pa-md">
 		    <div class="q-gutter-y-md">
 		      	<q-btn-group push class="q-p-md" align="right">
 			      	<q-btn v-if="user.location.code == 'PARKIT PARENT'" push @click="postIncome(location)" label="Post Income Transaction"/>
 			      	<q-btn push @click="postExpense(location)" label="Post Expense Transaction"/>
 			    </q-btn-group>
-		      	<!-- {{location}} -->
-		      	<!-- {{locationId}} -->
-		      	<!-- {{user.location.code}} -->
-		      	<!-- {{transactions}} -->
-		        <q-table
-				    title="All Expense Transactions"
-			      	:data="transactions"
-			      	:columns="columns"
-			      	row-key="name"
-		      		:filter="filterExpense"
-				    >
-				    <template v-slot:top-right>
-				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
-				          <template v-slot:append>
-				            <q-icon name="search" v-model="filterExpense"/>
-				          </template>
-				        </q-input>
-			      	</template>
-				    <template slot="body" slot-scope="props">
-				      	<q-tr :props="props">
-				      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
-				      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
-				      		<q-td key="title" :props="props">{{ props.row.title }}</q-td>
-				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
-				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
-				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
-				      		<q-td key="action" :props="props">
-				      			<q-btn color="warning"  label="View Transaction"  @click="viewTransaction(props.row)"/>
-				      		</q-td>
-				      	</q-tr>
-				    </template>
-			    </q-table>
 
-			    <q-table
-				    title="All Income Transactions"
-			      	:data="transactions"
-			      	:columns="columns"
-			      	row-key="name"
-		      		:filter="filterIncome"
-				    >
-				    <template v-slot:top-right>
-				        <q-input borderless dense debounce="300" v-model="filterIncome" placeholder="Search">
-				          <template v-slot:append>
-				            <q-icon name="search" />
-				          </template>
-				        </q-input>
-				    </template>
+				<q-tabs
+					v-model="tab"
+					inline-label
+					:breakpoint="0"
+					align="justify"
+					class="bg-purple text-white shadow-2"
+					>
+					<q-tab name="income" label="Income Transaction" />
+					<q-tab name="expense" label="Expense Transaction" />
+				</q-tabs>
 
-				    <template slot="body" slot-scope="props"  >
-				      	<q-tr :props="props" >
-				      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
-				      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
-				      		<q-td key="title"  :props="props">{{ props.row.title }}</q-td>
-				      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
-				      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
-				      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
-				      		<q-td key="action" :props="props">
-				      			<q-btn color="warning" label="View Transaction" @click="viewTransaction(props.row)"/>
-				      		</q-td>
-				      	</q-tr>
-				    </template>
-			    </q-table> 
+				<q-tab-panels
+					v-model="tab"
+					animated
+					swipeable
+					vertical
+					transition-prev="jump-up"
+					transition-next="jump-up"
+					>
+					<q-tab-panel name="income">
+						<q-table
+						    title="All Income Transactions"
+					      	:data="transactions"
+					      	:columns="columns"
+					      	row-key="name"
+				      		:filter="filterIncome"
+			    			:pagination.sync="pagination"
+						    >
+						    <template v-slot:top-right>
+						        <q-input borderless dense debounce="300" v-model="filterIncome" placeholder="Search">
+						          <template v-slot:append>
+						            <q-icon name="search" />
+						          </template>
+						        </q-input>
+						    </template>
+
+						    <template slot="body" slot-scope="props"  >
+						      	<q-tr :props="props" >
+						      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
+						      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
+						      		<q-td key="title"  :props="props">{{ props.row.title }}</q-td>
+						      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
+						      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+						      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
+						      		<q-td key="action" :props="props">
+						      			<q-btn color="warning" label="View Transaction" @click="viewTransaction(props.row)"/>
+						      		</q-td>
+						      	</q-tr>
+						    </template>
+					    </q-table> 
+					</q-tab-panel>
+
+					<q-tab-panel name="expense">
+						<q-table
+						    title="All Expense Transactions"
+					      	:data="transactions"
+					      	:columns="columns"
+					      	row-key="name"
+				      		:filter="filterExpense"
+					    	:pagination.sync="pagination"
+						    >
+						    <template v-slot:top-right>
+						        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
+						          <template v-slot:append>
+						            <q-icon name="search" v-model="filterExpense"/>
+						          </template>
+						        </q-input>
+					      	</template>
+						    <template slot="body" slot-scope="props">
+						      	<q-tr :props="props">
+						      		<q-td key="id" :props="props">{{props.row.id}}</q-td>
+						      		<q-td key="type" :props="props">{{ props.row.type }}</q-td>
+						      		<q-td key="title" :props="props">{{ props.row.title }}</q-td>
+						      		<q-td key="class" :props="props">{{ props.row.class ? props.row.class : 'N/A'}}</q-td>
+						      		<q-td key="amount" :props="props">{{ props.row.amount }}</q-td>
+						      		<q-td key="date" :props="props">{{ props.row.date }}</q-td>
+						      		<q-td key="action" :props="props">
+						      			<q-btn color="warning"  label="View Transaction"  @click="viewTransaction(props.row)"/>
+						      		</q-td>
+						      	</q-tr>
+						    </template>
+					    </q-table>
+					</q-tab-panel>
+				</q-tab-panels>
+
+			
+
+				        
+
+					    
 
 			    <q-dialog v-model="seeTransaction" >
 			    	<q-card>
@@ -95,7 +339,7 @@
 
 			    			<template v-if="user">
 					            <template v-if="user.role=='Super Admin'">
-					               <q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" />
+					               <!-- <q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" /> -->
 					            </template>
 					        </template>
 			    			
@@ -128,8 +372,11 @@ export default {
       		fixedExpenseDialog: false,
       		seeTransaction: false,
 			pagination: {
-		        rowsPerPage: 1
+		        rowsPerPage: 30,
+		        page: 1
 		    },
+
+		    tab: 'income',
 
 		    filterExpense: 'expense',
 		    filterIncome: 'income',
@@ -200,6 +447,7 @@ export default {
             location: 'accountLocation/accountLocationDetails',
             transactions: 'accountLocation/accountLocationTransactions',
           	user: 'auth/user',
+		    dashboard: 'dashboard/dashboard',
           	transactionId: 'accountLocation/accountLocationTransactionSelected',
         }),
     },
@@ -213,6 +461,7 @@ export default {
             sendAccountLocationTransactionSelected: 'accountLocation/sendAccountLocationTransactionSelected',
             deleteAccountLocationTransactionSelected: 'accountLocation/deleteAccountLocationTransactionSelected',
         	getClassifications: 'accountClassification/getAccountClassification',
+            getLocationDashboard: 'dashboard/getLocationDashboard',
 	    }),	
 
 		postExpense(location){
@@ -280,6 +529,8 @@ export default {
 		}
 
     	this.getClassifications()
+	  	this.getLocationDashboard(this.$route.params.locationId)
+
 		
 	}
 }

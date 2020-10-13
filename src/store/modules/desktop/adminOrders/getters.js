@@ -67,13 +67,7 @@ export const totalTransactionToday = (state) => {
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'complete' || x.status == 'pending' || x.status == 'processing' && x.date == formattedString)
-	// return formattedString
-	// return state.orders.reduce(function(total, item){
-	// 	if(item.date == formattedString){
-	// 		return parseInt(total) + parseInt(item.total); 
-	// 	}
-	    
-	// },0);
+
 
 	var arraySum = orders.reduce((a, b) => {
 		// console.log(b.total)
@@ -82,6 +76,175 @@ export const totalTransactionToday = (state) => {
 	}, 0)
 
 	return arraySum	
+}
+
+export const posTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.payment_method == 'pos' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const cashTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.payment_method == 'cash' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const completeTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const pendingTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.status == 'pending' || x.status == 'processing' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const editTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.status == 'edit' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const deleteTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.status == 'delete' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const notPaidTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.payment_method == 'not_paid' && x.date == formattedString)
+
+
+	var arraySum = orders.reduce((a, b) => {
+		// console.log(b.total)
+		return parseInt(a) + parseInt(b.total)
+
+	}, 0)
+
+	return arraySum	
+}
+
+export const carTransactionToday = (state) => {
+	if(!state.orders.length > 0){
+		return null
+	}
+	var today = new Date();
+	var bu = today.getDate();
+	var timeStamp = Date.now()
+	console.log(timeStamp)
+	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+
+	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)
+
+	return orders.length	
 }
 
 export const totalTransactionThisMonth = (state) => {

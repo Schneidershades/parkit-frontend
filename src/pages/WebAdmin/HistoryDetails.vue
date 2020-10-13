@@ -4,7 +4,7 @@
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Order Number" />
-		        <q-breadcrumbs-el :label="orderId" v-if="order.id"/>
+		        <q-breadcrumbs-el :label="order.receipt_number" v-if="order.id"/>
 	      	</q-breadcrumbs>
 	    </div>
 
@@ -37,13 +37,13 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            orderDetails: 'webAdminOrders/orderDetails',
+            order: 'webAdminOrders/orderDetails',
         })
     },
 
 	methods:{
 		...mapActions({
-            getOrderId: 'webAdminOrders/getOrder',
+            getOrderId: 'webAdminOrders/getOrderId',
 		}),
 		
 		placeOrder(){

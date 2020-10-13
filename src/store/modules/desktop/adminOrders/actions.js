@@ -256,6 +256,8 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 		if(auth){
 			console.log('checking online')
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
+			dispatch('dashboard/getLocationDashboard', null, { root: true })
+			dispatch('auth/attempt', rootState.auth.token, { root: true })
 			dispatch('auth/attempt', rootState.auth.token, { root: true })
 		}else{
 			dispatch('locationHistory/getLocationHistory', null, { root: true })

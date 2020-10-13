@@ -1,3 +1,7 @@
+import { LocalStorage } from 'quasar'
+
 export default{
-	locations:[]
+	dashboard: LocalStorage.getItem('locationDashboard') ? 
+			JSON.parse(LocalStorage.getItem('locationDashboard')) :
+			[],
 }

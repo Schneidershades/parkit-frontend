@@ -1,6 +1,6 @@
 <template>
 	<q-layout view="hHh lpR lfr">
-		{{orders}}
+		<!-- {{orders}} -->
 		<q-page-container>
 			<q-img class="login-register" src="~/assets/exp.jpg">
 				<router-view />
