@@ -20,6 +20,25 @@ export const getLocationDashboard = ({ commit }, item) => {
 	
 }
 
+export const getLocationStats = ({ commit }, item) => {
+	let user = JSON.parse(LocalStorage.getItem('user'))
+
+	if(item){
+		var URL = 'api/v1/admin/user/location-stats/'+ item
+	}else{
+		var URL = 'api/v1/admin/user/location-stats/'+ user.location.id
+	}
+	
+	
+	return axios.get(URL).then((response) => {
+		console.log(response.data)
+		LocalStorage.set('locationStats', JSON.stringify(response.data.data.message))
+		commit('setLocationStats', JSON.parse(LocalStorage.getItem('locationStats')))
+		return Promise.resolve()
+	})
+	
+}
+
 export const getBirthdayLocationDashboard = ({ commit }, item) => {
 	let user = JSON.parse(LocalStorage.getItem('user'))
 

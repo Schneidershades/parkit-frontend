@@ -68,6 +68,69 @@
                                 />
                             </div>
 
+                            <div class="col-4 q-pl-sm q-pb-md">
+                                <q-input 
+                                    ref="name"
+                                    type="number"
+                                    filled
+                                    v-model="form.subtotal"
+                                    :dense="dense"
+                                    :readonly="readonly" 
+                                    label="SubTotal *" 
+                                    lazy-rules
+                                />
+                            </div>
+
+                            <div class="col-4 q-pl-sm q-pb-md">
+                                <q-input
+                                    type="number"
+                                    filled
+                                    v-model="form.discounted_amount"
+                                    :dense="dense"
+                                    :readonly="readonly" 
+                                    label="Discount Total *" 
+                                    lazy-rules
+                                />
+                            </div>
+
+                            <div class="col-4 q-pl-sm q-pb-md">
+                                <q-input 
+                                    ref="name"
+                                    type="number"
+                                    filled
+                                    v-model="form.total"
+                                    :dense="dense"
+                                    :readonly="readonly" 
+                                    label="Total *" 
+                                    lazy-rules
+                                />
+                            </div>
+
+
+                            <div class="col-4 q-pl-sm q-pb-md">
+                                <q-select 
+                                    filled 
+                                    v-model="form.is_free_wash"
+                                    :options="bool" 
+                                    label="Select Free Wash *"
+                                    lazy-rules
+                                    :dense="dense"
+                                    :readonly="readonly"
+                                />
+                            </div>
+
+                            <div class="col-4 q-pl-sm q-pb-md">
+                                <q-select 
+                                    filled 
+                                    v-model="form.payment_method"
+                                    :options="method" 
+                                    label="Select Payment Method *"
+                                    lazy-rules
+                                    :dense="dense"
+                                    :readonly="readonly"
+                                />
+                            </div>
+
                             <!-- <div class="col-4 q-pl-sm">
                                 <q-input
                                     ref="name"
@@ -774,15 +837,15 @@ export default {
     //         	address : null,
     //         	discount_id : null,
     //         	user_subscription_id : null,
-    //         	is_free_wash : false,
-    //         	subtotal : 0,
-    //         	total : 0,
-    //         	discounted_amount : 0,
+            	is_free_wash : false,
+            	subtotal : 0,
+            	total : 0,
+            	discounted_amount : 0,
     //         	free_discount : false,
     //         	action : null,
     //         	amount_paid : 0,
     //         	currency_id : null,
-    //         	payment_method : 'not_paid',
+            	payment_method : '',
     //         	payment_gateway : null,
     //         	payment_gateway_charged_percentage : null,
     //         	payment_gateway_expected_charged_percentage : null,
@@ -815,6 +878,11 @@ export default {
             method :[
             	'cash',
             	'pos',
+            ],
+
+            bool :[
+                true,
+                false,
             ],
 
             dense: false,
@@ -908,17 +976,17 @@ export default {
     		// this.form.coupon_id = this.orderDetails.coupon_id
     		// this.form.vat_id = this.orderDetails.vat_id
     		// this.form.address = this.orderDetails.address
-    		// this.form.discount_id = this.orderDetails.discount_id
+    		this.form.discount_id = this.orderDetails.discounted_amount >=0 ? this.orderDetails.discount_id : null
     		// this.form.user_subscription_id = this.orderDetails.user_subscription_id
-    		// this.form.is_free_wash = this.orderDetails.is_free_wash
-    		// this.form.subtotal = this.orderDetails.subtotal
-    		// this.form.total = this.orderDetails.total
-    		// this.form.discounted_amount = this.orderDetails.discounted_amount
-    		// this.form.free_discount = this.orderDetails.free_discount
+    		this.form.is_free_wash = this.orderDetails.free
+    		this.form.subtotal = this.orderDetails.sub_total
+    		this.form.total = this.orderDetails.total
+    		this.form.discounted_amount = this.orderDetails.discount
+    		this.form.free_discount = this.orderDetails.free
     		// this.form.action = this.orderDetails.action
-    		// this.form.amount_paid = this.orderDetails.amount_paid
+    		this.form.amount_paid = this.orderDetails.total
     		// this.form.currency_id = this.orderDetails.currency_id
-    		// this.form.payment_method = this.orderDetails.payment_method
+    		this.form.payment_method = this.orderDetails.payment_method
     		// this.form.payment_gateway = this.orderDetails.payment_gateway
     		// this.form.payment_gateway_charged_percentage = this.orderDetails.payment_gateway_charged_percentage
     		// this.form.payment_gateway_expected_charged_percentage = this.orderDetails.payment_gateway_expected_charged_percentage
@@ -944,4 +1012,3 @@ export default {
 }
 </script>
 
-<!-- { "id": 3253, "status": "complete", "receipt_number": "LAMM0300v00101601", "vehicle": { "id": 8148, "plateNumber": "LSD449DQ", "vehicleType": "SALOON CAR", "vehicleModel": "Toyota", "firstName": "NULL", "lastName": "NULL", "userId": 74188, "phone": null, "email": null, "freeWash": null, "vehicleWashes": 1, "vehicleFreeWash": false, "washes": 1 }, "packages": 1, "home_service_booking_time": null, "home_service_booking_date": null, "address": null, "sub_total": 1000, "total": 1000, "action": null, "customer": { "id": 74188, "firstName": "NULL", "lastName": "NULL", "email": null, "username": null, "phone": null, "sex": null, "dob": null, "role": "user", "freeWash": false, "washes": 959 }, "location": { "id": 3, "origin_head_office": 0, "name": "LAMM03", "code": "LAMM03", "short_name": "Maryland Mall, Anthony, Lagos", "email": null, "phone": null, "web": null, "address": "Maryland Mall Anthony Lagos, 350-360 Ikorodu Rd, Anthony, Lagos", "camera_config": "1", "franchise": 0, "head": 0, "parent_id": 1, "city_id": null, "state_id": null, "country_id": null, "manager_id": null, "overseer": null, "created_at": "2020-05-19 13:31:26", "updated_at": "2020-05-19 13:31:26", "type": "location-wash", "currency_id": null, "deleted_at": null }, "locationId": 3, "cashier": "benny", "cashierId": 74189, "payment_status": "pending", "free": false, "customerNextWashIsFree": 0, "customerWashes": 0, "vehicleWashes": 1, "payment_method": "cash", "discount": "0.00", "discountDetails": null, "discountCoupon": null, "products": [ { "id": 1, "vehicle": "SALOON CAR", "package": "BASIC PACKAGE (Basic wash)", "venue": "parkit-location", "amount": "1000.00", "quantity": 1, "total": 1000 } ], "transaction_initiated": "2020-09-24", "date": "2020-09-24", "time": "11:49:14", "created_at": "2020-09-24" } -->

@@ -217,7 +217,7 @@
 
 				      	</q-card-section>
 				    </q-card>
-		      	</div>
+		      	</div>     	
 		    </div>
 		</div>
 
@@ -249,6 +249,78 @@
 					transition-next="jump-up"
 					>
 					<q-tab-panel name="income">
+
+						<!-- {{locationStats}} -->
+
+						<div class="col-12 col-md-12">
+						    <q-card
+						      	class="q-my-md my-card text-white"
+						      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+						    	>
+
+						      	<q-card-section class="row">
+
+						      		<div class="col-12">
+							        	<div class="text-h5 q-mb-md">INCOME STATISTICS</div>
+							      	</div>
+
+							      	<div class="col-6 q-pt-lg">
+							      		<template v-for="item in locationStats">
+							      			<!-- {{item}} -->
+							      			<div v-if="item.count.length > 0" :key="item.vp" class="text-subtitle2">
+								        		<p>{{item.vp}}</p>
+								        	</div>
+							      		</template>
+							      	</div>
+
+							      	<div class="col-2">
+							        	<div class="text-subtitle2">PACKAGE COUNT</div>
+							        	<template v-for="item in locationStats">
+							      			<div v-if="item.count.length > 0" :key="item.vp" class="text-subtitle2">
+								        		<p>{{item.count.length}}</p>
+								        	</div>
+							      		</template>
+							      	</div>
+
+							      	<div class="col-2">
+							        	<div class="text-subtitle2">AMOUNT</div>
+							        	<template v-for="item in locationStats">
+							      			<div v-if="item.count.length > 0" :key="item.vp" class="text-subtitle2">
+								        		<p>₦{{item.amount}}</p>
+								        	</div>
+							      		</template>
+
+							        	<div class="text-subtitle2">
+							        		<p>DISCOUNT AMOUNT</p>
+							        	</div>
+
+							        	<div class="text-subtitle2">
+							        		<p>GRAND TOTAL</p>
+							        	</div>
+							      	</div>
+
+							      	<div class="col-2">
+							        	<div class="text-subtitle2">TOTAL</div>
+							        	<template v-for="item in locationStats">
+							      			<div v-if="item.count.length > 0" :key="item.vp" class="text-subtitle2">
+								        		<p>₦{{item.amount * item.count.length}}</p>
+								        	</div>
+							      		</template>
+
+							        	<div class="text-subtitle2">
+					        				<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.discounted_amount ? dashboard.orders.yesterday.discounted_amount : '0'}}.00
+					        				</div>
+							        	</div>
+
+							        	<div class="text-subtitle2">
+							        		<div class="text-subtitle2 q-py-md">₦ {{dashboard.orders.yesterday.transaction ? dashboard.orders.yesterday.transaction : '0'}}.00
+							        		</div>
+							        	</div>
+							      	</div>
+						      	</q-card-section>
+						    </q-card>
+				      	</div>
+
 						<q-table
 						    title="All Income Transactions"
 					      	:data="transactions"
@@ -448,6 +520,7 @@ export default {
             transactions: 'accountLocation/accountLocationTransactions',
           	user: 'auth/user',
 		    dashboard: 'dashboard/dashboard',
+		    locationStats: 'dashboard/locationStats',
           	transactionId: 'accountLocation/accountLocationTransactionSelected',
         }),
     },
@@ -462,6 +535,7 @@ export default {
             deleteAccountLocationTransactionSelected: 'accountLocation/deleteAccountLocationTransactionSelected',
         	getClassifications: 'accountClassification/getAccountClassification',
             getLocationDashboard: 'dashboard/getLocationDashboard',
+            getLocationStats: 'dashboard/getLocationStats',
 	    }),	
 
 		postExpense(location){
@@ -530,6 +604,7 @@ export default {
 
     	this.getClassifications()
 	  	this.getLocationDashboard(this.$route.params.locationId)
+	  	this.getLocationStats(this.$route.params.locationId)
 
 		
 	}

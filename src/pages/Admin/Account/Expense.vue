@@ -13,7 +13,16 @@
       <div class="q-gutter-y-md">
 
         <q-card-actions align="right">
-          <q-btn @click="backToLocaton" unelevated color="primary" class="q-px-md" size="lg" label="Back" />
+
+          <q-btn 
+            @click="backToLocaton" 
+            unelevated 
+            color="primary" 
+            class="q-px-md" 
+            size="lg" 
+            label="Back" 
+          />
+          
         </q-card-actions>
 
         <q-form @submit="submitTransactions" ref="form">

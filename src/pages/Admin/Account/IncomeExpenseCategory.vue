@@ -55,7 +55,7 @@
 	                            @submit="submitRequest"
 	                            class="q-gutter-md"
 	                            ref="form"
-	                        >
+	                        	>
 	                        	<div class="row">
 		                            <div class="col-12 q-pa-sm">
 		                            	<q-input
@@ -111,7 +111,7 @@
 	        </q-dialog>
 
 	        <q-dialog v-model="editModelType" >
-	          	<q-card >
+	          	<q-card>
 			        <q-card-section>
 			            <div class="text-h6 text-center">Create an Income and Expense Class</div>
 			        </q-card-section>
@@ -135,7 +135,6 @@
 		                                    :rules="[ val => val && val.length > 0 || 'Please type a title']"
 		                                />
 		                            </div>
-
 
 	                        		<div class="col-12 q-pa-sm">
 						                <q-select 
