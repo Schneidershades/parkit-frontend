@@ -1025,7 +1025,7 @@
         },
 
         mounted(){
-    		this.getEmployees()
+    		// this.getEmployees()
 
         	if(this.user){
         		this.form.user_id = this.user.id

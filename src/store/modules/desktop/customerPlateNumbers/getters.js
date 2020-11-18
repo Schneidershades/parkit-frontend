@@ -1,11 +1,11 @@
 // products
-export const plateNumbers = (state) => {
-	return state.plateNumbers.data
+export const plate_numbers = (state) => {
+	return state.plate_numbers.data
 }
 
 
-export const plateNumber = (state) => {
-	return state.plateNumber
+export const plate_number = (state) => {
+	return state.plate_number
 }
 
 

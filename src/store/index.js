@@ -28,7 +28,7 @@ import shopping from './modules/users/shopping'
 import address from './modules/users/address'
 
 // desktop application
-import plateNumber from './modules/desktop/plateNumber'
+import plate_number from './modules/desktop/plateNumber'
 import reportFaults from './modules/desktop/reportFaults'
 import complaintsAndSuggestions from './modules/desktop/complaintsAndSuggestions'
 import personnelRequests from './modules/desktop/personnelRequests'
@@ -91,7 +91,7 @@ export default new Vuex.Store({
 		country,
 		internetStatus,
 
-		plateNumber,
+		plate_number,
 		reportFaults,
 		complaintsAndSuggestions,
 		personnelRequests,

@@ -962,7 +962,7 @@ export default {
 
     mounted(){
     	if(this.orderDetails){
-            // alert(this.orderDetails.vehicle.plateNumber)
+            // alert(this.orderDetails.vehicle.plate_number)
             // 
             // 
     		this.form.id = this.orderDetails.id

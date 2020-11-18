@@ -19,7 +19,7 @@
 						class="col-md-3 vehicle-cbs" 
 						:name="product.id" 
 						:label="product.type" 
-						v-if="product.type == checkPlateNumber.vehicleType || product.type == checkPlateNumber.vehicleModel" 
+						v-if="product.type == checkPlateNumber.vehicle_type || product.type == checkPlateNumber.vehicle_model" 
 						:icon="product.svg_path" 
 						size="xl" 
 						:key="product.id" 
@@ -156,9 +156,14 @@
 												</q-expansion-item>
 											</div>
 											<q-card-actions align="right">
-												<q-btn flat outline @click.prevent="addToCart(content)">
+												<q-btn flat outline v-if="cart.length <= 0 " @click.prevent="removeAllThenAddToCart(content)">
 													Add to cart
 												</q-btn>
+
+												<q-btn flat outline v-else @click.prevent="removeAllProductFromCart" >
+													Remove from Cart
+												</q-btn>
+
 											</q-card-actions>
 										</q-card>
 									</div>
@@ -381,7 +386,7 @@ export default {
             cartTotal: 'adminShopping/cartTotal',
             freeWash: 'customerPlateNumbers/freeWash',
             useFreeWash: 'customerPlateNumbers/useFreeWash',
-            checkPlateNumber: 'customerPlateNumbers/plateNumber',
+            checkPlateNumber: 'customerPlateNumbers/plate_number',
 		}),
 		
 		carTotalLength(){

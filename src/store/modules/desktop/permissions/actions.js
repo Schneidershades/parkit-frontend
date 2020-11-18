@@ -16,19 +16,19 @@ export const getPlateNumbers = ({ commit, rootState }) => {
   	})
 }
 
-export const checkPlateNumber = ({state, commit }, plateNumber) =>{
-	commit('setPlateNumber', plateNumber)
-	LocalStorage.set('plateNumber', JSON.stringify(state.plateNumber))
+export const checkPlateNumber = ({state, commit }, plate_number) =>{
+	commit('setPlateNumber', plate_number)
+	LocalStorage.set('plate_number', JSON.stringify(state.plate_number))
 
 }
 
 export const updateCustomer = async ({state, commit }, items) =>{
 	commit('updatePlateNumber', items)
-	LocalStorage.set('plateNumber', JSON.stringify(state.plateNumber))
+	LocalStorage.set('plate_number', JSON.stringify(state.plate_number))
 }
 
 export const removeCurrentPlateNumberFromLocalStorage = ({ commit } ) =>{
 	commit('clearPlateNumber')
-	LocalStorage.set('plateNumber', null)
+	LocalStorage.set('plate_number', null)
 }
 

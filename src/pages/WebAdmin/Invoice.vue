@@ -89,7 +89,7 @@
 			                                <q-input
 			                                    ref="name"
 			                                    filled
-			                                    v-model="plateNumber.number"
+			                                    v-model="plate_number.number"
 			                                    :dense="dense"
 					                            mask="XXXXXXXXXXXXXXX"
 			                                    label="Get Vehicle Details *"
@@ -105,7 +105,7 @@
 		                        </q-form>
 		                        
 	                        	<q-form
-	                        		v-if="plateVehicleDetails && plateNumber.number"
+	                        		v-if="plateVehicleDetails && plate_number.number"
 		                            @submit="updateUser"
 		                            class="q-gutter-md q-pt-xl"
 		                            ref="form"
@@ -118,7 +118,7 @@
 			                                    filled
 			                                    label="Plate Number *"
 			                                    readonly
-			                                    :value="plateNumber.number"
+			                                    :value="plate_number.number"
 			                                />
 			                            </div>
 			                            <div class="col-6 q-pa-sm">
@@ -543,7 +543,7 @@
                 payment_method: 'cash',
                 errorMessages: [],
                 error: '',
-                plateNumber : {
+                plate_number : {
                     number : ''
                 },
                 vehicles: [
@@ -578,7 +578,7 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
-                plateVehicleDetails: 'plateNumber/plateNumberDetails',
+                plateVehicleDetails: 'plate_number/plate_numberDetails',
                 cart: 'webAdminShopping/cart',
             	cartTotal: 'webAdminShopping/cartTotal',
 				userDiscountPriviledge: 'webAdminShopping/userDiscountPriviledge',
@@ -598,8 +598,8 @@
             
         methods:{
             ...mapActions({
-              	sendPlatenumber: 'plateNumber/getPlateNumber',
-              	updateCustomer: 'plateNumber/updateCustomer',
+              	sendPlatenumber: 'plate_number/getPlateNumber',
+              	updateCustomer: 'plate_number/updateCustomer',
 				placeCustomerOrder: 'orders/placeOrder',
         		getLocations: 'location/getLocations',
         		getAllLocations: 'locationSettings/getLocations',
@@ -671,9 +671,9 @@
 		    },
 
             submitFindVehicle(){
-                this.sendPlatenumber(this.plateNumber.number).then((res) => {
+                this.sendPlatenumber(this.plate_number.number).then((res) => {
                     this.trigger = true
-                    this.order.plate_number = this.plateNumber.number
+                    this.order.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
 
 		        	var n = this.plateVehicleDetails.phone ? this.plateVehicleDetails.phone : null
@@ -683,10 +683,10 @@
 	        			this.phoneNumber = phoneNum
 	        		}
 
-                    this.order.first_name = this.plateVehicleDetails.firstName
-                    this.order.last_name = this.plateVehicleDetails.lastName
-                    this.order.vehicle_type = this.plateVehicleDetails.vehicleModel
-                    this.order.vehicle_model = this.plateVehicleDetails.vehicleType
+                    this.order.first_name = this.plateVehicleDetails.first_name
+                    this.order.last_name = this.plateVehicleDetails.last_name
+                    this.order.vehicle_type = this.plateVehicleDetails.vehicle_model
+                    this.order.vehicle_model = this.plateVehicleDetails.vehicle_type
                     this.order.customer_id = this.plateVehicleDetails.userId
                     this.order.customer_plate_number_id = this.plateVehicleDetails.id
                     
@@ -715,13 +715,13 @@
 
             	this.updateCustomer(this.order).then((res) => {
       				this.readonly = true
-                    this.order.plate_number = this.plateNumber.number
+                    this.order.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
                     this.order.phone = this.plateVehicleDetails.phone
-                    this.order.first_name = this.plateVehicleDetails.firstName
-                    this.order.last_name = this.plateVehicleDetails.lastName
-                    this.order.vehicle_type = this.plateVehicleDetails.vehicleModel
-                    this.order.vehicle_model = this.plateVehicleDetails.vehicleType
+                    this.order.first_name = this.plateVehicleDetails.first_name
+                    this.order.last_name = this.plateVehicleDetails.last_name
+                    this.order.vehicle_type = this.plateVehicleDetails.vehicle_model
+                    this.order.vehicle_model = this.plateVehicleDetails.vehicle_type
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)

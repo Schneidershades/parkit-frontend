@@ -12,33 +12,34 @@ export const getPlateNumbers = ({ commit, rootState }) => {
 	})
 }
 
-export const checkPlateNumber = ({state, commit, dispatch, rootState }, plateNumber) =>{
-	commit('setPlateNumber', plateNumber)
-	LocalStorage.set('plateNumber', JSON.stringify(state.plateNumber))
+export const checkPlateNumber = ({state, commit, dispatch, rootState }, plate_number) =>{
+	commit('setPlateNumber', plate_number)
+	LocalStorage.set('plate_number', JSON.stringify(state.plate_number))
 	dispatch('checkFreeWash')
 }
 
 export const checkFreeWash = async ({state, commit, dispatch }) =>{
 
-	var free = {data: {id: "free", percentageDiscount: "100", amountDiscount: 0}}
-
 	if(state.freeWash==true){
-		dispatch('adminShopping/removeAllProductFromCartLocalStorage', null , { root: true })
-		commit('adminShopping/updateDiscountData', free , { root: true })
+
+		// var free = {data: {id: "free", percentageDiscount: "100", amountDiscount: 0}}
+
+		// dispatch('adminShopping/removeAllProductFromCartLocalStorage', null , { root: true })
+		// commit('adminShopping/updateDiscountData', free , { root: true })
 	}else{
-		commit('adminShopping/applyResetDiscountData', null, { root: true })
+		// commit('adminShopping/applyResetDiscountData', null, { root: true })
 	}
 }
 
 export const updateCustomer = async ({state, commit, dispatch }, items) =>{
 	commit('updatePlateNumber', items)
-	LocalStorage.set('plateNumber', JSON.stringify(state.plateNumber))
+	LocalStorage.set('plate_number', JSON.stringify(state.plate_number))
 	dispatch('checkFreeWash')
 }
 
 export const removeCurrentPlateNumberFromLocalStorage = ({ commit } ) =>{
 	commit('clearPlateNumber')
-	LocalStorage.set('plateNumber', null)
+	LocalStorage.set('plate_number', null)
 }
 
 

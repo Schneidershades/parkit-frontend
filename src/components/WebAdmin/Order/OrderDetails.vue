@@ -115,7 +115,7 @@
 		        	</div>
 
 		        	<div class="col-xs-4 ">
-		        		<b>Date :</b> {{order.transaction_initiated ? order.transaction_initiated : 'N/A'}}
+		        		<b>Date :</b> {{order.transaction_initiated ? order.transaction_initiated : 'N/A'}} - {{order.time ? order.time : 'N/A'}}
 		        	</div>
 
 		        	
@@ -127,21 +127,21 @@
 	        	<div class="row">
 
 	        		<div class="col-4 q-py-sm">
-	        			Number: <br><b>{{order.vehicle.plateNumber  ? order.vehicle.plateNumber : 'N/A'}}</b>
+	        			Number: <br><b>{{order.vehicle.plate_number  ? order.vehicle.plate_number : 'N/A'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Vehicle Type: <br><b>{{order.vehicle.vehicleType  ? order.vehicle.vehicleType : 'N/A'}}</b>
+	        			Vehicle Type: <br><b>{{order.vehicle.vehicle_type  ? order.vehicle.vehicle_type : 'N/A'}}</b>
 		        	</div>
 
 		        	<div class="col-4 q-py-sm">
-	        			Model: <br><b>{{order.vehicle.vehicleModel  ? order.vehicle.vehicleModel : 'N/A'}}</b>
+	        			Model: <br><b>{{order.vehicle.vehicle_model  ? order.vehicle.vehicle_model : 'N/A'}}</b>
 		        	</div>
 
 	        		<div class="col-4 q-py-sm">
-	        			First Name: <br><b>{{order.customer.firstName  ? order.customer.firstName : 'N/A'}}</b>
+	        			First Name: <br><b>{{order.customer.first_name  ? order.customer.first_name : 'N/A'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Last Name: <br><b>{{order.customer.lastName  ? order.customer.lastName : 'N/A'}}</b>
+	        			Last Name: <br><b>{{order.customer.last_name  ? order.customer.last_name : 'N/A'}}</b>
 		        	</div>
 
 		        	<div class="col-4 q-py-sm">

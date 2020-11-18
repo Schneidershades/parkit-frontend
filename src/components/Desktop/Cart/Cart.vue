@@ -1,5 +1,6 @@
 <template>
 	<div class="q-pa-sm"  v-if="cart.length">
+		<!-- {{freeWashStatus}} {{freeWash}} -->
 		<table>
             <thead>
                 <tr>
@@ -18,13 +19,15 @@
                     </td>
                     <td data-label="Package"><b>{{item.vehicle}}</b> - {{item.package}}</td>
                     <td data-label="Venue">{{item.venue}}</td>
-                    <td data-label="Quantity">
+                    <td data-label="Quantity" >
 						<q-input
+							v-if="useFreeWash=='no'"
 					      	ref="quantity"
 					        type="number"
 					        min="1"
 					        v-model="item.quantity"
 					        label="Your quantity *"
+					        
 
 					        @change="updateCart(item, item.quantity)"
 					        lazy-rules
@@ -33,13 +36,23 @@
 					          val => val > 0  || 'Please type a number'
 					        ]"
 					    />
+					    <q-input
+							v-else
+					      	ref="quantity"
+					        type="number"
+					        min="1"
+					        v-model="item.quantity"
+					        label="Your quantity *"
+					        readonly
+					        dense
+					    />
 					</td>
                     <td data-label="Unit">₦ {{item.amount}}</td>
                     <td data-label="Amount">₦ {{item.amount * item.quantity}}</td>
                 </tr>
                 <tr >
                 	<td colspan="4">
-						<template v-if="userDiscountPrivilege == true && useFreeWash!='yes' && freeWash == false">
+						<template v-if="userDiscountPrivilege == true && useFreeWash=='no'">
 					    	<q-card-actions align="left">
 							    <div class="q-px-sm row no-wrap items-center">
 							    	<div class="col-3">
@@ -327,6 +340,7 @@ export default {
             online: 'auth/onlineStatus',
             freeWash: 'customerPlateNumbers/freeWash',
             useFreeWash: 'customerPlateNumbers/useFreeWash',
+            freeWashStatus: 'customerPlateNumbers/useFreeWash',
         }),
         
         carTotalLength(){

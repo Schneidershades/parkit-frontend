@@ -207,7 +207,7 @@
             }, 
 
             presentLocation(){
-                return 'Hello '+this.user.firstName + " - " + this.user.location.locationName
+                return 'Hello '+this.user.first_name + " - " + this.user.location.locationName
             }
         },
 

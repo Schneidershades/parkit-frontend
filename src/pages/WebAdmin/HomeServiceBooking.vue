@@ -269,7 +269,7 @@
 
                 errorMessages: [],
                 error: '',
-                plateNumber : {
+                plate_number : {
                     number : ''
                 },
                 vehicles: [
@@ -304,7 +304,7 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
-                plateVehicleDetails: 'plateNumber/plateNumberDetails',
+                plateVehicleDetails: 'plate_number/plate_numberDetails',
                 cart: 'shopping/cart',
             	cartTotal: 'shopping/cartTotal',
 				userDiscountPriviledge: 'shopping/userDiscountPriviledge',
@@ -319,8 +319,8 @@
         methods:{
 
             ...mapActions({
-              	sendPlatenumber: 'plateNumber/getPlateNumber',
-              	updateCustomer: 'plateNumber/updateCustomer',
+              	sendPlatenumber: 'plate_number/getPlateNumber',
+              	updateCustomer: 'plate_number/updateCustomer',
 				placeHomeServiceOrder: 'webAdminOrders/placeHomeServiceOrder',
         		getLocations: 'locationSettings/getLocations',
             }),
@@ -349,9 +349,9 @@
 			},
 
             submitFindVehicle(){
-                this.sendPlatenumber(this.plateNumber.number).then((res) => {
+                this.sendPlatenumber(this.plate_number.number).then((res) => {
                     this.trigger = true
-                    this.newUser.plate_number = this.plateNumber.number
+                    this.newUser.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
                     this.newUser.phone = this.plateVehicleDetails.user.phone
                     this.newUser.first_name = this.plateVehicleDetails.user.first_name

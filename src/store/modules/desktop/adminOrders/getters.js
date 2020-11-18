@@ -63,7 +63,7 @@ export const totalTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// // console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'complete' || x.status == 'pending' || x.status == 'processing' && x.date == formattedString)
@@ -85,7 +85,7 @@ export const posTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// // console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.payment_method == 'pos' && x.date == formattedString)
@@ -107,7 +107,7 @@ export const cashTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.payment_method == 'cash' && x.date == formattedString)
@@ -129,7 +129,7 @@ export const completeTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)
@@ -151,7 +151,7 @@ export const pendingTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'pending' || x.status == 'processing' && x.date == formattedString)
@@ -173,7 +173,7 @@ export const editTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'edit' && x.date == formattedString)
@@ -195,7 +195,7 @@ export const deleteTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'delete' && x.date == formattedString)
@@ -217,7 +217,7 @@ export const notPaidTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.payment_method == 'not_paid' && x.date == formattedString)
@@ -239,7 +239,7 @@ export const carTransactionToday = (state) => {
 	var today = new Date();
 	var bu = today.getDate();
 	var timeStamp = Date.now()
-	console.log(timeStamp)
+	// console.log(timeStamp)
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 
 	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)

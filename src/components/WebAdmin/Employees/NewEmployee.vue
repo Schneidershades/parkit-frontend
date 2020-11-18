@@ -15,241 +15,252 @@
                         ref="form"
                         >
                     	<div class="row">
-                    		<div class="col-4 q-pl-sm">
-    			                <q-input
+                            <div class="col-4 q-pl-sm">
+                                <q-input
                                     ref="name"
                                     filled
                                     v-model="form.first_name"
                                     :dense="dense"
-                            		label="First Name *" 
+                                    label="First Name *" 
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
-    			            </div>
-                    		<div class="col-4 q-pl-sm">
-    			                <q-input
+                            </div>
+                            <div class="col-4 q-pl-sm">
+                                <q-input
                                     ref="name"
                                     filled
                                     v-model="form.middle_name"
                                     :dense="dense"
-                            		label="Middle Name *" 
+                                    label="Middle Name *" 
                                     lazy-rules
                                 />
-    			            </div>
-                    		<div class="col-4 q-pl-sm">
-    			                <q-input
+                            </div>
+                            <div class="col-4 q-pl-sm">
+                                <q-input
                                     ref="name"
                                     filled
                                     v-model="form.last_name"
                                     :dense="dense"
-                            		label="Last Name *" 
+                                    label="Last Name *" 
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
-    			            </div>
-                            <div class="col-4 q-pl-sm">
-                            	<q-input
+                            </div>
+
+                            <div class="col-3 q-pl-sm">
+                                <q-input
                                     ref="name"
                                     filled
                                     v-model="form.email"
                                     :dense="dense"
-                            		label="Email Address *" 
+                                    label="Email Address *" 
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
-                            	<q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
-                            		<template v-slot:append>
-                            			<q-icon name="event" class="cursor-pointer">
-                            				<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                            					<q-date v-model="form.dob" v-close-popup>
-                            						<div class="row items-center justify-end">
-                            							<q-btn v-close-popup label="Close" color="primary" flat />
-                            						</div>
-                            					</q-date>
-                            				</q-popup-proxy>
-                            			</q-icon>
-                            		</template>
-                            	</q-input>
+                            <div class="col-3 q-pl-sm">
+                                <q-input
+                                    ref="name"
+                                    filled
+                                    v-model="form.phone"
+                                    :dense="dense"
+                                    label="Phone *" 
+                                    lazy-rules
+                                />
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-3 q-pl-sm">
+                                <q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
+                                    <template v-slot:append>
+                                        <q-icon name="event" class="cursor-pointer">
+                                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
+                                                <q-date v-model="form.dob" :readonly="readonly" :dense="dense">
+                                                    <div class="row items-center justify-end">
+                                                        <q-btn v-close-popup label="Close" color="primary" flat />
+                                                    </div>
+                                                </q-date>
+                                            </q-popup-proxy>
+                                        </q-icon>
+                                    </template>
+                                </q-input>
+                            </div>
+                            <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.sex"
-                            		:options="sex" 
+                                    :options="sex" 
                                     label="Sex *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
                             <div class="col-12 q-pl-sm q-pb-md">
-                            	<q-input
+                                <q-input
                                     ref="name"
                                     filled
                                     v-model="form.address"
                                     :dense="dense"
-                            		label="Residential Address *" 
+                                    label="Residential Address *" 
                                     lazy-rules
+                                />
+                            </div>
+
+                            <!-- <div class="col-4 q-pl-sm q-pb-md">
+                                <q-select 
+                                    filled 
+                                    v-model="form.city_id"
+                                    :options="sex" 
+                                    label="City *"
+                                    lazy-rules
+                                    :dense="dense"
+                                    :readonly="readonly"
                                 />
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
                                 <q-select 
-                            		filled 
-                                    v-model="form.city_id"
-                            		:options="sex" 
-                                    label="City *"
-                                    lazy-rules
-                                    :dense="dense"
-                                    :readonly="readonly"
-                            	/>
-                            </div>
-
-                            <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.state_id"
-                            		:options="sex" 
+                                    :options="sex" 
                                     label="State *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.country_id"
-                            		:options="sex" 
+                                    :options="sex" 
                                     label="Country *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
-                            </div>
+                                />
+                            </div> -->
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Previous Company</i></b>
-    	                        <hr>
+                                <b><i>Previous Company</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-4 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.first_employment"
-                            		:options="question" 
+                                    :options="question" 
                                     label="First Employment *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
-                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'yes'">
+                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'no'">
                                 <q-input
-    						      	v-model="form.previous_employer_name"
-    						      	filled
-                                	label="Previous Employer Company *"
+                                    v-model="form.previous_employer_name"
+                                    filled
+                                    label="Previous Employer Company *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
-                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'yes'">
+                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'no'">
                                 <q-input
-    						      	v-model="form.previous_employment_position"
-    						      	filled
-                                	label="Previous Employment Position *"
+                                    v-model="form.previous_employment_position"
+                                    filled
+                                    label="Previous Employment Position *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Account Details</i></b>
-    	                        <hr>
+                                <b><i>Account Details</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.account_details"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a bank detail *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
                                 <q-input
-    						      	v-model="form.account_bank"
-    						      	filled
-                                	label="Bank Name *"
+                                    v-model="form.account_bank"
+                                    filled
+                                    label="Bank Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
                                 <q-input
-    						      	v-model="form.account_name"
-    						      	filled
-                                	label="Account Name *"
+                                    v-model="form.account_name"
+                                    filled
+                                    label="Account Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
                                 <q-input
-    						      	v-model="form.account_number"
-    						      	filled
-                                	label="Account Number *"
+                                    v-model="form.account_number"
+                                    filled
+                                    label="Account Number *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Off Work Day</i></b>
-    	                        <hr>
+                                <b><i>Off Work Day</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.off_day"
-                            		:options="days" 
+                                    :options="days" 
                                     label="Off Day *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Qualification 1</i></b>
-    	                        <hr>
+                                <b><i>Qualification 1</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.qualification1_available"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <template v-if="form.qualification1_available == 'yes'">
@@ -282,7 +293,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification1_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -298,7 +309,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification1_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification1_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -312,20 +323,20 @@
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Qualification 2</i></b>
-    	                        <hr>
+                                <b><i>Qualification 2</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.qualification2_available"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
-                                    :dense="dense"
+                                    
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <template v-if="form.qualification2_available == 'yes'">
@@ -388,20 +399,20 @@
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Qualification 3</i></b>
-    	                        <hr>
+                                <b><i>Qualification 3</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.qualification3_available"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <template v-if="form.qualification3_available == 'yes'">
@@ -434,7 +445,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification3_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -450,7 +461,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification3_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification3_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -464,20 +475,20 @@
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Qualification 4</i></b>
-    	                        <hr>
+                                <b><i>Qualification 4</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.qualification4_available"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <template v-if="form.qualification4_available == 'yes'">
@@ -510,7 +521,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification4_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification4_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -526,7 +537,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification4_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification4_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -540,20 +551,20 @@
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Qualification 5</i></b>
-    	                        <hr>
+                                <b><i>Qualification 5</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-3 q-pl-sm">
                                 <q-select 
-                            		filled 
+                                    filled 
                                     v-model="form.qualification5_available"
-                            		:options="question" 
+                                    :options="question" 
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                            	/>
+                                />
                             </div>
 
                             <template v-if="form.qualification5_available == 'yes'">
@@ -586,7 +597,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification5_start_date" v-close-popup>
+                                                    <q-date v-model="form.qualification5_start_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -602,7 +613,7 @@
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
                                                 <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                    <q-date v-model="form.qualification5_end_date" v-close-popup>
+                                                    <q-date v-model="form.qualification5_end_date" :readonly="readonly" :dense="dense">
                                                         <div class="row items-center justify-end">
                                                             <q-btn v-close-popup label="Close" color="primary" flat />
                                                         </div>
@@ -616,113 +627,142 @@
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Parents Details</i></b>
-    	                        <hr>
+                                <b><i>Parents Details</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-6 q-pl-sm">
                                 <q-input
-    						      	v-model="form.parent_name"
-    						      	filled
-                                	label="Parent's Name *"
+                                    v-model="form.parent_name"
+                                    filled
+                                    label="Parent's Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-6 q-pl-sm">
                                 <q-input
-    						      	v-model="form.parent_phone"
-    						      	filled
-                                	label="Parent's Phone *"
+                                    v-model="form.parent_phone"
+                                    filled
+                                    label="Parent's Phone *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12 q-pl-sm">
                                 <q-input
-    						      	v-model="form.parent_address"
-    						      	filled
-                                	label="Parent's Address *"
+                                    v-model="form.parent_address"
+                                    filled
+                                    label="Parent's Address *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Referee Details</i></b>
-    	                        <hr>
+                                <b><i>Referee Details</i></b>
+                                <hr>
                             </div>
 
                             <div class="col-6 q-pl-sm">
                                 <q-input
-    						      	v-model="form.referee_name"
-    						      	filled
-                                	label="Referee's Name *"
+                                    v-model="form.referee_name"
+                                    filled
+                                    label="Referee's Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-6 q-pl-sm">
                                 <q-input
-    						      	v-model="form.referee_phone"
-    						      	filled
-                                	label="Referee's Phone *"
+                                    v-model="form.referee_phone"
+                                    filled
+                                    label="Referee's Phone *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12 q-pl-sm">
                                 <q-input
-    						      	v-model="form.referee_address"
-    						      	filled
-                                	label="Referee's Address *"
+                                    v-model="form.referee_address"
+                                    filled
+                                    label="Referee's Address *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a description']"
-    						    />
+                                />
                             </div>
 
                             <div class="col-12">
                                 <hr>
-    	                        <b><i>Resumptions</i></b>
-    	                        <hr>
+                                <b><i>Resumptions</i></b>
+                                <hr>
                             </div>
 
-                            <div class="col-6 q-pl-sm">
-                            	<q-input filled v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
-                            		<template v-slot:append>
-                            			<q-icon name="event" class="cursor-pointer">
-                            				<q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                            					<q-date v-model="form.resumption_start_date" v-close-popup>
-                            						<div class="row items-center justify-end">
-                            							<q-btn v-close-popup label="Close" color="primary" flat />
-                            						</div>
-                            					</q-date>
-                            				</q-popup-proxy>
-                            			</q-icon>
-                            		</template>
-                            	</q-input>
+
+                            <div class="col-3 q-pl-sm">
+                                <q-input filled v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
+                                    <template v-slot:append>
+                                        <q-icon name="event" class="cursor-pointer">
+                                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
+                                                <q-date v-model="form.resumption_start_date" :readonly="readonly" :dense="dense">
+                                                    <div class="row items-center justify-end">
+                                                        <q-btn v-close-popup label="Close" color="primary" flat />
+                                                    </div>
+                                                </q-date>
+                                            </q-popup-proxy>
+                                        </q-icon>
+                                    </template>
+                                </q-input>
                             </div>
 
-                            <!-- <div class="col-6 q-pl-sm">
-                                <q-input
-    						      	v-model="form.salary"
-    						      	filled
-    						      	type="number"
-    						      	min="10000"
-                                	label="Salary Payment *"
+                            <div class="col-3 q-pl-sm">
+                                <q-select 
+                                    filled 
+                                    v-model="form.position"
+                                    :options="position" 
+                                    label="Position *"
                                     lazy-rules
-    						    />
-                            </div> -->
+                                    :dense="dense"
+                                    :readonly="readonly"
+                                />
+                            </div>
 
-    				        <q-card-actions align="right" class="col-12">
-    				            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
-    				        </q-card-actions>
-                        </div>  
+                            <div class="col-3 q-pl-sm" v-if="$can('create', 'salaries')">
+                                <q-input
+                                    v-model="form.salary"
+                                    filled
+                                    type="number"
+                                    min="10000"
+                                    label="Salary Payment *"
+                                    lazy-rules
+                                />
+                            </div>
+                            <div class="col-3" v-if="user.location.code == 'PARKIT PARENT'">
+
+                                <q-select
+                                filled 
+                                label="Select Location *"
+                                lazy-rules
+                                v-model="form.location_id" 
+                                :options="locations" 
+                                :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+                                :option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
+                                :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+                                emit-value
+                                map-options
+                                :rules="[ val => val && val.length == null || 'Please select a location']" />
+                            </div>
+
+
+                            <q-card-actions align="right" class="col-12">
+                                <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
+                            </q-card-actions>
+                        </div> 
                     </q-form> 	
                 </div>
             </q-card-section>
@@ -902,6 +942,17 @@
                     'MSC', 
                 ],
 
+                position: [
+                    'Parkit Pro (PP)', 
+                    'Head Parkit Pro (HPP)', 
+                    'Front Desk Pro (FD)', 
+                    'Manager (MG)', 
+                    'Head of Operation (HOP)', 
+                    'Assistant Head of Operation (AHOP)', 
+                    'Facility Manager (FM)', 
+                    'Technical Assistant (FM)', 
+                ],
+
 			    question: [
 			        'yes', 
 			        'no', 
@@ -927,6 +978,7 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+                locations: 'locationSettings/locations',
             }),
 
             total_amount(){
@@ -939,6 +991,7 @@
               	postEmployee: 'employees/postEmployee',
               	getEmployees: 'employees/getLocationEmployees',
                 connected: 'internetStatus/setConnection',
+                getLocations: 'locationSettings/getLocations',
             }),
 
             submitRequest(){
@@ -1012,7 +1065,11 @@
         },
 
         mounted(){
-    		this.getEmployees()
+    		// this.getEmployees()
+
+            if(this.user.location.code == "PARKIT PARENT"){
+                this.getLocations()
+            }
 
         	if(this.user){
         		this.form.user_id = this.user.id

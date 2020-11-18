@@ -118,7 +118,7 @@
               	login: 'auth/adminSignIn',
                 connected: 'internetStatus/setConnection',
                 checkOnlineStatus: 'internetStatus/checkOnline',
-                // plateNumbers: 'customerPlateNumbers/getPlateNumbers',
+                // plate_numbers: 'customerPlateNumbers/getPlateNumbers',
             }),
 
             handleConnectivityChange(status) {

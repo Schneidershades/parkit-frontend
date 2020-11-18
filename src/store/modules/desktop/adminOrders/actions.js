@@ -36,6 +36,7 @@ export const getOfflineOrders = async({state, commit, dispatch, rootState }, ite
 
 export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 	return axios.post('api/v1/auth/orders', order).then((response) => {
+		commit('adminShopping/applyResetDiscountData', null, { root: true })
 		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
@@ -278,6 +279,6 @@ export const clearofflineOrders = ({ state, commit, dispatch, rootState }, order
 	// LocalStorage.set('orders', JSON.stringify([]))
 	localForageService.setItem('orders', [])
 	LocalStorage.set('transaction', null)
-	LocalStorage.set('plateNumber', null)
+	LocalStorage.set('plate_number', null)
 	commit('setCurrentOrders', JSON.stringify([]))
 }

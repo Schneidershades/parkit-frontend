@@ -390,7 +390,7 @@
                 payment_method: 'cash',
                 errorMessages: [],
                 error: '',
-                plateNumber : {
+                plate_number : {
                     number : ''
                 },
                 vehicles: [
@@ -430,7 +430,7 @@
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
-                plateVehicleDetails: 'plateNumber/plateNumberDetails',
+                plateVehicleDetails: 'plate_number/plate_numberDetails',
                 cart: 'shopping/cart',
 				userDiscountPrivilege: 'shopping/userDiscountPrivilege',
 				discount: 'shopping/discount',
@@ -444,8 +444,8 @@
             
         methods:{
             ...mapActions({
-              	sendPlatenumber: 'plateNumber/getPlateNumber',
-              	updateCustomer: 'plateNumber/updateCustomer',
+              	sendPlatenumber: 'plate_number/getPlateNumber',
+              	updateCustomer: 'plate_number/updateCustomer',
 				placeCustomerOrder: 'orders/placeOrder',
 				getTransactionOrdersOnline: 'onlineTransaction/getTransactionOrdersOnline',
 				clearTransaction: 'onlineTransaction/transactionOrderSelected',
@@ -491,9 +491,9 @@
 			},
 
             submitFindVehicle(){
-                this.sendPlatenumber(this.plateNumber.number).then((res) => {
+                this.sendPlatenumber(this.plate_number.number).then((res) => {
                     this.trigger = true
-                    this.newUser.plate_number = this.plateNumber.number
+                    this.newUser.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
                     this.newUser.phone = this.plateVehicleDetails.user.phone
                     this.newUser.first_name = this.plateVehicleDetails.user.first_name
@@ -512,7 +512,7 @@
             updateUser(){
             	this.updateCustomer(this.newUser).then((res) => {
       				this.readonly = true
-                    this.newUser.plate_number = this.plateNumber.number
+                    this.newUser.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
                     this.newUser.phone = this.plateVehicleDetails.user.phone
                     this.newUser.first_name = this.plateVehicleDetails.user.first_name
@@ -535,12 +535,12 @@
         		this.order.vehicle.plate_number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null
 	            this.order.vehicle.phone =  this.transactionDetails.customer ? this.transactionDetails.customer.phone : null
 	            this.order.vehicle.userId =  this.transactionDetails.customer ? this.transactionDetails.customer.id : null
-	            this.order.vehicle.first_name =  this.transactionDetails.customer ? this.transactionDetails.customer.firstName : null
-	            this.order.vehicle.last_name = this.transactionDetails.customer ? this.transactionDetails.customer.lastName : null
+	            this.order.vehicle.first_name =  this.transactionDetails.customer ? this.transactionDetails.customer.first_name : null
+	            this.order.vehicle.last_name = this.transactionDetails.customer ? this.transactionDetails.customer.last_name : null
 	            this.order.vehicle.vehicle_type = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.vehicle_type : null
 	            this.order.vehicle.vehicle_model = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.vehicle_model : null
 	            this.order.receipt_number = this.transactionDetails ? this.transactionDetails.receipt_number : null
-	            this.plateNumber.number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null
+	            this.plate_number.number = this.transactionDetails.vehicle ? this.transactionDetails.vehicle.plate_number : null
 	            this.order.customer_id = this.transactionDetails.customer ? this.transactionDetails.customer.id : null
 				this.order.location = this.user.location ? this.user.location : null
 				this.order.location_id = this.user.location ? this.user.location.id : null
@@ -552,7 +552,7 @@
 	            this.order.total= this.transactionDetails.total ? this.transactionDetails.total : null
 	            this.order.status = 'pending'
 	            this.order.reason= null
-	            this.order.cashier = this.user.firstName
+	            this.order.cashier = this.user.first_name
 	        	this.order.cashier_id = this.user.id
 	        	this.order.platform_initiated = 'web'
 

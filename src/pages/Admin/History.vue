@@ -221,8 +221,8 @@
 					Date   : {{onlineOrderDetails.date}}<br>
 					Time   : {{onlineOrderDetails.time}}<br>
 					Cashier   : {{onlineOrderDetails.cashier}}<br>
-					To   : {{onlineOrderDetails.customer ? onlineOrderDetails.customer.firstName : 'N/A'}} {{onlineOrderDetails.customer  ? onlineOrderDetails.customer.lastName : ''}}<br>
-					Transaction ID   : {{onlineOrderDetails.vehicle ? onlineOrderDetails.vehicle.plateNumber : 'N/A'}}<br>
+					To   : {{onlineOrderDetails.customer ? onlineOrderDetails.customer.first_name : 'N/A'}} {{onlineOrderDetails.customer  ? onlineOrderDetails.customer.last_name : ''}}<br>
+					Transaction ID   : {{onlineOrderDetails.vehicle ? onlineOrderDetails.vehicle.plate_number : 'N/A'}}<br>
 					Payment Method   : {{onlineOrderDetails.payment_method == 'not_paid' ? 'Not Paid' : ''}}
 					{{onlineOrderDetails.payment_method == 'pos' ? 'POS' : ''}}
 					{{onlineOrderDetails.payment_method == 'cash' ? 'Cash' : ''}}
@@ -377,7 +377,7 @@
 				      	<q-tr :props="props">
 				      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
 				      		<q-td key="receipt_number" :props="props">{{ props.row.receipt_number }}</q-td>
-				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle ? props.row.vehicle.plateNumber : null }}</q-td>
+				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle ? props.row.vehicle.plate_number : null }}</q-td>
 				      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
 				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
 				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>

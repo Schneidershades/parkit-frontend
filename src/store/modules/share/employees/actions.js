@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-export const getLocationEmployees = ({ commit }) => {
-	return axios.get('api/v1/admin/user/location-employees').then((response) => {
+export const getLocationEmployees = ({ commit }, id) => {
+	var url = 'api/v1/admin/user/location-employees/' + id
+	return axios.get(url).then((response) => {
 		console.log(response.data)
 		commit('setEmployees', response.data.data)
 		return Promise.resolve()

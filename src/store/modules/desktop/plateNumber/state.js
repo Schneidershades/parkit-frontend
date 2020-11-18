@@ -1,4 +1,4 @@
 export default{
-	plateNumbers:[],
-	plateNumber:[],
+	plate_numbers:[],
+	plate_number:[],
 }

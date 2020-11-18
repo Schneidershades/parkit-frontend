@@ -1,12 +1,12 @@
 <template>
-	<div class="q-pa-sm"  v-if="plateNumbers">
+	<div class="q-pa-sm"  v-if="plate_numbers">
 		<q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create Package Type" @click="createModel = true" />
 		
         <q-table
 		    title="Customer Vehicle Plate Numbers"
 		    :columns="columns"
 		    row-key="name"
-		    :data="plateNumbers"
+		    :data="plate_numbers"
 		    :grid="$q.screen.xs"
 		    :pagination.sync="pagination"
 	      	:filter="filterModel"
@@ -21,10 +21,10 @@
 
 		    <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
-		      		<q-td key="name" :props="props">{{ props.row.firstName ? props.row.firstName : 'N/A' }} {{ props.row.lastName }}</q-td>
-		      		<q-td key="plate_number" :props="props">{{props.row.plateNumber ?  props.row.plateNumber : 'N/A'}}</q-td>
-		      		<q-td key="type" :props="props">{{ props.row.vehicleType ?  props.row.vehicleType : 'N/A'}}</q-td>
-		      		<!-- <q-td key="model" :props="props">{{ props.row.vehicleModel  ?  props.row.vehicleModel : 'N/A'}}</q-td> -->
+		      		<q-td key="name" :props="props">{{ props.row.first_name ? props.row.first_name : 'N/A' }} {{ props.row.last_name }}</q-td>
+		      		<q-td key="plate_number" :props="props">{{props.row.plate_number ?  props.row.plate_number : 'N/A'}}</q-td>
+		      		<q-td key="type" :props="props">{{ props.row.vehicle_type ?  props.row.vehicle_type : 'N/A'}}</q-td>
+		      		<!-- <q-td key="model" :props="props">{{ props.row.vehicle_model  ?  props.row.vehicle_model : 'N/A'}}</q-td> -->
 		      		<q-td key="phone" :props="props">{{ props.row.phone  ?  props.row.phone : 'N/A'}}</q-td>
 		      		<!-- <q-td key="email" :props="props">{{ props.row.email  ?  props.row.email : 'N/A'}}</q-td> -->
 		      		<!-- <q-td key="number_of_washes" :props="props">{{ props.row.vehicleWashes}}</q-td> -->
@@ -217,15 +217,15 @@ export default {
 	},
 	computed: {
         ...mapGetters({
-            plateNumbers: 'plateNumber/plateNumbers',
+            plate_numbers: 'plate_number/plate_numbers',
         }),
     },
 
 	methods:{
 		...mapActions({
-			getPlateNumbers: 'plateNumber/getPlateNumbers',
-			updatePlateNumbers: 'plateNumber/updatePlateNumber',
-			deletePlateNumber: 'plateNumber/deletePlateNumber',
+			getPlateNumbers: 'plate_number/getPlateNumbers',
+			updatePlateNumbers: 'plate_number/updatePlateNumber',
+			deletePlateNumber: 'plate_number/deletePlateNumber',
 		}),
 
 		deleteModel(id){

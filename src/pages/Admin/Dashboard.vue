@@ -17,8 +17,6 @@
 				      class="q-my-md my-card text-white"
 				      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
 				    	>	
-
-
 				      	<q-card-section class="row">
 
 				      		<div class="col-12">
@@ -341,7 +339,7 @@
 
 	  	mounted(){
 	  		this.getLocationDashboard()
-	  		this.getBirthdayLocationDashboard()
+	  		// this.getBirthdayLocationDashboard()
 	  	}
     }
 </script>

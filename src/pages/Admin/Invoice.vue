@@ -123,7 +123,7 @@
 	                                	v-if="checkPlateNumbers.length > 0"
 	                                    ref="name"
 	                                    filled
-	                                    v-model="plateNumber.number"
+	                                    v-model="plate_number.number"
 	                                    :dense="dense"
 	                                    label="Get Vehicle Details *"
 	                                    hint="Please insert a plate number"
@@ -416,7 +416,7 @@
 					coupon: null,
 					coupon_id: null,
 					platform_initiated: 'desktop',
-	                payment_method: '',
+	                payment_method: null,
 	                sub_total: null,
 	                total: null,
 	                status: 'pending',
@@ -433,7 +433,7 @@
                 errorMessages: [],
                 error: '',
 
-                plateNumber : {
+                plate_number : {
                     number : ''
                 },
 
@@ -471,8 +471,8 @@
 		        user: 'auth/user',
                 message: 'message',
                 errorMessage: 'errorMessage',
-              	checkPlateNumber: 'customerPlateNumbers/plateNumber',
-              	checkPlateNumbers: 'customerPlateNumbers/plateNumbers',
+              	checkPlateNumber: 'customerPlateNumbers/plate_number',
+              	checkPlateNumbers: 'customerPlateNumbers/plate_numbers',
                 newPhoneNumber: 'auth/phone',
                 cart: 'adminShopping/cart',
 				userDiscountPrivilege: 'adminShopping/userDiscountPrivilege',
@@ -524,7 +524,7 @@
 	            this.order.vehicle.vehicle_type = ''
 	            this.order.vehicle.vehicle_model = ''
 	            this.order.receipt_number = ''
-	            this.plateNumber.number = ''
+	            this.plate_number.number = ''
 	        	this.readonly= false
 	            this.order.customer_id = null
 				this.order.location = null
@@ -549,6 +549,17 @@
 
             placeOrder(){
 
+            	if(this.freeWashStatus=='yes' && this.freeWash == true){
+            		this.order.payment_method = 'free'
+            	}else{
+            		this.order.payment_method = 'not_paid'
+            	}
+            	
+            	if(this.order.payment_method == null){
+            		this.order.payment_method = null
+            	}
+
+
             	if(this.order.status == 'complete' && this.order.payment_method == 'not_paid'){
             		return this.negativeNotification('Select the right payment method for a completed transaction')
             	}
@@ -560,7 +571,7 @@
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
-	        	this.order.cashier = this.user.firstName
+	        	this.order.cashier = this.user.first_name
 	        	this.order.cashier_id = this.user.id
 	        	this.order.discount = this.discountDetails
 	        	this.order.discount_id = this.discountDetails!=null ? this.discountDetails.id : null
@@ -592,11 +603,11 @@
 
 
             submitFindVehicle(){
-            	this.sendPlatenumber(this.plateNumber.number).then((res) => {
+            	this.sendPlatenumber(this.plate_number.number).then((res) => {
             		this.trigger = true
         			this.order.vehicle.id = this.checkPlateNumber.id
         			this.order.vehicle.email = this.checkPlateNumber.email
-	        		this.order.vehicle.plate_number = this.checkPlateNumber.plateNumber
+	        		this.order.vehicle.plate_number = this.checkPlateNumber.plate_number
 	        		
 	        		var n = this.checkPlateNumber.phone ? this.checkPlateNumber.phone : null
 
@@ -608,10 +619,10 @@
 	        		}
 
 		            
-		            this.order.vehicle.first_name = this.checkPlateNumber.firstName
-		            this.order.vehicle.last_name = this.checkPlateNumber.lastName
-		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicleType
-		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicleModel
+		            this.order.vehicle.first_name = this.checkPlateNumber.first_name
+		            this.order.vehicle.last_name = this.checkPlateNumber.last_name
+		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicle_type
+		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicle_model
 	        		this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
 	        		
                 }).catch((error) => {

@@ -8,7 +8,7 @@ export const setPersistedState = (state) => {
     for (let elem in state) {  
       var deep = state[elem] 
       for (let s in deep ) {  
-        if(s == 'cart'|| s == 'connected'|| s == 'history'|| s == 'roles'|| s == 'token'|| s == 'user' || s == 'plateNumbers'|| s == 'products')
+        if(s == 'cart'|| s == 'connected'|| s == 'history'|| s == 'roles'|| s == 'token'|| s == 'user' || s == 'plate_numbers'|| s == 'products')
         promises.push(localForageService.setItem(s, deep[s]));
       }
       // console.log( elem )

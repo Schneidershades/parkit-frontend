@@ -380,7 +380,7 @@ export default {
             cartTotal: 'webAdminShopping/cartTotal',
             freeWash: 'customerPlateNumbers/freeWash',
             useFreeWash: 'customerPlateNumbers/useFreeWash',
-            checkPlateNumber: 'customerPlateNumbers/plateNumber',
+            checkPlateNumber: 'customerPlateNumbers/plate_number',
 		}),
 		
 		carTotalLength(){

@@ -6,8 +6,6 @@
 		    </q-btn-group>
 		    <br>
 
-		    <!-- {{envHelper('API_URL')}} -->
-
 	        <q-table
 			    title="Employees"
 		      	:data="employees"
@@ -28,7 +26,7 @@
 			      		<q-td key="name" :props="props">{{props.row.first_name}} {{props.row.middle_name}} {{props.row.last_name}}</q-td>
 			      		<q-td key="sex" :props="props">{{ props.row.sex }}</q-td>
 			      		<q-td key="phone" :props="props">{{ props.row.phone ? props.row.phone : 'N/A'}}</q-td>
-			      		<q-td key="location" :props="props">{{ props.row.location ? props.row.location : 'N/A'}}</q-td>
+			      		<q-td key="location" :props="props">{{ props.row.location ? props.row.location.code : 'N/A'}}</q-td>
 			      		<q-td key="action" :props="props">
 			      			<q-btn color="orange" unelevated icon="preview" @click="viewModel(props.row)"/>
 			      		</q-td>

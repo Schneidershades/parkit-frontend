@@ -192,14 +192,7 @@
                             </q-item-section>
                         </q-item>
 
-                        <q-item clickable to="/web/admin/employees">
-                            <q-item-section avatar>
-                                <q-icon name="people" />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-item-label>Employees</q-item-label>
-                            </q-item-section>
-                        </q-item>
+                            
 
 
                         <q-item-label header>Roles</q-item-label>
@@ -238,8 +231,24 @@
 
                     </template>                                  
                 </template>
+
+
+
+                <template v-if="$can('create', 'employees')">
+                    <q-item-label header>Employers</q-item-label>
+
+                    <q-item clickable to="/web/admin/employees" >
+                        <q-item-section avatar>
+                            <q-icon name="people" />
+                        </q-item-section>
+                        <q-item-section>
+                            <q-item-label>Employees</q-item-label>
+                        </q-item-section>
+                    </q-item>
+                </template>
+
                 
-                <template v-if="$can('access', 'allAccounts') || $can('access', 'oneAccounts')">
+                <template v-if="$can('access', 'allAccounts')">
 
                     <q-item-label header>Accounts</q-item-label>
 
@@ -271,6 +280,9 @@
                         </q-item-section>
                     </q-item>
                 </template>
+
+
+                <q-item-label header>Sign Out</q-item-label>
 
                 <q-item clickable @click.prevent="signOut">
                     <q-item-section avatar>
@@ -325,7 +337,7 @@
             },
 
             presentLocation(){
-                return 'Hello '+this.authenticated.firstName + " - " + this.authenticated.role
+                return 'Hello '+this.authenticated.first_name + " - " + this.authenticated.role
             }
         },
 

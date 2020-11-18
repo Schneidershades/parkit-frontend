@@ -216,8 +216,8 @@
         },
         mounted(){
         	if(this.authenticated){
-        		this.form.first_name = this.authenticated.firstName
-        		this.form.last_name = this.authenticated.lastName
+        		this.form.first_name = this.authenticated.first_name
+        		this.form.last_name = this.authenticated.last_name
         		this.form.email = this.authenticated.email
         		this.form.phone = this.authenticated.phone
         		this.form.dob = this.authenticated.dob
