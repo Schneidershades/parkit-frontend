@@ -6,7 +6,7 @@
             </q-btn-group>
         </div>
 
-        <q-card >
+        <q-card>
             <q-card-section>            
                 <div class="q-pa-md">
     				<q-form
