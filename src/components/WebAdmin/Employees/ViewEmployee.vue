@@ -847,6 +847,21 @@
                     account_number: '',
                     off_day: '',
 
+
+                    monday: false,
+                    tuesday: false,
+                    wednesday: false,
+                    thursday: false,
+                    friday: false,
+                    saturday: false,
+                    sunday: false,
+
+                    extra_qualification1: '',
+                    extra_qualification2: '',
+                    extra_qualification3: '',
+                    extra_qualification4: '',
+                    extra_qualification5: '',
+
                     qualification1_available: '',
                     qualification1: '',
                     qualification1_certificate: '',
@@ -972,14 +987,18 @@
 			    ],
 
 			    sex: [
-			        'Male', 
-			        'Female', 
-			    ],
+                    'Male', 
+                    'Female', 
+                ],
 
-			    question: [
-			        'yes', 
-			        'no', 
-			    ],
+                certificate: [
+                    'SSCE', 
+                    'B.Sc', 
+                    'OND', 
+                    'HND', 
+                    'MSC', 
+                    'Others', 
+                ],
 
                 position: [
                     'Parkit Pro (PP)', 
@@ -992,16 +1011,20 @@
                     'Technical Assistant (FM)', 
                 ],
 
-			    days: [
-			        'Sunday', 
-			        'Monday', 
-			        'Tuesday', 
-			        'Wednesday', 
-			        'Thursday', 
-			        'Friday', 
-			        'Saturday', 
-			        'Sunday',
-			    ],
+                question: [
+                    'yes', 
+                    'no', 
+                ],
+                days: [
+                    'Sunday', 
+                    'Monday', 
+                    'Tuesday', 
+                    'Wednesday', 
+                    'Thursday', 
+                    'Friday', 
+                    'Saturday', 
+                    'Sunday',
+                ],
             }
         },
 
@@ -1175,6 +1198,24 @@
                 this.form.position = this.selectedEmployee.position
                 this.form.user_id = this.user.id
                 this.form.location_id = this.user.location.id
+
+
+                this.form.monday = this.selectedEmployee.monday
+                this.form.tuesday = this.selectedEmployee.tuesday
+                this.form.wednesday = this.selectedEmployee.wednesday
+                this.form.thursday = this.selectedEmployee.thursday
+                this.form.friday = this.selectedEmployee.friday
+                this.form.saturday = this.selectedEmployee.saturday
+                this.form.sunday = this.selectedEmployee.sunday
+
+
+                this.form.extra_qualification1 = this.selectedEmployee.extra_qualification1
+                this.form.extra_qualification2 = this.selectedEmployee.extra_qualification2
+                this.form.extra_qualification3 = this.selectedEmployee.extra_qualification3
+                this.form.extra_qualification4 = this.selectedEmployee.extra_qualification4
+                this.form.extra_qualification5 = this.selectedEmployee.extra_qualification5
+
+
             }
 
             // if(this.user.location.code != ""){

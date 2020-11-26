@@ -1,38 +1,45 @@
 <template>
 	<div class="ni">
 	    <div class="q-gutter-y-md">
-	      	<q-btn-group push class="q-p-md" align="right">
-		      	<q-btn color="pink" label="Create New Employee" to="/web/admin/employees/new"/>
-		    </q-btn-group>
-		    <br>
+		    <div class="row" v-if="locations">  
+		    	<template v-if="locations">
 
-	        <q-table
-			    title="Employees"
-		      	:data="employees"
-		      	:columns="columns"
-		      	row-key="name"
-	      		:filter="filterModel"
-			    >
-			    <template v-slot:top-right>
-			        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
-			          <template v-slot:append>
-			            <q-icon name="search" v-model="filterModel"/>
-			          </template>
-			        </q-input>
-		      	</template>
-			    <template slot="body" slot-scope="props">
-			      	<q-tr :props="props">
-			      		<q-td key="identifier" :props="props">{{props.row.identifier ? props.row.identifier : 'N/A'}}</q-td>
-			      		<q-td key="name" :props="props">{{props.row.first_name}} {{props.row.middle_name}} {{props.row.last_name}}</q-td>
-			      		<q-td key="sex" :props="props">{{ props.row.sex }}</q-td>
-			      		<q-td key="phone" :props="props">{{ props.row.phone ? props.row.phone : 'N/A'}}</q-td>
-			      		<q-td key="location" :props="props">{{ props.row.location ? props.row.location.code : 'N/A'}}</q-td>
-			      		<q-td key="action" :props="props">
-			      			<q-btn color="orange" unelevated icon="preview" @click="viewModel(props.row)"/>
-			      		</q-td>
-			      	</q-tr>
-			    </template>
-		    </q-table>
+		    		<q-card class="q-ma-sm my-card bg-primary text-white">
+		    			<q-card-section>
+		    				<div class="text-h6">All Staff</div>
+		    				<div class="text-subtitle2">All Locations</div>
+		    			</q-card-section>
+
+		    			<!-- <q-card-section>
+		    				<p >Users: {{locate.numberOfUsers}}</p>
+		    			</q-card-section> -->
+
+		    			<q-separator dark />
+
+		    			<q-card-actions>
+		    				<q-btn flat to="/web/admin/all-employees">View Staff in Location</q-btn>
+		    			</q-card-actions>
+		    		</q-card>
+
+		    		<q-card v-for="locate in locations" :key="locate.id" class="q-ma-sm my-card bg-primary text-white">
+		    			<q-card-section>
+		    				<div class="text-h6">{{locate.code}}</div>
+		    				<div class="text-subtitle2">{{locate.locationName}}</div>
+		    			</q-card-section>
+
+		    			<!-- <q-card-section>
+		    				<p >Users: {{locate.numberOfUsers}}</p>
+		    			</q-card-section> -->
+
+		    			<q-separator dark />
+
+		    			<q-card-actions>
+		    				<q-btn flat @click="viewLocation(locate.id)">View Staff in Location</q-btn>
+		    			</q-card-actions>
+		    		</q-card>
+		    	</template>
+
+		    </div>
 	    </div>
     </div>
 </template>
@@ -116,21 +123,24 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+          		locations: 'locationSettings/locations',
             }),
-
-            // envHelper(){
-            // 	return env
-            // },
         },
             
         methods:{
             ...mapActions({
               	getEmployees: 'employees/getAllEmployees',
               	selectEmployee: 'employees/selectEmployee',
+              	sendLocation: 'employees/sendLocation',
                 connected: 'internetStatus/setConnection',
+        		getLocations: 'locationSettings/getLocations',
             }),
 
-
+            viewLocation(item){
+            	this.sendLocation(item).then((res) => {
+            		return this.$router.push({ path: `/web/admin/employees/location/${item}` }) 
+                }) 
+            },
 
             viewModel(item){
             	this.selectEmployee(item).then((res) => {
@@ -142,15 +152,6 @@
                         this.negativeNotification(this.errorMessages)
                     }
                 }) 
-
-            	// this.connected(check).then((res) => {
-	            //     if(check == false){
-	            //         return this.negativeNotification('You are offline. Please connect to an available internet')
-	            //     }else{
-	                	
-	                    
-	            //     }
-	            // })
             },
 
             positiveNotification(message){
@@ -178,6 +179,7 @@
         	// let x = process.env
         	// console(x)
     		console.log(this.getEmployees())
+    		this.getLocations()
         }
     }
 </script>

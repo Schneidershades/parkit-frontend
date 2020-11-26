@@ -18,3 +18,7 @@ export const penaltiesAndDeductions = (state) => {
 export const guarantors = (state) => {
 	return state.guarantors
 }
+
+export const currentLocation = (state) => {
+	return state.stampLocation
+}

@@ -9,6 +9,11 @@ export const getLocationEmployees = ({ commit }, id) => {
 	})
 }
 
+export const sendLocation = ({ commit }, id) => {
+	commit('sendLocation', id)
+}
+
+
 export const getAllEmployees = ({ commit }) => {
 	return axios.get('api/v1/admin/user/employees').then((response) => {
 		console.log(response.data)

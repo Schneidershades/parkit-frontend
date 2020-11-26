@@ -233,8 +233,9 @@
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
-                                <q-select 
+                            <div class="col-12 q-pl-sm">
+
+                                <!-- <q-select 
                                     filled 
                                     v-model="form.off_day"
                                     :options="days" 
@@ -242,7 +243,14 @@
                                     lazy-rules
                                     :dense="dense"
                                     :readonly="readonly"
-                                />
+                                /> -->
+                                <q-toggle v-model="form.monday" checked-icon="check" unchecked-icon="clear" color="green"  label="Monday"/>
+                                <q-toggle v-model="form.tuesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Tuesday"/>
+                                <q-toggle v-model="form.wednesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Wednesday"/>
+                                <q-toggle v-model="form.thursday" checked-icon="check" unchecked-icon="clear" color="green"  label="Thursday"/>
+                                <q-toggle v-model="form.friday" checked-icon="check" unchecked-icon="clear" color="green"  label="Friday"/>
+                                <q-toggle v-model="form.saturday" checked-icon="check" unchecked-icon="clear" color="green"  label="Saturday"/>
+                                <q-toggle v-model="form.sunday" checked-icon="check" unchecked-icon="clear" color="green"  label="Sunday"/>
                             </div>
 
                             <div class="col-12">
@@ -805,6 +813,14 @@
                     account_number: '',
                     off_day: '',
 
+                    monday: false,
+                    tuesday: false,
+                    wednesday: false,
+                    thursday: false,
+                    friday: false,
+                    saturday: false,
+                    sunday: false,
+
                     qualification1_available: '',
                     qualification1: '',
                     qualification1_certificate: '',
@@ -834,6 +850,12 @@
                     qualification5_certificate: '',
                     qualification5_start_date: '',
                     qualification5_end_date: '',
+
+                    extra_qualification1: '',
+                    extra_qualification2: '',
+                    extra_qualification3: '',
+                    extra_qualification4: '',
+                    extra_qualification5: '',
 
                     parent_name: '',
                     parent_address: '',
@@ -940,6 +962,7 @@
                     'OND', 
                     'HND', 
                     'MSC', 
+                    'Others', 
                 ],
 
                 position: [
@@ -978,6 +1001,7 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+                currentLocation: 'employees/currentLocation',
                 locations: 'locationSettings/locations',
             }),
 
@@ -1005,7 +1029,7 @@
                         if(check == false){
                             return this.negativeNotification('You are offline. Please connect to an available internet')
                         }else{
-                        	
+
                             this.postEmployee(this.form).then((res) => {
 			                    this.positiveNotification('Resource has been created')
 			                }).catch((error) => {
@@ -1073,7 +1097,7 @@
 
         	if(this.user){
         		this.form.user_id = this.user.id
-        		this.form.location_id = this.user.location.id
+                this.form.location_id = this.currentLocation
         	}
         }
     }

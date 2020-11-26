@@ -619,6 +619,19 @@ const routes = [
     path: '',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
+
+      { path: '/web/admin/all-employees', 
+        name: 'adminAllEmployees', 
+        component: () => import('pages/WebAdmin/Employees/AllEmployees.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            // isElectron,
+            // desktopAuth
+          ]
+        },
+      },
+
       { path: '/web/admin/employees', 
         name: 'adminEmployees', 
         component: () => import('pages/WebAdmin/Employees/Employees.vue'),
@@ -628,6 +641,19 @@ const routes = [
             // isElectron,
             // desktopAuth
           ]
+        },
+      },
+
+      { path: '/web/admin/employees/location/:locationId', 
+        name: 'adminLocationEmployees', 
+        component: () => import('pages/WebAdmin/Employees/LocationEmployee.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            // isElectron,
+            // desktopAuth
+          ],
+          props:true,
         },
       },
       { path: '/web/admin/employees/new', 

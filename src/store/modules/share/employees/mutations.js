@@ -17,3 +17,8 @@ export const setEmployeePenaltiesAndDeductions = (state, payload) =>{
 export const setEmployeeGuarantors = (state, payload) =>{
 	state.guarantors = payload
 }
+
+export const sendLocation = (state, payload) =>{
+	state.stampLocation = payload
+}
+

@@ -269,7 +269,7 @@
 
 			      <q-step
 			        :name="3"
-			        title="Customer choosen Packages"
+			        title="Customer Chosen Packages"
 			        icon="assignment"
 			        :done="step > 3"
 			      >
@@ -553,6 +553,7 @@
             		this.order.payment_method = 'free'
             	}else{
             		this.order.payment_method = 'not_paid'
+	            	this.order.free_wash = 'no'
             	}
             	
             	if(this.order.payment_method == null){

@@ -9,7 +9,6 @@ import *  as getters from './getters'
 import *  as mutations from './mutations'
 import *  as actions from './actions'
 
-
 import auth from './modules/auth/auth'
 
 // general resources online needed  activities
@@ -109,7 +108,6 @@ export default new Vuex.Store({
 		roles,
 		offlineOrders,
 
-		
 		// admin
 		webAdminOrders,
 		webAdminShopping,

@@ -4,4 +4,5 @@ export default{
 	loansAndOutstandings:[],
 	penaltiesAndDeductions:[],
 	guarantors:[],
+	stampLocation:[],
 }
