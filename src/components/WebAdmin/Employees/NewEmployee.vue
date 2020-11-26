@@ -234,16 +234,6 @@
                             </div>
 
                             <div class="col-12 q-pl-sm">
-
-                                <!-- <q-select 
-                                    filled 
-                                    v-model="form.off_day"
-                                    :options="days" 
-                                    label="Off Day *"
-                                    lazy-rules
-                                    :dense="dense"
-                                    :readonly="readonly"
-                                /> -->
                                 <q-toggle v-model="form.monday" checked-icon="check" unchecked-icon="clear" color="green"  label="Monday"/>
                                 <q-toggle v-model="form.tuesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Tuesday"/>
                                 <q-toggle v-model="form.wednesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Wednesday"/>
@@ -813,13 +803,13 @@
                     account_number: '',
                     off_day: '',
 
-                    monday: false,
-                    tuesday: false,
-                    wednesday: false,
-                    thursday: false,
-                    friday: false,
-                    saturday: false,
-                    sunday: false,
+                    monday: null,
+                    tuesday: null,
+                    wednesday: null,
+                    thursday: null,
+                    friday: null,
+                    saturday: null,
+                    sunday: null,
 
                     qualification1_available: '',
                     qualification1: '',

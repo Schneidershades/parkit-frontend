@@ -256,16 +256,14 @@
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
-                                    v-model="form.off_day"
-                                    :options="days" 
-                                    label="Off Day *"
-                                    lazy-rules
-                                    :dense="dense"
-                                    :readonly="readonly"
-                                />
+                            <div class="col-12 q-pl-sm">
+                                <q-toggle v-model="form.monday" checked-icon="check" unchecked-icon="clear" color="green"  label="Monday"/>
+                                <q-toggle v-model="form.tuesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Tuesday"/>
+                                <q-toggle v-model="form.wednesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Wednesday"/>
+                                <q-toggle v-model="form.thursday" checked-icon="check" unchecked-icon="clear" color="green"  label="Thursday"/>
+                                <q-toggle v-model="form.friday" checked-icon="check" unchecked-icon="clear" color="green"  label="Friday"/>
+                                <q-toggle v-model="form.saturday" checked-icon="check" unchecked-icon="clear" color="green"  label="Saturday"/>
+                                <q-toggle v-model="form.sunday" checked-icon="check" unchecked-icon="clear" color="green"  label="Sunday"/>
                             </div>
 
                             <div class="col-12">
@@ -1214,8 +1212,6 @@
                 this.form.extra_qualification3 = this.selectedEmployee.extra_qualification3
                 this.form.extra_qualification4 = this.selectedEmployee.extra_qualification4
                 this.form.extra_qualification5 = this.selectedEmployee.extra_qualification5
-
-
             }
 
             // if(this.user.location.code != ""){
