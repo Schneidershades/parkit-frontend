@@ -14,7 +14,6 @@ export const getLocationExpenseOrders = ({ commit }, item) => {
 export const updateExpenseOrders = ({ commit, dispatch }, item) => {
 	var URL = 'api/v1/admin/user/expense-orders/'+ item.id
 	return axios.put(URL, item).then((response) => {
-		console.log(response.data)
 		dispatch('getExpenseOrders')
 		return Promise.resolve()
 	})
@@ -83,4 +82,12 @@ export const approveExpenseOrder = ({ commit, dispatch, rootState }, information
         return Promise.reject()
     })
 
+}
+
+export const deleteExpenseOrders = ({ commit }, id) => {
+	var URL = 'api/v1/admin/user/expense-orders/' + id
+	return axios.delete(URL).then((response) => {
+		dispatch('getExpenseOrders')
+		return Promise.resolve()
+	})
 }

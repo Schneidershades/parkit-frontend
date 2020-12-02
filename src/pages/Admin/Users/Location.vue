@@ -36,17 +36,16 @@
 				      	<q-tr :props="props">
 				      		<q-td key="username" :props="props">{{props.row.username}}</q-td>
 				      		<q-td key="email" :props="props">{{ props.row.email }}</q-td>
-				      		<q-td key="status" :props="props">{{ props.row.activate == true ? 'Active' : 'Not Active' }}</q-td>
+				      		<q-td key="status" :props="props">{{ props.row.activate ?  'Active' : 'Not Active' }}</q-td>
 				      		<q-td key="role" :props="props">{{ props.row.role ?  props.row.role : 'No Role' }}</q-td>
 				      		<q-td key="action" :props="props">
 		      					<!-- <q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewModel(props.row.id)"/> -->
-		      					<!-- <q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editModel(props.row.id)"/> -->
+		      					<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editModel(props.row)"/>
 	        					<q-btn color="red" unelevated icon="delete" @click="deleteModel(props.row)"/>
 				      		</q-td>
 				      	</q-tr>
 				    </template>
 			    </q-table>
-
 
 			    <q-dialog v-model="createModel" >
 			    	<q-card>
@@ -86,7 +85,7 @@
 				    					<q-input
 				    					filled
 				    					v-model="form.username"
-				    					label="Last Name *"
+				    					label="Username *"
 				    					hint="Please insert a username"
 				    					lazy-rules
 				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
@@ -154,11 +153,145 @@
 					                	map-options
 					                	label="Select Role *" />
 					                </div>
+
+
+
+					                <div class="col-6 q-pa-sm">
+		                                <q-toggle v-model="form.activate" checked-icon="check" unchecked-icon="clear" color="green"  label="Make User Active"/>
+		                            </div>
 					            </div>
 
 					            <q-btn
 						            type="submit"
-						            label="Create"
+						            label="Save"
+						            class="q-mt-md"
+						            color="primary"
+						            >
+						        </q-btn>
+						    </q-form>
+						</q-card-section>
+
+						<q-separator />
+
+						<q-card-actions align="right">
+							<q-btn flat label="Close" color="primary" v-close-popup />
+						</q-card-actions>
+					</q-card>
+				</q-dialog>
+
+				<q-dialog v-model="editModal" >
+			    	<q-card>
+			    		<q-card-section>
+			    			<div class="text-h6">Edit User</div>
+			    		</q-card-section>
+
+			    		<q-separator />
+
+			    		<q-card-section style="max-height: 500vh">
+			    			<q-form
+				    			@submit.prevent="saveUpdate"
+				    			ref="form"
+				    			>
+				    			<div class="row">
+				    				<div class="col-6 q-pa-sm">
+				    					<q-input
+				    					filled
+				    					v-model="update.first_name"
+				    					label="First Name *"
+				    					lazy-rules
+				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
+				    					/>
+				    				</div>
+				    				<div class="col-6 q-pa-sm">
+				    					<q-input
+				    					filled
+				    					v-model="update.last_name"
+				    					label="Last Name *"
+				    					hint="Please insert a name"
+				    					lazy-rules
+				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
+				    					/>
+				    				</div>
+
+				    				<div class="col-6 q-pa-sm">
+				    					<q-input
+					    					filled
+					    					v-model="update.username"
+					    					label="Username *"
+					    					hint="Please insert a username"
+					    				/>
+				    				</div>
+
+				    				<!-- <div class="col-6 q-pa-sm">
+				    					<q-input
+				    					filled
+				    					type="password"
+				    					v-model="form.password"
+				    					label="Create password *"
+				    					hint="Please insert a password"
+				    					lazy-rules
+				    					:rules="[ val => val && val.length > 7 || 'Please you need more than 8 digit']"
+				    					/>
+				    				</div> -->
+
+
+				    				<div class="col-6 q-pa-sm">
+				    					<q-input
+				    					filled
+				    					v-model="update.email"
+				    					label="Email *"
+				    					hint="Please insert an email"
+				    					lazy-rules
+				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
+				    					/>
+				    				</div>
+				    				<div class="col-6 q-pa-sm">
+				    					<q-input
+				    					filled
+				    					type="number"
+				    					v-model="update.phone"
+				    					label="Contact Phone *"
+				    					lazy-rules
+				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
+				    					/>
+				    				</div>
+					                <div class="col-6 q-pa-sm">
+
+					                	<q-select
+					                	filled 
+						                label="Select Location *"
+						                lazy-rules
+						                v-model="update.location_id" 
+						                :options="locations" 
+					                	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+					                	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
+					                	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+								        emit-value
+								        map-options
+					                    :rules="[ val => val && val.length == null || 'Please select a location']" />
+					                </div>
+
+					                <div class="col-6 q-pa-sm">
+					                	<q-select 
+					                	filled 
+					                	:options="roles" 
+					                	v-model="update.role" 
+					                	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.name : null"
+					                	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.name : null"
+					                	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+					                	emit-value
+					                	map-options
+					                	label="Select Role *" />
+					                </div>
+
+					                <div class="col-6 q-pa-sm">
+		                                <q-toggle v-model="update.activate" checked-icon="check" unchecked-icon="clear" color="green"  label="Make User Active"/>
+		                            </div>
+					            </div>
+
+					            <q-btn
+						            type="submit"
+						            label="Save"
 						            class="q-mt-md"
 						            color="primary"
 						            >
@@ -199,15 +332,31 @@ export default {
 				password: '',
 				location_id: '',
 				role: '',
+				activate: null,
 			},
+
+			update:{
+				id: '',
+				first_name: '',
+				last_name: '',
+				username: '',
+				sex: '',
+				email: '',
+				phone: '',
+				location_id: '',
+				role: '',
+				activate: null,
+			},
+
 
       		filterUsers: '',
       		fixedIncomeDialog: false,
       		fixedExpenseDialog: false,
       		seeTransaction: false,
       		createModel: false,
+      		editModal: false,
 			pagination: {
-		        rowsPerPage: 1
+		        rowsPerPage: 10
 		    },
 
 		    text: '',
@@ -258,6 +407,7 @@ export default {
           	locationUsers: 'users/locationUsers',
           	locations: 'locationSettings/locations',
           	roles: 'roles/roles',
+          	selectedStaff: 'staff/selectedStaff',
         }),
     },
 
@@ -274,7 +424,9 @@ export default {
         	getLocations: 'locationSettings/getLocations',
           	getRoles: 'roles/getRoles',
           	postStaff: 'staff/postStaff',
+          	selectStaff: 'staff/selectStaff',
           	deleteStaff: 'staff/deleteStaff',
+          	updateStaff: 'staff/updateStaff',
 	    }),	
 
 		saveUser(){
@@ -283,6 +435,34 @@ export default {
             })	   
 		},
 
+
+		editModel(item){
+			this.selectStaff(item).then((response) => {
+				this.editModal = true
+				this.update.id = item.id
+				this.update.first_name = item.first_name
+				this.update.last_name = item.last_name
+				this.update.username = item.username
+				this.update.sex = item.sex
+				this.update.email = item.email
+				this.update.phone = item.phone
+				this.update.location_id = item.location.id
+				this.update.role = item.role
+				this.update.activate = item.activate
+            })
+		},
+
+		// updateUser(item){
+		// 	this.postStaff(this.form).then((response) => {
+		// 		this.createModel = false
+  //           })
+		// },
+
+		saveUpdate(){
+			this.updateStaff(this.update).then((response) => {
+				return this.positiveNotification('resource deleted')
+            })
+		},
 
 		deleteModel(item){
 			this.deleteStaff(item).then((response) => {

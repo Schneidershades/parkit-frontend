@@ -9,6 +9,10 @@ export const getLocationUsers = ({ commit }, item) => {
 	})
 }
 
+export const currentUser = ({ commit, dispatch }, payload) => {
+	commit('currentUser', payload)
+}
+
 export const updateUser = ({ commit, dispatch }, payload) => {
 	var url = 'api/v1/admin/user/location-users/' + payload
 	return axios.put(url, credentials).then((response) => {

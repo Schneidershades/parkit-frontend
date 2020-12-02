@@ -266,8 +266,9 @@
 
                             <q-card-actions class="col-12" align="center" v-if="expenseDetails.status == 'pending'" 
                             	>
-					            <q-btn label="Approve" v-if="$can('delete', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
-					            <q-btn label="Decline"  v-if="$can('delete', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'decline')" color="red" />
+					            <q-btn label="Approve" v-if="$can('approve', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
+					            <q-btn label="Decline"  v-if="$can('decline', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'decline')" color="orange" />
+					            <q-btn label="Delete"  v-if="$can('delete', 'expenseOrders')" @click="deleteOrder(expenseDetails.id, 'decline')" color="red" />
 					        </q-card-actions>
 
 					        <!-- <q-card-actions class="col-12" align="center" v-else>					            
@@ -421,6 +422,7 @@
               	getExpenseOrders: 'expenseOrders/getExpenseOrders',
               	updateExpenseOrders: 'expenseOrders/updateExpenseOrders',
               	getExpenseOrders: 'expenseOrders/getExpenseOrders',
+              	deleteExpenseOrders: 'expenseOrders/deleteExpenseOrders',
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
         		getLocations: 'locationSettings/getLocations',
@@ -471,6 +473,13 @@
                 })
             },
 
+            deleteOrder(id){
+            	this.deleteExpenseOrders(id).then((res) => {
+                    this.editModelType=false
+                    this.positiveNotification('your request has been deleted')
+                })
+            },
+
             positiveNotification(message){
                 Notify.create({
                     type: 'positive',
@@ -510,7 +519,6 @@
         },
 
         mounted(){
-
 
     		this.getClassifications()
 

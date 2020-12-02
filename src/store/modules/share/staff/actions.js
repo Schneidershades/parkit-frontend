@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const getStaffs = ({ commit }) => {
+export const getStaff = ({ commit }) => {
 	return axios.get('api/v1/admin/user/staff-users').then((response) => {
 		commit('setStaff', response.data.data)
 		return Promise.resolve()

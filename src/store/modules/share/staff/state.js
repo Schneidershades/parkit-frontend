@@ -1,4 +1,4 @@
 export default{
 	staff:[],
-	selectedStaff:[],
+	selectedStaff:null,
 }

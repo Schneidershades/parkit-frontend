@@ -259,16 +259,14 @@
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
-                                    v-model="form.off_day"
-                                    :options="days" 
-                                    label="Off Day *"
-                                    lazy-rules
-                                    :dense="dense"
-                                    :readonly="readonly"
-                                />
+                            <div class="col-12 q-pl-sm">
+                                <q-toggle v-model="form.monday" checked-icon="check" unchecked-icon="clear" color="green"  label="Monday"/>
+                                <q-toggle v-model="form.tuesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Tuesday"/>
+                                <q-toggle v-model="form.wednesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Wednesday"/>
+                                <q-toggle v-model="form.thursday" checked-icon="check" unchecked-icon="clear" color="green"  label="Thursday"/>
+                                <q-toggle v-model="form.friday" checked-icon="check" unchecked-icon="clear" color="green"  label="Friday"/>
+                                <q-toggle v-model="form.saturday" checked-icon="check" unchecked-icon="clear" color="green"  label="Saturday"/>
+                                <q-toggle v-model="form.sunday" checked-icon="check" unchecked-icon="clear" color="green"  label="Sunday"/>
                             </div>
 
                             <div class="col-12">
@@ -345,6 +343,21 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification1_certificate == 'Others'"
+                                        v-model="form.extra_qualification1"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -423,6 +436,20 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification2_certificate == 'Others'"
+                                        v-model="form.extra_qualification2"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
+
                             </template>
 
                             <div class="col-12">
@@ -498,6 +525,22 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+
+
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification3_certificate == 'Others'"
+                                        v-model="form.extra_qualification3"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -575,6 +618,19 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification4_certificate == 'Others'"
+                                        v-model="form.extra_qualification4"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -650,6 +706,19 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+                                
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification5_certificate == 'Others'"
+                                        v-model="form.extra_qualification5"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -737,12 +806,12 @@
                                 <hr>
                             </div>
 
-                            <div class="col-6 q-pl-sm">
-                                <q-input filled :readonly="readonly" v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
+                            <div class="col-3 q-pl-sm">
+                                <q-input filled v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
                                     <template v-slot:append>
                                         <q-icon name="event" class="cursor-pointer">
                                             <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
-                                                <q-date :readonly="readonly" v-model="form.resumption_start_date" v-close-popup>
+                                                <q-date v-model="form.resumption_start_date" :readonly="readonly" :dense="dense">
                                                     <div class="row items-center justify-end">
                                                         <q-btn v-close-popup label="Close" color="primary" flat />
                                                     </div>
@@ -753,15 +822,46 @@
                                 </q-input>
                             </div>
 
-                            <div class="col-6 q-pl-sm" v-if="$can('edit', 'salaries')">
+                            <div class="col-3 q-pl-sm">
+                                <q-select 
+                                    filled 
+                                    v-model="form.position"
+                                    :options="position" 
+                                    label="Position *"
+                                    :dense="dense"
+                                    lazy-rules
+                                    :readonly="readonly"
+                                />
+                            </div>
+
+                            <div class="col-3 q-pl-sm" v-if="$can('create', 'salaries')">
                                 <q-input
                                     v-model="form.salary"
                                     filled
+                                    :dense="dense"
+                                    :readonly="readonly"
                                     type="number"
                                     min="10000"
                                     label="Salary Payment *"
                                     lazy-rules
                                 />
+                            </div>
+                            <div class="col-3" v-if="user.location.code == 'PARKIT PARENT' && selectedEmployee.location_id==null">
+
+                                <q-select
+                                filled 
+                                label="Select Location *"
+                                lazy-rules
+                                v-model="form.location_id"
+                                :readonly="readonly"
+                                :dense="dense" 
+                                :options="locations" 
+                                :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+                                :option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
+                                :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+                                emit-value
+                                map-options
+                                :rules="[ val => val && val.length == null || 'Please select a location']" />
                             </div>
 
                             <div class="col-12 q-pl-sm" v-if="$can('edit', 'employees')">
@@ -819,6 +919,20 @@
                     account_name: '',
                     account_number: '',
                     off_day: '',
+
+                    monday: false,
+                    tuesday: false,
+                    wednesday: false,
+                    thursday: false,
+                    friday: false,
+                    saturday: false,
+                    sunday: false,
+
+                    extra_qualification1: '',
+                    extra_qualification2: '',
+                    extra_qualification3: '',
+                    extra_qualification4: '',
+                    extra_qualification5: '',
 
                     qualification1_available: '',
                     qualification1: '',
@@ -945,24 +1059,44 @@
 			    ],
 
 			    sex: [
-			        'Male', 
-			        'Female', 
-			    ],
+                    'Male', 
+                    'Female', 
+                ],
 
-			    question: [
-			        'yes', 
-			        'no', 
-			    ],
-			    days: [
-			        'Sunday', 
-			        'Monday', 
-			        'Tuesday', 
-			        'Wednesday', 
-			        'Thursday', 
-			        'Friday', 
-			        'Saturday', 
-			        'Sunday',
-			    ],
+                certificate: [
+                    'SSCE', 
+                    'B.Sc', 
+                    'OND', 
+                    'HND', 
+                    'MSC', 
+                    'Others', 
+                ],
+
+                position: [
+                    'Parkit Pro (PP)', 
+                    'Head Parkit Pro (HPP)', 
+                    'Front Desk Pro (FD)', 
+                    'Manager (MG)', 
+                    'Head of Operation (HOP)', 
+                    'Assistant Head of Operation (AHOP)', 
+                    'Facility Manager (FM)', 
+                    'Technical Assistant (FM)', 
+                ],
+
+                question: [
+                    'yes', 
+                    'no', 
+                ],
+                days: [
+                    'Sunday', 
+                    'Monday', 
+                    'Tuesday', 
+                    'Wednesday', 
+                    'Thursday', 
+                    'Friday', 
+                    'Saturday', 
+                    'Sunday',
+                ],
             }
         },
 
@@ -975,6 +1109,7 @@
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
                 selectedEmployee: 'employees/selectedEmployee',
+                locations: 'locationSettings/locations',
             }),
 
             total_amount(){
@@ -986,6 +1121,7 @@
             ...mapActions({
               	updateEmployee: 'employees/updateEmployee',
                 connected: 'internetStatus/setConnection',
+                getLocations: 'locationSettings/getLocations', 
             }),
 
             submitRequest(){
@@ -1059,6 +1195,8 @@
         },
 
         mounted(){
+            
+            this.getLocations()
 
             if(this.selectedEmployee){
                 
@@ -1129,6 +1267,21 @@
                 this.form.status = this.selectedEmployee.status
                 this.form.resumption_start_date = this.selectedEmployee.resumption_start_date
                 this.form.salary = this.selectedEmployee.salary
+
+                this.form.monday = this.selectedEmployee.monday
+                this.form.tuesday = this.selectedEmployee.tuesday
+                this.form.wednesday = this.selectedEmployee.wednesday
+                this.form.thursday = this.selectedEmployee.thursday
+                this.form.friday = this.selectedEmployee.friday
+                this.form.saturday = this.selectedEmployee.saturday
+                this.form.sunday = this.selectedEmployee.sunday
+
+
+                this.form.extra_qualification1 = this.selectedEmployee.extra_qualification1
+                this.form.extra_qualification2 = this.selectedEmployee.extra_qualification2
+                this.form.extra_qualification3 = this.selectedEmployee.extra_qualification3
+                this.form.extra_qualification4 = this.selectedEmployee.extra_qualification4
+                this.form.extra_qualification5 = this.selectedEmployee.extra_qualification5
             }
 
         	if(this.user){

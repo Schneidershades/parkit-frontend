@@ -341,6 +341,21 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification1_certificate == 'Others'"
+                                        v-model="form.extra_qualification1"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -418,6 +433,20 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification2_certificate == 'Others'"
+                                        v-model="form.extra_qualification2"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
+
                             </template>
 
                             <div class="col-12">
@@ -493,6 +522,22 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+
+
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification3_certificate == 'Others'"
+                                        v-model="form.extra_qualification3"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -570,6 +615,19 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification4_certificate == 'Others'"
+                                        v-model="form.extra_qualification4"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -645,6 +703,19 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+                                
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification5_certificate == 'Others'"
+                                        v-model="form.extra_qualification5"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -759,7 +830,6 @@
                                     :readonly="readonly"
                                 />
                             </div>
-
                             <div class="col-3 q-pl-sm" v-if="$can('create', 'salaries')">
                                 <q-input
                                     v-model="form.salary"
@@ -772,7 +842,7 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3" v-if="user.location.code == 'PARKIT PARENT' && selectedEmployee.location_id==null">
+                            <div class="col-3 q-pl-sm" v-if="user.location.code == 'PARKIT PARENT' && selectedEmployee.location_id==null && $can('create', 'salaries')" >
 
                                 <q-select
                                 filled 
@@ -1121,6 +1191,9 @@
         },
 
         mounted(){
+            
+            this.getLocations()
+            
             if(this.user.location.code == "PARKIT PARENT"){
                 this.getLocations()
             }

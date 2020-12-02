@@ -317,6 +317,19 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification1_certificate == 'Others'"
+                                        v-model="form.extra_qualification1"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -392,6 +405,20 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification2_certificate == 'Others'"
+                                        v-model="form.extra_qualification2"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
@@ -469,6 +496,20 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification3_certificate == 'Others'"
+                                        v-model="form.extra_qualification3"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -545,6 +586,20 @@
                                         </template>
                                     </q-input>
                                 </div>
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification4_certificate == 'Others'"
+                                        v-model="form.extra_qualification4"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
+                                </div>
                             </template>
 
                             <div class="col-12">
@@ -620,6 +675,20 @@
                                             </q-icon>
                                         </template>
                                     </q-input>
+                                </div>
+
+
+                                <div class="col-12 q-pl-sm">
+                                    <q-input
+                                        v-if="form.qualification5_certificate == 'Others'"
+                                        v-model="form.extra_qualification5"
+                                        :dense="dense"
+                                        :readonly="readonly"
+                                        filled
+                                        label="Other Qualification *"
+                                        lazy-rules
+                                        :rules="[ val => val && val.length > 0 || 'Please provide the input']"
+                                    />
                                 </div>
                             </template>
 
