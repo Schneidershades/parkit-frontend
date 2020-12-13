@@ -240,7 +240,7 @@ export default {
   },
   mounted () {
 
-    if(this.$route.params.locationId = null || this.location==null){
+    if(this.location==null){
       this.negativeNotification('Please wait for 5 seconds please')
       return this.$router.back()
     }

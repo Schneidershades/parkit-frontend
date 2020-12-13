@@ -124,11 +124,8 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+          		location: 'accountLocation/accountLocationDetails',
             }),
-
-            // envHelper(){
-            // 	return env
-            // },
         },
             
         methods:{
@@ -175,7 +172,7 @@
         },
 
         mounted(){
-    		console.log(this.getLocationEmployees(this.$route.params.locationId))
+    		console.log(this.getLocationEmployees(this.location.id))
         }
     }
 </script>

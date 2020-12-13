@@ -76,7 +76,7 @@
                       <q-item-label>Sign Up</q-item-label>
                   </q-item-section>
               </q-item>
-              <q-item clickable to="/cart">
+              <q-item clickable to="/cart" v-if="cartItemCount>0">
                   <q-item-section avatar>
                       <q-icon name="shopping_cart" />
                   </q-item-section>

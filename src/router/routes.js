@@ -29,7 +29,8 @@ const routes = [
     path: '/cart',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
+      { path: '',
+        name: 'cart', 
         component: () => import('pages/Website/Cart.vue'),
         meta: {
           middleware:[
@@ -460,6 +461,21 @@ const routes = [
           ]
         },
       },
+
+      { path: '/web/admin/settings/platenumbers/location', 
+        name: 'webAdminLocationPlateNumbers', 
+        component: () => import('pages/WebAdmin/Location/PlateNumbers.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            admin,
+            // isElectron,
+            // desktopAuth
+          ],
+          // props: true,
+        },
+
+      },
     ]
   },
 
@@ -480,6 +496,19 @@ const routes = [
           ]
         },
       },
+      { path: '/web/admin/settings/rates/location', 
+        name: 'webAdminLocationPriceSettings', 
+        component: () => import('pages/WebAdmin/Location/PriceSettings.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            admin,
+            // isElectron,
+            // desktopAuth
+          ],
+          // props: true,
+        },
+      },
     ]
   },
 
@@ -498,7 +527,19 @@ const routes = [
             // desktopAuth
           ]
         },
-      }
+      },
+      { path: '/web/admin/online/transactions/location', 
+        name: 'webAdminLocationOnlineTransaction', 
+        component: () => import('pages/WebAdmin/Location/OnlineTransaction.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            admin,
+            // isElectron,
+            // desktopAuth
+          ],
+        },
+      },
     ]
   },
 
@@ -593,7 +634,19 @@ const routes = [
             // desktopAuth
           ]
         },
-      }
+      },
+
+      { 
+        path: '/web/admin/expense/order/location',
+        name: 'accountLocationShow',  
+        component: () => import('pages/WebAdmin/Location/Expenses.vue'), 
+        meta: {
+          middleware:[
+            websiteAuth,
+          //   desktopAuth
+          ]
+        },
+      },
     ]
   },
 
@@ -644,7 +697,7 @@ const routes = [
         },
       },
 
-      { path: '/web/admin/employees/location/:locationId', 
+      { path: '/web/admin/employees/location', 
         name: 'adminLocationEmployees', 
         component: () => import('pages/WebAdmin/Employees/LocationEmployee.vue'),
         meta: {
@@ -748,7 +801,7 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/users/location/:locationId', 
+      { path: '/web/admin/users/location', 
         name: 'admin-users-location', 
         component: () => import('pages/Admin/Users/Location.vue'),
         meta: {
@@ -789,7 +842,7 @@ const routes = [
         },
       },
       { 
-        path: '/web/admin/account/location/:locationId',
+        path: '/web/admin/account/location',
         name: 'accountLocationShow',  
         component: () => import('pages/Admin/Account/Location.vue'), 
         meta: {
@@ -798,7 +851,7 @@ const routes = [
           //   desktopAuth
           ]
         },
-        props: true,
+        // props: true,
       },
       { 
         path: '/web/admin/account/location/expense/:locationId',
@@ -965,7 +1018,7 @@ const routes = [
             // desktopAuth
           ]
         },
-      }
+      },
     ]
   },
 

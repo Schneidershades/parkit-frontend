@@ -1,3 +1,4 @@
 export default{
-	locations:[]
+	locations:[],
+	currentLocation: null,
 }

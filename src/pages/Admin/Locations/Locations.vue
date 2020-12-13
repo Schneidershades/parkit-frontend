@@ -11,9 +11,9 @@
       <div class="q-gutter-y-md">
         <q-btn type="submit" unelevated color="primary" class="q-px-md" size="md" label="Create New Location" @click="createLocation = true" />
 
-        <div class="row"> 
-          <template v-if="locations" >
-            <q-card  v-for="locate in locations" :key="locate.id" class="q-ma-sm my-card bg-primary text-white">
+        <div class="row" v-if="locations" > 
+          <template v-for="locate in locations" >
+            <q-card  :key="locate.id" class="col q-ma-sm bg-primary text-white my-card">
               <q-card-section>
                 <div class="text-h6">{{locate.code}}</div>
                 <div class="text-subtitle2">{{locate.locationName}}</div>
@@ -30,8 +30,16 @@
 
               <q-separator dark />
 
-              <q-card-actions>
-                <q-btn flat @click="viewLocation(locate)">View Account Details</q-btn>
+              <q-card-actions vertical>
+                <q-btn unelevated color="blue" @click="viewAccount(locate)">Account</q-btn>
+                <q-btn unelevated color="green" @click="viewExpense(locate)">Expenses </q-btn>
+                <q-btn unelevated color="black" @click="viewSales(locate)">Income </q-btn>
+                <q-btn unelevated color="orange" @click="viewEmployees(locate)">Employees</q-btn>
+                <q-btn unelevated color="purple" @click="viewPlateNumbers(locate)">Plate Numbers </q-btn>
+                <q-btn unelevated color="red" @click="viewPricelist(locate)">Price Lists</q-btn>
+                <q-btn unelevated color="indigo" @click="viewUsers(locate)">Location Users </q-btn>
+                <!-- <q-btn unelevated color="cyan" @click="viewLocation(locate)">Price Lists</q-btn> -->
+                <!-- <q-btn unelevated color="pink" @click="viewLocation(locate)">Location Users </q-btn> -->
               </q-card-actions>
             </q-card>
           </template> 
@@ -246,6 +254,7 @@ export default {
       ...mapGetters({
           user: 'auth/user',
           locations: 'locationSettings/locations',
+          accountLocationDetails: 'accountLocation/accountLocationDetails',
       })
   },
 
@@ -256,9 +265,48 @@ export default {
         postLocation: 'locationSettings/postLocation',
     }),
 
-    viewLocation(location) {
+    viewAccount(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/account/location/${location.id}` })   
+        return this.$router.push({ path: `/web/admin/account/location` })   
+      })  
+    },
+
+    viewExpense(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/expense/order/location` })   
+      })  
+    },
+
+    viewSales(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/online/transactions/location` })   
+      })  
+    },
+
+    viewEmployees(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/employees/location` })   
+      })  
+    },
+
+
+    viewPlateNumbers(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/settings/platenumbers/location` })   
+      })  
+    },
+
+    viewPricelist(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/settings/rates/location` })   
+      }).catch((error) => {
+          console.log('not available')
+      })  
+    },
+
+    viewUsers(location) {
+      this.sendLocationsDetails(location).then((response) => {
+        return this.$router.push({ path: `/web/admin/users/location` })   
       }).catch((error) => {
           console.log('not available')
       })  

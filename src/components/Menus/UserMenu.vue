@@ -35,7 +35,7 @@
             </q-item-section>
         </q-item>
 
-        <q-item clickable to="/user/cart">
+        <q-item clickable to="/user/cart" v-if="cartItemCount>0">
             <q-item-section avatar>
                 <q-icon name="shopping_cart" />
             </q-item-section>

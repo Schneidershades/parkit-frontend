@@ -596,15 +596,15 @@ export default {
 	},
 	mounted()
 	{
-		if(this.$route.params.locationId != null){
-			this.getAccountLocationTransactions(this.$route.params.locationId)
+		if(this.location.id != null){
+			this.getAccountLocationTransactions(this.location.id)
 		}else{
 			return this.$router.push({ path: `/web/admin/account` })  
 		}
 
     	this.getClassifications()
-	  	this.getLocationDashboard(this.$route.params.locationId)
-	  	this.getLocationStats(this.$route.params.locationId)
+	  	this.getLocationDashboard(this.location.id)
+	  	this.getLocationStats(this.location.id)
 
 		
 	}

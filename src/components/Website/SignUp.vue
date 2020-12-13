@@ -4,10 +4,20 @@
             <div class="text-h6 text-center">Sign Up</div>
             <q-card-actions align="center">
                 <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
-            </q-card-actions>  
-            <q-banner dense rounded inline-actions v-if="message" class="text-white bg-green">
-                {{message}}
-            </q-banner>          
+            </q-card-actions> 
+
+            <template v-if="message" class="q-ma-md">
+
+                <q-banner dense rounded inline-actions v-if="message.email || message.phone" class="text-white bg-red">
+                    {{message.email ? message.email[0] : null}} {{message.phone ? message.phone[0] : null}}
+                </q-banner>   
+
+                <q-banner v-else dense rounded inline-actions class="text-white bg-green">
+                    {{message}}
+                </q-banner> 
+
+            </template> 
+                
                 <q-stepper
                   v-model="step"
                   header-nav
@@ -84,7 +94,9 @@
                     <q-form
                         @submit="submitNewUser"
                     >
+
                         <div class="row">
+
                             <div class="col-lg-6 col-xm-12 col-md-6 q-pl-sm">
                                 <q-input standout v-model="newUser.phone" hint="Your Phone Number" :dense="dense" readonly />
                             </div>
@@ -155,6 +167,18 @@
                             </div>
                         </div>
 
+                        <template v-if="message" class="q-ma-md">
+
+                            <q-banner dense rounded inline-actions v-if="message.email || message.phone" class="text-white bg-red">
+                                {{message.email ? message.email[0] : null}} {{message.phone ? message.phone[0] : null}}
+                            </q-banner>   
+
+                            <q-banner v-else dense rounded inline-actions class="text-white bg-green">
+                                {{message}}
+                            </q-banner> 
+
+                        </template> 
+
                         <q-stepper-navigation>
                           <q-btn color="primary" type="submit" label="Finish" :disable="disable"/>
                           <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" :disable="disable"/>
@@ -206,8 +230,8 @@
 
         computed: {
             ...mapGetters({
-                message: 'message',
-                errorMessage: 'errorMessage',
+                message: 'errorbag/message',
+                errorMessage: 'errorbag/errorMessage',
                 newPhoneNumber: 'auth/phone',
             }),
 
@@ -273,9 +297,7 @@
                 this.stepThreeValidation(this.newUser).then((res) => {
                     this.positiveNotification('Welcome!! you are now logged in')
                     this.disable = false 
-                    this.$router.replace({
-                        to: 'user-dashboard'
-                    })
+                    return this.$router.push({name: 'userDashboard'})
                 }).catch((error) => {
                     console.log(error)
                     this.disable = false 
@@ -290,7 +312,7 @@
                 Notify.create({
                     type: 'positive',
                     color: 'positive',
-                    timeout: 3000,
+                    timeout: 6000,
                     position: 'center',
                     message: message
                 })
@@ -300,7 +322,7 @@
                 Notify.create({
                     type: 'negative',
                     color: 'negative',
-                    timeout: 3000,
+                    timeout: 6000,
                     position: 'center',
                     message: error
                 })

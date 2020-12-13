@@ -7,10 +7,6 @@
 	      </q-breadcrumbs>
 	    </div>
 
-	    <!-- {{form.location_id}} -->
-
-	    <!-- {{roles}} -->
-
 	    <div class="q-pa-md">
 		    <div class="q-gutter-y-md">
 		      	<q-btn-group push class="q-p-md" align="right">
@@ -86,6 +82,7 @@
 				    					filled
 				    					v-model="form.username"
 				    					label="Username *"
+				    					type="text"
 				    					hint="Please insert a username"
 				    					lazy-rules
 				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
@@ -125,21 +122,6 @@
 				    					:rules="[ val => val && val.length > 0 || 'Please type something']"
 				    					/>
 				    				</div>
-					                <div class="col-6 q-pa-sm">
-
-					                	<q-select
-					                	filled 
-						                label="Select Location *"
-						                lazy-rules
-						                v-model="form.location_id" 
-						                :options="locations" 
-					                	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
-					                	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
-					                	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
-								        emit-value
-								        map-options
-					                    :rules="[ val => val && val.length == null || 'Please select a location']" />
-					                </div>
 
 					                <div class="col-6 q-pa-sm">
 					                	<q-select 
@@ -154,11 +136,20 @@
 					                	label="Select Role *" />
 					                </div>
 
-
-
 					                <div class="col-6 q-pa-sm">
 		                                <q-toggle v-model="form.activate" checked-icon="check" unchecked-icon="clear" color="green"  label="Make User Active"/>
 		                            </div>
+
+					                <div class="col-12 q-pa-sm">
+					                	<div class="q-gutter-sm">
+					                		<p><b>Select Location to process</b></p>
+					                		<template v-for="location in locations">
+									      		<q-checkbox dense v-model="form.locations" :val="location.id" :label="location.locationName" color="blue" :key="location.id" />
+					                		</template>
+									    </div>
+					                </div>
+
+
 					            </div>
 
 					            <q-btn
@@ -326,6 +317,7 @@ export default {
 			form:{
 				first_name: '',
 				last_name: '',
+				username: '',
 				sex: '',
 				email: '',
 				phone: '',
@@ -333,6 +325,7 @@ export default {
 				location_id: '',
 				role: '',
 				activate: null,
+				locations: [],
 			},
 
 			update:{
@@ -346,6 +339,7 @@ export default {
 				location_id: '',
 				role: '',
 				activate: null,
+				locations: [],
 			},
 
 
@@ -495,12 +489,12 @@ export default {
 	{
     	this.getRoles()
 
-		if(this.$route.params.locationId != null){
+		if(this.location.id != null){
 
 			if(this.getLocations()){
-				this.form.location_id = this.$route.params.locationId
+				this.form.location_id = this.location.id
 			}
-			this.getLocationUsers(this.$route.params.locationId)
+			this.getLocationUsers(this.location.id)
 		}else{
 			return this.$router.push({ path: `web/admin/users` })  
 		}		
