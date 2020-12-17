@@ -201,6 +201,7 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
                 personnelRequests: 'personnelRequests/personnelRequests',
+          		location: 'accountLocation/accountLocationDetails',
             }),
         },
             
@@ -258,12 +259,14 @@
         },
 
         mounted(){
-        	if(this.user){
-        		this.getPersonnelRequests(this.user.location.id)
-        		console.log(this.user.location)
-        		this.form.user_id = this.user.id
-        		this.form.location_id = this.user.location.id
-        	}
+
+        	if(this.location == null){
+				return window.history.length > 2 
+			}
+			
+    		this.getPersonnelRequests(this.location.id)
+    		this.form.user_id = this.user.id
+    		this.form.location_id = this.user.location.id
         }
     }
 </script>

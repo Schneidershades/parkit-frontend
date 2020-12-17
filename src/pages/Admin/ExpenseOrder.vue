@@ -408,6 +408,7 @@
               	orders: 'expenseOrders/getExpenseOrders',
           		classifications: 'accountClassification/allAccountClassification',
           		locations: 'locationSettings/locations',
+          		location: 'accountLocation/accountLocationDetails',
             }),
 
             total_amount(){
@@ -426,6 +427,7 @@
                 connected: 'internetStatus/setConnection',
         		getClassifications: 'accountClassification/getAccountClassification',
         		getLocations: 'locationSettings/getLocations',
+          		location: 'accountLocation/accountLocationDetails',
             }),
 
             submitRequest(){
@@ -520,29 +522,15 @@
 
         mounted(){
 
+        	if(this.location == null){
+				return window.history.length > 2
+			}
+			
     		this.getClassifications()
-
     		this.getLocations()
-
     		this.expenseDetails = null
-
-        	if(this.user){
-
-        		if(this.user.role == 'Front Desk' || this.user.role == 'Manager'){
-        			this.form.user_id = this.user.id
-
-	        		if(this.user.location.id){
-	        			this.getLocationExpenseOrders(this.user.location.id)
-		        		console.log(this.user.location)
-		        		this.form.location_id = this.user.location.id
-	        		} 
-	        		
-        		}else{
-        			this.getExpenseOrders()
-        		}
-
-	        	       		
-        	}
+    		this.getLocationExpenseOrders(this.location.id)
+        	this.form.location_id = this.location.id
         }
     }
 </script>

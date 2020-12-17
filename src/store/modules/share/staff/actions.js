@@ -7,9 +7,10 @@ export const getStaff = ({ commit }) => {
 	})
 }
 
-export const postStaff = ({ commit, dispatch }, credentials) => {
+export const postStaff = ({ commit, dispatch, rootState }, credentials) => {
 	return axios.post('api/v1/admin/user/staff-users', credentials).then((response) => {
 		dispatch('getStaff')
+		dispatch('auth/attempt', rootState.auth.token, { root: true })
 		return Promise.resolve()
 	})
 }
@@ -19,10 +20,11 @@ export const selectStaff = ({ commit }, payload) => {
 	return Promise.resolve()
 }
 
-export const updateStaff = ({ commit, dispatch }, credentials) => {
+export const updateStaff = ({ commit, dispatch, rootState }, credentials) => {
 	var url = 'api/v1/admin/user/staff-users/' + credentials.id
 	return axios.put(url, credentials).then((response) => {
 		dispatch('getStaff')
+		dispatch('auth/attempt', rootState.auth.token, { root: true })
 		return Promise.resolve()
 	})
 }

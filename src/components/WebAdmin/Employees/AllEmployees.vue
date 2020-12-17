@@ -1,9 +1,9 @@
 <template>
 	<div class="ni">
 	    <div class="q-gutter-y-md">
-            <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="green" label="Back to Employees" to="/web/admin/employees"/>
-            </q-btn-group>
+	    	
+        	<BackButton/>
+
 	        <q-table
 			    title="Employees"
 		      	:data="employees"
@@ -42,8 +42,12 @@
     import { Notify } from 'quasar'
 	import { date } from 'quasar'
     const isOnline = require('is-online');
+    import BackButton from 'components/Share/BackButton.vue'
 
-    export default{
+	export default {
+		components: {
+			BackButton
+		},
         data(){
             return{
                 dense: false,

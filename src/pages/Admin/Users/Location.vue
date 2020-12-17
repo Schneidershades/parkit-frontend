@@ -278,6 +278,16 @@
 					                <div class="col-6 q-pa-sm">
 		                                <q-toggle v-model="update.activate" checked-icon="check" unchecked-icon="clear" color="green"  label="Make User Active"/>
 		                            </div>
+
+
+					                <div class="col-12 q-pa-sm">
+					                	<div class="q-gutter-sm">
+					                		<p><b>Select Location to process</b></p>
+					                		<template v-for="location in locations">
+									      		<q-checkbox dense v-model="update.locations" :val="location.id" :label="location.locationName" color="blue" :key="location.id" />
+					                		</template>
+									    </div>
+					                </div>
 					            </div>
 
 					            <q-btn
@@ -426,6 +436,7 @@ export default {
 		saveUser(){
 			this.postStaff(this.form).then((response) => {
 				this.createModel = false
+				return this.positiveNotification('The resource has been updated')
             })	   
 		},
 
@@ -443,6 +454,7 @@ export default {
 				this.update.location_id = item.location.id
 				this.update.role = item.role
 				this.update.activate = item.activate
+				this.update.locations = item.locations
             })
 		},
 
@@ -454,14 +466,15 @@ export default {
 
 		saveUpdate(){
 			this.updateStaff(this.update).then((response) => {
-				return this.positiveNotification('resource deleted')
+				this.editModal = false
+				return this.positiveNotification('The resource has been updated')
             })
 		},
 
 		deleteModel(item){
 			this.deleteStaff(item).then((response) => {
 				this.getLocationUsers(this.$route.params.locationId)
-				return this.positiveNotification('resource deleted')
+				return this.positiveNotification('The resource has been  deleted')
             })
 		},
 
@@ -489,14 +502,16 @@ export default {
 	{
     	this.getRoles()
 
-		if(this.location.id != null){
+
+		if(this.location){
 
 			if(this.getLocations()){
 				this.form.location_id = this.location.id
 			}
 			this.getLocationUsers(this.location.id)
 		}else{
-			return this.$router.push({ path: `web/admin/users` })  
+
+			return this.$router.push({ path: `/web/admin/locations` })  
 		}		
 	}
 }

@@ -16,6 +16,15 @@ export const getOrders = ({ commit, dispatch, rootState }) => {
 	}
 }
 
+export const getLocationOrders = ({ commit, dispatch, rootState }, payload) => {
+	return axios.get('api/v1/admin/user/location-history/' + payload).then((response) => {
+		commit('locationHistory/setLocationHistory', response.data.data, { root: true })
+		return Promise.resolve()
+	})
+}
+
+
+
 export const pendingOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
 		return axios.get('api/v1/admin/user/pending-orders').then((response) => {

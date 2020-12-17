@@ -1,6 +1,7 @@
 <template>
 	<div class="ni">
 	    <div class="q-gutter-y-md">
+	    	<BackButton/>
 		    <div class="row" v-if="locations">  
 		    	<template v-if="locations">
 
@@ -52,7 +53,13 @@
 	import { date } from 'quasar'
     const isOnline = require('is-online');
 
-    export default{
+
+    import BackButton from 'components/Share/BackButton.vue'
+
+	export default {
+		components: {
+			BackButton
+		},
         data(){
             return{
                 dense: false,

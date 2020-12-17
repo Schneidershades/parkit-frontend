@@ -11,7 +11,10 @@
       <div class="q-gutter-y-md">
         <q-btn type="submit" unelevated color="primary" class="q-px-md" size="md" label="Create New Location" @click="createLocation = true" />
 
-        <div class="row" v-if="locations" > 
+        <q-btn type="submit" unelevated color="primary" class="q-mx-md" size="md" label="All Employees" to="/web/admin/all-employees"  />
+
+        <div class="row" v-if="user" > 
+          <!-- <template v-for="locate in user.locationLists" > -->
           <template v-for="locate in locations" >
             <q-card  :key="locate.id" class="col q-ma-sm bg-primary text-white my-card">
               <q-card-section>

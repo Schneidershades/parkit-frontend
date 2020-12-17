@@ -221,6 +221,9 @@ export const getUserDeletePrivilege = async ({ commit }, item) =>{
 export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, item) =>{
 	var orders = await dispatch('getOfflineOrders')
 
+
+	commit('adminShopping/setSignedInaUserWithDiscountPrivilege', null, {root:true})
+
 	commit('setOrders', orders)
 
 	var concludedOrders = orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete' || x.status == 'pending' || x.status == 'processing');
@@ -263,6 +266,9 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 		}else{
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
 		}
+
+
+		dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
 
 		
 		return Promise.resolve()

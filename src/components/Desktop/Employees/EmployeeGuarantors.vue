@@ -1,12 +1,6 @@
 <template>
 	<div class="q-pa-sm"  v-if="guarantors">
-
-		<div class="q-gutter-y-md q-pb-md">
-            <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="green" label="Back to Employees" to="/Desktop/employees"/>
-            </q-btn-group>
-            <br>
-        </div>
+		<BackButton/>
 
 		<q-btn type="submit" 
 			unelevated 
@@ -262,7 +256,12 @@
 	import { date } from 'quasar'
     const isOnline = require('is-online');
 
-    export default{
+	import BackButton from 'components/Share/BackButton.vue'
+
+	export default {
+		components: {
+			BackButton
+		},
         data(){
             return{
                 form: {

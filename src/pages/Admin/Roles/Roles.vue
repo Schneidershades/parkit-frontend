@@ -31,8 +31,8 @@
                 </div>
 
                   <q-table
-                    flat
-                    title="All Expense Transactions"
+                      flat
+                      title="Permissions"
                       :data="permissions"
                       :columns="columns"
                       row-key="name"

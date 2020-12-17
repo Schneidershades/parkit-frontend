@@ -1,14 +1,17 @@
 <template>
 	<div class="ni">
 	    <div class="q-gutter-y-md">
-	      	<q-btn-group push class="q-mr-md" align="right">
-		      	<q-btn color="red" label="Back" to="/web/admin/employees"/>
-		    </q-btn-group>
+        	<BackButton/>
 
-	      	<q-btn-group push class="q-p-md" align="right">
-		      	<q-btn color="pink" label="Create New Employee" to="/web/admin/employees/new"/>
-		    </q-btn-group>
-		    <br>
+        	<q-btn 
+			type="submit" 
+	    	unelevated 
+	    	color="primary" 
+	    	class="q-px-md q-ma-sm" 
+	    	size="md" 
+	    	label="Create New"  
+	    	to="/web/admin/employees/new"/>
+
 
 	        <q-table
 			    title="Employees"
@@ -34,6 +37,7 @@
 			      		<q-td key="location" :props="props">{{ props.row.location ? props.row.location.code : 'N/A'}}</q-td>
 			      		<q-td key="action" :props="props">
 			      			<q-btn color="orange" unelevated icon="preview" @click="viewModel(props.row)"/>
+			      			<!-- <q-btn color="red" class="q-ma-sm" unelevated icon="delete" @click="viewDelete(props.row)"/> -->
 			      		</q-td>
 			      	</q-tr>
 			    </template>
@@ -50,7 +54,12 @@
 	import { date } from 'quasar'
     const isOnline = require('is-online');
 
-    export default{
+    import BackButton from 'components/Share/BackButton.vue'
+
+	export default {
+		components: {
+			BackButton
+		},
 		props :[
 			'locationId'
 		],

@@ -7,6 +7,14 @@ export const getRates = ({ commit }) => {
 	})
 }
 
+
+export const getLocationRates = ({ commit }, id) => {
+	return axios.get('api/v1/admin/user/location-rates/' + id).then((response) => {
+		commit('setRates', response.data.data)
+		return Promise.resolve()
+	})
+}
+
 export const postRate = ({ commit, dispatch }, credentials) => {
 	return axios.post('api/v1/admin/user/vehicle-package-settings', credentials).then((response) => {
 		dispatch('getRates')

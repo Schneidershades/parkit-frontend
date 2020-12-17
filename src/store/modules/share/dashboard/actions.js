@@ -2,14 +2,7 @@ import axios from 'axios'
 import { LocalStorage } from 'quasar'
 
 export const getLocationDashboard = ({ commit }, item) => {
-	let user = JSON.parse(LocalStorage.getItem('user'))
-
-	if(item){
-		var URL = 'api/v1/admin/user/location-dashboard/'+ item
-	}else{
-		var URL = 'api/v1/admin/user/location-dashboard/'+ user.location.id
-	}
-	
+	var URL = 'api/v1/admin/user/location-dashboard/'+ item	
 	
 	return axios.get(URL).then((response) => {
 		console.log(response.data)

@@ -1,16 +1,27 @@
 <template>
     <div class="q-pa-md">
         <div class="q-gutter-y-md q-pb-md">
-            <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="green" label="Back to Employees" to="/web/admin/employees"/>
-            </q-btn-group>
-            <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="blue" label="Loans & Outstanding" to="/web/admin/employees/loans-and-outstanding"/>
-            </q-btn-group>
+            <BackButton/>
 
-            <q-btn-group push class="q-mr-sm" align="right">
-                <q-btn color="red" label="Penalties & Deducations" to="/web/admin/employees/penalties-and-deductions"/>
-            </q-btn-group>
+
+            <q-btn 
+                type="submit" 
+                unelevated 
+                color="red" 
+                class="q-px-md q-ma-sm" 
+                size="md" 
+                label="Loans & Outstandings"  
+                to="/web/admin/employees/loans-and-outstanding"/>
+
+            <q-btn 
+                type="submit" 
+                unelevated 
+                color="blue" 
+                class="q-px-md q-ma-sm" 
+                size="md" 
+                label="Penalties & Deducations"  
+                to="/web/admin/employees/penalties-and-deductions"/>
+
             <br>
         </div>
 
@@ -887,8 +898,13 @@
     import { Notify } from 'quasar'
 	import { date } from 'quasar'
     const isOnline = require('is-online');
+    
+    import BackButton from 'components/Share/BackButton.vue'
 
-    export default{
+    export default {
+        components: {
+            BackButton
+        },
         data(){
             return{
             	date: '',

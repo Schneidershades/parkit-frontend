@@ -198,6 +198,7 @@
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
                 complaintsAndSuggestions: 'complaintsAndSuggestions/complaintsAndSuggestions',
+                location: 'accountLocation/accountLocationDetails',
             }),
         },
             
@@ -257,12 +258,14 @@
         },
 
         mounted(){
-        	if(this.user){
-        		this.getLocationComplaintsAndSuggestions(this.user.location.id)
-        		console.log(this.user.location)
-        		this.form.user_id = this.user.id
-        		this.form.location_id = this.user.location.id
-        	}
+            if(this.location == null){
+                return window.history.length > 2 
+            }
+            
+            this.getLocationComplaintsAndSuggestions(this.location.id)
+            this.form.user_id = this.user.id
+            this.form.location_id = this.location.id
+            
         }
     }
 </script>

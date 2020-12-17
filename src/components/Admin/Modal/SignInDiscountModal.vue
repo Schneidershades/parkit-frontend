@@ -74,7 +74,7 @@
             
         methods:{
             ...mapActions({
-                login: 'shopping/signInaUserWithDiscountPrivilege',
+                login: 'adminShopping/signInaUserWithDiscountPrivilege',
                 getUserPrivilege: 'adminShopping/getUsersWithDiscountPrivilege',
                 getUsersWithRight: 'adminShopping/getUsersWithRight',
             }),

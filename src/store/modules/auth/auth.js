@@ -70,6 +70,7 @@ export default ({
 			        dispatch('adminShopping/getProducts', null, { root: true })
 			        dispatch('locationHistory/getLocationHistory', null, { root: true })
 			        dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
+
 	                dispatch('attempt', response.data.token)
 	                resolve()
 
@@ -80,7 +81,7 @@ export default ({
 		    })			
 		},
 
-		async attempt({ commit, dispatch, state }, token){
+		async attempt({ commit, dispatch, state, rootState }, token){
 			if(token){
 				commit('SET_TOKEN', token)
 			}
@@ -96,7 +97,10 @@ export default ({
 		                commit('SET_USER', response.data.data)
 		                commit('SET_USER', JSON.parse(LocalStorage.getItem('user')))
 
+						commit('accountLocation/setAccountLocationDetails', response.data.data.location, {root:true})
+
 						resolve()
+
 		            }, error => {
 		                // dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
 		                // console.log(error.response.data.data.error)

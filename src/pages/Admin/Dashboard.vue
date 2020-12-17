@@ -328,6 +328,7 @@
 	          	notPaidTransactionToday: 'adminOrders/notPaidTransactionToday',
 	          	carTransactionToday: 'adminOrders/carTransactionToday',
 	          	pendingTransactionToday: 'adminOrders/pendingTransactionToday',
+          		location: 'accountLocation/accountLocationDetails',
 		    })
 	  	},
 
@@ -338,8 +339,11 @@
 	  	},
 
 	  	mounted(){
-	  		this.getLocationDashboard()
-	  		// this.getBirthdayLocationDashboard()
+	  		if(this.location == null){
+				return window.history.length > 2
+			}
+
+		  	this.getLocationDashboard(this.location.id)
 	  	}
     }
 </script>

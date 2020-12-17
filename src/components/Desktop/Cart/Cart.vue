@@ -52,7 +52,7 @@
                 </tr>
                 <tr >
                 	<td colspan="4">
-						<template v-if="userDiscountPrivilege == true && useFreeWash=='no'">
+						<template v-if="userDiscountPrivilege && useFreeWash=='no'">
 					    	<q-card-actions align="left">
 							    <div class="q-px-sm row no-wrap items-center">
 							    	<div class="col-3">
@@ -68,7 +68,7 @@
 	                            @submit.prevent="submitDiscount"
 	                            class="q-gutter-md q-pt-xl"
 	                            ref="form"
-	                        >
+	                        	>
 	                        	<div class="row" v-if="theModel==true">
 	                        		<h6 class="col-12 q-pl-sm">Discount Percentage</h6>
 		                            <div class="col-4 q-pl-sm">
@@ -130,7 +130,7 @@
 	                        </q-form>
 						</template>
 
-						<template v-if="userDiscountPrivilege == false">
+						<template v-if="!userDiscountPrivilege">
 							<q-btn type="submit"
 						        label="Authorize Discounts"
 						        class="q-mt-md"

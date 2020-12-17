@@ -1049,6 +1049,7 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+                location: 'accountLocation/accountLocationDetails',
             }),
 
             total_amount(){
@@ -1136,15 +1137,13 @@
         },
 
         mounted(){
-    		// this.getEmployees()
-            if(this.user.location.code == "PARKIT PARENT"){
-                this.getLocations()
+            
+            if(this.location == null){
+                return window.history.length > 2 
             }
 
-            if(this.user){
-                this.form.user_id = this.user.id
-                this.form.location_id = this.currentLocation
-            }
+            this.form.user_id = this.user.id
+            this.form.location_id = this.location.id
         }
     }
 </script>

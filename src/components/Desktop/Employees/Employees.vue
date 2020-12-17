@@ -116,6 +116,7 @@
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
               	employees: 'employees/employees',
+          		location: 'accountLocation/accountLocationDetails',
             }),
 
             // envHelper(){
@@ -175,9 +176,10 @@
         },
 
         mounted(){
-        	if(this.user && this.user.location!=null){
-        		console.log(this.getLocationEmployees(this.user.location.id))
-        	}
+        	if(this.location == null){
+				return window.history.length > 2 
+			}
+        	this.getLocationEmployees(this.location.id)
         }
     }
 </script>

@@ -784,6 +784,7 @@ export default {
 
           	todaysHistoryTransaction: 'locationHistory/totalTransactionToday',
 		    dashboard: 'dashboard/dashboard',
+          	location: 'accountLocation/accountLocationDetails',
         }),
     },
 
@@ -915,7 +916,11 @@ export default {
     },
     mounted(){
 
-	  	this.getLocationDashboard()
+    	if(this.location == null){
+			return window.history.length > 2
+		}
+
+	  	this.getLocationDashboard(this.location.id)
 
     	if(this.$can('edit', 'orders')){
 			this.setCurrentEditRight(true)

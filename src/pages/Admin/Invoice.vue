@@ -486,10 +486,11 @@
                 freeWashStatus: 'customerPlateNumbers/useFreeWash',
                 orderTransaction: 'adminOrders/transaction',
                 allOrders: 'adminOrders/orders',
+          		location: 'accountLocation/accountLocationDetails',
             }),
 
             titleId(){
-            	return this.user.location.code+'00v0020'+this.receiptNo 
+            	return this.location.code+'00v0020'+this.receiptNo 
             }
         },
             
@@ -514,7 +515,7 @@
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
 	            })    
-	        	this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
+	        	this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -568,7 +569,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
+	        	this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
@@ -624,7 +625,7 @@
 		            this.order.vehicle.last_name = this.checkPlateNumber.last_name
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicle_type
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicle_model
-	        		this.order.receipt_number = this.user.location.code+'00v0020'+this.receiptNo
+	        		this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
 	        		
                 }).catch((error) => {
                     this.errorMessages = error
