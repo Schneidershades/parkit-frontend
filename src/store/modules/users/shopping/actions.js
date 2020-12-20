@@ -9,6 +9,15 @@ export const getProducts = ({ commit }) => {
 	})
 }
 
+export const getLocationProducts = ({ commit, dispatch, rootState }, id) => {
+	return axios.get('api/v1/vehicles/' + id).then((response) => {
+		commit('setProducts', response.data)
+		dispatch('shopping/removeAllProductFromCart', null, { root: true })
+		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
+		return Promise.resolve()
+	})
+}
+
 export const getCart = async ({ commit }) => {
 	await axios.get('api/v1/cart').then((response) => {
 		commit('setCart', response.data.data.products)

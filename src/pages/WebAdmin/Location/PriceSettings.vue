@@ -123,6 +123,84 @@
 				            </q-card-actions>
 			          	</q-card>
 			        </q-dialog>
+
+				    <q-dialog v-model="editModal">
+			          	<q-card>
+				            <q-card-section>
+				              <div class="text-h6">Edit a Package type</div>
+				            </q-card-section>
+
+				            <q-separator />
+
+				            <q-card-section style="max-height: 500vh">
+				              	<q-form
+					                @submit.prevent="updateModel"
+					                ref="form"
+					                >
+					                <div class="row">
+						                <div class="col-12 q-pa-sm">
+						                    <q-select 
+								                filled 
+								                v-model="update.vehicle_id" 
+								                :options="vehicles" 
+								                label="Select Vehicle type*"
+								                lazy-rules
+										        :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+										        :option-label="opt => Object(opt) === opt && 'type' in opt ? opt.location +' - '+ opt.type   : null"
+										        :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+										        emit-value
+										        map-options
+							                    :rules="[ val => val.length == null || 'Please use maximum 3 characters' ]"
+								            />
+						                </div>
+
+						                
+
+						                <div class="col-12 q-pa-sm">
+						                    <q-select 
+								                filled 
+								                label="Select package type *"
+								                lazy-rules
+								                v-model="update.package_id" 
+								                :options="packages" 
+										        :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+										        :option-label="opt => Object(opt) === opt && 'type' in opt ? opt.type : null"
+										        :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+										        emit-value
+										        map-options
+							                    :rules="[ val => val && val.length == null || 'Please select a package']"
+								            />
+						                </div>
+
+						                <div class="col-12 q-pa-sm">
+						                    <q-input
+							                    filled
+							                    v-model="update.amount"
+							                    type="number"
+							                    label="How much are we selling *"
+							                    lazy-rules
+							                />
+						                </div>
+							               
+					                </div>
+
+					                <q-btn
+					                  	type="submit"
+					                  	label="save"
+					                  	class="q-mt-md"
+					                  	color="primary"
+					                  	>
+					                </q-btn>
+				              	</q-form>
+				            </q-card-section>
+
+				            <q-separator />
+
+				            <q-card-actions align="right">
+				              <q-btn flat label="Close" color="primary" v-close-popup />
+				            </q-card-actions>
+			          	</q-card>
+			        </q-dialog>
 				</div>	
 	        </div>
 	    </div>
@@ -147,7 +225,16 @@ export default {
                 amount: '',
 		    },
 
+
+			update:{
+		        vehicle_id: '',
+                package_id: '',
+                amount: '',
+		    },
+
       		createModel: null,
+
+      		editModal: null,
 
 		    filterModel: '',
 
@@ -214,30 +301,60 @@ export default {
 	methods:{
 		...mapActions({
 			getPackages: 'packages/getPackages',
-			getVehicles: 'vehicles/getVehicles',
+			getLocationVehicles: 'vehicles/getLocationVehicles',
+			updateVehicle: 'vehiclePackageRates/updateRate',
             getLocationRates: 'vehiclePackageRates/getLocationRates',
             deleteRate: 'vehiclePackageRates/deleteRate',
 		}),
 
-		saveRole(){
-
+		editModel(item){
+			this.editModal = true
+			console.log(item)
+			this.update.id = item.id
+			this.update.package_id = item.package_id
+			this.update.vehicle_id = item.vehicle_id
+			this.update.amount = item.amount
 		},
 
-		editModel(){
-
-		},	
-
-		deleteModel(id){
-			this.deleteRate(id).then((response) => {
+		updateModel(){
+			this.updateVehicle(this.update).then((response) => {
+				this.getLocationRates(this.location.id)
+				return this.positiveNotification('Updated')
             })
 		},	
+
+		// deleteModel(id){
+		// 	this.deleteRate(id).then((response) => {
+		// 		return this.positiveNotification('deleted')
+  //           })
+		// },	
+
+		positiveNotification(message){
+            Notify.create({
+                type: 'positive',
+                color: 'positive',
+                timeout: 3000,
+                position: 'center',
+                message: message
+            })
+        },
+
+        negativeNotification(error){
+            Notify.create({
+                type: 'negative',
+                color: 'negative',
+                timeout: 3000,
+                position: 'center',
+                message: error
+            })
+        },
 	},
 	mounted (){
 		if(this.location == null){
 			return this.$router.push({ path: `/web/admin/locations` })  
 		}
 		this.getPackages()
-		this.getVehicles()
+		this.getLocationVehicles(this.location.id)
 		this.getLocationRates(this.location.id)
 	},
 }

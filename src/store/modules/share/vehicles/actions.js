@@ -7,8 +7,8 @@ export const getVehicles = ({ commit }) => {
 	})
 }
 
-export const getLocationVehicles = ({ commit }) => {
-	return axios.get('api/v1/admin/user/location-vehicle-settings').then((response) => {
+export const getLocationVehicles = ({ commit }, id) => {
+	return axios.get('api/v1/admin/user/vehicle-settings/' + id).then((response) => {
 		commit('setVehicles', response.data.data)
 		return Promise.resolve()
 	})

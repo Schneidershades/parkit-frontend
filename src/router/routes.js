@@ -638,7 +638,7 @@ const routes = [
 
       { 
         path: '/web/admin/expense/order/location',
-        name: 'accountLocationShow',  
+        name: 'accountExpenseLocationShow',  
         component: () => import('pages/WebAdmin/Location/Expenses.vue'), 
         meta: {
           middleware:[

@@ -57,12 +57,13 @@
                 </tr>
 
                 <tr v-if="locationCount > 0 && authenticatedUser!=null">
-                	<td>Select Location </td>
-                	<td colspan="4">
+                	<td colspan="5"><b>Location @ {{location.locationName}} - {{location.address}} </b></td>
+
+                	<!-- <td colspan="4">
                 		<div class="q-gutter-sm" v-for="location in locations.data" :key="location.id">
                 			<b>	<q-radio v-model="location_id" :val="location.id" :label="location.address" /></b>
 					    </div>
-                	</td>
+                	</td> -->
                 </tr>
 
                 <template v-if="packageHomeOfficeCount > 0 && authenticatedUser!=null">
@@ -353,6 +354,7 @@ export default {
 			addresses: 'address/addresses',
 			discountDetails: 'shopping/discountDetails',
 			order: 'orders/orderDetails',
+          	location: 'accountLocation/accountLocationDetails',
         }),
         
         carTotalLength(){
@@ -386,9 +388,9 @@ export default {
 	    },
 		
 		placeOrder(action){ 
-			if(this.locationCount > 0 && this.location_id == '' ){
-				return this.negativeNotification('please select a location')
-			}
+			// if(this.locationCount > 0 && this.location_id == '' ){
+			// 	return this.negativeNotification('please select a location')
+			// }
 
 			if(this.packageHomeOfficeCount > 0 && this.address_id == ''){
 				return this.negativeNotification('please select an address')
@@ -416,7 +418,7 @@ export default {
 			this.placeUserOrder({
 				customer_id: this.authenticatedUser.id,
 				address_id: this.address_id,
-				location_id: this.location_id,
+				location_id: this.location.id,
 				coupon_id: this.coupon_id,
 				platform_initiated: 'web',
 				action: action,

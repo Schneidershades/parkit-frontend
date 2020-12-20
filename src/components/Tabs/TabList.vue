@@ -1,6 +1,23 @@
 <template>
 	<q-card flat>
         <h4 class="header-text">Select a Package (Location Service) </h4>
+
+	     <q-select
+            	filled 
+            	class="q-pa-xl"
+                label="Select Location *"
+                lazy-rules
+                @input="pickLocation(location_id)"
+                v-model="location_id" 
+                :options="locations.data" 
+            	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+            	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.address : null"
+            	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+		        emit-value
+		        map-options
+                :rules="[ val => val && val.length == null || 'Please select a location']" />
+
+        <!-- <b>	{{location.locationName}}</b> -->
 		<q-tabs
           	v-model="tab"
           	vertical
@@ -10,7 +27,8 @@
 			<div class="cbs-vehicle-list">
 				<template v-for="product in products.data" >
 					<q-tab 
-						@click="dialog = true" 
+						:disable="disableBox"
+						@click="dialogClick" 
 						class="col-md-3 vehicle-cbs"  
 						:name="product.slug" 
 						:label="product.type" 
@@ -25,12 +43,12 @@
 		</q-tabs>
 
 	    <q-dialog
-	      v-model="dialog"
-	      persistent
-	      :maximized="maximizedToggle"
-	      transition-show="slide-up"
-	      transition-hide="slide-down"
-	    >
+	      	v-model="dialog"
+	      	persistent
+	      	:maximized="maximizedToggle"
+	      	transition-show="slide-up"
+	      	transition-hide="slide-down"
+	    	>
 	      <q-card class="bg-white">
 	        <q-bar class="bg-primary text-white">
 	          <q-space />
@@ -211,6 +229,8 @@ export default {
 			tab: null,
 			name: 'mini-cart',
 			dialog: false,
+			location_id: '',
+			disableBox: false,
       		maximizedToggle: true
 		}
 	},
@@ -223,6 +243,8 @@ export default {
             cartTotal: 'shopping/cartTotal',
 			packageLocationCount: 'shopping/packageLocationCount',
 			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
+			locations: 'location/locations',
+          	location: 'accountLocation/accountLocationDetails',
 		}),
 
 		carTotalLength(){
@@ -232,8 +254,32 @@ export default {
 	methods:{
 		...mapActions({
 			getProducts: 'shopping/getProducts',
-			addProductToCart: 'shopping/addProductToCart'
+			addProductToCart: 'shopping/addProductToCart',
+			getLocations: 'location/getLocations',
+			getLocationProducts: 'shopping/getLocationProducts',
+        	sendLocationsDetails: 'accountLocation/setAccountLocationSelected',
 		}),
+
+		pickLocation(val){
+			this.disableBox = false
+			
+			this.getLocationProducts(this.location_id)
+
+			const existing = this.locations.data.find((item)=>{
+				// console.log(item.id)
+				return item.id === this.location_id
+			})
+
+			this.sendLocationsDetails(existing)
+		},
+
+		dialogClick(){
+			if(!this.location_id){
+				return this.negativeNotification('Please kindly select a location')
+			}
+
+			return this.dialog = true
+		},
 
 		addToCart(vehiclePackage){
 			
@@ -268,6 +314,7 @@ export default {
 
 	mounted (){
 		this.getProducts()
+		this.getLocations()
 	},
 }
 </script>

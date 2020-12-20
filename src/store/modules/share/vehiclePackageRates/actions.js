@@ -30,7 +30,7 @@ export const selectRate = ({ commit }, payload) => {
 export const updateRate = ({ commit, dispatch }, credentials) => {
 	var url = 'api/v1/admin/user/vehicle-package-settings/' + credentials.id
 	return axios.put(url, credentials).then((response) => {
-		dispatch('getRates')
+		// dispatch('getRates')
 		return Promise.resolve()
 	})
 }

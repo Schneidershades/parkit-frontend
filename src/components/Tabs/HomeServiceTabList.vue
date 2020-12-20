@@ -1,6 +1,24 @@
 <template>
 	<q-card flat>
         <h4 class="header-text">Select a Package (Home/Office Service)</h4>
+
+        <!-- {{homeServiceLocation.data}} -->
+
+        <q-select
+            	filled 
+            	class="q-pa-xl"
+                label="Select Home Service Location *"
+                lazy-rules
+                @input="pickLocation(location_id)"
+                v-model="location_id" 
+                :options="homeServiceLocation.data" 
+            	:option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
+            	:option-label="opt => Object(opt) === opt && 'id' in opt ? opt.address : null"
+            	:option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+		        emit-value
+		        map-options
+                :rules="[ val => val && val.length == null || 'Please select a location']" />
+
 		<q-tabs
           v-model="tab"
           vertical
@@ -195,7 +213,8 @@ export default {
 			tab: null,
 			name: 'mini-cart',
 			dialog: false,
-      		maximizedToggle: true
+      		maximizedToggle: true,
+      		location_id: ''
 		}
 	},
 	computed: {
@@ -207,6 +226,7 @@ export default {
             cartTotal: 'shopping/cartTotal',
 			packageLocationCount: 'shopping/packageLocationCount',
 			packageHomeOfficeCount: 'shopping/packageHomeOfficeCount',
+			homeServiceLocation: 'location/homeServiceLocations',
 		}),
 
 		carTotalLength(){
@@ -216,7 +236,9 @@ export default {
 	methods:{
 		...mapActions({
 			getProducts: 'shopping/getProducts',
-			addProductToCart: 'shopping/addProductToCart'
+			addProductToCart: 'shopping/addProductToCart',
+			getLocationProducts: 'shopping/getLocationProducts',
+			getHomeServiceLocations: 'location/getHomeServiceLocations',
 		}),
 
 		addToCart(vehiclePackage){
@@ -226,6 +248,27 @@ export default {
 			}
 
 			this.addProductToCart(vehiclePackage)
+		},
+
+		pickLocation(val){
+			this.disableBox = false
+			
+			this.getHomeServiceLocations(this.location_id)
+
+			const existing = this.homeServiceLocation.data.find((item)=>{
+				// console.log(item.id)
+				return item.id === this.location_id
+			})
+
+			this.sendLocationsDetails(existing)
+		},
+
+		dialogClick(){
+			if(!this.location_id){
+				return this.negativeNotification('Please kindly select a home service location')
+			}
+
+			return this.dialog = true
 		},
 
 		positiveNotification(message){
@@ -251,6 +294,7 @@ export default {
 
 	mounted (){
 		this.getProducts()
+		this.getHomeServiceLocations()
 	},
 }
 </script>
