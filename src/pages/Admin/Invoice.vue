@@ -9,6 +9,7 @@
 		</div>
 
 		<div class="print-hide" >
+
 			<!-- receipt number <br>
 			{{receiptNo}}<br>
 			last transaction <br>
@@ -487,6 +488,7 @@
                 orderTransaction: 'adminOrders/transaction',
                 allOrders: 'adminOrders/orders',
           		location: 'accountLocation/accountLocationDetails',
+                usersWithDiscountPrivilege: 'adminShopping/usersWithDiscountPrivilege',
             }),
 
             titleId(){
@@ -552,9 +554,6 @@
 
             	if(this.freeWashStatus=='yes' && this.freeWash == true){
             		this.order.payment_method = 'free'
-            	}else{
-            		this.order.payment_method = 'not_paid'
-	            	this.order.free_wash = 'no'
             	}
             	
             	if(this.order.payment_method == null){

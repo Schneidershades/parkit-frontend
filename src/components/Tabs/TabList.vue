@@ -2,6 +2,11 @@
 	<q-card flat>
         <h4 class="header-text">Select a Package (Location Service) </h4>
 
+        <!-- <div class="q-pa-md" >
+        	<div class="text-h5 text-center q-py-md">Please select a location</div>
+			<b>	<q-radio @input="pickLocation(location_id)" v-for="location in locations.data" :key="location.id" v-model="location_id" :val="location.id" :label="location.address" /></b>
+	    </div> -->
+
 	     <q-select
             	filled 
             	class="q-pa-xl"

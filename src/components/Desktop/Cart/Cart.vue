@@ -1,6 +1,8 @@
 <template>
 	<div class="q-pa-sm"  v-if="cart.length">
 		<!-- {{freeWashStatus}} {{freeWash}} -->
+
+		<!-- {{userDiscountPrivilege ? userDiscountPrivilege : 'no'}} -->
 		<table>
             <thead>
                 <tr>
@@ -51,8 +53,9 @@
                     <td data-label="Amount">₦ {{item.amount * item.quantity}}</td>
                 </tr>
                 <tr >
+
                 	<td colspan="4">
-						<template v-if="userDiscountPrivilege && useFreeWash=='no'">
+						<template v-if="userDiscountPrivilege!=false && useFreeWash=='no'">
 					    	<q-card-actions align="left">
 							    <div class="q-px-sm row no-wrap items-center">
 							    	<div class="col-3">
@@ -130,7 +133,7 @@
 	                        </q-form>
 						</template>
 
-						<template v-if="!userDiscountPrivilege">
+						<template v-if="userDiscountPrivilege==false">
 							<q-btn type="submit"
 						        label="Authorize Discounts"
 						        class="q-mt-md"

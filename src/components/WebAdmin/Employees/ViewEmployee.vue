@@ -22,7 +22,18 @@
                 label="Penalties & Deducations"  
                 to="/web/admin/employees/penalties-and-deductions"/>
 
+            <q-btn 
+                type="submit" 
+                unelevated 
+                color="purple" 
+                class="q-px-md q-ma-sm" 
+                size="md" 
+                label="Guarantors"  
+                to="/web/admin/employees/guarantors"/>
+
             <br>
+
+            <!-- <q-btn color="purple" label="Guarantors" v-if="$can('create', 'guarantors')" to="/desktop/employees/guarantors"/> -->
         </div>
 
         <q-card v-if="selectedEmployee">

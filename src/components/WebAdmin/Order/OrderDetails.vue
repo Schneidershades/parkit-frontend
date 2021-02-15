@@ -127,35 +127,35 @@
 	        	<div class="row">
 
 	        		<div class="col-4 q-py-sm">
-	        			Number: <br><b>{{order.vehicle.plate_number  ? order.vehicle.plate_number : 'N/A'}}</b>
+	        			Number: <br><b>{{order.vehicle  ? order.vehicle.plate_number : 'N/A'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Vehicle Type: <br><b>{{order.vehicle.vehicle_type  ? order.vehicle.vehicle_type : 'N/A'}}</b>
+	        			Vehicle Type: <br><b>{{order.vehicle  ? order.vehicle.vehicle_type : 'N/A'}}</b>
 		        	</div>
 
 		        	<div class="col-4 q-py-sm">
-	        			Model: <br><b>{{order.vehicle.vehicle_model  ? order.vehicle.vehicle_model : 'N/A'}}</b>
+	        			Model: <br><b>{{order.vehicle  ? order.vehicle.vehicle_model : 'N/A'}}</b>
 		        	</div>
 
 	        		<div class="col-4 q-py-sm">
-	        			First Name: <br><b>{{order.customer.first_name  ? order.customer.first_name : 'N/A'}}</b>
+	        			First Name: <br><b>{{order.customer  ? order.customer.first_name : 'N/A'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Last Name: <br><b>{{order.customer.last_name  ? order.customer.last_name : 'N/A'}}</b>
-		        	</div>
-
-		        	<div class="col-4 q-py-sm">
-	        			Middle Name: <br><b>{{order.customer.middleName  ? order.customer.middleName : 'N/A'}}</b>
+	        			Last Name: <br><b>{{order.customer  ? order.customer.last_name : 'N/A'}}</b>
 		        	</div>
 
 		        	<div class="col-4 q-py-sm">
-	        			Phone: <br><b>{{order.customer.phone ? order.customer.phone : 'N/A'}}</b>
+	        			Middle Name: <br><b>{{order.customer  ? order.customer.middleName : 'N/A'}}</b>
+		        	</div>
+
+		        	<div class="col-4 q-py-sm">
+	        			Phone: <br><b>{{order.customer ? order.customer.phone : 'N/A'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Username: <br><b>{{order.customer.username ? 'admin' : 'user-account'}}</b>
+	        			Username: <br><b>{{order.customer ? 'admin' : 'user-account'}}</b>
 		        	</div>
 		        	<div class="col-4 q-py-sm">
-	        			Email: <br><b>{{order.customer.email ? order.customer.email : 'N/A'}}</b>
+	        			Email: <br><b>{{order.customer ? order.customer.email : 'N/A'}}</b>
 		        	</div>
 		        	
 		        	<div class="col-4 q-py-sm">

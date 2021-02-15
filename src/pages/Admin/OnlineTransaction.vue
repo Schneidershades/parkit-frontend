@@ -134,7 +134,8 @@
 								                lazy-rules
 								                :rules="[ val => val && val.length > 0 || 'Please type in your phone number']"
 								                />
-			                            </div><br>
+			                            </div>
+			                            <br>
 			                            <div class="col-4">
 									      	<q-btn
 										        type="submit"
@@ -205,10 +206,137 @@
 				    	>
 
 				      		<TransactionDetailsPackage/>
+
+				      		<i color='red' v-if="!order.vehicle.plate_number">Kindly insert the plate number of the vehicle</i>
+
+				      		<q-form
+	                            @submit="submitFindVehicle"
+	                            class="q-py-lg"
+	                            ref="form"
+	                        	>
+	                        	<div class="row" v-if="checkPlateNumbers">
+		                            <div class="col-6 q-pl-sm">
+		                                <q-input
+		                                	v-if="checkPlateNumbers.length > 0"
+		                                    ref="name"
+		                                    filled
+		                                    v-model="plate_number.number"
+		                                    :dense="dense"
+		                                    label="Get Vehicle Details *"
+		                                    hint="Please insert a plate number"
+				                            mask="XXXXXXXXXXXXXXX"
+		                                    lazy-rules
+		                                    :rules="[ val => val && val.length > 0 || 'Please type in a vehicle number']"
+		                                />
+		                            </div>
+		                            <div class="col-6 q-pl-sm">
+		                            	<q-btn type="submit" color="primary" label="Search Plate Number" />
+		                            </div>
+		                        </div> 
+
+		                        <div v-else>
+		                        	<q-btn color="green" unelevated align="right" @click="checkOnline">To register orders click here to update plate numbers</q-btn>
+		                        </div>
+	                        </q-form>
+
+	                        <template v-if="order.vehicle.plate_number != null">
+	                        	<q-form
+		                            @submit="updateUser"
+		                            class="q-gutter-md q-pt-xl"
+		                            ref="form"
+		                        >
+		                        	<div class="row">
+		                        		<div class="col-4 q-pa-sm">
+			                                <q-input
+			                                    ref="name"
+			                                    v-model="order.vehicle.plate_number"
+			                                    filled
+			                                    label="Plate Number *"
+			                                    readonly
+			                                    :value="order.vehicle.plate_number"
+			                                />
+			                            </div>
+
+			                            <div class="col-4 q-pa-sm">
+			                                <q-input
+				                                filled
+				                                v-model="order.vehicle.phone"
+			                                    :dense="dense"
+			                                    :readonly="readonly"
+			                                    prefix="+234"
+				                                label="Phone Number"
+				                                mask="(###) ### - ####"
+				                                unmasked-value
+				                                hint="Hint : (222) 222 - 2222"
+				                                lazy-rules
+			                                    :value="order.vehicle.phone"
+				                                />
+			                            </div>
+			                            <div class="col-4 q-pa-sm">
+											<q-select 
+			                            		filled 
+			                            		v-model="order.vehicle.vehicle_type" 
+			                            		:options="vehicles" 
+			                                    label="Get Vehicle Type *"
+			                                    lazy-rules
+			                                    :dense="dense"
+			                                    :readonly="readonly"
+			                                    :value="order.vehicle.vehicle_type"
+		                                    	:rules="[ val => val && val.length > 0 || 'Select a vehicle type']"
+			                            	/>
+			                            </div>
+			                            <div class="col-4 q-pa-sm">
+			                            	<q-select 
+			                            		filled 
+			                                    v-model="order.vehicle.vehicle_model"
+			                            		:options="models" 
+			                                    label="Vehicle Model *"
+			                                    lazy-rules
+			                                    :dense="dense"
+			                                    :readonly="readonly"
+			                                    :value="order.vehicle.vehicle_model"
+			                            	/>
+			                            </div>
+		                        		<div class="col-4 q-pa-sm">
+			                                <q-input
+			                                    ref="name"
+			                                    v-model="order.vehicle.first_name"
+			                                    filled
+			                                    :dense="dense"
+			                                    label="First Name *"
+			                                    :readonly="readonly"
+			                                    :value="order.vehicle.first_name"
+			                                />
+			                            </div>
+			                            <div class="col-4 q-pa-sm">
+			                                <q-input
+			                                    ref="name"
+			                                    filled
+			                                    :dense="dense"
+			                                    v-model="order.vehicle.last_name"
+			                                    label="Last Name *"
+			                                    :readonly="readonly"
+			                                    :value="order.vehicle.last_name"
+			                                />
+			                            </div>
+			                        	
+			                        </div> 
+
+
+			                        <q-card-actions align="right">
+							          	<q-toggle color="warning" v-model="readonly" label="Edit User" /><br>
+							          	<q-btn color="primary" v-if="readonly==false" type="submit" label="Save Details " />
+								    </q-card-actions>
+		                        </q-form>
+	                        </template>
+
+
 				        <q-stepper-navigation>
-				          	<q-btn v-if="transactionDetails!=null" @click="step = 3" color="primary" label="Continue" />
+				          	<q-btn v-if="order.vehicle.plate_number && transactionDetails!=null" @click="step = 3" color="primary" label="Continue" />
 				          	<q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
 				        </q-stepper-navigation>
+
+				        <!-- {{order}} -->
 				    </q-step>
 
 				    <q-step
@@ -439,6 +567,8 @@
 				transactionDetails: 'onlineTransaction/transactionDetails',
                 orderTransaction: 'adminOrders/transaction',
 		        user: 'auth/user',
+              	checkPlateNumber: 'customerPlateNumbers/plate_number',
+              	checkPlateNumbers: 'customerPlateNumbers/plate_numbers',
             }),
         },
             
@@ -451,6 +581,7 @@
 				clearTransaction: 'onlineTransaction/transactionOrderSelected',
 				saveTransaction: 'adminOrders/saveTransaction',
                 connected: 'internetStatus/setConnection',
+                checkOnlineStatus: 'internetStatus/checkOnline',
             }),
 
 			findTransaction(type, item){
@@ -492,14 +623,15 @@
 
             submitFindVehicle(){
                 this.sendPlatenumber(this.plate_number.number).then((res) => {
+	            	this.order.packages =  this.transactionDetails.products ? this.transactionDetails.products : null
                     this.trigger = true
-                    this.newUser.plate_number = this.plate_number.number
-                    console.log(this.plateVehicleDetails)
-                    this.newUser.phone = this.plateVehicleDetails.user.phone
-                    this.newUser.first_name = this.plateVehicleDetails.user.first_name
-                    this.newUser.last_name = this.plateVehicleDetails.user.last_name
-                    this.newUser.vehicle_type = this.plateVehicleDetails.vehicle
-                    this.newUser.vehicle_model = this.plateVehicleDetails.model
+                    this.order.vehicle.plate_number = this.plate_number.number
+                    console.log(this.plateVehicleDetails, 33)
+                    this.order.vehicle.phone = this.plateVehicleDetails.user ? this.plateVehicleDetails.user.phone : null
+                    this.order.vehicle.first_name = this.plateVehicleDetails.user ? this.plateVehicleDetails.user.first_name : null
+                    this.order.vehicle.last_name = this.plateVehicleDetails.user ? this.plateVehicleDetails.user.last_name : null
+                    this.order.vehicle.vehicle_type = this.plateVehicleDetails.user ? this.plateVehicleDetails.vehicle : null
+                    this.order.vehicle.vehicle_model = this.plateVehicleDetails.user ? this.plateVehicleDetails.model : null
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)
@@ -512,13 +644,13 @@
             updateUser(){
             	this.updateCustomer(this.newUser).then((res) => {
       				this.readonly = true
-                    this.newUser.plate_number = this.plate_number.number
+                    this.order.vehicle.plate_number = this.plate_number.number
                     console.log(this.plateVehicleDetails)
-                    this.newUser.phone = this.plateVehicleDetails.user.phone
-                    this.newUser.first_name = this.plateVehicleDetails.user.first_name
-                    this.newUser.last_name = this.plateVehicleDetails.user.last_name
-                    this.newUser.vehicle_type = this.plateVehicleDetails.vehicle
-                    this.newUser.vehicle_model = this.plateVehicleDetails.model
+                    this.order.vehicle.phone = this.plateVehicleDetails.user.phone
+                    this.order.vehicle.first_name = this.plateVehicleDetails.user.first_name
+                    this.order.vehicle.last_name = this.plateVehicleDetails.user.last_name
+                    this.order.vehicle.vehicle_type = this.plateVehicleDetails.vehicle
+                    this.order.vehicle.vehicle_model = this.plateVehicleDetails.model
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)

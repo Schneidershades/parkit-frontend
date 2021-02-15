@@ -10,213 +10,85 @@
 	    <div class="container">
 		  	<div class="row">
 		      	<div class="col-12 col-md-12">
-				    <q-card
-				      	class="q-my-md my-card text-white"
-				      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-				    	>
-
-				      	<q-card-section class="row">
-
-				      		<div class="col-12">
-					        	<div class="text-h5 q-mb-md">TRANSACTIONS</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-lg">
-					        	<div class="text-subtitle2">CARS</div>
-					      	</div>
-
-					      	<div class="col-2">
-					        	<div class="text-subtitle2">TODAY <br>{{dashboard.orders.today.cars}}</div>
-					      	</div>
-
-					      	<div class="col-2">
-					        	<div class="text-subtitle2">YESTERDAY <br>{{dashboard.orders.yesterday.cars}}</div>
-					      	</div>
-
-					      	<div class="col-2">
-					        	<div class="text-subtitle2">WEEK <br>{{dashboard.orders.week.cars}}</div>
-					      	</div>
-
-					      	<div class="col-2">
-					        	<div class="text-subtitle2">MONTH <br>{{dashboard.orders.month.cars}}</div>
-					      	</div>
-
-					      	<div class="col-2">
-
-					      	</div>
-
-
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">AMOUNT</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.transaction}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.transaction}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.transaction}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.transaction}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">POS</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.pos}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.pos}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.pos}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.pos}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">CASH</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.cash}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.cash}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.cash}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.cash}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">NOT PAID</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.not_paid}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.not_paid}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.not_paid}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.not_paid}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">PENDING</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.pending}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.pending}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.pending}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.pending}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">EDIT</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.edit}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.edit}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.edit}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.edit}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">DELETE</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.today.delete}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.yesterday.delete}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.week.delete}}.00</div>
-					      	</div>
-
-					      	<div class="col-2 q-pt-sm">
-					        	<div class="text-subtitle2">₦ {{dashboard.orders.month.delete}}.00</div>
-					      	</div>
-					      	<div class="col-2">
-
-					      	</div>
-
-
-				      	</q-card-section>
-				    </q-card>
+			      	<table class="text-white " style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%); border: 1px solid #ddd;">
+			            <thead>
+			                <tr>
+			                    <th scope="col"></th>
+			                    <th scope="col">TODAY</th>
+			                    <th scope="col">YESTERDAY</th>
+			                    <th scope="col">WEEK</th>
+			                    <th scope="col">MONTH</th>
+			                    <th scope="col">DATE</th>
+			                </tr>
+			            </thead>
+			            <tbody >
+					      	<tr>
+			                	<td><b>CARS</b></td>
+			                	<td><b>{{dashboard.orders.today.cars}}</b></td>
+			                	<td><b>{{dashboard.orders.yesterday.cars}}</b></td>
+			                	<td><b>{{dashboard.orders.week.cars}}</b></td>
+			                	<td><b>{{dashboard.orders.month.cars}}</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                
+			                <tr>
+			                	<td><b>AMOUNT</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.transaction}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.transaction}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.transaction}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.transaction}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>POS</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.pos}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.pos}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.pos}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.pos}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>CASH</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.cash}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.cash}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.cash}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.cash}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>NOT PAID</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.not_paid}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.not_paid}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.not_paid}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.not_paid}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>PENDING</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.pending}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.pending}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.pending}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.pending}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>EDIT</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.edit}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.edit}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.edit}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.edit}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			                <tr>
+			                	<td><b>DELETE</b></td>
+			                	<td><b>₦ {{dashboard.orders.today.delete}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.yesterday.delete}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.week.delete}}.00</b></td>
+			                	<td><b>₦ {{dashboard.orders.month.delete}}.00</b></td>
+			                	<td><b></b></td>
+			                </tr>
+			            </tbody>
+			        </table>
 		      	</div>     	
 		    </div>
 		</div>
@@ -428,6 +300,90 @@
 	    </div>
 	</q-page>
 </template>
+
+<style scoped>
+	table {
+		border: 1px solid #ccc;
+		border-collapse: collapse;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table caption {
+		font-size: 1.5em;
+		/*margin: .5em 0 .75em;*/
+	}
+
+	table tr {
+		/*background-color: #f8f8f8;*/
+		
+		/*border: 1px solid #ddd;*/
+		/*padding: .35em;*/
+	}
+
+	table th,
+	table td {
+		padding: .625em;
+		text-align: center;
+	}
+
+	table th {
+		font-size: .85em;
+		letter-spacing: .1em;
+		text-transform: uppercase;
+	}
+
+	@media screen and (max-width: 600px) {
+		table {
+			border: 0;
+		}
+
+		table caption {
+			font-size: 1.3em;
+		}
+
+		table thead {
+			border: none;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			margin: -1px;
+			/*overflow: hidden;*/
+			padding: 0;
+			position: absolute;
+			width: 1px;
+		}
+
+		table tr {
+			border-bottom: 3px solid #ddd;
+			display: block;
+			margin-bottom: .325em;
+		}
+
+		table td {
+			border-bottom: 1px solid #ddd;
+			display: block;
+			font-size: .8em;
+			text-align: right;
+		}
+
+		table td::before {
+		    /*
+		    * aria-label has no advantage, it won't be read inside a table
+		    content: attr(aria-label);
+		    */
+		    content: attr(data-label);
+		    float: left;
+		    font-weight: bold;
+		    text-transform: uppercase;
+		}
+
+		table td:last-child {
+			border-bottom: 0;
+		}
+	}
+</style>
 
 <script>
 

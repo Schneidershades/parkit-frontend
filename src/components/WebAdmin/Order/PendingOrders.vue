@@ -27,7 +27,10 @@
 			      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 			      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 			      		<q-td key="action" :props="props">
-			      			<q-btn color="red" unelevated label="View" @click="viewOrder(props.row.id)"/>
+			      			<!-- <q-btn color="red" unelevated label="View" @click="viewOrder(props.row.id)"/> -->
+			      			<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
+		      				<!-- <q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/> -->
+	        				<q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/>
 			      		</q-td>
 			      	</q-tr>
 			    </template>
@@ -124,11 +127,19 @@ export default {
 	methods:{
 		...mapActions({
 			getOrders: 'webAdminOrders/pendingOrders',
+			deleteOrder: 'webAdminOrders/deleteOrder',
 		}),
 
 	    viewOrder(orderId) {
 	      	return this.$router.push({ path: `/web/admin/history/orders/${orderId}` })
-		},		
+		},	
+		
+		deleteOrderId(orderId)
+		{
+			this.deleteOrder(orderId).then((response) => {
+	        	// return this.$router.push({ path: `/web/admin/history/orders/${orderId}` })
+            })  
+		},	
 	},
 	mounted (){
 		this.getOrders()

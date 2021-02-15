@@ -6,7 +6,6 @@
 		    :columns="columns"
 		    row-key="name"
 		    :data="orders"
-		    :grid="$q.screen.xs"
 		    :pagination.sync="pagination"
 		    :loading="loading"
 	      	:filter="filter"
@@ -25,7 +24,8 @@
 		    <template slot="body" slot-scope="props">
 		      	<q-tr :props="props">
 		      		<q-td key="receipt_number" :props="props">{{props.row.receipt_number ? props.row.id : 'N/A'}} - {{props.row.receipt_number ? props.row.receipt_number : 'N/A'}}</q-td>
-		      		<q-td key="packages" :props="props">{{ props.row.vehicle.plate_number }}</q-td>
+		      		<q-td key="plate_number" :props="props">{{ props.row.vehicle.plate_number }}</q-td>
+		      		<q-td key="phone" :props="props">{{ props.row.vehicle ? props.row.vehicle.phone  : 'N/A'}}</q-td>
 		      		<q-td key="subtotal" :props="props">{{ props.row.sub_total }}</q-td>
 		      		<!-- <q-td key="discount" :props="props">{{ props.row.discount }}</q-td> -->
 		      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
@@ -67,7 +67,8 @@ export default {
 		    text: '',
 		    columns: [
 		       { name: 'receipt_number', align: 'left', label: 'Order ID', field: 'receipt_number', sortable: true },
-		       { name: 'packages', align: 'left', label: 'Package(s)', field: 'packages', sortable: true },
+		       { name: 'plate_number', align: 'left', label: 'Plate No.(s)', field: 'plate_number', sortable: true },
+		       { name: 'phone', align: 'left', label: 'Customer No.(s)', field: 'phone', sortable: true },
 		       { name: 'subtotal', align: 'left', label: 'Subtotal (₦)', field: 'subtotal', sortable: true },
 		       // { name: 'discount', align: 'left', label: 'Discount (₦)', field: 'discount', sortable: true },
 		       { name: 'total', align: 'left', label: 'Total (₦)', field: 'total', sortable: true },

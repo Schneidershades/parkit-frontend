@@ -10,6 +10,7 @@
 		      	:columns="columns"
 		      	row-key="name"
 	      		:filter="filterModel"
+		    	:pagination.sync="pagination"
 			    >
 			    <template v-slot:top-right>
 			        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">

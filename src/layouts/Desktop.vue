@@ -24,7 +24,7 @@
                         <q-btn color="red" unelevated icon="settings_power" @click="shutDown" class="q-mr-sm"/>
                         <q-btn color="green" unelevated icon="wifi" class="q-mr-sm" @click="checkOnline"></q-btn>                                                   
                         <template v-if="cart.length">
-                            <q-btn color="primary" unelevated :label="carTotalLength"  />
+                            <q-btn color="primary" unelevated :label="carTotalLength" @click="right = !right" />
                         </template>
                     </template>
                 </div>

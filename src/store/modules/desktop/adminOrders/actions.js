@@ -262,7 +262,7 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
 			dispatch('dashboard/getLocationDashboard', null, { root: true })
 			dispatch('auth/attempt', rootState.auth.token, { root: true })
-			dispatch('auth/attempt', rootState.auth.token, { root: true })
+			dispatch('adminShopping/getProducts', null, { root: true })
 		}else{
 			dispatch('locationHistory/getLocationHistory', null, { root: true })
 		}

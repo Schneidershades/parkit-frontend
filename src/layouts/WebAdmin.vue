@@ -78,14 +78,14 @@
                     </q-item>
 
                     <template v-if="authenticated.role == 'Super Admin'">
-                        <q-item clickable to="/web/admin/invoice">
+                        <!-- <q-item clickable to="/web/admin/invoice">
                             <q-item-section avatar>
                                 <q-icon name="location_on" />
                             </q-item-section>
                             <q-item-section>
                                 <q-item-label>Invoice</q-item-label>
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
                         <q-item clickable to="/web/admin/history">
                             <q-item-section avatar>
                                 <q-icon name="history" />
@@ -132,16 +132,16 @@
                             </q-item-section>
                         </q-item>
 
-                        <q-item clickable to="/web/admin/settings/rates">
+                        <!-- <q-item clickable to="/web/admin/settings/rates">
                             <q-item-section avatar>
                                 <q-icon name="money" />
                             </q-item-section>
                             <q-item-section>
                                 <q-item-label>Pricing Settings</q-item-label>
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
 
-                        <q-item-label header>Users & Plate Number</q-item-label>
+                        <!-- <q-item-label header>Users & Plate Number</q-item-label> -->
 
                         <!-- <q-item clickable to="/web/admin/settings/users">
                             <q-item-section avatar>
@@ -152,14 +152,14 @@
                             </q-item-section>
                         </q-item> -->
 
-                        <q-item clickable to="/web/admin/settings/platenumbers">
+                        <!-- <q-item clickable to="/web/admin/settings/platenumbers">
                             <q-item-section avatar>
                                 <q-icon name="subject" />
                             </q-item-section>
                             <q-item-section>
                                 <q-item-label>Plate Numbers</q-item-label>
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
 
                         <q-item-label header>Discount & Coupons Settings</q-item-label>
 
@@ -181,7 +181,7 @@
                             </q-item-section>
                         </q-item>  
 
-                        <q-item-label header>Users</q-item-label>
+                       <!--  <q-item-label header>Users</q-item-label>
 
                         <q-item clickable to="/web/admin/users">
                             <q-item-section avatar>
@@ -190,7 +190,7 @@
                             <q-item-section>
                                 <q-item-label>Users</q-item-label>
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
 
                             
 
@@ -206,19 +206,11 @@
                             </q-item-section>
                         </q-item> 
 
-                        <q-item-label header>Locations</q-item-label>
 
-                        <q-item clickable to="/web/admin/locations">
-                            <q-item-section avatar>
-                                <q-icon name="house" />
-                            </q-item-section>
-                            <q-item-section>
-                                <q-item-label>Location</q-item-label>
-                            </q-item-section>
-                        </q-item>
+                        
 
 
-                        <q-item-label header>Report</q-item-label>
+                        <!-- <q-item-label header>Report</q-item-label>
 
                         <q-item clickable to="/web/admin/send/report">
                             <q-item-section avatar>
@@ -227,22 +219,25 @@
                             <q-item-section>
                                 <q-item-label>Send Report</q-item-label>
                             </q-item-section>
-                        </q-item>
+                        </q-item> -->
 
                     </template>                                  
                 </template>
 
 
 
-                <template v-if="$can('create', 'employees')">
-                    <q-item-label header>Employers</q-item-label>
 
-                    <q-item clickable to="/web/admin/employees" >
+
+
+                <template v-if="$can('show', 'locations')">
+
+                    <q-item-label header>Locations</q-item-label>
+                    <q-item clickable to="/web/admin/locations">
                         <q-item-section avatar>
-                            <q-icon name="people" />
+                            <q-icon name="house" />
                         </q-item-section>
                         <q-item-section>
-                            <q-item-label>Employees</q-item-label>
+                            <q-item-label>Location</q-item-label>
                         </q-item-section>
                     </q-item>
                 </template>
@@ -252,24 +247,24 @@
 
                     <q-item-label header>Accounts</q-item-label>
 
-                    <q-item clickable to="/web/admin/account">
+                    <!-- <q-item clickable to="/web/admin/account">
                         <q-item-section avatar>
                             <q-icon name="account_balance" />
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>Account</q-item-label>
                         </q-item-section>
-                    </q-item>
+                    </q-item> -->
 
 
-                    <q-item clickable to="/web/admin/expense/order">
+                    <!-- <q-item clickable to="/web/admin/expense/order">
                         <q-item-section avatar>
                             <q-icon name="toc" />
                         </q-item-section>
                         <q-item-section>
                             <q-item-label>Expense Orders</q-item-label>
                         </q-item-section>
-                    </q-item>
+                    </q-item> -->
 
                     <q-item clickable to="/web/admin/income-expense-category">
                         <q-item-section avatar>

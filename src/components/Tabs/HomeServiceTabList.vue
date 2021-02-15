@@ -3,6 +3,11 @@
         <h4 class="header-text">Select a Package (Home/Office Service)</h4>
 
         <!-- {{homeServiceLocation.data}} -->
+        
+        <!-- <div class="q-pa-md" >
+        	<div class="text-h5 text-center q-py-md">Please select a home service location</div>
+			<b>	<q-radio @input="pickLocation(location_id)" v-for="location in homeServiceLocation.data" :key="location.id" v-model="location_id" :val="location.id" :label="location.locationName" /></b>
+	    </div> -->
 
         <q-select
             	filled 

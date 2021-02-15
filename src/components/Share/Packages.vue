@@ -43,7 +43,7 @@
 
 	            <q-card-section style="max-height: 500vh">
 	              	<q-form
-		                @submit.prevent="saveRole"
+		                @submit.prevent="saveModel"
 		                ref="form"
 		                >
 		                <div class="row">
@@ -188,7 +188,14 @@ export default {
 	methods:{
 		...mapActions({
 			getPackages: 'packages/getPackages',
-		})		
+			postPackage: 'packages/postPackage',
+		}),
+
+		saveModel(){
+			this.postPackage(this.form).then((response) => {
+				this.createModel = true
+            })
+		}		
 	},
 	mounted (){
 		this.getPackages()

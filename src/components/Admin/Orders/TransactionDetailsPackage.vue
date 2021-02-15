@@ -5,7 +5,7 @@
             <thead>
                 <tr>
                     <th scope="col">Package</th>
-                    <th scope="col">Plate Number</th>
+                    <th scope="col"></th>
                     <th scope="col">Location</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Amount</th>
@@ -15,7 +15,7 @@
                 <tr v-for="item in transactionDetails.products" :key="item.id">
                     <td data-label="Package"><b>{{item.vehicle}}</b> - {{item.package}}</td>
                     <td data-label="Quantity">
-						<q-input
+						<!-- <q-input
 					      	ref="platenumber"
 					        label="Plate Number *"
 					        filled
@@ -25,18 +25,11 @@
 					        :rules="[
 					          val => val !== null && val !== '' || 'Please type a plate number'
 					        ]"
-					    />
+					    /> -->
 					</td>
 					<td data-label="Venue">{{item.venue}}</td>
 					<td data-label="Quantity">{{item.quantity}}</td>
                     <td data-label="Unit">₦ {{item.amount}}</td>
-                </tr>
-                <tr>
-					
-                	<td colspan="2">
-					   <q-btn color="primary" label="Save Plate Number" />
-                	</td>
-                	<td colspan="3"></td>
                 </tr>
                 <tr>
 
@@ -45,18 +38,18 @@
 					    <b>Discount 
 					    <template v-if="transactionDetails.action == 'online-free-wash'"> - {{transactionDetails.action}}</template> </b>
                 	</td>
-                	<td><b v-if="transactionDetails.discount">₦ {{transactionDetails.discount}}.00 </b></td>
+                	<td><b v-if="transactionDetails.discount">₦ {{transactionDetails.discount}} </b></td>
                 </tr>
                 <tr>
                 	<td colspan="4">
 					    <b>Subtotal</b>
                 	</td>
-                	<td><b v-if="transactionDetails.subtotal">₦ {{transactionDetails.subtotal}}.00 </b></td>
+                	<td><b v-if="transactionDetails.sub_total">₦ {{transactionDetails.sub_total}} </b></td>
                 </tr>
 
                 <tr>
                 	<td colspan="4"><b>Total</b></td>
-                	<td><h6>₦ {{transactionDetails.total}}.00</h6></td>
+                	<td><h6>₦ {{transactionDetails.total}}</h6></td>
                 </tr>
             </tbody>
         </table>

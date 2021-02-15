@@ -9,40 +9,40 @@
 
     <div class="q-pa-md">
       <div class="q-gutter-y-md">
-        <q-btn type="submit" unelevated color="primary" class="q-px-md" size="md" label="Create New Location" @click="createLocation = true" />
+        <q-btn v-if="$can('create', 'locations')" type="submit" unelevated color="primary" class="q-px-md" size="md" label="Create New Location" @click="createLocation = true" />
 
-        <q-btn type="submit" unelevated color="primary" class="q-mx-md" size="md" label="All Employees" to="/web/admin/all-employees"  />
+        <q-btn v-if="$can('create', 'employees')" type="submit" unelevated color="primary" class="q-mx-md" size="md" label="All Employees" to="/web/admin/all-employees"  />
 
         <div class="row" v-if="user" > 
           <!-- <template v-for="locate in user.locationLists" > -->
+            
+            <!-- {{locations}} -->
           <template v-for="locate in locations" >
-            <q-card  :key="locate.id" class="col q-ma-sm bg-primary text-white my-card">
+            <q-card  :key="locate.id" class="q-ma-sm bg-primary text-white my-card" style="width: 200px">
               <q-card-section>
                 <div class="text-h6">{{locate.code}}</div>
                 <div class="text-subtitle2">{{locate.locationName}}</div>
               </q-card-section>
 
-              <q-card-section>
+              <!-- <q-card-section>
                 <p >Users: {{user.location.numberOfUsers}}</p> 
 
                 
                 <p >Income: {{locate.incomeAmount}}</p> 
                 <p >Expense: {{locate.expenseAmount}}</p> 
                 <p >Carry Forward: {{locate.carryForwardAmount}}</p> 
-              </q-card-section>
+              </q-card-section> -->
 
               <q-separator dark />
 
               <q-card-actions vertical>
-                <q-btn unelevated color="blue" @click="viewAccount(locate)">Account</q-btn>
-                <q-btn unelevated color="green" @click="viewExpense(locate)">Expenses </q-btn>
-                <q-btn unelevated color="black" @click="viewSales(locate)">Income </q-btn>
-                <q-btn unelevated color="orange" @click="viewEmployees(locate)">Employees</q-btn>
-                <q-btn unelevated color="purple" @click="viewPlateNumbers(locate)">Plate Numbers </q-btn>
-                <q-btn unelevated color="red" @click="viewPricelist(locate)">Price Lists</q-btn>
-                <q-btn unelevated color="indigo" @click="viewUsers(locate)">Location Users </q-btn>
-                <!-- <q-btn unelevated color="cyan" @click="viewLocation(locate)">Price Lists</q-btn> -->
-                <!-- <q-btn unelevated color="pink" @click="viewLocation(locate)">Location Users </q-btn> -->
+                <q-btn unelevated v-if="$can('access', 'oneAccounts')" color="blue" @click="viewAccount(locate)">Account</q-btn>
+                <q-btn unelevated v-if="$can('show', 'expenseOrders')" color="green" @click="viewExpense(locate)">Expenses</q-btn>
+                <q-btn unelevated v-if="$can('show', 'orders')" color="black" @click="viewSales(locate)">Income </q-btn>
+                <q-btn unelevated v-if="$can('show', 'employees')" color="orange" @click="viewEmployees(locate)">Employees</q-btn>
+                <q-btn unelevated v-if="$can('show', 'allAccounts')" color="purple" @click="viewPlateNumbers(locate)">Plate Numbers </q-btn>
+                <q-btn unelevated v-if="$can('show', 'priceLists')" color="red" @click="viewPricelist(locate)">Price Lists</q-btn>
+                <q-btn unelevated v-if="$can('show', 'users')" color="indigo" @click="viewUsers(locate)">Location Users </q-btn>
               </q-card-actions>
             </q-card>
           </template> 

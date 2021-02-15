@@ -19,8 +19,8 @@
 		      	:columns="columns"
 		      	row-key="name"
 	      		:filter="filterModel"
+		    	:pagination.sync="pagination"
 			    >
-			    
 			    <template v-slot:top-right>
 			        <q-input borderless dense debounce="300" v-model="filterModel" placeholder="Search">
 			          <template v-slot:append>
@@ -37,7 +37,7 @@
 			      		<q-td key="location" :props="props">{{ props.row.location ? props.row.location.code : 'N/A'}}</q-td>
 			      		<q-td key="action" :props="props">
 			      			<q-btn color="orange" unelevated icon="preview" @click="viewModel(props.row)"/>
-			      			<!-- <q-btn color="red" class="q-ma-sm" unelevated icon="delete" @click="viewDelete(props.row)"/> -->
+			      			<q-btn color="red" v-if="$can('delete', 'employees')" class="q-mx-sm" unelevated icon="delete"  v-bind:disabled="callAction" @click="deleteModel(props.row)"/>
 			      		</q-td>
 			      	</q-tr>
 			    </template>
@@ -139,16 +139,20 @@
             
         methods:{
             ...mapActions({
-              	getEmployees: 'employees/getAllEmployees',
-              	selectEmployee: 'employees/selectEmployee',
-                connected: 'internetStatus/setConnection',
               	getLocationEmployees: 'employees/getLocationEmployees',
+              	selectEmployee: 'employees/selectEmployee',
+              	deleteEmployee: 'employees/deleteEmployee',
+                connected: 'internetStatus/setConnection',
             }),
 
-
+            // deleteModel(){
+            // 	this.deleteEmployee(item).then((res) => {
+            //         this.positiveNotification('Resource has been created')
+            //     })
+            // },
 
             viewModel(item){
-            	this.selectEmployee(item).then((res) => {
+                this.selectEmployee(item).then((res) => {
          			return this.$router.push({ path: `/web/admin/employees/view` })  
                 }).catch((error) => {
                     this.errorMessages = error
@@ -157,6 +161,32 @@
                         this.negativeNotification(this.errorMessages)
                     }
                 }) 
+            },
+
+
+            deleteModel(item){
+            	this.callAction = true
+            	(async () => {
+	            	var check = await isOnline()
+	            	this.connected(check).then((res) => {
+		                if(check == false){
+		                    return this.negativeNotification('You are offline. Please connect to an available internet')
+		                }else{
+		                	this.deleteEmployee(item).then((res) => {
+		                		this.getLocationEmployees(this.location.id)
+			         			return this.positiveNotification('Item deleted') 
+			                }).catch((error) => {
+			                	this.callAction = false
+			                    this.errorMessages = error
+			                    console.log(this.errorMessages)
+			                    if(this.errorMessages){
+			                        this.negativeNotification(this.errorMessages)
+			                    }
+			                }) 
+		                }
+		            })
+
+                })();
             },
 
             positiveNotification(message){

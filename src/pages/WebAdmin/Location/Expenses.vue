@@ -267,9 +267,9 @@
 
                             <q-card-actions class="col-12" align="center" v-if="expenseDetails.status == 'pending'" 
                             	>
-					            <q-btn label="Approve" v-if="$can('approve', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
-					            <q-btn label="Decline"  v-if="$can('decline', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'decline')" color="orange" />
-					            <q-btn label="Delete"  v-if="$can('delete', 'expenseOrders')" @click="deleteOrder(expenseDetails.id, 'decline')" color="red" />
+					            <q-btn label="Approve" v-if="$can('approved', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'approve')" color="primary" />
+					            <q-btn label="Decline"  v-if="$can('declined', 'expenseOrders')" @click="updateOrder(expenseDetails.id, 'decline')" color="orange" />
+					            <q-btn label="Delete"  v-if="$can('deleted', 'expenseOrders')" @click="deleteOrder(expenseDetails.id, 'decline')" color="red" />
 					        </q-card-actions>
                         </div>  
 			        </q-card-section>

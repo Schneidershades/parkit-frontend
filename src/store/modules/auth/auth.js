@@ -86,6 +86,10 @@ export default ({
 				commit('SET_TOKEN', token)
 			}
 
+			if(process.env.MODE == 'electron'){
+				dispatch('adminShopping/getProducts', null, { root: true })
+			}
+
 			if(!state.token){
 				return
 			}

@@ -1,15 +1,15 @@
 <template>
     <div class="q-pa-md">
         <BackButton/>
-        <q-card>
+        <q-card>            
             <q-card-section>            
                 <div class="q-pa-md">
-    				<q-form
+                    <q-form
                         @submit="submitRequest"
                         class="q-gutter-md"
                         ref="form"
                         >
-                    	<div class="row">
+                        <div class="row">
                             <div class="col-4 q-pl-sm">
                                 <q-input
                                     ref="name"
@@ -825,7 +825,7 @@
                                 <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
                             </q-card-actions>
                         </div> 
-                    </q-form> 	
+                    </q-form>   
                 </div>
             </q-card-section>
         </q-card>
@@ -836,7 +836,7 @@
     
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
-	import { date } from 'quasar'
+    import { date } from 'quasar'
     const isOnline = require('is-online');
     
     import BackButton from 'components/Share/BackButton.vue'
@@ -848,7 +848,7 @@
         data(){
             return{
 
-            	date: '',
+                date: '',
                 form: {
                     staffable_id : '',
                     staffable_type : '',
@@ -937,83 +937,83 @@
                 createModelType: false,
                 editModelType: false,
                 expenseDetails: null,
-				separator: 'cell',
+                separator: 'cell',
 
-				pagination: {
-			        rowsPerPage: 30,
-			        page: 1
-			    },
+                pagination: {
+                    rowsPerPage: 30,
+                    page: 1
+                },
 
                 columns: [
-			       {
-			          name: 'created_at',
-			          align: 'left',
-			          label: 'Created',
-			          field: 'created_at',
-			          sortable: true
-			       },
-			       {
-			          name: 'account_classification',
-			          align: 'left',
-			          label: 'Class(s)',
-			          field: 'account_classification',
-			          sortable: true
-			       },
-			       {
-			          name: 'quantity',
-			          align: 'left',
-			          label: 'Quantity',
-			          field: 'quantity',
-			          sortable: true
-			       },
-			       {
-			          name: 'amount',
-			          align: 'left',
-			          label: 'Amount',
-			          field: 'amount',
-			          sortable: true
-			       },
-			       {
-			          name: 'total',
-			          align: 'left',
-			          label: 'Total',
-			          field: 'total',
-			          sortable: true
-			       },
-			       {
-			          name: 'user',
-			          align: 'left',
-			          label: 'User(s)',
-			          field: 'user',
-			          sortable: true
-			       },
-			       {
-			          name: 'reminder_count',
-			          align: 'left',
-			          label: 'Notice(s)',
-			          field: 'reminder_count',
-			          sortable: true
-			       },
-			       {
-			          name: 'status',
-			          align: 'left',
-			          label: 'Status',
-			          field: 'status',
-			          sortable: true
-			       },
-			       {
-			          name: 'actions',
-			          align: 'left',
-			          label: 'Action(s)',
-			          field: 'actions',
-			          sortable: true
-			       },
-			    ],
+                   {
+                      name: 'created_at',
+                      align: 'left',
+                      label: 'Created',
+                      field: 'created_at',
+                      sortable: true
+                   },
+                   {
+                      name: 'account_classification',
+                      align: 'left',
+                      label: 'Class(s)',
+                      field: 'account_classification',
+                      sortable: true
+                   },
+                   {
+                      name: 'quantity',
+                      align: 'left',
+                      label: 'Quantity',
+                      field: 'quantity',
+                      sortable: true
+                   },
+                   {
+                      name: 'amount',
+                      align: 'left',
+                      label: 'Amount',
+                      field: 'amount',
+                      sortable: true
+                   },
+                   {
+                      name: 'total',
+                      align: 'left',
+                      label: 'Total',
+                      field: 'total',
+                      sortable: true
+                   },
+                   {
+                      name: 'user',
+                      align: 'left',
+                      label: 'User(s)',
+                      field: 'user',
+                      sortable: true
+                   },
+                   {
+                      name: 'reminder_count',
+                      align: 'left',
+                      label: 'Notice(s)',
+                      field: 'reminder_count',
+                      sortable: true
+                   },
+                   {
+                      name: 'status',
+                      align: 'left',
+                      label: 'Status',
+                      field: 'status',
+                      sortable: true
+                   },
+                   {
+                      name: 'actions',
+                      align: 'left',
+                      label: 'Action(s)',
+                      field: 'actions',
+                      sortable: true
+                   },
+                ],
 
-			    sex: [
-			        'Male', 
-			        'Female', 
-			    ],
+                sex: [
+                    'Male', 
+                    'Female', 
+                ],
 
                 certificate: [
                     'SSCE', 
@@ -1035,50 +1035,50 @@
                     'Technical Assistant (FM)', 
                 ],
 
-			    question: [
-			        'yes', 
-			        'no', 
-			    ],
-			    days: [
-			        'Sunday', 
-			        'Monday', 
-			        'Tuesday', 
-			        'Wednesday', 
-			        'Thursday', 
-			        'Friday', 
-			        'Saturday', 
-			        'Sunday',
-			    ],
+                question: [
+                    'yes', 
+                    'no', 
+                ],
+                days: [
+                    'Sunday', 
+                    'Monday', 
+                    'Tuesday', 
+                    'Wednesday', 
+                    'Thursday', 
+                    'Friday', 
+                    'Saturday', 
+                    'Sunday',
+                ],
             }
         },
 
         computed: {
             ...mapGetters({
-		        user: 'auth/user',
+                user: 'auth/user',
                 message: 'message',
                 errorMessage: 'errorMessage',
                 newPhoneNumber: 'auth/phone',
                 online: 'auth/onlineStatus',
-              	employees: 'employees/employees',
+                employees: 'employees/employees',
                 currentLocation: 'employees/currentLocation',
                 locations: 'locationSettings/locations',
             }),
 
             total_amount(){
-            	return this.form.amount * this.form.quantity
+                return this.form.amount * this.form.quantity
             }
         },
             
         methods:{
             ...mapActions({
-              	postEmployee: 'employees/postEmployee',
-              	getEmployees: 'employees/getLocationEmployees',
+                postEmployee: 'employees/postEmployee',
+                getEmployees: 'employees/getLocationEmployees',
                 connected: 'internetStatus/setConnection',
                 getLocations: 'locationSettings/getLocations',
             }),
 
             submitRequest(){
-            	(async () => {
+                (async () => {
                     var check = await isOnline()
                     console.log(check);
                     if(check == false){
@@ -1090,23 +1090,24 @@
                         }else{
 
                             this.postEmployee(this.form).then((res) => {
-			                    this.positiveNotification('Resource has been created')
-			                }).catch((error) => {
-			                    this.errorMessages = error
-			                    console.log(this.errorMessages)
-			                    if(this.errorMessages){
-			                        this.negativeNotification(this.errorMessages)
-			                    }
-			                }) 
+                                this.positiveNotification('Resource has been created')
+                                return this.$router.replace({path: '/desktop/employees'})
+                            }).catch((error) => {
+                                this.errorMessages = error
+                                console.log(this.errorMessages)
+                                if(this.errorMessages){
+                                    this.negativeNotification(this.errorMessages)
+                                }
+                            }) 
                         }
                     })
                 })();      
             },
 
             viewDetails(item){
-            	this.editModelType = true
+                this.editModelType = true
 
-            	this.expenseDetails = item
+                this.expenseDetails = item
             },
 
             positiveNotification(message){
@@ -1130,34 +1131,34 @@
             },
 
             optionsFn () {
-	     		var today = new Date();
-	  			var bu = today.getDate();
-		      	
-	     		console.log(new Date())
-	     		var timeStamp = Date.now()
-				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
-				return formattedString
-		    },
+                var today = new Date();
+                var bu = today.getDate();
+                
+                console.log(new Date())
+                var timeStamp = Date.now()
+                var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+                return formattedString
+            },
 
-		    time(){
-		    	var today = new Date();
-		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
-            	today.getSeconds();
-            	return time
-		    },
+            time(){
+                var today = new Date();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+                today.getSeconds();
+                return time
+            },
         },
 
         mounted(){
-    		// this.getEmployees()
+            // this.getEmployees()
 
             if(this.user.location.code == "PARKIT PARENT"){
                 this.getLocations()
             }
 
-        	if(this.user){
-        		this.form.user_id = this.user.id
-                this.form.location_id = this.currentLocation
-        	}
+            if(this.user){
+                this.form.user_id = this.user.id
+                this.form.location_id = this.user.location.id
+            }
         }
     }
 </script>

@@ -9,10 +9,12 @@
 
 	    <div class="q-pa-md">
 		    <div class="q-gutter-y-md">
-		      	<q-btn-group push class="q-p-md" align="right">
-			      	<q-btn push to="/web/admin/users" label="Back"/>
-			      	<q-btn push  @click="createModel = true" label="New User"/>
-			    </q-btn-group>
+
+		    	<BackButton/>
+
+		    	<q-btn unelevated color="primary" class="q-my-md" size="md" label="Create" @click="createModel = true" />
+
+
 		        <q-table
 				    title="All Location Users"
 			      	:data="locationUsers"
@@ -317,8 +319,12 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import { Notify } from 'quasar'
+import BackButton from 'components/Share/BackButton.vue'
 
 export default {
+    components: {
+        BackButton
+    },
 	props :[
 		'locationId'
 	],

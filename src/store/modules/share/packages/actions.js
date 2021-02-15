@@ -9,7 +9,7 @@ export const getPackages = ({ commit }) => {
 
 export const postPackage = ({ commit, dispatch }, credentials) => {
 	return axios.post('api/v1/admin/user/package-settings', credentials).then((response) => {
-		commit('setPartnership', response.data)
+		// commit('setPartnership', response.data)
 		dispatch('getPackages')
 		return Promise.resolve()
 	})

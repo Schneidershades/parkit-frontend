@@ -28,6 +28,14 @@ export const postEmployee = ({ commit, dispatch }, credentials) => {
 	})
 }
 
+export const deleteEmployee = ({ commit, dispatch }, credentials) => {
+	var url = 'api/v1/admin/user/employees/' + credentials.id
+	return axios.delete(url, credentials).then((response) => {
+		return Promise.resolve()
+	})
+}
+
+
 export const selectEmployee = ({ commit }, payload) => {
 	commit('setSelectedEmployee', payload)
 	return Promise.resolve()
