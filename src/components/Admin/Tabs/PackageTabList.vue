@@ -403,11 +403,13 @@ export default {
 
 		addToCart(vehiclePackage){
 			this.addProductToCart(vehiclePackage)
+			this.dialog=false
 		},
 
 		removeAllThenAddToCart(vehiclePackage){
 			this.removeAllProductFromCart()
 			this.addProductToCart(vehiclePackage)
+			this.dialog=false
 		}
 	},
 

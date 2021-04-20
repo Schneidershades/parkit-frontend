@@ -8,14 +8,11 @@
 	    </div>
 
 	    <div class="q-pa-md q-gutter-sm print-hide row">
-	    	<!-- {{dashboard}} -->
-	    	<div class="col">
-	    		<q-card
-			      class="my-card text-white"
-			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >	
-
-
+	    	<div class="col-12 col-md-6">
+			    <q-card
+			      class="q-my-md my-card text-white"
+			      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
+			    	>	
 			      	<q-card-section class="row">
 
 			      		<div class="col-12">
@@ -66,12 +63,10 @@
 
 			        <!-- <div class="text-h5">₦ {{user.location.weeklyAmount}}.00</div> -->
 			    </q-card>
-	    	</div>
-	    	<div class="col">
-	    		<q-card
-			      class="my-card text-white"
-			      style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
-			    >
+			    <q-card
+			      	class="q-my-md my-card text-white"
+			      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
+			    	>
 
 			      	<q-card-section class="row">
 
@@ -126,7 +121,7 @@
 
 			      	</q-card-section>
 			    </q-card>
-	    	</div>
+	      	</div>
 	    </div>
 	    <div id="ticketPrinter" v-if="orderDetails!=null">
 			<div class="ticket print-only" v-if="orderDetails!=null">
@@ -283,6 +278,7 @@
 			      	row-key="name"
 		      		:filter="recentFilter"
 		    		:pagination.sync="pagination"
+		    		dense
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="recentFilter" placeholder="Search">
@@ -364,6 +360,7 @@
 		      		:filter="filterExpense"
 		      		v-if="history!=null"
 		    		:pagination.sync="pagination"
+		    		dense
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
@@ -651,7 +648,6 @@ import EditRequest from 'components/Admin/Modal/EditRequest.vue'
 import DeleteRequest from 'components/Admin/Modal/DeleteRequest.vue'
 import { date } from 'quasar'
 import { Notify } from 'quasar'
-const { remote } = require('electron')
 
 export default {
 	components: {
@@ -813,7 +809,10 @@ export default {
     	printOrderTransaction(data){
 			this.sendOrder(data).then((response) => {
 				this.action.orderDetails = this.orderDetails
-				remote.getCurrentWebContents().print({silent:true, copies : 1})
+				if(process.env.MODE == 'electron'){
+					const { remote } = require('electron')
+                    remote.getCurrentWebContents().print({silent:true, copies : 1})
+                }
             }).catch((error) => {
                 console.log(error)
                 if(this.errorMessage){

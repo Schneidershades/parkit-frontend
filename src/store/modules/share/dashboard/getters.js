@@ -6,3 +6,7 @@ export const dashboard = (state) => {
 export const locationStats = (state) => {
 	return state.locationStats
 }
+
+export const dateTransactions = (state) => {
+	return state.dateTransactions
+}

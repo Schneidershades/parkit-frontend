@@ -14,7 +14,6 @@
                 <q-toolbar-title>
                     <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
                 </q-toolbar-title>
-                
                 <div class="gt-sm">
 
                     <template v-if="authenticated" class="gt-sm">
@@ -44,7 +43,6 @@
             content-class="bg-white-2"
             class="lt-xl"
             >
-            
             <q-list>
                 <template v-if="authenticated">
                     <q-item-label header>Menu</q-item-label>

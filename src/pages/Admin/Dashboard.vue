@@ -318,7 +318,6 @@
 		    ...mapGetters({
 		        user: 'auth/user',
 		        dashboard: 'dashboard/dashboard',
-              	
 	          	todaysOrderTransaction: 'adminOrders/totalTransactionToday',
 	          	posTransactionToday: 'adminOrders/posTransactionToday',
 	          	completeTransactionToday: 'adminOrders/completeTransactionToday',
@@ -339,6 +338,7 @@
 	  	},
 
 	  	mounted(){
+
 	  		if(this.location == null){
 				return window.history.length > 2
 			}

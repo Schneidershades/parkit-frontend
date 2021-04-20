@@ -1,0 +1,7 @@
+{
+  "appId": "com.parkit.location-manager",
+  "appName": "Parkit Technology",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

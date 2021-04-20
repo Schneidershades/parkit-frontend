@@ -167,7 +167,6 @@
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
     const isOnline = require('is-online');
-    const shutdown = require('electron-shutdown-command')
 
     export default {
         name: 'Admin',
@@ -253,17 +252,20 @@
             },
 
             shutDown(){
-                (async () => {
-                    var check = await isOnline()
-                    this.onlineConnection(check).then((res) => {
-                        if(check == false){
-                            return this.negativeNotification('You are offline. Please connect to an available internet to shutdown')
-                        }
-                        if(check == true){
-                            shutdown.shutdown('')
-                        }
-                    })
-                })();
+                if(process.env.MODE == 'electron'){
+                    const shutdown = require('electron-shutdown-command')
+                    (async () => {
+                        var check = await isOnline()
+                        this.onlineConnection(check).then((res) => {
+                            if(check == false){
+                                return this.negativeNotification('You are offline. Please connect to an available internet to shutdown')
+                            }
+                            if(check == true){
+                                shutdown.shutdown('')
+                            }
+                        })
+                    })();
+                }
             },
 
 

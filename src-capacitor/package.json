@@ -1,0 +1,11 @@
+{
+  "name": "parkit-app",
+  "version": "0.0.1",
+  "description": "Parkit is a technology driven vehicle wash and care service. We pride ourselves in having; unparalleled customer experience; with our easy to use booking, payment and location finder system via our app, customers enjoy seamless booking experiences.",
+  "author": "Schneider Shades <schneidershades@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/cli": "^2.0.0",
+    "@capacitor/core": "^2.0.0"
+  }
+}

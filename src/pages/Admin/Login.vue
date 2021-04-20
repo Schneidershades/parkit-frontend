@@ -13,8 +13,6 @@
                               {{message}}
                             </q-banner>
 
-                            
-
 							<q-form class="q-gutter-md" @submit="loginUser" ref="form">
 								<q-input 
 									square 

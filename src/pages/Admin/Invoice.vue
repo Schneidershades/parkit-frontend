@@ -119,7 +119,7 @@
                             ref="form"
                         	>
                         	<div class="row" v-if="checkPlateNumbers">
-	                            <div class="col-6 q-pl-sm">
+	                            <div class="col-12 col-md-6 q-pl-sm">
 	                                <q-input
 	                                	v-if="checkPlateNumbers.length > 0"
 	                                    ref="name"
@@ -133,10 +133,10 @@
 	                                    :rules="[ val => val && val.length > 0 || 'Please type in a vehicle number']"
 	                                />
 	                            </div>
-	                            <div class="col-6 q-pl-sm">
+	                            <div class="col-12 col-md-6 q-pl-sm">
 	                            	<q-btn type="submit" color="primary" label="Search Plate Number" />
 	                            </div>
-	                        </div> 
+	                        </div>
 
 	                        <div v-else>
 	                        	<q-btn color="green" unelevated align="right" @click="checkOnline">To register orders click here to update plate numbers</q-btn>
@@ -150,7 +150,7 @@
 	                            ref="form"
 	                        >
 	                        	<div class="row">
-	                        		<div class="col-4 q-pa-sm">
+	                        		<div class="col-12 col-md-4 q-pa-sm">
 		                                <q-input
 		                                    ref="name"
 		                                    v-model="order.vehicle.plate_number"
@@ -161,7 +161,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-4 q-pa-sm">
+		                            <div class="col-12 col-md-4 q-pa-sm">
 		                                <q-input
 			                                filled
 			                                v-model="order.vehicle.phone"
@@ -176,7 +176,7 @@
 		                                    :value="order.vehicle.phone"
 			                                />
 		                            </div>
-		                            <div class="col-4 q-pa-sm">
+		                            <div class="col-12 col-md-4 q-pa-sm">
 										<q-select 
 		                            		filled 
 		                            		v-model="order.vehicle.vehicle_type" 
@@ -189,7 +189,7 @@
 	                                    	:rules="[ val => val && val.length > 0 || 'Select a vehicle type']"
 		                            	/>
 		                            </div>
-		                            <div class="col-4 q-pa-sm">
+		                            <div class="col-12 col-md-4 q-pa-sm">
 		                            	<q-select 
 		                            		filled 
 		                                    v-model="order.vehicle.vehicle_model"
@@ -201,7 +201,7 @@
 		                                    :value="order.vehicle.vehicle_model"
 		                            	/>
 		                            </div>
-	                        		<div class="col-4 q-pa-sm">
+	                        		<div class="col-12 col-md-4 q-pa-sm">
 		                                <q-input
 		                                    ref="name"
 		                                    v-model="order.vehicle.first_name"
@@ -212,7 +212,7 @@
 		                                    :value="order.vehicle.first_name"
 		                                />
 		                            </div>
-		                            <div class="col-4 q-pa-sm">
+		                            <div class="col-12 col-md-4 q-pa-sm">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -223,10 +223,7 @@
 		                                    :value="order.vehicle.last_name"
 		                                />
 		                            </div>
-		                        	
-		                        </div> 
-
-
+		                        </div>
 		                        <q-card-actions align="right">
 						          	<q-toggle color="warning" v-model="readonly" label="Edit User" /><br>
 						          	<q-btn color="primary" v-if="readonly==false" type="submit" label="Save Details " />
@@ -257,8 +254,6 @@
 			        icon="create_new_folder"
 			        :done="step > 2"
 			      >
-
-			        
             		<PackageTabList/>
 
 			        <q-stepper-navigation>
@@ -378,13 +373,11 @@
 </style>
 
 <script>
-    
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
   	import PackageTabList from 'components/Admin/Tabs/PackageTabList.vue'
     import Cart from 'components/Desktop/Cart/Cart.vue'
 	import { date } from 'quasar'
-	const { remote } = require('electron')
     const isOnline = require('is-online');
 
     export default{
@@ -591,15 +584,13 @@
 
 	            this.saveTransaction(this.order).then((response) => {
 					this.step = 5
-					remote.getCurrentWebContents().print({silent:true, copies : 2})
+					if(process.env.MODE == 'electron'){
+						const { remote } = require('electron')
+	                    remote.getCurrentWebContents().print({silent:true, copies : 2})
+	                }
 	            }).catch((error) => {
 	            	this.negativeNotification('cannot process order at the moment')
-	                // console.log(error)
-	                // if(this.errorMessage){
-	                    
-	                // }
-	            })    
-	               
+	            })
 			},
 
 
@@ -609,7 +600,7 @@
         			this.order.vehicle.id = this.checkPlateNumber.id
         			this.order.vehicle.email = this.checkPlateNumber.email
 	        		this.order.vehicle.plate_number = this.checkPlateNumber.plate_number
-	        		
+
 	        		var n = this.checkPlateNumber.phone ? this.checkPlateNumber.phone : null
 
 	        		if(n!=null && n.length == 13 && n.startsWith("234")){

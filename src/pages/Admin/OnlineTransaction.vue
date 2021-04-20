@@ -105,14 +105,13 @@
 				        <div class="q-pa-md">
 						    <template >
 						    	<q-card-actions align="left">
-								    <div class="q-px-sm row no-wrap items-center">
-								    	<div class="col-md-12">
-									      	<q-radio v-model="find_transaction_via" val="phone" label="Phone Number" />
-									      	<q-radio v-model="find_transaction_via" val="email" label="Email" />
-								      	</div>
-								      	<div class="col-md-6">
+								    <div class="q-px-sm row flex">
+								      	<q-radio  class="col-12 col-md-4" v-model="find_transaction_via" val="phone" label="Phone Number" />
+								      	<q-radio  class="col-12 col-md-4" v-model="find_transaction_via" val="email" label="Email" />
+
+								      	<div class="col-12 col-md-12">
 									     	 search transaction through: <strong>{{ find_transaction_via }}</strong>
-								      	</div>					      	
+								      	</div>
 								    </div>
 							    </q-card-actions>
 						    	<q-form
@@ -121,8 +120,8 @@
 		                            	v-if="find_transaction_via=='phone'"
 		                        	>
 		                        	<div class="row" >
-		                        		<h6 class="col-12 q-pl-sm">Phone Number</h6>
-			                            <div class="col-4 q-pr-md">
+		                        		<h6 class="col-12 col-md-12 q-pl-sm">Phone Number</h6>
+			                            <div class="col-12 col-md-4 q-pr-md">
 			                                <q-input
 								                filled
 								                v-model="transaction.phone"
@@ -136,7 +135,7 @@
 								                />
 			                            </div>
 			                            <br>
-			                            <div class="col-4">
+			                            <div class="col-12 col-md-4">
 									      	<q-btn
 										        type="submit"
 										        :loading="submitting"
@@ -157,8 +156,8 @@
 		                             v-if="find_transaction_via=='email'"
 		                        	>
 		                        	<div class="row">
-		                        		<h6 class="col-12 q-pl-sm">Email</h6>
-			                            <div class="col-4 q-pr-md">
+		                        		<h6 class="col-12 col-md-12 q-pl-sm">Email</h6>
+			                            <div class="col-12 col-md-4 q-pr-md">
 			                                <q-input
 			                                   	ref="name"
 			                                    filled
@@ -169,7 +168,7 @@
 			                                    :rules="[ val => val && val.length > 0 || 'Please type something']"
 			                                />
 			                            </div>
-			                            <div class="col-4">
+			                            <div class="col-12 col-md-4">
 									      	<q-btn
 										        type="submit"
 										        :loading="submitting"
@@ -215,7 +214,7 @@
 	                            ref="form"
 	                        	>
 	                        	<div class="row" v-if="checkPlateNumbers">
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6 q-pl-sm">
 		                                <q-input
 		                                	v-if="checkPlateNumbers.length > 0"
 		                                    ref="name"
@@ -229,7 +228,7 @@
 		                                    :rules="[ val => val && val.length > 0 || 'Please type in a vehicle number']"
 		                                />
 		                            </div>
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6 q-pl-sm">
 		                            	<q-btn type="submit" color="primary" label="Search Plate Number" />
 		                            </div>
 		                        </div> 
@@ -452,7 +451,6 @@
     import Transactions from 'components/Admin/Orders/Transactions.vue'
     import TransactionDetailsPackage from 'components/Admin/Orders/TransactionDetailsPackage.vue'
     import PrintTransaction from 'components/Admin/Orders/PrintTransaction.vue'
-	const { remote } = require('electron')
     const isOnline = require('is-online');
 
     export default{
@@ -689,12 +687,12 @@
 	        	this.order.platform_initiated = 'web'
 
 	        	if(this.order.payment_method === 'free'){
-	        		this.order.free_wash = 'yes' 
+	        		this.order.free_wash = 'yes'
 	            	this.order.action = 'online-free-wash'
 	        	}else{
-	        		this.order.free_wash = 'no'; 
+	        		this.order.free_wash = 'no';
 	        	}
-	            
+
 	            this.order.discounted_amount =  this.transactionDetails.discount
              	this.order.receipt_number= this.transactionDetails.receipt_number
 	            this.order.date = this.optionsFn()
@@ -706,7 +704,10 @@
         		this.saveTransaction(this.order).then((response) => {
         			console.log(this.order)
 					this.step = 4
-					remote.getCurrentWebContents().print({silent:true, copies : 2})
+					if(process.env.MODE == 'electron'){
+						const { remote } = require('electron')
+	                    remote.getCurrentWebContents().print({silent:true, copies : 2})
+	                }
 	            }).catch((error) => {
 	                console.log(error)
 	                if(this.errorMessage){

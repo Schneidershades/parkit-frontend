@@ -57,14 +57,16 @@
                 	<td colspan="4">
 						<template v-if="userDiscountPrivilege!=false && useFreeWash=='no'">
 					    	<q-card-actions align="left">
-							    <div class="q-px-sm row no-wrap items-center">
-							    	<div class="col-3">
-							         <h6>Discount</h6>
-							      </div>
-							      <div class="col-9">
-							        Amount <q-toggle toggle-indeterminate v-model="theModel" label="Percentage" />
-							      </div>
-							      <q-btn color="primary" label="Reset" @click="reset" class="q-ml-md"/>						      	
+							    <div class="q-px-sm row ">
+							    	<div class="col-12 col-md-12">
+							         	<h6>Discount</h6>
+							      	</div>
+							      	<div class="col-12 col-md-8">
+							        	Amount <q-toggle toggle-indeterminate v-model="theModel" label="Percentage" />
+							      	</div>
+							      	<div class="col-12 col-md-4">
+							         	<q-btn color="primary" label="Reset" @click="reset" class="q-ml-md"/>
+							      	</div>
 							    </div>
 						    </q-card-actions>
 					    	<q-form
@@ -73,8 +75,8 @@
 	                            ref="form"
 	                        	>
 	                        	<div class="row" v-if="theModel==true">
-	                        		<h6 class="col-12 q-pl-sm">Discount Percentage</h6>
-		                            <div class="col-4 q-pl-sm">
+	                        		<h6 class="col-12 col-md-12 q-pl-sm">Discount Percentage</h6>
+		                            <div class="col-12 col-md-4 q-pl-sm">
 		                                <q-input
 		                                    ref="name"
 		                                    v-model="number.percentage"
@@ -87,7 +89,7 @@
 		                                    :readonly="readonlyPercentage"
 		                                />
 		                            </div><br>
-		                            <div class="col-4">
+		                            <div class="col-12 col-md-4">
 								      	<q-btn
 									         @click="submitDiscount('percentage', number.percentage)"
 									        :loading="submitting"
@@ -102,8 +104,8 @@
 								    </div>
 		                        </div>
 	                        	<div class="row" v-if="theModel==false">
-	                        		<h6 class="col-12 q-pl-sm">Discount Amount</h6>
-		                            <div class="col-4 q-pl-sm">
+	                        		<h6 class="col-12 col-md-12 q-pl-sm">Discount Amount</h6>
+		                            <div class="col-12 col-md-4 q-pl-sm">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -116,7 +118,7 @@
 		                                    :readonly="readonlyAmount"
 		                                />
 		                            </div>
-		                            <div class="col-4">
+		                            <div class="col-12 col-md-4">
 								      	<q-btn
 									        @click="submitDiscount('amount', number.amount)"
 									        :loading="submitting"

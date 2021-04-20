@@ -48,7 +48,6 @@
 
 
 <script>
-    
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
 	import { date } from 'quasar'
@@ -65,6 +64,7 @@
 		],
         data(){
             return{
+            	callAction: false,
                 dense: false,
                 readonly: false,
                 filterModel: '',
@@ -136,7 +136,6 @@
           		location: 'accountLocation/accountLocationDetails',
             }),
         },
-            
         methods:{
             ...mapActions({
               	getLocationEmployees: 'employees/getLocationEmployees',
@@ -153,7 +152,7 @@
 
             viewModel(item){
                 this.selectEmployee(item).then((res) => {
-         			return this.$router.push({ path: `/web/admin/employees/view` })  
+         			return this.$router.push({ path: `/web/admin/employees/view` })
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)
@@ -165,24 +164,25 @@
 
 
             deleteModel(item){
-            	this.callAction = true
             	(async () => {
 	            	var check = await isOnline()
+            		this.callAction = true
 	            	this.connected(check).then((res) => {
 		                if(check == false){
 		                    return this.negativeNotification('You are offline. Please connect to an available internet')
 		                }else{
 		                	this.deleteEmployee(item).then((res) => {
+		                		console.log(this.location.id)
+			         			this.positiveNotification('Item deleted')
 		                		this.getLocationEmployees(this.location.id)
-			         			return this.positiveNotification('Item deleted') 
-			                }).catch((error) => {
 			                	this.callAction = false
+			                }).catch((error) => {
 			                    this.errorMessages = error
 			                    console.log(this.errorMessages)
 			                    if(this.errorMessages){
 			                        this.negativeNotification(this.errorMessages)
 			                    }
-			                }) 
+			                })
 		                }
 		            })
 

@@ -18,7 +18,7 @@
 			                    <th scope="col">YESTERDAY</th>
 			                    <th scope="col">WEEK</th>
 			                    <th scope="col">MONTH</th>
-			                    <th scope="col">DATE</th>
+			                    <th scope="col">LAST MONTH</th>
 			                </tr>
 			            </thead>
 			            <tbody >
@@ -28,16 +28,15 @@
 			                	<td><b>{{dashboard.orders.yesterday.cars}}</b></td>
 			                	<td><b>{{dashboard.orders.week.cars}}</b></td>
 			                	<td><b>{{dashboard.orders.month.cars}}</b></td>
-			                	<td><b></b></td>
+			                	<td><b>{{dashboard.orders.last_month.cars}}</b></td>
 			                </tr>
-			                
 			                <tr>
 			                	<td><b>AMOUNT</b></td>
 			                	<td><b>₦ {{dashboard.orders.today.transaction}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.yesterday.transaction}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.transaction}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.transaction}}.00</b></td>
-			                	<td><b></b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.transaction}}</b></td>
 			                </tr>
 			                <tr>
 			                	<td><b>POS</b></td>
@@ -45,6 +44,7 @@
 			                	<td><b>₦ {{dashboard.orders.yesterday.pos}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.pos}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.pos}}.00</b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.pos}}</b></td>
 			                	<td><b></b></td>
 			                </tr>
 			                <tr>
@@ -53,7 +53,7 @@
 			                	<td><b>₦ {{dashboard.orders.yesterday.cash}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.cash}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.cash}}.00</b></td>
-			                	<td><b></b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.cash}}</b></td>
 			                </tr>
 			                <tr>
 			                	<td><b>NOT PAID</b></td>
@@ -61,7 +61,7 @@
 			                	<td><b>₦ {{dashboard.orders.yesterday.not_paid}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.not_paid}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.not_paid}}.00</b></td>
-			                	<td><b></b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.not_paid}}</b></td>
 			                </tr>
 			                <tr>
 			                	<td><b>PENDING</b></td>
@@ -69,7 +69,7 @@
 			                	<td><b>₦ {{dashboard.orders.yesterday.pending}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.pending}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.pending}}.00</b></td>
-			                	<td><b></b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.pending}}</b></td>
 			                </tr>
 			                <tr>
 			                	<td><b>EDIT</b></td>
@@ -77,7 +77,7 @@
 			                	<td><b>₦ {{dashboard.orders.yesterday.edit}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.week.edit}}.00</b></td>
 			                	<td><b>₦ {{dashboard.orders.month.edit}}.00</b></td>
-			                	<td><b></b></td>
+			                	<td><b>₦{{dashboard.orders.last_month.edit}}</b></td>
 			                </tr>
 			                <tr>
 			                	<td><b>DELETE</b></td>
@@ -87,9 +87,51 @@
 			                	<td><b>₦ {{dashboard.orders.month.delete}}.00</b></td>
 			                	<td><b></b></td>
 			                </tr>
+
+			                <tr>
+			                	<td><b>SEARCH</b></td>
+			                	<td>
+			                		<q-input filled v-model="searchByDate.dateFrom" label="Date From *"  mask="date" :rules="['date']">
+	                                    <template v-slot:append>
+	                                        <q-icon name="event" class="cursor-pointer">
+	                                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
+	                                                <q-date v-model="searchByDate.dateFrom" :readonly="readonly">
+	                                                    <div class="row items-center justify-end">
+	                                                        <q-btn v-close-popup label="Close" color="primary" flat />
+	                                                    </div>
+	                                                </q-date>
+	                                            </q-popup-proxy>
+	                                        </q-icon>
+	                                    </template>
+	                                </q-input>
+			                	</td>
+			                	<td>
+			                		<q-input filled v-model="searchByDate.dateTo" label="Date To *"  mask="date" :rules="['date']">
+	                                    <template v-slot:append>
+	                                        <q-icon name="event" class="cursor-pointer">
+	                                            <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale" >
+	                                                <q-date v-model="searchByDate.dateTo" :readonly="readonly">
+	                                                    <div class="row items-center justify-end">
+	                                                        <q-btn v-close-popup label="Close" color="primary" flat />
+	                                                    </div>
+	                                                </q-date>
+	                                            </q-popup-proxy>
+	                                        </q-icon>
+	                                    </template>
+	                                </q-input>
+			                	</td>
+
+			                	<td>
+			                		<q-card-actions>
+										<q-btn @click="submitDateSearch" unelevated color="primary" size="sm" class="full-width" label="Search" />
+									</q-card-actions>
+			                	</td>
+			                	<td></td>
+			                	<td><b></b></td>
+			                </tr>
 			            </tbody>
 			        </table>
-		      	</div>     	
+		      	</div>
 		    </div>
 		</div>
 
@@ -258,12 +300,6 @@
 					</q-tab-panel>
 				</q-tab-panels>
 
-			
-
-				        
-
-					    
-
 			    <q-dialog v-model="seeTransaction" >
 			    	<q-card>
 			    		<q-card-section>
@@ -286,7 +322,6 @@
 					               <!-- <q-btn label="Delete Transaction" color="red" @click="deleteTransaction(transactionId)" /> -->
 					            </template>
 					        </template>
-			    			
 			    		</q-card-section>
 
 			    		<q-separator />
@@ -404,6 +439,12 @@ export default {
 		        page: 1
 		    },
 
+		    searchByDate:{
+		    	dateFrom: null,
+		    	dateTo: null,
+		    	location_id: null,
+		    },
+
 		    tab: 'income',
 
 		    filterExpense: 'expense',
@@ -478,6 +519,7 @@ export default {
 		    dashboard: 'dashboard/dashboard',
 		    locationStats: 'dashboard/locationStats',
           	transactionId: 'accountLocation/accountLocationTransactionSelected',
+          	dateTransactions: 'dashboard/dateTransactions',
         }),
     },
 
@@ -492,15 +534,15 @@ export default {
         	getClassifications: 'accountClassification/getAccountClassification',
             getLocationDashboard: 'dashboard/getLocationDashboard',
             getLocationStats: 'dashboard/getLocationStats',
-	    }),	
+            postDateTransations: 'dashboard/postDateTransations',
+	    }),
 
 		postExpense(location){
 			this.sendLocationsDetails(location).then((response) => {
 	          return this.$router.push({ path: `/web/admin/account/location/expense/${this.$route.params.locationId}` })   
 	        }).catch((error) => {
 	            console.log('not available')
-	        })  
-			   
+	        })
 		},
 		postIncome(location){
 			this.sendLocationsDetails(location).then((response) => {
@@ -530,6 +572,12 @@ export default {
 	        })
 		},
 
+		submitDateSearch(){
+			if(this.searchByDate.dateTo == null || this.searchByDate.dateFrom == null){
+				this.negativeNotification('please fill in both dates to search transactions')
+			}
+		},
+
 	    positiveNotification(message){
             Notify.create({
                 type: 'positive',
@@ -555,14 +603,12 @@ export default {
 		if(this.location.id != null){
 			this.getAccountLocationTransactions(this.location.id)
 		}else{
-			return this.$router.push({ path: `/web/admin/account` })  
+			return this.$router.push({ path: `/web/admin/account` })
 		}
 
     	this.getClassifications()
 	  	this.getLocationDashboard(this.location.id)
 	  	this.getLocationStats(this.location.id)
-
-		
 	}
 }
 </script>

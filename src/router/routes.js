@@ -13,9 +13,25 @@ const routes = [
     path: '/',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
-        name:'home', 
+      { path: '',
+        name:'home',
         component: () => import('pages/Website/Index.vue'),
+        meta: {
+          middleware:[
+            isWeb
+          ]
+        },
+      }
+    ]
+  },
+
+  {
+    path: '/mob',
+    component: () => import('layouts/Mobile.vue'),
+    children: [
+      { path: '',
+        name:'mob',
+        component: () => import('pages/Mobile/Index.vue'),
         meta: {
           middleware:[
             isWeb
@@ -30,7 +46,7 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '',
-        name: 'cart', 
+        name: 'cart',
         component: () => import('pages/Website/Cart.vue'),
         meta: {
           middleware:[
@@ -45,7 +61,7 @@ const routes = [
     path: '/home-service',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
+      { path: '',
         name: 'homeService',
         component: () => import('pages/Website/HomeService.vue'),
       }
@@ -56,7 +72,7 @@ const routes = [
     path: '/parkit-corporate',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
+      { path: '',
         name: 'corporate',
         component: () => import('pages/Website/Corporate.vue'),
       }
@@ -66,8 +82,8 @@ const routes = [
     path: '/parkit-franchise',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
-        name: 'franchise', 
+      { path: '',
+        name: 'franchise',
         component: () => import('pages/Website/Franchise.vue'),
       }
     ]
@@ -77,8 +93,8 @@ const routes = [
     path: '/gallery',
     component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: '', 
-        name: 'gallery', 
+      { path: '',
+        name: 'gallery',
         component: () => import('pages/Website/Gallery.vue'),
       }
     ]
@@ -87,8 +103,8 @@ const routes = [
     path: '/user/forgot-password',
     component: () => import('layouts/Auth.vue'),
     children: [
-      { path: '', 
-        name: 'forgot-password', 
+      { path: '',
+        name: 'forgot-password',
         component: () => import('pages/User/ForgotPassword.vue'),
       }
     ]
@@ -98,16 +114,16 @@ const routes = [
 
 
 
-  // Users 
+  // Users
   {
     path: '/user/dashboard',
     component: () => import('layouts/User.vue'),
 
     children: [
-      { 
-        path: '', 
-        name: 'userDashboard',  
-        component: () => import('pages/User/Dashboard.vue'),  
+      {
+        path: '',
+        name: 'userDashboard',
+        component: () => import('pages/User/Dashboard.vue'),
         meta: {
           middleware:[
             websiteAuth
@@ -121,9 +137,9 @@ const routes = [
     path: '/user/profile',
     component: () => import('layouts/User.vue'),
     children: [
-      { path: '', 
-        name: 'userProfile',  
-        component: () => import('pages/User/Profile.vue'), 
+      { path: '',
+        name: 'userProfile',
+        component: () => import('pages/User/Profile.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -137,36 +153,36 @@ const routes = [
     path: '',
     component: () => import('layouts/Payment.vue'),
     children: [
-      { 
-        path: '/user/order/payment/:orderId/transaction', 
-        name: 'payementTransaction', 
-        component: () => import('pages/User/PaymentSuccess.vue'), 
+      {
+        path: '/user/order/payment/:orderId/transaction',
+        name: 'payementTransaction',
+        component: () => import('pages/User/PaymentSuccess.vue'),
         meta: {
           // middleware:[
           //   websiteAuth
           // ]
         },
-        props: true,  
+        props: true,
       },
-      { 
-        path: '/user/order/payment/success', 
-        name: 'payementSuccess', 
-        component: () => import('pages/User/PaymentSuccess.vue'), 
+      {
+        path: '/user/order/payment/success',
+        name: 'payementSuccess',
+        component: () => import('pages/User/PaymentSuccess.vue'),
         meta: {
           // middleware:[
           //   websiteAuth
           // ]
-        },  
+        },
       },
-      { 
-        path: '/user/order/payment/failed', 
-        name: 'payementFailed', 
-        component: () => import('pages/User/PaymentFailed.vue'), 
+      {
+        path: '/user/order/payment/failed',
+        name: 'payementFailed',
+        component: () => import('pages/User/PaymentFailed.vue'),
         meta: {
           // middleware:[
           //   websiteAuth
           // ]
-        },  
+        },
       },
     ]
   },
@@ -175,22 +191,22 @@ const routes = [
     path: '/user/orders',
     component: () => import('layouts/User.vue'),
     children: [
-      { 
-        path: '', 
-        name: 'userOrders',  
-        component: () => import('pages/User/Orders.vue'), 
+      {
+        path: '',
+        name: 'userOrders',
+        component: () => import('pages/User/Orders.vue'),
         meta: {
           middleware:[
             websiteAuth,
             // admin
           ]
-        },  
+        },
       },
-      
-      { 
+
+      {
         path: '/user/order/:orderId',
-        name: 'userOrderShow',  
-        component: () => import('pages/User/OrderDetails.vue'), 
+        name: 'userOrderShow',
+        component: () => import('pages/User/OrderDetails.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -199,10 +215,10 @@ const routes = [
         },
         props: true,
       },
-      { 
+      {
         path: '/user/order/payment/response',
-        name: 'userOrderPayment',  
-        component: () => import('pages/User/Payment.vue'), 
+        name: 'userOrderPayment',
+        component: () => import('pages/User/Payment.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -217,9 +233,9 @@ const routes = [
     path: '/user/security',
     component: () => import('layouts/User.vue'),
     children: [
-      { path: '', 
-        name: 'userSecurity', 
-        component: () => import('pages/User/Security.vue'), 
+      { path: '',
+        name: 'userSecurity',
+        component: () => import('pages/User/Security.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -233,9 +249,9 @@ const routes = [
     path: '/user/cart',
     component: () => import('layouts/User.vue'),
     children: [
-      { path: '', 
-        name: 'userCart',  
-        component: () => import('pages/User/Cart.vue'), 
+      { path: '',
+        name: 'userCart',
+        component: () => import('pages/User/Cart.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -249,8 +265,8 @@ const routes = [
     path: '/user/checkout',
     component: () => import('layouts/User.vue'),
     children: [
-      { path: '', 
-        name: 'userCheckout', 
+      { path: '',
+        name: 'userCheckout',
         component: () => import('pages/User/Checkout.vue'),
         meta: {
           middleware:[
@@ -269,8 +285,8 @@ const routes = [
     component: () => import('layouts/WebAdmin.vue'),
 
     children: [
-      { path: '', 
-        name: 'webAdminDashboard', 
+      { path: '',
+        name: 'webAdminDashboard',
         component: () => import('pages/WebAdmin/Dashboard.vue'),
         meta: {
           middleware:[
@@ -288,8 +304,8 @@ const routes = [
     path: '/web/admin/invoice',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminInvoice', 
+      { path: '',
+        name: 'webAdminInvoice',
         component: () => import('pages/WebAdmin/Invoice.vue'),
         meta: {
           middleware:[
@@ -307,8 +323,8 @@ const routes = [
     path: '/web/admin/send/report',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminReport', 
+      { path: '',
+        name: 'webAdminReport',
         component: () => import('pages/WebAdmin/Report.vue'),
         meta: {
           middleware:[
@@ -326,8 +342,8 @@ const routes = [
     path: '/web/admin/home-service/booking',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminHomeServiceBooking', 
+      { path: '',
+        name: 'webAdminHomeServiceBooking',
         component: () => import('pages/WebAdmin/HomeServiceBooking.vue'),
         meta: {
           middleware:[
@@ -345,8 +361,8 @@ const routes = [
     path: '/web/admin/await/bookings',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminAwaitBooking', 
+      { path: '',
+        name: 'webAdminAwaitBooking',
         component: () => import('pages/WebAdmin/AwaitBooking.vue'),
         meta: {
           middleware:[
@@ -365,8 +381,8 @@ const routes = [
     path: '/web/admin/history',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminHistory', 
+      { path: '',
+        name: 'webAdminHistory',
         component: () => import('pages/WebAdmin/History.vue'),
         meta: {
           middleware:[
@@ -377,8 +393,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/history/orders/:orderId', 
-        name: 'webAdminOrderDetails', 
+      { path: '/web/admin/history/orders/:orderId',
+        name: 'webAdminOrderDetails',
         component: () => import('pages/WebAdmin/HistoryDetails.vue'),
         meta: {
           middleware:[
@@ -391,8 +407,8 @@ const routes = [
         },
       },
 
-      { path: '/web/admin/history/edit/orders/:orderId', 
-        name: 'webAdminEditOrderDetails', 
+      { path: '/web/admin/history/edit/orders/:orderId',
+        name: 'webAdminEditOrderDetails',
         component: () => import('pages/WebAdmin/HistoryEditDetails.vue'),
         meta: {
           middleware:[
@@ -411,8 +427,8 @@ const routes = [
     path: '/web/admin/settings/packages',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminVehicles', 
+      { path: '',
+        name: 'webAdminVehicles',
         component: () => import('pages/WebAdmin/Packages.vue'),
         meta: {
           middleware:[
@@ -430,8 +446,8 @@ const routes = [
     path: '/web/admin/settings/vehicles',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminPackages', 
+      { path: '',
+        name: 'webAdminPackages',
         component: () => import('pages/WebAdmin/Vehicles.vue'),
         meta: {
           middleware:[
@@ -449,8 +465,8 @@ const routes = [
     path: '/web/admin/settings/platenumbers',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminPlateNumbers', 
+      { path: '',
+        name: 'webAdminPlateNumbers',
         component: () => import('pages/WebAdmin/PlateNumbers.vue'),
         meta: {
           middleware:[
@@ -462,8 +478,8 @@ const routes = [
         },
       },
 
-      { path: '/web/admin/settings/platenumbers/location', 
-        name: 'webAdminLocationPlateNumbers', 
+      { path: '/web/admin/settings/platenumbers/location',
+        name: 'webAdminLocationPlateNumbers',
         component: () => import('pages/WebAdmin/Location/PlateNumbers.vue'),
         meta: {
           middleware:[
@@ -484,8 +500,8 @@ const routes = [
     path: '/web/admin/settings/rates',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webAdminRates', 
+      { path: '',
+        name: 'webAdminRates',
         component: () => import('pages/WebAdmin/PriceSettings.vue'),
         meta: {
           middleware:[
@@ -496,8 +512,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/settings/rates/location', 
-        name: 'webAdminLocationPriceSettings', 
+      { path: '/web/admin/settings/rates/location',
+        name: 'webAdminLocationPriceSettings',
         component: () => import('pages/WebAdmin/Location/PriceSettings.vue'),
         meta: {
           middleware:[
@@ -516,8 +532,8 @@ const routes = [
     path: '/web/admin/online/transactions',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'webOnlineTransactions', 
+      { path: '',
+        name: 'webOnlineTransactions',
         component: () => import('pages/WebAdmin/OnlineTransaction.vue'),
         meta: {
           middleware:[
@@ -528,8 +544,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/online/transactions/location', 
-        name: 'webAdminLocationOnlineTransaction', 
+      { path: '/web/admin/online/transactions/location',
+        name: 'webAdminLocationOnlineTransaction',
         component: () => import('pages/WebAdmin/Location/OnlineTransaction.vue'),
         meta: {
           middleware:[
@@ -543,14 +559,14 @@ const routes = [
     ]
   },
 
-  
-  
+
+
   {
     path: '/web/admin/roles',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-roles', 
+      { path: '',
+        name: 'admin-roles',
         component: () => import('pages/Admin/Roles/Roles.vue'),
         meta: {
           middleware:[
@@ -567,8 +583,8 @@ const routes = [
     path: '/web/admin/coupons',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-coupons', 
+      { path: '',
+        name: 'admin-coupons',
         component: () => import('pages/WebAdmin/Coupons.vue'),
         meta: {
           middleware:[
@@ -585,8 +601,8 @@ const routes = [
     path: '/web/admin/discounts',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-discounts', 
+      { path: '',
+        name: 'admin-discounts',
         component: () => import('pages/WebAdmin/Discounts.vue'),
         meta: {
           middleware:[
@@ -604,8 +620,8 @@ const routes = [
     path: '/web/admin/locations',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-locations', 
+      { path: '',
+        name: 'admin-locations',
         component: () => import('pages/Admin/Locations/Locations.vue'),
         meta: {
           middleware:[
@@ -619,13 +635,13 @@ const routes = [
   },
 
 
-  
+
   {
     path: '/web/admin/expense/order',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'adminExpenseOrder', 
+      { path: '',
+        name: 'adminExpenseOrder',
         component: () => import('pages/Admin/ExpenseOrder.vue'),
         meta: {
           middleware:[
@@ -636,10 +652,10 @@ const routes = [
         },
       },
 
-      { 
+      {
         path: '/web/admin/expense/order/location',
-        name: 'accountExpenseLocationShow',  
-        component: () => import('pages/WebAdmin/Location/Expenses.vue'), 
+        name: 'accountExpenseLocationShow',
+        component: () => import('pages/WebAdmin/Location/Expenses.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -654,8 +670,8 @@ const routes = [
     path: '/web/admin/income-expense-category',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'adminAccountClass', 
+      { path: '',
+        name: 'adminAccountClass',
         component: () => import('pages/Admin/Account/IncomeExpenseCategory.vue'),
         meta: {
           middleware:[
@@ -673,8 +689,8 @@ const routes = [
     component: () => import('layouts/WebAdmin.vue'),
     children: [
 
-      { path: '/web/admin/all-employees', 
-        name: 'adminAllEmployees', 
+      { path: '/web/admin/all-employees',
+        name: 'adminAllEmployees',
         component: () => import('pages/WebAdmin/Employees/AllEmployees.vue'),
         meta: {
           middleware:[
@@ -685,8 +701,8 @@ const routes = [
         },
       },
 
-      { path: '/web/admin/employees', 
-        name: 'adminEmployees', 
+      { path: '/web/admin/employees',
+        name: 'adminEmployees',
         component: () => import('pages/WebAdmin/Employees/Employees.vue'),
         meta: {
           middleware:[
@@ -697,8 +713,8 @@ const routes = [
         },
       },
 
-      { path: '/web/admin/employees/location', 
-        name: 'adminLocationEmployees', 
+      { path: '/web/admin/employees/location',
+        name: 'adminLocationEmployees',
         component: () => import('pages/WebAdmin/Employees/LocationEmployee.vue'),
         meta: {
           middleware:[
@@ -709,8 +725,8 @@ const routes = [
           props:true,
         },
       },
-      { path: '/web/admin/employees/new', 
-        name: 'adminNewEmployees', 
+      { path: '/web/admin/employees/new',
+        name: 'adminNewEmployees',
         component: () => import('pages/WebAdmin/Employees/NewEmployee.vue'),
         meta: {
           middleware:[
@@ -720,8 +736,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/employees/view', 
-        name: 'adminViewEmployees', 
+      { path: '/web/admin/employees/view',
+        name: 'adminViewEmployees',
         component: () => import('pages/WebAdmin/Employees/ViewEmployee.vue'),
         meta: {
           middleware:[
@@ -731,8 +747,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/employees/loans-and-outstanding', 
-        name: 'adminEmployeesLoansAndOutstanding', 
+      { path: '/web/admin/employees/loans-and-outstanding',
+        name: 'adminEmployeesLoansAndOutstanding',
         component: () => import('pages/WebAdmin/Employees/EmployeeLoansAndOutstandings.vue'),
         meta: {
           middleware:[
@@ -742,8 +758,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/employees/penalties-and-deductions', 
-        name: 'adminEmployeesPenaltiesAndDeductions', 
+      { path: '/web/admin/employees/penalties-and-deductions',
+        name: 'adminEmployeesPenaltiesAndDeductions',
         component: () => import('pages/WebAdmin/Employees/EmployeePenaltiesAndDeductions.vue'),
         meta: {
           middleware:[
@@ -753,8 +769,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/employees/guarantors', 
-        name: 'adminEmployeesGuarantors', 
+      { path: '/web/admin/employees/guarantors',
+        name: 'adminEmployeesGuarantors',
         component: () => import('pages/WebAdmin/Employees/EmployeeGuarantors.vue'),
         meta: {
           middleware:[
@@ -771,8 +787,8 @@ const routes = [
     path: '/web/admin/approve/expense-order/:userId/:username',
     component: () => import('layouts/Auth.vue'),
     children: [
-      { path: '', 
-        name: 'adminExpenseOrderApproval', 
+      { path: '',
+        name: 'adminExpenseOrderApproval',
         component: () => import('pages/WebAdmin/Approval/ExpenseOrder.vue'),
         meta: {
           middleware:[
@@ -785,13 +801,13 @@ const routes = [
       },
     ]
   },
-  
+
   {
     path: '/web/admin/users',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-users', 
+      { path: '',
+        name: 'admin-users',
         component: () => import('pages/Admin/Users/Users.vue'),
         meta: {
           middleware:[
@@ -801,8 +817,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/users/location', 
-        name: 'admin-users-location', 
+      { path: '/web/admin/users/location',
+        name: 'admin-users-location',
         component: () => import('pages/Admin/Users/Location.vue'),
         meta: {
           middleware:[
@@ -812,8 +828,8 @@ const routes = [
           ]
         },
       },
-      { path: '/web/admin/users/location/:userId/roles/permissions', 
-        name: 'admin-users-roles-permissions', 
+      { path: '/web/admin/users/location/:userId/roles/permissions',
+        name: 'admin-users-roles-permissions',
         component: () => import('pages/Admin/Users/RolesPermissions.vue'),
         meta: {
           middleware:[
@@ -830,8 +846,8 @@ const routes = [
     path: '/web/admin/account',
     component: () => import('layouts/WebAdmin.vue'),
     children: [
-      { path: '', 
-        name: 'admin-account', 
+      { path: '',
+        name: 'admin-account',
         component: () => import('pages/Admin/Account/Account.vue'),
         meta: {
           middleware:[
@@ -841,10 +857,10 @@ const routes = [
           ]
         },
       },
-      { 
+      {
         path: '/web/admin/account/location',
-        name: 'accountLocationShow',  
-        component: () => import('pages/Admin/Account/Location.vue'), 
+        name: 'accountLocationShow',
+        component: () => import('pages/Admin/Account/Location.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -853,10 +869,10 @@ const routes = [
         },
         // props: true,
       },
-      { 
+      {
         path: '/web/admin/account/location/expense/:locationId',
-        name: 'accountExpenseShow',  
-        component: () => import('pages/Admin/Account/Expense.vue'), 
+        name: 'accountExpenseShow',
+        component: () => import('pages/Admin/Account/Expense.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -865,10 +881,10 @@ const routes = [
         },
         props: true,
       },
-      { 
+      {
         path: '/web/admin/account/location/income/:locationId',
-        name: 'accountIncomeShow',  
-        component: () => import('pages/Admin/Account/Income.vue'), 
+        name: 'accountIncomeShow',
+        component: () => import('pages/Admin/Account/Income.vue'),
         meta: {
           middleware:[
             websiteAuth,
@@ -887,8 +903,8 @@ const routes = [
     path: '/desktop/login',
     component: () => import('layouts/Auth.vue'),
     children: [
-      { path: '', 
-        name: 'adminLogin', 
+      { path: '',
+        name: 'adminLogin',
         component: () => import('pages/Admin/Login.vue'),
         meta: {
           middleware:[
@@ -904,8 +920,8 @@ const routes = [
     component: () => import('layouts/Desktop.vue'),
 
     children: [
-      { path: '', 
-        name: 'desktopDashboard', 
+      { path: '',
+        name: 'desktopDashboard',
         component: () => import('pages/Admin/Dashboard.vue'),
         meta: {
           middleware:[
@@ -922,8 +938,8 @@ const routes = [
     path: '/desktop/invoice',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopInvoice', 
+      { path: '',
+        name: 'desktopInvoice',
         component: () => import('pages/Admin/Invoice.vue'),
         meta: {
           middleware:[
@@ -939,8 +955,8 @@ const routes = [
     path: '/desktop/history',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopHistory', 
+      { path: '',
+        name: 'desktopHistory',
         component: () => import('pages/Admin/History.vue'),
         meta: {
           middleware:[
@@ -956,8 +972,8 @@ const routes = [
     path: '/desktop/inbox',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopInbox', 
+      { path: '',
+        name: 'desktopInbox',
         component: () => import('pages/Admin/Inbox.vue'),
         meta: {
           middleware:[
@@ -973,8 +989,8 @@ const routes = [
     path: '/desktop/online/transactions',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopOnlineTransactions', 
+      { path: '',
+        name: 'desktopOnlineTransactions',
         component: () => import('pages/Admin/OnlineTransaction.vue'),
         meta: {
           middleware:[
@@ -990,8 +1006,8 @@ const routes = [
     path: '/desktop/personnel/requests',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopPersonnelRequests', 
+      { path: '',
+        name: 'desktopPersonnelRequests',
         component: () => import('pages/Admin/PersonnelRequests.vue'),
         meta: {
           middleware:[
@@ -1003,13 +1019,13 @@ const routes = [
       }
     ]
   },
-  
+
   {
     path: '/desktop/expense/order',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopExpenseOrder', 
+      { path: '',
+        name: 'desktopExpenseOrder',
         component: () => import('pages/Admin/ExpenseOrder.vue'),
         meta: {
           middleware:[
@@ -1026,8 +1042,8 @@ const routes = [
     path: '/desktop/report/fault',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopReportFault', 
+      { path: '',
+        name: 'desktopReportFault',
         component: () => import('pages/Admin/ReportFault.vue'),
         meta: {
           middleware:[
@@ -1043,8 +1059,8 @@ const routes = [
     path: '/desktop/requisition/order',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopRequisitionOrder', 
+      { path: '',
+        name: 'desktopRequisitionOrder',
         component: () => import('pages/Admin/RequisitionOrder.vue'),
       }
     ]
@@ -1053,8 +1069,8 @@ const routes = [
     path: '/desktop/suggestions/complaints',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopSuggestionsComplaints', 
+      { path: '',
+        name: 'desktopSuggestionsComplaints',
         component: () => import('pages/Admin/SuggestionsComplaints.vue'),
         meta: {
           middleware:[
@@ -1070,8 +1086,8 @@ const routes = [
     path: '/desktop/camera/feed',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopCameraFeed', 
+      { path: '',
+        name: 'desktopCameraFeed',
         component: () => import('pages/Admin/CameraFeed.vue'),
         meta: {
           middleware:[
@@ -1087,8 +1103,8 @@ const routes = [
     path: '/desktop/employees',
     component: () => import('layouts/Desktop.vue'),
     children: [
-      { path: '', 
-        name: 'desktopEmployees', 
+      { path: '',
+        name: 'desktopEmployees',
         component: () => import('pages/Admin/Employees/Employees.vue'),
         meta: {
           middleware:[
@@ -1098,8 +1114,8 @@ const routes = [
           ]
         },
       },
-      { path: '/desktop/employees/new', 
-        name: 'desktopNewEmployees', 
+      { path: '/desktop/employees/new',
+        name: 'desktopNewEmployees',
         component: () => import('pages/Admin/Employees/NewEmployee.vue'),
         meta: {
           middleware:[
@@ -1109,8 +1125,8 @@ const routes = [
           ]
         },
       },
-      { path: '/desktop/employees/view', 
-        name: 'desktopViewEmployees', 
+      { path: '/desktop/employees/view',
+        name: 'desktopViewEmployees',
         component: () => import('pages/Admin/Employees/ViewEmployee.vue'),
         meta: {
           middleware:[
@@ -1120,8 +1136,8 @@ const routes = [
           ]
         },
       },
-      { path: '/desktop/employees/loans-and-outstanding', 
-        name: 'desktopEmployeesLoansAndOutstanding', 
+      { path: '/desktop/employees/loans-and-outstanding',
+        name: 'desktopEmployeesLoansAndOutstanding',
         component: () => import('pages/Admin/Employees/EmployeeLoansAndOutstandings.vue'),
         meta: {
           middleware:[
@@ -1131,8 +1147,8 @@ const routes = [
           ]
         },
       },
-      { path: '/desktop/employees/penalties-and-deductions', 
-        name: 'desktopEmployeesPenaltiesAndDeductions', 
+      { path: '/desktop/employees/penalties-and-deductions',
+        name: 'desktopEmployeesPenaltiesAndDeductions',
         component: () => import('pages/Admin/Employees/EmployeePenaltiesAndDeductions.vue'),
         meta: {
           middleware:[
@@ -1142,8 +1158,8 @@ const routes = [
           ]
         },
       },
-      { path: '/desktop/employees/guarantors', 
-        name: 'desktopEmployeesGuarantors', 
+      { path: '/desktop/employees/guarantors',
+        name: 'desktopEmployeesGuarantors',
         component: () => import('pages/Admin/Employees/EmployeeGuarantors.vue'),
         meta: {
           middleware:[

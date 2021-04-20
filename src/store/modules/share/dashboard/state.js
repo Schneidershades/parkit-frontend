@@ -7,4 +7,5 @@ export default{
 	locationStats: LocalStorage.getItem('locationStats') ? 
 			JSON.parse(LocalStorage.getItem('locationStats')) :
 			[],
+	dateTransactions: null,
 }

@@ -28,15 +28,15 @@
         <q-form @submit="submitTransactions" ref="form">
           <div v-for="(line, index) in lines" :key="index" class="row q-py-md">
             <div class="col-md-4 q-pa-sm">
-                <q-input filled v-model="line.date" mask="date" :value="date" :rules="['date']" label="Transaction Date">
-                    <template v-slot:append>
-                      <q-icon name="event" class="cursor-pointer">
-                          <q-popup-proxy ref="qDateProxy[index]" transition-show="scale" transition-hide="scale">
-                            <q-date v-model="line.date" :options="optionsFn" @input="() => $refs.qDateProxy[index].hide()" />
-                          </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                </q-input>
+                <q-input filled  v-model="form.departureDate" mask="date" label="Departure Date"  :value="optionsFn" :rules="['date']">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer">
+                    <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                      <q-date v-model="form.departureDate" :options="optionsFn" @input="() => $refs.qDateProxy.hide()" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
             </div>
 
             <div class="col-4 q-pa-sm">

@@ -212,6 +212,7 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import BackButton from 'components/Share/BackButton.vue'
+import { Notify } from 'quasar'
 
 export default {
 	components: {
@@ -319,6 +320,7 @@ export default {
 		updateModel(){
 			this.updateVehicle(this.update).then((response) => {
 				this.getLocationRates(this.location.id)
+				this.editModal = null
 				return this.positiveNotification('Updated')
             })
 		},	
