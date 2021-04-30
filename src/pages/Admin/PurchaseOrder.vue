@@ -23,7 +23,7 @@
 	                            ref="form"
 	                        >
 	                        	<div class="row">
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6">
 		                            	<q-input
 		                                    ref="name"
 		                                    filled
@@ -35,7 +35,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -46,7 +46,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -59,7 +59,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -72,7 +72,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-12 q-pt-sm">
+		                            <div class="col-12 col-md-12">
 		                                <q-input
 									      	v-model="form.description"
 									      	filled
@@ -82,8 +82,6 @@
 		                                    :rules="[ val => val && val.length > 0 || 'Please select from the list']"
 									    />
 		                            </div>
-
-
 
 							        <q-card-actions align="right">
 							            <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />

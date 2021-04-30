@@ -13,7 +13,8 @@
                 />
 
                 <q-toolbar-title>
-                    <img :src="logoshow" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="180">
+                    <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="180" v-if="platform == 'electron'" >
+                    <img src="~assets/express_logo.png" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="180" v-else>
                 </q-toolbar-title>
 
 
@@ -172,11 +173,11 @@
         components:{
             CartDrawerDesktop
         },
-        
         data () {
             return {
                 leftDrawerOpen: false,
                 menu: false,
+                platform: null,
                 menuOver: false,
                 listOver: false,
                 signInModal: false,
@@ -198,18 +199,6 @@
                 online: 'auth/onlineStatus',
                 connectedOnline: 'internetStatus/connected',
             }),
-
-            logoshow() {
-                if(process.env.MODE == 'electron'){
-                    return 'img/parkit_lm_logo.png'
-                }
-
-                if(process.env.MODE == 'cordova'){
-                    return 'img/express_logo.png'
-                }
-
-                return null
-            },
 
             carTotalLength(){
                 return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
@@ -315,6 +304,14 @@
         },
 
         mounted(){
+            if(process.env.MODE == 'electron'){
+                return this.platform = 'electron'
+            }
+
+            if(process.env.MODE == 'cordova'){
+                return this.platform = 'cordova'
+            }
+
             this.authenticated
             // console.log('cwcw', getPersistedState())
             if (!this.$store.initialized) {

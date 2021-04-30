@@ -1,16 +1,16 @@
 <template>
-    <div class="q-pa-md">
+    <div class="s">
         <BackButton/>
         <q-card>            
             <q-card-section>            
-                <div class="q-pa-md">
+                <div class="q-pa-sm">
                     <q-form
                         @submit="submitRequest"
                         class="q-gutter-md"
                         ref="form"
                         >
                         <div class="row">
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-12 col-md-4 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -21,7 +21,7 @@
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-12 col-md-4 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -31,7 +31,7 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-12 col-md-4 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -43,7 +43,7 @@
                                 />
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -53,7 +53,7 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -63,7 +63,7 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-input filled v-model="form.dob" label="Date of Birth *"  mask="date" :rules="['date']">
                                     <template v-slot:append>
                                         <q-icon name="event" class="cursor-pointer">
@@ -78,7 +78,7 @@
                                     </template>
                                 </q-input>
                             </div>
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.sex"
@@ -89,7 +89,7 @@
                                     :readonly="readonly"
                                 />
                             </div>
-                            <div class="col-12 q-pl-sm q-pb-md">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-input
                                     ref="name"
                                     filled
@@ -136,13 +136,13 @@
                                 />
                             </div> -->
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Previous Company</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-12 col-md-4 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.first_employment"
@@ -154,7 +154,7 @@
                                 />
                             </div>
 
-                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'no'">
+                            <div class="col-12 col-md-4 q-pa-sm" v-if="form.first_employment == 'no'">
                                 <q-input
                                     v-model="form.previous_employer_name"
                                     filled
@@ -164,7 +164,7 @@
                                 />
                             </div>
 
-                            <div class="col-4 q-pl-sm" v-if="form.first_employment == 'no'">
+                            <div class="col-12 col-md-4 q-pa-sm" v-if="form.first_employment == 'no'">
                                 <q-input
                                     v-model="form.previous_employment_position"
                                     filled
@@ -174,13 +174,13 @@
                                 />
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Account Details</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.account_details"
@@ -192,7 +192,7 @@
                                 />
                             </div>
 
-                            <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
+                            <div class="col-12 col-md-3 q-pa-sm" v-if="form.account_details == 'yes'">
                                 <q-input
                                     v-model="form.account_bank"
                                     filled
@@ -202,7 +202,7 @@
                                 />
                             </div>
 
-                            <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
+                            <div class="col-12 col-md-4 q-pa-sm" v-if="form.account_details == 'yes'">
                                 <q-input
                                     v-model="form.account_name"
                                     filled
@@ -212,7 +212,7 @@
                                 />
                             </div>
 
-                            <div class="col-3 q-pl-sm" v-if="form.account_details == 'yes'">
+                            <div class="col-12 col-md-4 q-pa-sm" v-if="form.account_details == 'yes'">
                                 <q-input
                                     v-model="form.account_number"
                                     filled
@@ -222,13 +222,13 @@
                                 />
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Off Work Day</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-12 q-pl-sm">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <q-toggle v-model="form.monday" checked-icon="check" unchecked-icon="clear" color="green"  label="Monday"/>
                                 <q-toggle v-model="form.tuesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Tuesday"/>
                                 <q-toggle v-model="form.wednesday" checked-icon="check" unchecked-icon="clear" color="green"  label="Wednesday"/>
@@ -238,13 +238,13 @@
                                 <q-toggle v-model="form.sunday" checked-icon="check" unchecked-icon="clear" color="green"  label="Sunday"/>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Qualification 1</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.qualification1_available"
@@ -257,7 +257,7 @@
                             </div>
 
                             <template v-if="form.qualification1_available == 'yes'">
-                                <div class="col-9 q-pl-sm">
+                                <div class="col-12 col-md-9 q-pa-sm">
                                     <q-input
                                         ref="name"
                                         filled
@@ -269,7 +269,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-select 
                                         filled 
                                         v-model="form.qualification1_certificate"
@@ -281,7 +281,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification1_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -297,7 +297,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification1_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -313,7 +313,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-12 q-pl-sm">
+                                <div class="col-12 col-md-12 q-pa-sm">
                                     <q-input
                                         v-if="form.qualification1_certificate == 'Others'"
                                         v-model="form.extra_qualification1"
@@ -327,13 +327,13 @@
                                 </div>
                             </template>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Qualification 2</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.qualification2_available"
@@ -346,7 +346,7 @@
                             </div>
 
                             <template v-if="form.qualification2_available == 'yes'">
-                                <div class="col-9 q-pl-sm">
+                                <div class="col-12 col-md-9 q-pa-sm">
                                     <q-input
                                         ref="name"
                                         filled
@@ -358,7 +358,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-select 
                                         filled 
                                         v-model="form.qualification2_certificate"
@@ -370,7 +370,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification2_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -386,7 +386,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification2_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -403,7 +403,7 @@
                                 </div>
 
 
-                                <div class="col-12 q-pl-sm">
+                                <div class="col-12 col-md-12 q-pa-sm">
                                     <q-input
                                         v-if="form.qualification2_certificate == 'Others'"
                                         v-model="form.extra_qualification2"
@@ -423,7 +423,7 @@
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.qualification3_available"
@@ -436,7 +436,7 @@
                             </div>
 
                             <template v-if="form.qualification3_available == 'yes'">
-                                <div class="col-9 q-pl-sm">
+                                <div class="col-12 col-md-9 q-pa-sm">
                                     <q-input
                                         ref="name"
                                         filled
@@ -448,7 +448,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-select 
                                         filled 
                                         v-model="form.qualification3_certificate"
@@ -460,7 +460,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification3_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -476,7 +476,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification3_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -493,7 +493,7 @@
                                 </div>
 
 
-                                <div class="col-12 q-pl-sm">
+                                <div class="col-12 col-md-12 q-pa-sm">
                                     <q-input
                                         v-if="form.qualification3_certificate == 'Others'"
                                         v-model="form.extra_qualification3"
@@ -507,13 +507,13 @@
                                 </div>
                             </template>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Qualification 4</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.qualification4_available"
@@ -526,7 +526,7 @@
                             </div>
 
                             <template v-if="form.qualification4_available == 'yes'">
-                                <div class="col-9 q-pl-sm">
+                                <div class="col-12 col-md-9 q-pa-sm">
                                     <q-input
                                         ref="name"
                                         filled
@@ -538,7 +538,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-select 
                                         filled 
                                         v-model="form.qualification4_certificate"
@@ -550,7 +550,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification4_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -566,7 +566,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification4_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -583,7 +583,7 @@
                                 </div>
 
 
-                                <div class="col-12 q-pl-sm">
+                                <div class="col-12 col-md-12 q-pa-sm">
                                     <q-input
                                         v-if="form.qualification4_certificate == 'Others'"
                                         v-model="form.extra_qualification4"
@@ -597,13 +597,13 @@
                                 </div>
                             </template>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Qualification 5</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.qualification5_available"
@@ -616,7 +616,7 @@
                             </div>
 
                             <template v-if="form.qualification5_available == 'yes'">
-                                <div class="col-9 q-pl-sm">
+                                <div class="col-12 col-md-9 q-pa-sm">
                                     <q-input
                                         ref="name"
                                         filled
@@ -628,7 +628,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-select 
                                         filled 
                                         v-model="form.qualification5_certificate"
@@ -640,7 +640,7 @@
                                     />
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification5_start_date" label="Date From *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -656,7 +656,7 @@
                                     </q-input>
                                 </div>
 
-                                <div class="col-4 q-pt-sm q-pl-sm">
+                                <div class="col-12 col-md-4 q-pa-sm">
                                     <q-input filled v-model="form.qualification5_end_date" label="Date To *"  mask="date" :rules="['date']">
                                         <template v-slot:append>
                                             <q-icon name="event" class="cursor-pointer">
@@ -673,7 +673,7 @@
                                 </div>
 
 
-                                <div class="col-12 q-pl-sm">
+                                <div class="col-12 col-md-12 q-pa-sm">
                                     <q-input
                                         v-if="form.qualification5_certificate == 'Others'"
                                         v-model="form.extra_qualification5"
@@ -687,13 +687,13 @@
                                 </div>
                             </template>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Parents Details</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-12 col-md-6 q-pa-sm">
                                 <q-input
                                     v-model="form.parent_name"
                                     filled
@@ -703,7 +703,7 @@
                                 />
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-12 col-md-6 q-pa-sm">
                                 <q-input
                                     v-model="form.parent_phone"
                                     filled
@@ -713,7 +713,7 @@
                                 />
                             </div>
 
-                            <div class="col-12 q-pl-sm">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <q-input
                                     v-model="form.parent_address"
                                     filled
@@ -723,13 +723,13 @@
                                 />
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Referee Details</i></b>
                                 <hr>
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-12 col-md-6 q-pa-sm">
                                 <q-input
                                     v-model="form.referee_name"
                                     filled
@@ -739,7 +739,7 @@
                                 />
                             </div>
 
-                            <div class="col-6 q-pl-sm">
+                            <div class="col-12 col-md-6 q-pa-sm">
                                 <q-input
                                     v-model="form.referee_phone"
                                     filled
@@ -749,7 +749,7 @@
                                 />
                             </div>
 
-                            <div class="col-12 q-pl-sm">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <q-input
                                     v-model="form.referee_address"
                                     filled
@@ -759,14 +759,14 @@
                                 />
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-12 col-md-12 q-pa-sm">
                                 <hr>
                                 <b><i>Resumptions</i></b>
                                 <hr>
                             </div>
 
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-input filled v-model="form.resumption_start_date" label="Date of Resumption *"  mask="date" :rules="['date']">
                                     <template v-slot:append>
                                         <q-icon name="event" class="cursor-pointer">
@@ -782,7 +782,7 @@
                                 </q-input>
                             </div>
 
-                            <div class="col-3 q-pl-sm">
+                            <div class="col-12 col-md-3 q-pa-sm">
                                 <q-select 
                                     filled 
                                     v-model="form.position"
@@ -794,7 +794,7 @@
                                 />
                             </div>
 
-                            <div class="col-3 q-pl-sm" v-if="$can('create', 'salaries')">
+                            <div class="col-12 col-md-3 q-pa-sm" v-if="$can('create', 'salaries')">
                                 <q-input
                                     v-model="form.salary"
                                     filled
@@ -804,7 +804,7 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3" v-if="user.location.code == 'PARKIT PARENT'">
+                            <div class="col-12 col-md-3 q-pa-sm" v-if="user.location.code == 'PARKIT PARENT'">
 
                                 <q-select
                                 filled 

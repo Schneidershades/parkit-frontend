@@ -99,7 +99,7 @@
 			</div>
 	    </div>
 
-		<div class="q-pa-md print-hide" >
+		<div class="q-pa-sm print-hide" >
 			<div class="q-gutter-y-md">
 			    <q-stepper
 			      v-model="step"
@@ -260,7 +260,6 @@
 			          	<q-btn v-if="cart.length>0" @click="step = 3" color="primary" label="Continue" />
 				        <q-btn flat @click="step = 1" color="primary" label="Back" class="q-ml-sm" />
 			        </q-stepper-navigation>
-			        
 			      </q-step>
 
 			      <q-step
@@ -275,8 +274,6 @@
 				          <q-btn v-if="cart.length>0" @click="step = 4" color="primary" label="Continue" />
 				          <q-btn flat @click="step = 2" color="primary" label="Back" class="q-ml-sm" />
 				        </q-stepper-navigation>
-			        
-						
 			      </q-step>
 
 			      <q-step

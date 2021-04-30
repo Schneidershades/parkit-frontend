@@ -6,8 +6,8 @@
 					<q-card square bordered class="shadow-1" style="width:290px ">
 						<q-card-section>
 							<q-card-actions align="center">
-				                <!-- <img :src="logoshow" alt="Parkit Location Manager" width="180"> -->
-                                <img :src="logoshow" alt="Parkit Location Manager" width="180">
+                                <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="180" v-if="platform == 'electron'" >
+                                <img src="~assets/express_logo.png" alt="Parkit Location Manager" width="180" v-else>
 				            </q-card-actions>
 
                             <q-banner dense rounded inline-actions v-if="message" class="q-my-sm text-white bg-red">
@@ -159,6 +159,17 @@
                     message: error
                 })
             },
+        },
+
+        mounted () {
+            
+            if(process.env.MODE == 'electron'){
+                return this.platform = 'electron'
+            }
+
+            if(process.env.MODE == 'cordova'){
+                return this.platform = 'cordova'
+            }
         }
     }
 </script>

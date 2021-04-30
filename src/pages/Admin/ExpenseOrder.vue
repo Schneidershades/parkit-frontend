@@ -82,7 +82,7 @@
 	                            ref="form"
 	                        >
 	                        	<div class="row">
-	                        		<div class="col-12 q-pa-sm">
+	                        		<div class="col-12 col-md-12">
 						                <q-select 
 						                  filled 
 						                  v-model="form.account_classification_id"
@@ -95,7 +95,8 @@
 						                  option-label="name"
 						                />
 						            </div>
-		                            <div class="col-6 q-pl-sm">
+
+		                            <div class="col-12 col-md-6 ">
 		                            	<q-input
 		                                    ref="name"
 		                                    filled
@@ -107,7 +108,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6 ">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -118,7 +119,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6 ">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -132,7 +133,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-6 q-pl-sm">
+		                            <div class="col-12 col-md-6">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -146,7 +147,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-12 q-pl-sm">
+		                            <div class="col-12 col-md-12">
 		                                <q-input
 		                                    ref="name"
 		                                    filled
@@ -159,7 +160,7 @@
 		                                />
 		                            </div>
 
-		                            <div class="col-12 q-pt-sm">
+		                            <div class="col-12 col-md-12">
 		                                <q-input
 									      	v-model="form.description"
 									      	filled
@@ -170,7 +171,7 @@
 									    />
 		                            </div>
 
-		                            <div class="col-12 q-pt-sm" 
+		                            <div class="col-12 col-md-12"
 		                            	v-if="$can('set', 'formLocations')">
 		                                <q-select
 						                	filled 

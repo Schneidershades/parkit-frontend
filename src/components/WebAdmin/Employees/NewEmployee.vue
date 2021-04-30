@@ -10,7 +10,7 @@
                         ref="form"
                         >
                         <div class="row">
-                            <div class="col-4 q-pl-sm">
+                            <div class="col-md-4 q-pl-sm">
                                 <q-input
                                     ref="name"
                                     filled

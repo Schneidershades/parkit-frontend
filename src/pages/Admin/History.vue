@@ -7,14 +7,13 @@
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md  print-hide row">
-	    	<div class="col-12 col-md-6 ">
+	    <div class="print-hide row">
+	    	<div class="col-12 col-md-6">
 			    <q-card
 			      class="unelevated my-card text-white"
 			      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
 			    	>	
 			      	<q-card-section class="row">
-
 			      		<div class="col-12">
 				        	<div class="text-h6 q-mb-md">Recent Transactions</div>
 				      	</div>
@@ -124,7 +123,8 @@
 
 				<q-card-actions align="center">
 		            <!-- <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="150"> -->
-		            <img :src="logoshow" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="150">
+		            <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="150" v-if="platform == 'electron'" >
+                    <img src="~assets/express_logo.png" alt="Parkit Location Manager" width="150" v-else>
 		            <i>Welcome to parkit</i>
 		        </q-card-actions>
 
@@ -266,7 +266,7 @@
 			</div>
 	    </div>
 
-	    <div class="q-pa-md print-hide">
+	    <div class="print-hide">
 		    <div class="q-gutter-y-md">
 		        <q-table
 				    title="Recent Transactions"
@@ -320,7 +320,7 @@
 
 				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
 
-				      		<q-td key="total" :props="props">{{ props.row.status }}</q-td>
+				      		<q-td key="status" :props="props">{{ props.row.status }}</q-td>
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing' ">
@@ -453,7 +453,9 @@
 				      		<!-- <q-td key="discount" :props="props">{{ props.row.discount }}</q-td> -->
 				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00'}}</q-td>
 
+
 				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
+				      		<q-td key="status" :props="props">{{ props.row.status }}</q-td>
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing'">
@@ -468,7 +470,7 @@
 					      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'delete' ? true : false"/>
 				      			</template>
 
-				      			<template #body-cell-action="props" v-if="props.row.status == 'complete' ">
+				      			<template v-if="props.row.status == 'complete' ">
 					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
 				      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOnlineOrderTransaction(props.row)" />
@@ -1062,6 +1064,14 @@ export default {
         },
     },
     mounted(){
+
+    	if(process.env.MODE == 'electron'){
+            return this.platform = 'electron'
+        }
+
+        if(process.env.MODE == 'cordova'){
+            return this.platform = 'cordova'
+        }
 
     	if(this.location == null){
 			return window.history.length > 2

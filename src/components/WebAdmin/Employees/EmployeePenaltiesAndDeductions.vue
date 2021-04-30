@@ -74,7 +74,7 @@
                             ref="form"
                         >
                         	<div class="row">
-	                            <div class="col-12 q-pl-sm">
+	                            <div class="col-12 col-md-12 q-pa-sm">
 	                            	<q-input
 	                                    ref="name"
 	                                    filled
@@ -87,7 +87,7 @@
 	                                />
 	                            </div>
 
-	                            <div class="col-6 q-pl-sm">
+	                            <div class="col-12 col-md-6 q-pa-sm">
 	                                <q-input
 	                                    ref="name"
 	                                    filled
@@ -101,7 +101,7 @@
 	                                />
 	                            </div>
 
-	                            <div class="col-6 q-pl-sm">
+	                            <div class="col-12 col-md-6 q-pa-sm">
 	                                <q-input
 	                                    ref="name"
 	                                    filled
@@ -114,7 +114,7 @@
 	                                />
 	                            </div>
 
-	                            <div class="col-12 q-pt-sm">
+	                            <div class="col-12 col-md-12 q-pa-sm">
 	                                <q-input
 								      	v-model="form.description"
 								      	filled
