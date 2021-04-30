@@ -504,13 +504,6 @@ export default {
 			this.setUserDiscountPrivilege(false)
 		}
 		this.getUsersWithDiscountPrivilege()
-
-
-		// if(Platform.is.electron){
-		// 	return this.defaultDiscountToZeroOnLocationManagerApp()
-		// }else{
-		// 	return this.defaultDiscountOnWeb()
-		// }
 	}
 }
 </script>

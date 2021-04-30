@@ -7,6 +7,8 @@
 	      </q-breadcrumbs>
 	    </div>
 
+	    <BackButton/>
+
 	    <div class="container">
 		  	<div class="row">
 		      	<div class="col-12 col-md-12">
@@ -424,8 +426,12 @@
 
 import { mapActions, mapGetters } from 'vuex'
 import { Notify } from 'quasar'
+import BackButton from 'components/Share/BackButton.vue'
 
 export default {
+	components: {
+        BackButton
+    },
 	props :[
 		'locationId'
 	],

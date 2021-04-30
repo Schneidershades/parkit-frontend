@@ -10,7 +10,6 @@
 	    <div class="q-pa-md">
 			
         	<BackButton/>
-			<!-- <q-btn type="submit" unelevated color="primary" class="q-my-md" size="md" label="Create Price" @click="createModel = true" /> -->
 
 	        <div class="q-gutter-y-md">
 	            <div class="q-pa-sm"  v-if="rates">

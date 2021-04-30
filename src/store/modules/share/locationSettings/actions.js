@@ -8,6 +8,16 @@ export const getLocations = ({ commit }) => {
 	})
 }
 
+
+export const getUserLocations = ({ commit }, item) => {
+	return axios.get('api/v1/admin/user/user-locations').then((response) => {
+		console.log(response.data)
+		commit('setLocations', response.data.data)
+		return Promise.resolve()
+	})
+}
+
+
 export const postLocation = ({ commit, dispatch, rootState}, item) => {
 	var URL = "api/v1/admin/user/location-settings"
 	return axios.post(URL, item).then((response) => {

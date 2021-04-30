@@ -7,108 +7,104 @@
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md q-gutter-sm print-hide row">
-	    	<div class="col-12 col-md-6">
+	    <div class="q-pa-md  print-hide row">
+	    	<div class="col-12 col-md-6 ">
 			    <q-card
-			      class="q-my-md my-card text-white"
+			      class="unelevated my-card text-white"
 			      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
 			    	>	
 			      	<q-card-section class="row">
 
 			      		<div class="col-12">
-				        	<div class="text-h5 q-mb-md">Recent Transactions</div>
+				        	<div class="text-h6 q-mb-md">Recent Transactions</div>
 				      	</div>
 
 				      	<div class="col-3">
-				        	<div class="text-subtitle2">Recent</div>
-				      		<div class="text-h6">₦ {{todaysOrderTransaction ? todaysOrderTransaction : '0'}}.00</div>
+				        	<div class="text-subtitle2">RECENT</div>
+				      		<p>₦ {{todaysOrderTransaction ? todaysOrderTransaction : '0'}}.00</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">CARS</div>
-				      		<div class="text-h6">{{carTransactionToday ? carTransactionToday : '0'}}</div>
+				      		<p>{{carTransactionToday ? carTransactionToday : '0'}}</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">POS</div>
-				      		<div class="text-h6">₦ {{posTransactionToday ? posTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{posTransactionToday ? posTransactionToday : '0'}}.00</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">CASH</div>
-				      		<div class="text-h6">₦ {{cashTransactionToday ? cashTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{cashTransactionToday ? cashTransactionToday : '0'}}.00</p>
 				      	</div>
 
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">NOT PAID</div>
-				      		<div class="text-h6">₦ {{notPaidTransactionToday ? notPaidTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{notPaidTransactionToday ? notPaidTransactionToday : '0'}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">PENDING</div>
-				      		<div class="text-h6">₦ {{pendingTransactionToday ? pendingTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{pendingTransactionToday ? pendingTransactionToday : '0'}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">EDIT</div>
-				      		<div class="text-h6">₦ {{editTransactionToday ? editTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{editTransactionToday ? editTransactionToday : '0'}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">DELETE</div>
-				      		<div class="text-h6">₦ {{deleteTransactionToday ? deleteTransactionToday : '0'}}.00</div>
+				      		<p>₦ {{deleteTransactionToday ? deleteTransactionToday : '0'}}.00</p>
 				      	</div>
-				      	<!-- <div class="col-3 q-pt-md">
-				        	<div class="text-subtitle2">BALANCED</div>
-				      		<div class="text-h6">no</div>
-				      	</div> -->
 			      	</q-card-section>
-
-			        <!-- <div class="text-h5">₦ {{user.location.weeklyAmount}}.00</div> -->
 			    </q-card>
+	      	</div>
+	      	<div class="col-12 col-md-6">
 			    <q-card
-			      	class="q-my-md my-card text-white"
+			      	class="unelevated my-card text-white"
 			      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
 			    	>
 
 			      	<q-card-section class="row">
 
 			      		<div class="col-12">
-				        	<div class="text-h5 q-mb-md">Today's Transactions</div>
+				        	<div class="text-h6 q-mb-md">Today's Transactions</div>
 				      	</div>
 
 				      	<div class="col-3">
-				        	<div class="text-subtitle2">Today</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.transaction}}.00</div>
+				        	<div class="text-subtitle2">TODAY</div>
+				      		<p>₦ {{dashboard.orders.today.transaction}}.00</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">CARS</div>
-				      		<div class="text-h6">{{dashboard.orders.today.cars}}</div>
+				      		<p>{{dashboard.orders.today.cars}}</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">POS</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.pos}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.pos}}.00</p>
 				      	</div>
 
 				      	<div class="col-3">
 				        	<div class="text-subtitle2">CASH</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.cash}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.cash}}.00</p>
 				      	</div>
 
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">NOT PAID</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.not_paid}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.not_paid}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">PENDING</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.pending}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.pending}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">EDIT</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.edit}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.edit}}.00</p>
 				      	</div>
 				      	<div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">DELETE</div>
-				      		<div class="text-h6">₦ {{dashboard.orders.today.delete}}.00</div>
+				      		<p>₦ {{dashboard.orders.today.delete}}.00</p>
 				      	</div>
 				      	<!-- <div class="col-3 q-pt-md">
 				        	<div class="text-subtitle2">BALANCED</div>
@@ -127,7 +123,8 @@
 			<div class="ticket print-only" v-if="orderDetails!=null">
 
 				<q-card-actions align="center">
-		            <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="150">
+		            <!-- <img src="~assets/parkit_logo.png" alt="Parkit Home service" width="150"> -->
+		            <img :src="logoshow" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="150">
 		            <i>Welcome to parkit</i>
 		        </q-card-actions>
 
@@ -278,6 +275,7 @@
 			      	row-key="name"
 		      		:filter="recentFilter"
 		    		:pagination.sync="pagination"
+		    		:grid="$q.screen.xs"
 		    		dense
 				    >
 				    <template v-slot:top-right>
@@ -293,9 +291,7 @@
 				      		<q-td key="receipt_number" :props="props">{{props.row.receipt_number}}</q-td>
 				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle.plate_number }}</q-td>
 				      		<q-td key="packages" :props="props">{{ props.row.packages.length }}</q-td>
-
 				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
-			
 				      		<q-td key="discount" :props="props">
 					      		<template v-if="props.row.discount">
 					      			<template v-if="props.row.discount.amountDiscount > 0">
@@ -320,11 +316,11 @@
 				      			</template>
 					      	</q-td>
 
-
-
 				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00' }}</q-td>
 
 				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
+
+				      		<q-td key="total" :props="props">{{ props.row.status }}</q-td>
 
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing' ">
@@ -350,6 +346,82 @@
 				      		</q-td>
 				      	</q-tr>
 				    </template>
+
+				    <template v-slot:item="props">
+				    	<div
+			              class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
+			              :style="props.selected ? 'transform: scale(0.95);' : ''"
+			            >
+			                <q-list dense class="q-mb-md">
+			                  <q-item v-for="col in props.cols" :key="col.name" >
+			                    <q-item-section >
+			                      <q-item-label>{{ col.label }}</q-item-label>
+			                    </q-item-section>
+			                    <q-item-section side>
+
+			                      <q-chip v-if="col.name === 'status'"
+			                        :color="props.row.status == 'complete' ? 'green': props.row.status == 'pending' ? 'purple': 'red'"
+			                        text-color="white"
+			                        dense
+			                        class="text-weight-bolder"
+			                        square
+			                      >{{col.value}} </q-chip>
+
+			                      <p v-else-if="col.name === 'packages'">{{col.value.length}} </p>
+
+			                      <div v-else-if="col.name === 'discount'">
+							      		<template v-if="col.discount">
+							      			<template v-if="col.discount.amountDiscount > 0">
+							      				{{ col.discount ? col.discount.amountDiscount : 0.00}}
+							      			</template>
+
+							      			<template v-if="col.discount.percentageDiscount > 0">
+							      				{{ col.discount.percentageDiscount/100 * col.sub_total}}
+							      			</template>
+						      			</template>
+						      			<template v-if="col.coupon">
+							      			<template v-if="col.coupon.amountDiscount > 0">
+							      				{{ col.coupon.amountDiscount ? col.coupon.amountDiscount : 0.00}}
+							      			</template>
+
+							      			<template v-if="col.coupon.percentageDiscount > 0">
+							      				{{ col.coupon.percentageDiscount/100 * col.sub_total }}
+							      			</template>
+						      			</template>
+						      			<template v-if="col.coupon ==null && col.discount==null">
+							      			{{ col.discounted_amount ? col.discounted_amount : 0.00}}
+						      			</template>
+			                      </div>
+			                      <p v-else-if="col.name === 'vehicle'">{{col.value.plate_number}} </p>
+			                      <p v-else-if="col.field === 'status'"></p>
+			                      <q-item-label v-else caption :class="col.classes ? col.classes : ''">{{ col.value }}</q-item-label>
+			                    </q-item-section>
+
+			                    <template v-if="col.name === 'status'">
+			                      	<template v-if="col.value == 'pending' || col.value == 'processing' ">
+					      				<q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'complete' ? true : false"/>
+						      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'complete' ? true : false"/>
+						      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'complete' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'edit' ">
+						      			<q-btn color="orange" icon="edit" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'edit' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'delete' ">
+						      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'delete' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'complete' ">
+						      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'complete' ? true : false"/>
+					      			</template>
+
+					      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOrderTransaction(props.row)"/>
+				      			</template>
+			                  </q-item>
+			                </q-list>
+			            </div>
+				    </template>
 			    </q-table>
 
  				<q-table
@@ -361,6 +433,7 @@
 		      		v-if="history!=null"
 		    		:pagination.sync="pagination"
 		    		dense
+		    		:grid="$q.screen.xs"
 				    >
 				    <template v-slot:top-right>
 				        <q-input borderless dense debounce="300" v-model="filterExpense" placeholder="Search">
@@ -377,7 +450,7 @@
 				      		<q-td key="vehicle" :props="props">{{ props.row.vehicle ? props.row.vehicle.plate_number : null }}</q-td>
 				      		<q-td key="packages" :props="props">{{ props.row.packages }}</q-td>
 				      		<q-td key="sub_total" :props="props">{{ props.row.sub_total }}</q-td>
-				      		<q-td key="discount" :props="props">{{ props.row.discount }}</q-td>
+				      		<!-- <q-td key="discount" :props="props">{{ props.row.discount }}</q-td> -->
 				      		<q-td key="total" :props="props">{{ props.row.total ? props.row.total : '0.00'}}</q-td>
 
 				      		<q-td key="payment_method" :props="props">{{ props.row.payment_method }}</q-td>
@@ -385,9 +458,6 @@
 				      		<q-td key="action" :props="props">
 				      			<template v-if="props.row.status == 'pending' || props.row.status == 'processing'">
 				      				<q-btn color="purple" icon="swap_vertical_circle" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'pending' ? true : false"/>
-				      				<!-- <q-btn color="orange"  icon="edit" @click="editRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
-					      			<q-btn color="red"  icon="delete"  @click="deleteRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
-					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/> -->
 				      			</template>
 
 				      			<template v-if="props.row.status == 'edit' ">
@@ -398,14 +468,65 @@
 					      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'delete' ? true : false"/>
 				      			</template>
 
-				      			<template v-if="props.row.status == 'complete' ">
+				      			<template #body-cell-action="props" v-if="props.row.status == 'complete' ">
 					      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="props.row.status === 'complete' ? true : false"/>
 				      			</template>
-
 				      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOnlineOrderTransaction(props.row)" />
 
 				      		</q-td>
 				      	</q-tr>
+				    </template>
+
+				    <template v-slot:item="props">
+				    	<div
+			              class="q-pa-xs col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-style-transition"
+			              :style="props.selected ? 'transform: scale(0.95);' : ''"
+			            >
+
+
+			                <q-list dense class="q-mb-md">
+			                  <q-item v-for="col in props.cols" :key="col.name" >
+			                    <q-item-section >
+			                      <q-item-label>{{ col.label }}</q-item-label>
+			                    </q-item-section>
+			                    <q-item-section side>
+
+
+			                      <q-chip v-if="col.name === 'status'"
+			                        :color="props.row.status == 'complete' ? 'green': props.row.status == 'pending' ? 'purple': 'red'"
+			                        text-color="white"
+			                        dense
+			                        class="text-weight-bolder"
+			                        square
+			                      >{{col.value}} </q-chip>
+			                      <p v-else-if="col.name === 'vehicle'">{{col.value.plate_number}} </p>
+			                      <p v-else-if="col.field == 'action'"><!-- xw --></p>
+			                      <q-item-label v-else caption :class="col.classes ? col.classes : ''">{{ col.value }}</q-item-label>
+			                    </q-item-section>
+
+				                <template v-if="col.name === 'status'">
+
+		   							<template v-if="col.value == 'pending' || col.value == 'processing'">
+					      				<q-btn color="purple" icon="swap_vertical_circle" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'pending' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'edit' ">
+						      			<q-btn color="orange" icon="edit" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'edit' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'delete' ">
+						      			<q-btn color="red"  icon="delete" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'delete' ? true : false"/>
+					      			</template>
+
+					      			<template v-if="col.value == 'complete' ">
+						      			<q-btn color="green"  icon="check" @click="completeRequestOrderTransaction(props.row)" v-bind:disabled="col.value === 'complete' ? true : false"/>
+					      			</template>
+					      			<q-btn color="purple" class="q-mx-sm" icon="print" @click="printOnlineOrderTransaction(props.row)" />
+		   						</template>
+			                  </q-item>
+
+			                </q-list>
+			            </div>
 				    </template>
 			    </q-table>
 
@@ -470,7 +591,6 @@
 			    			<q-form
 				                @submit.prevent="sendRequestBtn('edit')"
 				                ref="form"
-				                
 				                >
 				                <div class="row">
 				                  <div class="col-12 q-pa-sm">
@@ -727,13 +847,13 @@ export default {
 		          field: 'sub_total',
 		          sortable: true
 		       },
-		       {
-		          name: 'discount',
-		          align: 'left',
-		          label: 'Discount (₦)',
-		          field: 'discount',
-		          sortable: true
-		       },
+		       // {
+		       //    name: 'discount',
+		       //    align: 'left',
+		       //    label: 'Discount (₦)',
+		       //    field: 'discount',
+		       //    sortable: true
+		       // },
 		       {
 		          name: 'total',
 		          align: 'left',
@@ -749,15 +869,32 @@ export default {
 		          sortable: true
 		       },
 		       {
+		          name: 'status',
+		          align: 'left',
+		          label: 'Status',
+		          field: 'status',
+		       },
+		       {
 		          name: 'action',
 		          align: 'left',
 		          label: 'Action',
 		          field: 'action',
-		       }
+		       },
 		    ],
 		}
 	},
 	computed: {
+		logoshow() {
+            if(process.env.MODE == 'electron'){
+                return 'img/parkit_lm_logo.png'
+            }
+
+            if(process.env.MODE == 'cordova'){
+                return 'img/express_logo.png'
+            }
+
+            return null
+        },
         ...mapGetters({
             orders: 'adminOrders/orders',
           	history: 'locationHistory/history',
@@ -813,6 +950,10 @@ export default {
 					const { remote } = require('electron')
                     remote.getCurrentWebContents().print({silent:true, copies : 1})
                 }
+
+                if(process.env.MODE == 'cordova'){
+					alert('print')
+                }
             }).catch((error) => {
                 console.log(error)
                 if(this.errorMessage){
@@ -824,7 +965,14 @@ export default {
     	printOnlineOrderTransaction(data){
 			this.sendOnlineOrder(data).then((response) => {
 				// this.action.orderDetails = this.orderDetails
-				remote.getCurrentWebContents().print({silent:true, copies : 1})
+				if(process.env.MODE == 'electron'){
+					const { remote } = require('electron')
+                    remote.getCurrentWebContents().print({silent:true, copies : 1})
+                }
+
+                if(process.env.MODE == 'cordova'){
+					alert('print')
+                }
             }).catch((error) => {
                 console.log(error)
                 if(this.errorMessage){

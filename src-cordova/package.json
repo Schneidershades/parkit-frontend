@@ -22,10 +22,14 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-wkwebview-engine": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": [
       "android"
     ]
+  },
+  "dependencies": {
+    "cordova-plugin-splashscreen": "6.0.0"
   }
 }

@@ -1,8 +1,7 @@
 <template>
     <q-layout view="hHh lpR lfr">
         <q-header bordered  style="background-color:white; height:100px; " class="print-hide">
-            <q-toolbar class="q-pl-xl text-primary">
-
+            <q-toolbar class="q-pl-md text-primary">
                 <q-btn
                     flat
                     dense
@@ -14,7 +13,7 @@
                 />
 
                 <q-toolbar-title>
-                    <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
+                    <img :src="logoshow" alt="Parkit Location Manager" class="q-ma-md q-mx-xl q-my-lg" width="180">
                 </q-toolbar-title>
 
 
@@ -22,7 +21,7 @@
                     <template v-if="authenticated" class="gt-sm">
                         <q-btn color="purple" unelevated icon="home" class="q-mr-sm" :label="presentLocation" />
                         <q-btn color="red" unelevated icon="settings_power" @click="shutDown" class="q-mr-sm"/>
-                        <q-btn color="green" unelevated icon="wifi" class="q-mr-sm" @click="checkOnline"></q-btn>                                                   
+                        <q-btn color="green" unelevated icon="wifi" class="q-mr-sm" @click="checkOnline"></q-btn>
                         <template v-if="cart.length">
                             <q-btn color="primary" unelevated :label="carTotalLength" @click="right = !right" />
                         </template>
@@ -49,7 +48,6 @@
             content-class="bg-white-2"
             class="lt-xl print-hide"
             >
-            
             <q-list>
                 <template>
                     <q-item-label header>Menu</q-item-label>
@@ -200,7 +198,19 @@
                 online: 'auth/onlineStatus',
                 connectedOnline: 'internetStatus/connected',
             }),
-            
+
+            logoshow() {
+                if(process.env.MODE == 'electron'){
+                    return 'img/parkit_lm_logo.png'
+                }
+
+                if(process.env.MODE == 'cordova'){
+                    return 'img/express_logo.png'
+                }
+
+                return null
+            },
+
             carTotalLength(){
                 return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
             }, 

@@ -1,5 +1,4 @@
 <template>
-	
 	<div class="q-pa-sm"  v-if="orders">
         <q-table
 		    title="Orders"
@@ -32,8 +31,12 @@
 		      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
 		      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 		      		<q-td key="action" :props="props">
+
 		      			<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
-		      			<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
+
+		      			<template v-if="$can('edit', 'orders')">
+		      				<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
+		      			</template>
 	        			<!-- <q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/> -->
 		      		</q-td>
 		      	</q-tr>

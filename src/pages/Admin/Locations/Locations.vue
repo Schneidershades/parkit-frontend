@@ -7,6 +7,8 @@
       </q-breadcrumbs>
     </div>
 
+    <!-- {{user}} -->
+
     <div class="q-pa-md">
       <div class="q-gutter-y-md">
         <q-btn v-if="$can('create', 'locations')" type="submit" unelevated color="primary" class="q-px-md" size="md" label="Create New Location" @click="createLocation = true" />
@@ -14,7 +16,8 @@
         <q-btn v-if="$can('create', 'employees')" type="submit" unelevated color="primary" class="q-mx-md" size="md" label="All Employees" to="/web/admin/all-employees"  />
 
         <div class="row" v-if="user" >
-          <template v-for="locate in locations" >
+          <!-- <template v-for="locate in locations" > -->
+          <template v-for="locate in user.locationLists" >
             <q-card  :key="locate.id" class="q-ma-sm bg-primary text-white my-card" style="width: 200px">
               <q-card-section>
                 <div class="text-h6">{{locate.code}}</div>
@@ -137,10 +140,10 @@
                   </div>
 
                   <div class="col-6 q-pa-sm" v-if="form.origin_head_office == 'no'">
-                    <q-select 
-                        filled 
-                        :options="locations" 
-                        v-model="form.parent_id" 
+                    <q-select
+                        filled
+                        :options="locations"
+                        v-model="form.parent_id"
                         :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
                         :option-label="opt => Object(opt) === opt && 'id' in opt ? opt.address : null"
                         :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
@@ -252,53 +255,54 @@ export default {
         sendLocationsDetails: 'accountLocation/setAccountLocationSelected',
         getLocations: 'locationSettings/getLocations',
         postLocation: 'locationSettings/postLocation',
+        getUserLocations: 'locationSettings/getUserLocations',
     }),
 
     viewAccount(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/account/location` })   
-      })  
+        return this.$router.push({ path: `/web/admin/account/location` })
+      })
     },
 
     viewExpense(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/expense/order/location` })   
-      })  
+        return this.$router.push({ path: `/web/admin/expense/order/location` })
+      })
     },
 
     viewSales(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/online/transactions/location` })   
-      })  
+        return this.$router.push({ path: `/web/admin/online/transactions/location` })
+      })
     },
 
     viewEmployees(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/employees/location` })   
-      })  
+        return this.$router.push({ path: `/web/admin/employees/location` })
+      })
     },
 
 
     viewPlateNumbers(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/settings/platenumbers/location` })   
-      })  
+        return this.$router.push({ path: `/web/admin/settings/platenumbers/location` })
+      })
     },
 
     viewPricelist(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/settings/rates/location` })   
+        return this.$router.push({ path: `/web/admin/settings/rates/location` })
       }).catch((error) => {
           console.log('not available')
-      })  
+      })
     },
 
     viewUsers(location) {
       this.sendLocationsDetails(location).then((response) => {
-        return this.$router.push({ path: `/web/admin/users/location` })   
+        return this.$router.push({ path: `/web/admin/users/location` })
       }).catch((error) => {
           console.log('not available')
-      })  
+      })
     },
 
     saveModel(){
@@ -321,15 +325,16 @@ export default {
       }
 
       this.postLocation(this.form).then((response) => {
-        this.createLocation = false 
+        this.createLocation = false
       }).catch((error) => {
           console.log('not available')
-      }) 
+      })
     }
   },
 
   mounted(){
     this.getLocations()
+    // this.getUserLocations()
   }
 }
 </script>

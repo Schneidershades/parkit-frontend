@@ -588,6 +588,9 @@
 						const { remote } = require('electron')
 	                    remote.getCurrentWebContents().print({silent:true, copies : 2})
 	                }
+	                if(process.env.MODE == 'cordova'){
+						alert('print')
+	                }
 	            }).catch((error) => {
 	            	this.negativeNotification('cannot process order at the moment')
 	            })

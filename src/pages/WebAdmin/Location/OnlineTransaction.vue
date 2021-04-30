@@ -32,17 +32,26 @@
 
 					    <template slot="body" slot-scope="props">
 					      	<q-tr :props="props">
-					      		<q-td key="receipt_number" :props="props">{{props.row.receipt_number ? props.row.id : 'N/A'}} - {{props.row.receipt_number ? props.row.receipt_number : 'N/A'}}</q-td>
+					      		<q-td key="receipt_number" :props="props">
+					      			{{props.row.receipt_number ? props.row.id : 'N/A'}} - {{props.row.receipt_number ? props.row.receipt_number : 'N/A'}}
+					      		</q-td>
 					      		<q-td key="plate_number" :props="props">{{ props.row.vehicle.plate_number }}</q-td>
-					      		<q-td key="phone" :props="props">{{ props.row.vehicle ? props.row.vehicle.phone  : 'N/A'}}</q-td>
+					      		<q-td key="phone" :props="props">
+					      			<template v-if="$can('edit', 'orders')">
+					      				{{ props.row.vehicle ? props.row.vehicle.phone  : 'N/A'}}
+					      			</template>
+
+					      			<template v-else>
+					      				234*******
+					      			</template>
+					      		</q-td>
 					      		<q-td key="subtotal" :props="props">{{ props.row.sub_total }}</q-td>
-					      		<!-- <q-td key="discount" :props="props">{{ props.row.discount }}</q-td> -->
 					      		<q-td key="total" :props="props">{{ props.row.total }}</q-td>
 					      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
 					      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 					      		<q-td key="action" :props="props">
-					      			<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
-					      			<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
+					      			<q-btn color="purple" disabled="$can('edit', 'orders') ? false : true" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
+					      			<q-btn color="orange" disabled="$can('edit', 'orders') ? false : true" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
 				        			<!-- <q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/> -->
 					      		</q-td>
 					      	</q-tr>
