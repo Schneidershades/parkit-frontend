@@ -5,7 +5,7 @@
             <div class="text-h6 text-center">Delete Order Request</div>
             <q-card-actions align="center">
                 <img src="~assets/parkit_icon_logo.png" align="center" alt="Parkit Home service" width="300">
-            </q-card-actions> 
+            </q-card-actions>
            
         </q-card-section>
 

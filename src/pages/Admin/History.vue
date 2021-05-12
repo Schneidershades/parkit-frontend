@@ -1,6 +1,6 @@
 <template>
 	<q-page padding>
-      	<div class="q-pa-md q-gutter-sm print-hide">
+      	<div class="q-py-md q-gutter-sm print-hide">
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Orders"/>
@@ -8,7 +8,7 @@
 	    </div>
 
 	    <div class="print-hide row">
-	    	<div class="col-12 col-md-6">
+	    	<div class="col-12 col-md-6 q-mt-sm  ">
 			    <q-card
 			      class="unelevated my-card text-white"
 			      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
@@ -57,7 +57,7 @@
 			      	</q-card-section>
 			    </q-card>
 	      	</div>
-	      	<div class="col-12 col-md-6">
+	      	<div class="col-12 col-md-6 q-mt-sm">
 			    <q-card
 			      	class="unelevated my-card text-white"
 			      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
@@ -267,7 +267,7 @@
 	    </div>
 
 	    <div class="print-hide">
-		    <div class="q-gutter-y-md">
+		    <div class="q-gutter-y-md q-mt-sm">
 		        <q-table
 				    title="Recent Transactions"
 			      	:data="orders"
@@ -972,9 +972,76 @@ export default {
                     remote.getCurrentWebContents().print({silent:true, copies : 1})
                 }
 
-                if(process.env.MODE == 'cordova'){
-					alert('print')
-                }
+    //             BTPrinter.list(function (data) {
+				//   console.log("Success");
+				//   console.log(data); //list of printer in data array
+				//   BTPrinter.connect(function (data) {
+				//     alert("connected now");
+				//     console.log(data)
+
+				//     BTPrinter.printPOSCommand(function (data) {
+				//       console.log("Success");
+				//       console.log(data)
+				//     }, function (err) {
+				//       console.log("Error");
+				//       console.log(err)
+				//     }, "0C");
+
+				//     BTPrinter.printPOSCommand(function (data) {
+				//       console.log("Success");
+				//       console.log(data)
+				//     }, function (err) {
+				//       console.log("Error");
+				//       console.log(err)
+				//     }, "0C");
+
+				//     BTPrinter.printPOSCommand(function (data) {
+				//       console.log("Success");
+				//       console.log(data)
+				//     }, function (err) {
+				//       console.log("Error");
+				//       console.log(err)
+				//     }, "0C");
+
+				//   }, function (err) {
+				//     console.log("Error");
+				//     console.log(err)
+				//   }, "printer001");
+				// }, function (err) {
+				//   console.log("Error");
+				//   console.log(err);
+				// });
+
+
+                BTPrinter.status(function(data){
+					alert(data);
+					console.log('bluetooth connected');
+
+					BTPrinter.connect(function(data){
+						alert("connected");
+						console.log('printer connected');
+
+						BTPrinter.printPOSCommand(function(data){
+						    console.log("Success");
+						    console.log(data)
+						},function(err){
+						    console.log("Error");
+						    console.log(err)
+						}, "0C");
+
+					},function(err){
+						console.log("Error");
+						alert("printer could not connect to bluetooth");
+						console.log(err)
+					}, "printer001");
+
+				},function(err){
+					console.log("Error");
+					alert('bluetooth not connected. please turn on your bluetooth')
+					console.log(err)
+				});
+
+
             }).catch((error) => {
                 console.log(error)
                 if(this.errorMessage){

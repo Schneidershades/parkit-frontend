@@ -1,16 +1,16 @@
 <template>
 	<q-page padding>
-      	<div class="q-pa-md q-gutter-sm">
+      	<div class="q-gutter-sm">
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Orders"/>
 	      	</q-breadcrumbs>
 	    </div>
 
-	    <div class="q-pa-md">
+	    <div class="">
         	<BackButton/>
 	        <div class="q-gutter-y-md">
-	            <div class="q-pa-sm"  v-if="history">
+	            <div class=""  v-if="history">
 			        <q-table
 					    title="Orders"
 					    :columns="columns"
@@ -50,9 +50,15 @@
 					      		<q-td key="date" :props="props">{{ props.row.transaction_initiated }}</q-td>
 					      		<q-td key="status" :props="props"><b>{{ props.row.status }}</b></q-td>
 					      		<q-td key="action" :props="props">
-					      			<q-btn color="purple" disabled="$can('edit', 'orders') ? false : true" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
-					      			<q-btn color="orange" disabled="$can('edit', 'orders') ? false : true" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
-				        			<!-- <q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/> -->
+					      			<template v-if="$can('edit', 'orders')">
+					      				<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
+					      				<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
+				        				<!-- <q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/> -->
+					      			</template>
+
+					      			<template v-else>
+						      			<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" />
+				        			</template>
 					      		</q-td>
 					      	</q-tr>
 					    </template>

@@ -34,7 +34,7 @@
 
 		        <div class="q-py-sm">
 		        	<b>Location : {{orderTransaction.location ? orderTransaction.location.code : ''}} -  {{orderTransaction.location ? orderTransaction.location.address : ''}}<br>
-					Phone   : +234-903-152-6466 <br> 
+					Phone   : +234-903-152-6466 <br>
 					Email   : info@parkit.ng<br>
 					Website   : www.parkit.ng<br></b>
 				</div>
@@ -52,9 +52,9 @@
 
 					<br></b>
 		        </div>
-		       		
+
 				<div class="text-h6">Items</div>
-				
+
 				<div class="q-py-sm" v-for="item in orderTransaction.packages" :key="item.id">
 					<p>
 						<b>{{item.package}} - {{item.vehicle}}  || {{item.quantity}} @ ₦ {{item.amount}} || Total: ₦ {{item.total}}</b>
@@ -82,7 +82,7 @@
 					<template v-if="orderTransaction.discount==null && orderTransaction.coupon==null">
 						Net-Total: ₦ 0.00
 					</template>
-					
+
 					<br>
 					Total: ₦ {{orderTransaction.total}}
 					</b>
@@ -94,7 +94,7 @@
 					</i></b>
 					<br>
 					<hr> -->
-					<br><br>	
+					<br><br>
 				</div>
 			</div>
 	    </div>
@@ -177,10 +177,10 @@
 			                                />
 		                            </div>
 		                            <div class="col-12 col-md-4 q-pa-sm">
-										<q-select 
-		                            		filled 
-		                            		v-model="order.vehicle.vehicle_type" 
-		                            		:options="vehicles" 
+										<q-select
+		                            		filled
+		                            		v-model="order.vehicle.vehicle_type"
+		                            		:options="vehicles"
 		                                    label="Get Vehicle Type *"
 		                                    lazy-rules
 		                                    :dense="dense"
@@ -190,10 +190,10 @@
 		                            	/>
 		                            </div>
 		                            <div class="col-12 col-md-4 q-pa-sm">
-		                            	<q-select 
-		                            		filled 
+		                            	<q-select
+		                            		filled
 		                                    v-model="order.vehicle.vehicle_model"
-		                            		:options="models" 
+		                            		:options="models"
 		                                    label="Vehicle Model *"
 		                                    lazy-rules
 		                                    :dense="dense"
@@ -244,7 +244,7 @@
                         <q-stepper-navigation >
 				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true && order.vehicle.vehicle_type!=null" @click="step = 2" color="primary" label="Continue" />
 				          	<q-btn v-else color="red" label="Please Make sure you Enter a plate number and select a Vehicle Type" disabled />
-				        </q-stepper-navigation> 
+				        </q-stepper-navigation>
 			      </q-step>
 
 			      <q-step
@@ -300,7 +300,7 @@
 			        </q-stepper-navigation>
 			      </q-step>
 
-			      
+
 
 			      <q-step
 			        :name="5"
@@ -420,7 +420,7 @@
 	                date: null,
 	                time: null
                 },
-                
+
                 errorMessages: [],
                 error: '',
 
@@ -429,22 +429,22 @@
                 },
 
                 vehicles: [
-			        'SALOON CAR', 
-			        'SUV & SPACE BUS', 
-			        'TRUCK', 
-			        '14 SEATER BUS', 
-			        '18 SEATER BUS', 
-			        '32 SEATER BUS', 
-			        '36 SEATER BUS', 
-			        'PICKUP TRUCK', 
-			        'CARGO TRUCK', 
-			        'MOTOCYCLE', 
+			        'SALOON CAR',
+			        'SUV & SPACE BUS',
+			        'TRUCK',
+			        '14 SEATER BUS',
+			        '18 SEATER BUS',
+			        '32 SEATER BUS',
+			        '36 SEATER BUS',
+			        'PICKUP TRUCK',
+			        'CARGO TRUCK',
+			        'MOTOCYCLE',
 			    ],
 
 			    models: [
-			        'Toyota', 
-			        'Honda', 
-			        'BMW', 
+			        'Toyota',
+			        'Honda',
+			        'BMW',
 			    ],
 
                 step: 1,
@@ -482,10 +482,10 @@
             }),
 
             titleId(){
-            	return this.location.code+'00v0020'+this.receiptNo 
+            	return this.location.code+'00v0020'+this.receiptNo
             }
         },
-            
+
         methods:{
             ...mapActions({
               	sendPlatenumber: 'customerPlateNumbers/checkPlateNumber',
@@ -506,7 +506,7 @@
 	                if(this.errorMessage){
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
-	            })    
+	            })
 	        	this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
@@ -545,7 +545,7 @@
             	if(this.freeWashStatus=='yes' && this.freeWash == true){
             		this.order.payment_method = 'free'
             	}
-            	
+
             	if(this.order.payment_method == null){
             		this.order.payment_method = null
             	}
@@ -610,20 +610,20 @@
 	        			this.order.vehicle.phone = ''
 	        		}
 
-		            
+
 		            this.order.vehicle.first_name = this.checkPlateNumber.first_name
 		            this.order.vehicle.last_name = this.checkPlateNumber.last_name
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicle_type
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicle_model
 	        		this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
-	        		
+
                 }).catch((error) => {
                     this.errorMessages = error
                     console.log(this.errorMessages)
                     if(this.errorMessages){
                         this.negativeNotification(this.errorMessages)
                     }
-                })   
+                })
             },
 
             updateUser(){
@@ -637,7 +637,7 @@
                     }
                 })
             },
-            
+
 
             positiveNotification(message){
                 Notify.create({
@@ -662,7 +662,7 @@
             optionsFn () {
 	     		var today = new Date();
 	  			var bu = today.getDate();
-		      	
+
 	     		console.log(new Date())
 	     		var timeStamp = Date.now()
 				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
@@ -671,7 +671,7 @@
 
 		    time(){
 		    	var today = new Date();
-		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+		    	var time = today.getHours() + ":" + today.getMinutes() + ":" +
             	today.getSeconds();
             	return time
 		    },
@@ -684,7 +684,7 @@
 	                if(this.errorMessage){
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
-	            })     
+	            })
 		    },
 		    checkOnline(){
                 (async () => {
@@ -703,7 +703,7 @@
 
         mounted()
         {
-	        	
+
         }
     }
 </script>

@@ -10,7 +10,7 @@
 
 	    <div class="q-pa-md" v-if="order.id">
 	        <div class="q-gutter-y-md">
-	            <OrderDetails />
+	            <OrderDetails :order="order" />
 	        </div>
 	    </div>
 	    <div class="q-pa-md" v-else>No order item found</div>
@@ -30,11 +30,6 @@ export default {
 	components: {
 		OrderDetails
 	},
-	data () {
-		return {
-			
-		}
-	},
 	computed: {
         ...mapGetters({
             order: 'webAdminOrders/orderDetails',
@@ -45,7 +40,6 @@ export default {
 		...mapActions({
             getOrderId: 'webAdminOrders/getOrderId',
 		}),
-		
 		placeOrder(){
 			this.placeUserOrder([{
 				customer_id: this.authenticatedUser.id,

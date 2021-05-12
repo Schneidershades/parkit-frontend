@@ -18,7 +18,7 @@
                 	</td>
                 	<td  colspan="2">
                 		<p class="text-left"><b> Location</b></p>
-						
+
                 		<template v-if="order.location != null && order.address != null">
                       		<p class="text-left">Home-Service Address: {{order.address.address ? order.address.address : 'NA'}}</p>
                       		<p class="text-left">Location : {{order.location ? order.location.short_name : 'Not Assigned'}}</p>
@@ -86,11 +86,9 @@
 
                 	<td colspan="2">
                 	</td>
-                </tr>   
+                </tr>
             </tbody>
-
         </table>
-
 
         <div class="q-py-md">
         	<template v-if="order">
@@ -117,11 +115,9 @@
 		        	<div class="col-xs-4 ">
 		        		<b>Date :</b> {{order.transaction_initiated ? order.transaction_initiated : 'N/A'}} - {{order.time ? order.time : 'N/A'}}
 		        	</div>
-
-		        	
 	        	</div>
         	</template>
-	        	
+
         	<template v-if="order.customer">
         		<div class="text-h5 q-py-md">Customer & Vehicle Information</div>
 	        	<div class="row">
@@ -157,7 +153,7 @@
 		        	<div class="col-4 q-py-sm">
 	        			Email: <br><b>{{order.customer ? order.customer.email : 'N/A'}}</b>
 		        	</div>
-		        	
+
 		        	<div class="col-4 q-py-sm">
 	        			Free Next Wash : <br><b>{{order.customerNextWashIsFree ? order.customerNextWashIsFree : 'No'}}</b>
 		        	</div>
@@ -167,10 +163,10 @@
 		        	</div>
 	        	</div>
         	</template>
-	        	
+
         	<template v-if="order">
         		<div class="text-h5 q-py-xl">Process Payment Method</div>
-        		
+
 	        	<div class="row">
 	        		<div class="col-3 q-py-sm">
 	        			Transfer
@@ -207,9 +203,8 @@
 		        	</div>
 	        	</div>
         	</template>
-
 	    </div>
-	</div>	
+	</div>
 </template>
 
 <style scoped>
@@ -300,90 +295,11 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-	props :[
-		'orderId'
-	],
-	components: {
-    },
-	data () {
-		return {
-
+	props :{
+		order: {
+			required: false,
+			type: Object
 		}
-	},
-	computed: {
-        ...mapGetters({
-            order: 'webAdminOrders/orderDetails',
-            authenticated: 'auth/user',
-        }),
-    },
-
-	methods:{
-		...mapActions({
-			gatewayResponse: 'orders/paymentProcess',
-			payNowAtLocation: 'orders/payAtLocation',
-			deleteOrder: 'webAdminOrders/deleteOrder',
-			getOrderId: 'webAdminOrders/getOrderId',
-		}),
-
-		payAtLocation(orderId)
-		{
-			this.payNowAtLocation(orderId).then((response) => {
-	        	var redirect = "/user/order/payment/"+this.$route.params.orderId + "/transaction"
-	      		this.$router.push({ path: redirect })	
-            }).catch((error) => {
-                
-            })  
-		},
-
-		deleteOrderId(orderId)
-		{
-			this.deleteOrder(orderId).then((response) => {
-	        	return this.$router.push({ path: `/web/admin/history` })
-            })  
-		},
-
-		callback: function(response){ 
-	        console.log(response.data)
-	        
-	        var content = {
-	        	responseDetails : response
-	        }
-
-	        this.gatewayResponse(content).then((response) => {
-	        	var redirect = "/user/order/payment/"+this.$route.params.orderId + "/transaction"
-	      		this.$router.push({ path: redirect })	      		
-            }).catch((error) => {
-                console.log(error)
-            })  
-	    },
-
-	    close: function(){
-	        console.log("Payment closed")
-	    },
-
-	    positiveNotification(message){
-            Notify.create({
-                type: 'positive',
-                color: 'positive',
-                timeout: 3000,
-                position: 'center',
-                message: message
-            })
-        },
-
-        negativeNotification(error){
-            Notify.create({
-                type: 'negative',
-                color: 'negative',
-                timeout: 3000,
-                position: 'center',
-                message: error
-            })
-        },
-
-        mounted(){
-        	this.getOrderId(this.$route.params.orderId)
-        }
-	},
+	}
 }
 </script>
