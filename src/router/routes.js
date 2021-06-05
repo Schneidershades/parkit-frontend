@@ -407,6 +407,22 @@ const routes = [
         },
       },
 
+
+
+      { path: '/web/admin/history/edit/orders/',
+        name: 'webAdminEditOrderItem',
+        component: () => import('pages/WebAdmin/HistoryEditDetails.vue'),
+        meta: {
+          middleware:[
+            websiteAuth,
+            admin,
+            // isElectron,
+            // desktopAuth
+          ],
+          props: true,
+        },
+      },
+
       { path: '/web/admin/history/edit/orders/:orderId',
         name: 'webAdminEditOrderDetails',
         component: () => import('pages/WebAdmin/HistoryEditDetails.vue'),

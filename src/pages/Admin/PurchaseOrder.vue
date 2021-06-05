@@ -14,7 +14,7 @@
 			            <div class="text-h6 text-center">Create a purchase order</div>
 			        </q-card-section>
 
-			        <q-card-section >            
+			        <q-card-section >
 			            <div class="q-pa-md">
 			                <!-- <div class="bg-primary">{{message}}</div> -->
 							<q-form

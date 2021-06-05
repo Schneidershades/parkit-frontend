@@ -1,5 +1,3 @@
-
-
 export const setOrderDetails = (state, order) =>{
 	state.orderDetails = order
 }

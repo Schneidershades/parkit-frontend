@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-
-// get products
 export const getOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
 		return axios.get('api/v1/admin/user/online-orders').then((response) => {
@@ -23,8 +21,6 @@ export const getLocationOrders = ({ commit, dispatch, rootState }, payload) => {
 	})
 }
 
-
-
 export const pendingOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
 		return axios.get('api/v1/admin/user/pending-orders').then((response) => {
@@ -37,6 +33,10 @@ export const pendingOrders = ({ commit, dispatch, rootState }) => {
 			return Promise.resolve()
 		})
 	}
+}
+
+export const editOrder = ({ commit, dispatch, rootState }, order) =>{
+	commit('setOrderDetails', order)
 }
 
 export const updateOrder = ({ commit, dispatch }, credentials) => {

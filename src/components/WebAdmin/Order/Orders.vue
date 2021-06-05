@@ -35,7 +35,7 @@
 		      			<q-btn color="purple" class="q-mr-sm" unelevated icon="preview" @click="viewOrder(props.row.id)"/>
 
 		      			<template v-if="$can('edit', 'orders')">
-		      				<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props.row.id)"/>
+		      				<q-btn color="orange" class="q-mr-sm" unelevated icon="edit" @click="editOrder(props)"/>
 		      			</template>
 	        			<!-- <q-btn color="red" unelevated icon="delete" @click="deleteOrderId(props.row.id)"/> -->
 		      		</q-td>
@@ -92,15 +92,22 @@ export default {
 		...mapActions({
 			getOrders: 'webAdminOrders/getOrders',
 			deleteOrder: 'webAdminOrders/deleteOrder',
+			editOrder: 'webAdminOrders/editOrder',
 		}),
 
 	    viewOrder(orderId) {
 	      	return this.$router.push({ path: `/web/admin/history/orders/${orderId}` })
 		},
 
-		editOrder(orderId) {
-	      	return this.$router.push({ path: `/web/admin/history/edit/orders/${orderId}` })
-		},	
+		async editOrder (orderDetails) {
+			this.editOrder(orderDetails)
+		},
+
+		// editOrder(orderDetails) {
+
+			
+	 //      	// return this.$router.push({ path: `/web/admin/history/edit/orders/${orderId}` })
+		// },	
 
 		deleteOrderId(orderId)
 		{
@@ -110,7 +117,7 @@ export default {
 		},	
 	},
 	mounted (){
-		this.getOrders()
+		// this.getOrders()
 	},
 }
 </script>

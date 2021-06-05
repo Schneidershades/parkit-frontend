@@ -1,11 +1,7 @@
-
-
-
 export const orders = (state) => {
 	return state.orders
 }
 
-// products
 export const orderDetails = (state) => {
 	return state.orderDetails
 }
@@ -19,5 +15,5 @@ export const paymentDetails = (state) => {
 }
 
 export const paymentTimeout = (state) => {
-	return state.paymentTimeout 
+	return state.paymentTimeout
 }

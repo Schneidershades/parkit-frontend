@@ -79,7 +79,7 @@ export default {
 	},
 
     mounted(){
-    	this.getOrderId(this.$route.params.orderId)
+    	// this.getOrderId(this.$route.params.orderId)
     },
 }
 </script>

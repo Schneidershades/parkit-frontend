@@ -904,7 +904,7 @@ export default {
 			gatewayResponse: 'orders/paymentProcess',
 			payNowAtLocation: 'orders/payAtLocation',
 			deleteOrder: 'webAdminOrders/deleteOrder',
-            getOrderId: 'webAdminOrders/getOrderId',
+            // getOrderId: 'webAdminOrders/getOrderId',
 			updateOrder: 'webAdminOrders/updateOrder',
 		}),
 
@@ -920,8 +920,7 @@ export default {
 
 	    time(){
 	    	var today = new Date();
-	    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
-        	today.getSeconds();
+	    	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         	return time
 	    },
 
@@ -961,7 +960,8 @@ export default {
 	},
 
     mounted(){
-    	if(this.orderDetails){
+
+    	// if(this.orderDetails){
             // alert(this.orderDetails.vehicle.plate_number)
             // 
             // 
@@ -1007,7 +1007,7 @@ export default {
     		// this.form.served_location_id = this.orderDetails.served_location_id
     		// this.form.service_status = this.orderDetails.service_status
     		this.form.status = this.orderDetails.status
-    	}
+    	// }
     },
 }
 </script>
