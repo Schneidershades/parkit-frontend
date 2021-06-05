@@ -6,10 +6,7 @@
 		    row-key="name"
 		    :data="orders"
 		    :pagination.sync="pagination"
-		    :loading="loading"
 	      	:filter="filter"
-		    @request="onRequest"
-		    binary-state-sort
 		    >
 
 	    	<template v-slot:top-right>
@@ -60,7 +57,7 @@ export default {
 			separator: 'cell',
 
 			pagination: {
-		        rowsPerPage: 25,
+		        rowsPerPage: 20,
 		        page: 1,
 		        sortBy: 'desc',
         		descending: false,
