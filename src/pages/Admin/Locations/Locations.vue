@@ -16,8 +16,8 @@
         <q-btn v-if="$can('create', 'employees')" type="submit" unelevated color="primary" class="q-mx-md" size="md" label="All Employees" to="/web/admin/all-employees"  />
 
         <div class="row" v-if="user" >
-          <template v-for="locate in locations" >
-          <!-- <template v-for="locate in user.locationLists" > -->
+          <!-- <template v-for="locate in locations" > -->
+          <template v-for="locate in user.locationLists" >
             <q-card  :key="locate.id" class="q-ma-sm bg-primary text-white my-card" style="width: 200px">
               <q-card-section>
                 <div class="text-h6">{{locate.code}}</div>

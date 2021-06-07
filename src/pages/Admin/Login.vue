@@ -6,7 +6,7 @@
 					<q-card square bordered class="shadow-1" style="width:290px ">
 						<q-card-section>
 							<q-card-actions align="center">
-                                <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="180" v-if="platform == 'electron'" >
+                                <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="180" v-if="platform != 'desktop'" >
                                 <img src="~assets/express_logo.png" alt="Parkit Location Manager" width="180" v-else>
 				            </q-card-actions>
 
@@ -166,6 +166,10 @@
             if(process.env.MODE == 'electron'){
                 return this.platform = 'electron'
             }
+
+            // if(process.env.MODE == 'desktop'){
+            //     return this.platform = 'desktop'
+            // }
 
             if(process.env.MODE == 'cordova'){
                 return this.platform = 'cordova'

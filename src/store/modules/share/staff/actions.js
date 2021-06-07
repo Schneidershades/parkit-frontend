@@ -20,11 +20,18 @@ export const selectStaff = ({ commit }, payload) => {
 	return Promise.resolve()
 }
 
+export const fetchStaff = ({ commit, dispatch }, credentials) => {
+	var url = 'api/v1/admin/user/staff-users/' + credentials.id
+	return axios.get(url).then((response) => {
+		commit('setSelectedStaff', response)
+		return Promise.resolve()
+	})
+}
+
 export const updateStaff = ({ commit, dispatch, rootState }, credentials) => {
 	var url = 'api/v1/admin/user/staff-users/' + credentials.id
 	return axios.put(url, credentials).then((response) => {
-		dispatch('getStaff')
-		dispatch('auth/attempt', rootState.auth.token, { root: true })
+		console.log(response)
 		return Promise.resolve()
 	})
 }

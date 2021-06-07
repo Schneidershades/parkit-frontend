@@ -106,13 +106,13 @@
 			      vertical
 			      color="primary"
 			      animated
-			    >
-			      <q-step
-			        :name="1"
-			        title="Process Plate Number"
-			        icon="settings"
-			        :done="step > 1"
-			      >
+			    	>
+				    <q-step
+				        :name="1"
+				        title="Process Plate Number"
+				        icon="settings"
+				        :done="step > 1"
+				      	>
 			      		<q-form
                             @submit="submitFindVehicle"
                             class="q-gutter-md"
@@ -121,7 +121,7 @@
                         	<div class="row" v-if="checkPlateNumbers">
 	                            <div class="col-12 col-md-6 q-pl-sm">
 	                                <q-input
-	                                	v-if="checkPlateNumbers.length > 0"
+	                                	v-if="checkPlateNumbers.length >= 0"
 	                                    ref="name"
 	                                    filled
 	                                    v-model="plate_number.number"
@@ -245,7 +245,7 @@
 				          	<q-btn v-if="order.vehicle.plate_number!=null  && readonly==true && order.vehicle.vehicle_type!=null" @click="step = 2" color="primary" label="Continue" />
 				          	<q-btn v-else color="red" label="Please Make sure you Enter a plate number and select a Vehicle Type" disabled />
 				        </q-stepper-navigation>
-			      </q-step>
+			      	</q-step>
 
 			      <q-step
 			        :name="2"
@@ -262,12 +262,12 @@
 			        </q-stepper-navigation>
 			      </q-step>
 
-			      <q-step
-			        :name="3"
-			        title="Customer Chosen Packages"
-			        icon="assignment"
-			        :done="step > 3"
-			      >
+			      	<q-step
+				        :name="3"
+				        title="Customer Chosen Packages"
+				        icon="assignment"
+				        :done="step > 3"
+				      >
 			      		<cart></cart>
 
 				        <q-stepper-navigation>
@@ -288,14 +288,36 @@
 					      <q-radio v-model="order.payment_method" val="free" label="Free" />
 					    </div>
 					    <div class="q-gutter-sm" v-else >
-					      	<q-radio v-model="order.payment_method" val="not_paid" label="Not Paid" />
-					      	<q-radio v-model="order.payment_method" val="pos" label="POS Machine" />
-					      	<q-radio v-model="order.payment_method" val="cash" label="Cash" />
+					      	<q-radio
+					      		v-model="order.payment_method"
+					      		val="not_paid"
+					      		label="Not Paid"
+					      	/>
+					      	<q-radio
+					      		v-model="order.payment_method"
+					      		val="pos"
+					      		label="POS Machine"
+					      	/>
+					      	<q-radio
+					      		v-model="order.payment_method"
+					      		val="cash"
+					      		label="Cash"
+					      	/>
+					      	<q-radio
+					      		v-model="order.payment_method"
+					      		val="ussd"
+					      		v-on:click.native="ussdFunctions"
+					      		label="USSD"
+					      	/>
 					    </div>
 					</div>
 
 			        <q-stepper-navigation>
-			          <q-btn @click="placeOrder" v-if="order.payment_method!=null" color="primary" label="Continue" />
+			          	<q-btn @click="placeOrder"
+			          		v-if="order.payment_method =='not_paid' || order.payment_method =='pos' || order.payment_method =='cash'"
+			          		color="primary"
+			          		label="Continue"
+			          	/>
 			          <q-btn flat @click="step = 3" color="primary" label="Back" class="q-ml-sm" />
 			        </q-stepper-navigation>
 			      </q-step>
@@ -366,7 +388,6 @@
 	@page{
 		margin:0cm;
 	}
-
 </style>
 
 <script>
@@ -382,6 +403,7 @@
 	        Cart,
 	        PackageTabList,
 	    },
+
         data(){
             return{
                 order: {
@@ -482,7 +504,7 @@
             }),
 
             titleId(){
-            	return this.location.code+'00v0020'+this.receiptNo
+            	return this.location.code+'00v0030'+this.receiptNo
             }
         },
 
@@ -498,7 +520,7 @@
                 checkOnlineStatus: 'internetStatus/checkOnline',
             }),
 
-            beginStep(){
+            beginStep () {
             	this.clearTransaction().then((response) => {
 					this.step = 1
 	            }).catch((error) => {
@@ -507,7 +529,7 @@
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
 	            })
-	        	this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
+	        	this.order.receipt_number = this.location.code+'00v0030'+this.receiptNo
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -540,7 +562,11 @@
 	        	this.order.platform_initiated = 'desktop'
             },
 
-            placeOrder(){
+            ussdFunctions () {
+            	alert('goo')
+            },
+
+            placeOrder () {
 
             	if(this.freeWashStatus=='yes' && this.freeWash == true){
             		this.order.payment_method = 'free'
@@ -558,7 +584,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
+	        	this.order.receipt_number = this.location.code+'00v0030'+this.receiptNo
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal
@@ -593,8 +619,7 @@
 	            })
 			},
 
-
-            submitFindVehicle(){
+            submitFindVehicle () {
             	this.sendPlatenumber(this.plate_number.number).then((res) => {
             		this.trigger = true
         			this.order.vehicle.id = this.checkPlateNumber.id
@@ -615,7 +640,7 @@
 		            this.order.vehicle.last_name = this.checkPlateNumber.last_name
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicle_type
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicle_model
-	        		this.order.receipt_number = this.location.code+'00v0020'+this.receiptNo
+	        		this.order.receipt_number = this.location.code+'00v0030'+this.receiptNo
 
                 }).catch((error) => {
                     this.errorMessages = error
@@ -626,7 +651,7 @@
                 })
             },
 
-            updateUser(){
+            updateUser () {
             	this.updateCustomer(this.order.vehicle).then((res) => {
       				this.readonly = true
                 }).catch((error) => {
@@ -638,8 +663,7 @@
                 })
             },
 
-
-            positiveNotification(message){
+            positiveNotification (message) {
                 Notify.create({
                     type: 'positive',
                     color: 'positive',
@@ -649,7 +673,7 @@
                 })
             },
 
-            negativeNotification(error){
+            negativeNotification (error) {
                 Notify.create({
                     type: 'negative',
                     color: 'negative',
@@ -669,14 +693,14 @@
 				return formattedString
 		    },
 
-		    time(){
+		    time () {
 		    	var today = new Date();
 		    	var time = today.getHours() + ":" + today.getMinutes() + ":" +
             	today.getSeconds();
             	return time
 		    },
 
-		    useFreeWash(stats){
+		    useFreeWash (stats) {
 		    	this.setFreeWashStatus(stats).then((response) => {
 		    		this.positiveNotification('free wash has been updated to ' + stats)
 	            }).catch((error) => {
@@ -686,7 +710,8 @@
 	                }
 	            })
 		    },
-		    checkOnline(){
+
+		    checkOnline () {
                 (async () => {
                     var check = await isOnline()
                     this.checkOnlineStatus(check).then((res) => {
@@ -700,10 +725,5 @@
                 })();
             },
         },
-
-        mounted()
-        {
-
-        }
     }
 </script>
