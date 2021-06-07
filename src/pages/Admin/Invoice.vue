@@ -469,6 +469,8 @@
 			        'BMW',
 			    ],
 
+			    banks: [],
+
                 step: 1,
                 dense: true,
       			splitterModel: 20,
