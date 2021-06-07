@@ -256,21 +256,20 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 		dispatch('getOfflineOrders', notConcludedOrders)
 		// commit('setOrders', notConcludedOrders)
 		let auth = rootState.auth.user
+		let location = rootState.accountLocation.accountLocationDetails
 
 		if(auth){
 			console.log('checking online')
-			dispatch('locationHistory/getLocationHistory', null, { root: true })
-			dispatch('dashboard/getLocationDashboard', null, { root: true })
+			dispatch('locationHistory/getLocationHistory', location ? location.id : null, { root: true })
+			dispatch('dashboard/getLocationDashboard', location ? location.id : null , { root: true })
 			dispatch('auth/attempt', rootState.auth.token, { root: true })
 			dispatch('adminShopping/getProducts', null, { root: true })
 		}else{
-			dispatch('locationHistory/getLocationHistory', null, { root: true })
+			dispatch('locationHistory/getLocationHistory', location ? location.id : null, { root: true })
 		}
-
 
 		dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
 
-		
 		return Promise.resolve()
 	}).catch((error) => {
 		if (!error.response) {

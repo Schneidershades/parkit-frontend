@@ -1132,6 +1132,8 @@ export default {
     },
     mounted(){
 
+    	this.getLocationDashboard(this.location.id)
+
     	if(process.env.MODE == 'electron'){
             return this.platform = 'electron'
         }
