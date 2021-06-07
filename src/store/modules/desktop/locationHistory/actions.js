@@ -3,12 +3,13 @@ import { localForageService } from '../dispatchApi/localForageService'
 import { LocalStorage } from 'quasar'
 
 export const getLocationHistory = ({state, commit, rootState }, item) => {
-	let parameter = null
+	var parameter = null
 
 	if(item!=null){
 		parameter = item;
 	}else{
-		parameter = JSON.parse(LocalStorage.getItem('user')) ? user.location.id : null
+		var user = JSON.parse(LocalStorage.getItem('user'))
+		parameter = user ? user.location.id : null
 	}
 
 	if(parameter==null){

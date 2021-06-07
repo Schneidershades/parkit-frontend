@@ -8,22 +8,6 @@
 			</q-breadcrumbs>
 		</div>
 
-		<div class="print-hide" >
-
-			<!-- receipt number <br>
-			{{receiptNo}}<br>
-			last transaction <br>
-			{{orderTransaction}} <br>
-			order<br>
-			{{order}} <br>
-			all orders<br>
-		{{allOrders}} <br> -->
-		<!-- {{freeWashStatus}} {{freeWash}}<br> -->
-		<!-- {{checkPlateNumber}}<br> -->
-		<!-- {{checkPlateNumbers}}<br> -->
-		</div>
-
-
 		<div id="ticketPrinter">
 			<div class="ticket print-only" v-if="orderTransaction">
 

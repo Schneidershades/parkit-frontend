@@ -5,12 +5,13 @@ import { localForageService } from '../dispatchApi/localForageService'
 // get products
 export const getProducts = ({ commit, dispatch, rootState }, item) => {
 
-	let parameter = null
+	var parameter = null
 
 	if(item!=null){
 		parameter = item;
 	}else{
-		parameter = JSON.parse(LocalStorage.getItem('user')) ? user.location.id : null
+		var user = JSON.parse(LocalStorage.getItem('user'))
+		parameter = user ? user.location.id : null
 	}
 
 	if(parameter==null){
@@ -26,7 +27,7 @@ export const getProducts = ({ commit, dispatch, rootState }, item) => {
 
 // add product to cart
 export const addProductToCart = ({ commit, dispatch }, productsItems) =>{
-	
+
 	var items = [{
 		id: productsItems,
 		quantity: 1
@@ -44,28 +45,17 @@ export const storeCart = ({ state, commit}) =>{
 	commit('setCart', state.cart)
 }
 
-// export const reInitializeProducts = ({ state, commit}) =>{
-// 	localForageService.setItem('products', state.products)
-// }
-
 export const storeCartFromSession = ({ state }) =>{
-	
+
 	var types = state.cart
-	// var types = payload
-	// console.log(types)
 	if(types != [] || types != null){
-		// console.log('good')
 		var results = types.map(function(item){
 		  return {id : item["id"], quantity : item["quantity"]}
 		});
 
-		// console.log(results)
-
 		return axios.post('api/v1/cart', {
 			results
 		});
-
-		// localStorage.removeItem('cart')
 
 		LocalStorage.set('cart', [])
 
