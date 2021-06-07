@@ -1,0 +1,1 @@
+export const banks = state => state.banks
