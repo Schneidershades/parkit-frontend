@@ -1,12 +1,3 @@
-// products
-export const dashboard = (state) => {
-	return state.dashboard
-}
-
-export const locationStats = (state) => {
-	return state.locationStats
-}
-
-export const dateTransactions = (state) => {
-	return state.dateTransactions
-}
+export const dashboard = state => state.dashboard
+export const locationStats = state => state.locationStats
+export const dateTransactions = state => state.dateTransactions

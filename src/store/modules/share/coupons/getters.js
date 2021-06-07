@@ -1,4 +1,1 @@
-// products
-export const coupons = (state) => {
-	return state.coupons
-}
+export const coupons = state => state.coupons
