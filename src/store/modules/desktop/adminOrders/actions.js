@@ -4,11 +4,9 @@ import { LocalStorage } from 'quasar'
 import { localForageService } from '../dispatchApi/localForageService'
 
 
-// get products
 export const getOrders = ({ commit, dispatch, rootState }) => {
 	if(rootState.auth.role != 'user' ){
 		return axios.get('api/v1/auth/orders').then((response) => {
-			// console.log(response.data)
 			commit('setOrders', response.data.data)
 			return Promise.resolve()
 		})
@@ -68,7 +66,7 @@ export const paymentProcess = ({commit}, item) => {
 
 export const startPaymentTimeout = ({ commit, dispatch, state}) =>{
 	if(state.paymentTimeout !== null){
-		return 
+		return
 	}
 
 	// set save timeout 1000ms
@@ -112,7 +110,7 @@ export const saveTransaction = async({ state, commit, dispatch, rootState }, ord
 
 
 	dispatch('locationHistory/getLocationHistory', null, { root: true })
-	
+
 }
 
 export const storeTransactionInLocalStorage = async({ state, commit, dispatch}) =>{
@@ -137,7 +135,7 @@ export const storeOrder = ({ state, commit, dispatch, rootState }, order) =>{
 
 export const updateRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{
 	commit('setNewOrderNumber', LocalStorage.getItem('receiptOrderNumber'))
-} 
+}
 
 export const checkRecieptNumber = ({ state, commit, dispatch, rootState }, order) =>{
 	console.log(LocalStorage.getItem('receiptOrderNumber'))
@@ -178,7 +176,7 @@ export const signInaUserWithEditPrivilege = async ({ commit }, items) =>{
 		return Promise.resolve()
 	}).catch((error) => {
         return Promise.reject()
-    }) 
+    })
 }
 
 export const signInaUserWithDeletePrivilege = async ({ commit }, items) =>{
@@ -187,35 +185,29 @@ export const signInaUserWithDeletePrivilege = async ({ commit }, items) =>{
 		return Promise.resolve()
 	}).catch((error) => {
         return Promise.reject()
-    }) 
+    })
 }
 
 
 
 export const getUsersWithRight = async ({ commit }, item) =>{
-	// console.log(items)
 	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
 		console.log(response.data)
 		commit('setUsersWithRight', response.data)
 		return Promise.resolve()
 	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
         return Promise.reject()
-    }) 
+    })
 }
 
 export const getUserDeletePrivilege = async ({ commit }, item) =>{
 	// console.log(items)
 	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
-		// console.log(response.data)
 		commit('setUserDeletePrivilege', response.data)
 		return Promise.resolve()
 	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
         return Promise.reject()
-    }) 
+    })
 }
 
 export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, item) =>{
@@ -228,7 +220,6 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 
 	var concludedOrders = orders.filter(x => x.status == 'complete' || x.status == 'edit' || x.status == 'delete' || x.status == 'pending' || x.status == 'processing');
 
-	// var notConcludedOrders = state.orders.filter(x => x.status != 'complete' || x.status != 'edit' || x.status != 'delete');
 	var notConcludedOrders = orders.filter(function( obj ) {
 	    return obj.status == 'pending';
 	});
@@ -239,15 +230,10 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 	// online status
 	let online = rootState.internetStatus.connected
 
-	// store notes
-	// if(online == false){
-	// 	console.log('offline')
-	// 	return
-	// }
 
 	if (orders == [] || orders == null){
 		console.log('empty')
-		return 
+		return
 	}
 
 	console.log('online and with content')
@@ -276,7 +262,7 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
   		return Promise.reject()
-  	})	
+  	})
 }
 
 
