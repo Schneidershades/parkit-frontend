@@ -1,14 +1,7 @@
 import { date } from 'quasar'
 
-export const orderDetails = (state) => {
-	return state.orderDetails
-}
-
-export const onlineOrderDetails = (state) => {
-	return state.onlineOrderDetails
-}
-
-
+export const orderDetails = state => state.orderDetails
+export const onlineOrderDetails = state => state.onlineOrderDetails
 
 export const orders = (state) => {
 
@@ -18,42 +11,21 @@ export const orders = (state) => {
 	return []
 }
 
-export const paymentDetails = (state) => {
-	return state.paymentDetails
-}
-
-export const paymentTimeout = (state) => {
-	return state.paymentTimeout 
-}
-
-// products
-export const receiptNumber = (state) => {
-	return state.receiptOrderNumber
-}
-
-export const editPrivilege = (state) => {
-	return state.editPrivilege 
-}
-
-export const deletePrivilege = (state) => {
-	return state.deletePrivilege 
-}
-
-export const usersWithRights = (state) => {
-	return state.usersWithRights 
-}
-
-export const transaction = (state) => {
-	return state.transaction 
-}
+export const paymentDetails = state => state.paymentDetails
+export const paymentTimeout = state => state.paymentTimeout
+export const receiptNumber = state => state.receiptOrderNumber
+export const editPrivilege = state => state.editPrivilege
+export const deletePrivilege = state => state.deletePrivilege
+export const usersWithRights = state => state.usersWithRights
+export const transaction = state => state.transaction
 
 export const totalTransaction = (state) => {
 	if(!state.orders){
 		return null
 	}
 	return state.orders.reduce(function(total, item){
-	    return parseInt(total) + parseInt(item.total); 
-	},0);	
+	    return parseInt(total) + parseInt(item.total);
+	},0);
 }
 
 export const totalTransactionToday = (state) => {
@@ -75,7 +47,7 @@ export const totalTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const posTransactionToday = (state) => {
@@ -97,7 +69,7 @@ export const posTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const cashTransactionToday = (state) => {
@@ -119,7 +91,7 @@ export const cashTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const completeTransactionToday = (state) => {
@@ -141,7 +113,7 @@ export const completeTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const pendingTransactionToday = (state) => {
@@ -163,7 +135,7 @@ export const pendingTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const editTransactionToday = (state) => {
@@ -185,7 +157,7 @@ export const editTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const deleteTransactionToday = (state) => {
@@ -207,7 +179,7 @@ export const deleteTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const notPaidTransactionToday = (state) => {
@@ -229,7 +201,7 @@ export const notPaidTransactionToday = (state) => {
 
 	}, 0)
 
-	return arraySum	
+	return arraySum
 }
 
 export const carTransactionToday = (state) => {
@@ -244,7 +216,7 @@ export const carTransactionToday = (state) => {
 
 	var orders = state.orders.filter(x => x.status == 'complete' && x.date == formattedString)
 
-	return orders.length	
+	return orders.length
 }
 
 export const totalTransactionThisMonth = (state) => {
@@ -257,8 +229,8 @@ export const totalTransactionThisMonth = (state) => {
 	var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
 	return state.orders.reduce(function(total, item){
 		if(item.date == formattedString){
-			return parseInt(total) + parseInt(item.total); 
+			return parseInt(total) + parseInt(item.total);
 		}
-	    
-	},0);	
+
+	},0);
 }
