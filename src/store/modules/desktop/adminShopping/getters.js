@@ -1,15 +1,6 @@
-// products
-export const products = (state) => {
-	return state.products
-}
-
-export const cart = (state) =>{
-	return state.cart
-}
-
-export const cartItemCount = (state)=>{
-	return state.cart.length
-}
+export const products = state => state.products
+export const cart = state => state.cart
+export const cartItemCount = state => state.cart.length
 
 export const cartTotal = (state) => {
 	const barArray = [];
@@ -89,6 +80,7 @@ export const packageHomeOfficeCount = (state) =>{
 	// console.log(count)
 	return count
 }
+
 
 export const userDiscountPrivilege = (state) =>{
 	return state.userDiscountPrivilege

@@ -62,6 +62,7 @@ import expenseOrders from './modules/share/expenseOrders'
 import employees from './modules/share/employees'
 import staff from './modules/share/staff'
 import dashboard from './modules/share/dashboard'
+import banks from './modules/share/banks'
 
 export default new Vuex.Store({
 	state,
@@ -125,6 +126,7 @@ export default new Vuex.Store({
 		employees,
 		staff,
 		dashboard,
+		banks,
 	},
 })
 

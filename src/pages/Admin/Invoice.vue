@@ -337,6 +337,66 @@
 			    </q-stepper>
 			</div>
 		</div>
+
+		<q-dialog v-model="USSDModal">
+          	<q-card>
+	            <q-card-section>
+	              <div class="text-h6">Process USSD Transaction</div>
+	            </q-card-section>
+
+	            <q-separator />
+
+	            <q-card-section style="max-height: 500vh">
+	              	<q-form
+		                @submit.prevent="updateModel"
+		                ref="form"
+		                >
+		                <div class="row">
+			                <div class="col-12 q-pa-sm">
+			                    <q-select 
+					                filled 
+					                v-model="ussd.code" 
+					                :options="banks" 
+					                label="Select Bank*"
+					                lazy-rules
+							        :option-value="opt => Object(opt) === opt && 'code' in opt ? opt.code : null"
+							        :option-label="opt => Object(opt) === opt && 'name' in opt ? opt.name +' - '+ opt.code   : null"
+							        :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
+							        emit-value
+							        map-options
+				                    :rules="[ val => val.length == null || 'Please use maximum 3 characters' ]"
+					            />
+			                </div>
+			                <!-- <div class="col-12 q-pa-sm">
+			                    <q-input
+				                    filled
+				                    v-model="update.amount"
+				                    type="number"
+				                    label="How much are we selling *"
+				                    lazy-rules
+				                />
+			                </div> -->
+
+			                {{ussd}}
+		                </div>
+
+		                <q-btn
+		                  	type="submit"
+		                  	label="save"
+		                  	class="q-mt-md"
+		                  	color="primary"
+		                  	>
+		                </q-btn>
+	              	</q-form>
+	            </q-card-section>
+
+	            <q-separator />
+
+	            <q-card-actions align="right">
+	              <q-btn flat label="Close" color="primary" v-close-popup />
+	            </q-card-actions>
+          	</q-card>
+        </q-dialog>
 	</q-page>
 </template>
 
@@ -443,8 +503,15 @@
 	                time: null
                 },
 
+                ussd :{
+                	code : 0,
+                	phone : null,
+                	name : null,
+                },
+
                 errorMessages: [],
                 error: '',
+                USSDModal: false,
 
                 plate_number : {
                     number : ''
@@ -468,8 +535,6 @@
 			        'Honda',
 			        'BMW',
 			    ],
-
-			    banks: [],
 
                 step: 1,
                 dense: true,
@@ -503,6 +568,7 @@
                 allOrders: 'adminOrders/orders',
           		location: 'accountLocation/accountLocationDetails',
                 usersWithDiscountPrivilege: 'adminShopping/usersWithDiscountPrivilege',
+                banks: 'banks/banks',
             }),
 
             titleId(){
@@ -565,7 +631,8 @@
             },
 
             ussdFunctions () {
-            	alert('goo')
+            	// this.checkOnline()
+            	this.USSDModal = true
             },
 
             placeOrder () {
