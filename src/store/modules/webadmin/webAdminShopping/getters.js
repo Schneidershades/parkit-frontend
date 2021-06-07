@@ -1,20 +1,7 @@
-// products
-export const products = (state) => {
-	return state.products
-}
+export const products = state => state.products
+export const cart = state => state.cart
+export const cartItemCount = state => state.cart.length
 
-export const cart = (state) =>{
-	return state.cart
-}
-
-// cart
-// cart item count
-// 
-export const cartItemCount = (state)=>{
-	return state.cart.length
-}
-// cart total
-// 
 export const cartTotal = (state) => {
 	const barArray = [];
 	var arraySum = state.cart.reduce((a, b) => {
@@ -62,14 +49,11 @@ export const discount = (state) =>{
 	}
 }
 
-export const payWithCard = (state) =>{
-	return state.percentageDiscount
-}
 
+export const payWithCard = state => state.percentageDiscount
 
-export const couponInformation = () =>{
-	return state.couponDetails
-}
+export const couponInformation = state => state.couponDetails
+
 
 
 
@@ -93,19 +77,8 @@ export const packageHomeOfficeCount = (state) =>{
 	return count
 }
 
-export const userDiscountPrivilege = (state) =>{
-	return state.userDiscountPrivilege
-}
 
-
-export const usersWithDiscountPrivilege = (state) =>{
-	return state.usersWithDiscountPrivilege
-}
-
-export const discountDetails = (state) =>{
-	return state.discountDetails
-}
-
-export const discountedAmount = (state) =>{
-	return state.discountedAmount
-}
+export const userDiscountPrivilege = state => state.userDiscountPrivilege
+export const usersWithDiscountPrivilege = state => state.usersWithDiscountPrivilege
+export const discountDetails = state => state.discountDetails
+export const discountedAmount = state => state.discountedAmount
