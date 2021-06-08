@@ -8,7 +8,6 @@ export const getPlateNumbers = ({ commit, rootState }) => {
 
 	let user = JSON.parse(LocalStorage.getItem('user'))
 
-	// store notes
 	if(!user){
 		commit('setPlateNumbers', [])
 		return console.log('user location not found')

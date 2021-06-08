@@ -32,7 +32,7 @@
             </tbody>
         </table>
 		<table v-else><caption>No item in your cart</caption></table>
-	</div>					
+	</div>
 
 </template>
 
@@ -140,7 +140,6 @@ export default {
 			packageLocationCount: 'adminShopping/packageLocationCount',
 			packageHomeOfficeCount: 'adminShopping/packageHomeOfficeCount',
         }),
-        
         carTotalLength(){
             return "Cart (" + this.cartItemCount + ") - ₦" + this.cartTotal
         }

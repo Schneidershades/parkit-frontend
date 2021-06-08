@@ -40,6 +40,11 @@ export const addProductToCart = ({ commit, dispatch }, productsItems) =>{
 	dispatch('storeCart')	
 }
 
+export const getCart = async ({ state, commit }) => {
+	LocalStorage.set('cart', JSON.stringify(state.cart))
+	commit('setCart', state.cart)
+}
+
 export const storeCart = ({ state, commit}) =>{
 	LocalStorage.set('cart', JSON.stringify(state.cart))
 	commit('setCart', state.cart)

@@ -689,12 +689,11 @@
 	        			this.order.vehicle.phone = ''
 	        		}
 
-
 		            this.order.vehicle.first_name = this.checkPlateNumber.first_name
 		            this.order.vehicle.last_name = this.checkPlateNumber.last_name
 		            this.order.vehicle.vehicle_type = this.checkPlateNumber.vehicle_type
 		            this.order.vehicle.vehicle_model = this.checkPlateNumber.vehicle_model
-	        		this.order.receipt_number = this.titleId()
+	        		this.order.receipt_number = this.titleId
 
                 }).catch((error) => {
                     this.errorMessages = error

@@ -8,7 +8,7 @@
 	    </div>
 
 	    <div class="print-hide row">
-	    	<div class="col-12 col-md-6 q-mt-sm  ">
+	    	<div class="col-12 col-md-6 q-mt-sm q-pa-xs  ">
 			    <q-card
 			      class="unelevated my-card text-white"
 			      style="background: radial-gradient(circle, #98a2ff 0%, #614a88 100%)"
@@ -57,7 +57,7 @@
 			      	</q-card-section>
 			    </q-card>
 	      	</div>
-	      	<div class="col-12 col-md-6 q-mt-sm">
+	      	<div class="col-12 col-md-6 q-mt-sm q-pa-xs">
 			    <q-card
 			      	class="unelevated my-card text-white"
 			      	style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)"
