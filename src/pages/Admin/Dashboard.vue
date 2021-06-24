@@ -339,11 +339,12 @@
 
 	  	mounted(){
 
+		  	this.getLocationDashboard(this.location.id)
+
 	  		if(this.location == null){
 				return window.history.length > 2
 			}
 
-		  	this.getLocationDashboard(this.location.id)
 	  	}
     }
 </script>

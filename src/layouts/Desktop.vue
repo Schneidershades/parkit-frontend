@@ -304,6 +304,11 @@
         },
 
         mounted(){
+
+             if(this.user == null){
+                return this.$router.push({name: 'adminLogin'})
+            }
+
             if(process.env.MODE == 'electron'){
                 return this.platform = 'electron'
             }
@@ -312,8 +317,6 @@
                 return this.platform = 'cordova'
             }
 
-            this.authenticated
-            // console.log('cwcw', getPersistedState())
             if (!this.$store.initialized) {
                 getPersistedState().then(persistedState => {
                     this.$store.commit('initialize', persistedState);
@@ -324,9 +327,8 @@
                 });
             }
 
-            if(this.user==null){
-                return this.$router.push({name: 'adminLogin'})
-            }
+
+           
 
             // (async () => {
             //     var check = await isOnline()

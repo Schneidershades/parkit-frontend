@@ -2,7 +2,7 @@ import axios from 'axios'
 import { localForageService } from '../dispatchApi/localForageService'
 import { LocalStorage } from 'quasar'
 
-export const getLocationHistory = ({state, commit, rootState }, item) => {
+export const getLocationHistory = async ({state, commit, rootState }, item) => {
 	var parameter = null
 
 	if(item!=null){
@@ -16,7 +16,7 @@ export const getLocationHistory = ({state, commit, rootState }, item) => {
 		return console.log('user location not found')
 	}
 
-	return axios.get('api/v1/admin/user/location-history/' + user.location.id).then((response) => {
+	await axios.get('api/v1/admin/user/location-history/' + user.location.id).then((response) => {
 		console.log(response.data.data)
 		commit('setLocationHistory', response.data.data)
         localForageService.setItem('history', response.data.data)

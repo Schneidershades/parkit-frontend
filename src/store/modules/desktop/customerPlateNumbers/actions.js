@@ -4,7 +4,7 @@ import { LocalStorage } from 'quasar'
 const isOnline = require('is-online');
 
 // get products
-export const getPlateNumbers = ({ commit, rootState }) => {
+export const getPlateNumbers = async ({ commit, rootState }) => {
 
 	let user = JSON.parse(LocalStorage.getItem('user'))
 
@@ -13,7 +13,7 @@ export const getPlateNumbers = ({ commit, rootState }) => {
 		return console.log('user location not found')
 	}
 
-	return axios.get('api/v1/admin/user/location-platenumbers/' + user.location.id).then((response) => {
+	await axios.get('api/v1/admin/user/location-platenumbers/' + user.location.id).then((response) => {
 		console.log(response.data.data)
 		commit('setPlateNumbers', response.data)
 		return Promise.resolve()

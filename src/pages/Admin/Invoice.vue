@@ -448,11 +448,15 @@
 	        PackageTabList,
 	    },
 
+	    created(){
+            this.titleId =  this.location.code+'00v0030'+this.receiptNo
+	    },
+
         data(){
             return{
+            	titleId : null,
                 order: {
                 	receipt_number : null,
-                	titleId : null,
                 	vehicle: {
 	                    id : null,
 	                    phone : null,
@@ -555,10 +559,6 @@
                 usersWithDiscountPrivilege: 'adminShopping/usersWithDiscountPrivilege',
                 banks: 'banks/banks',
             }),
-
-            titleId(){
-            	return this.location.code+'00v0030'+this.receiptNo
-            }
         },
 
         methods:{
@@ -582,7 +582,7 @@
 	                    this.negativeNotification('cannot process order at the moment')
 	                }
 	            })
-	        	this.order.receipt_number = this.titleId()
+	        	this.order.receipt_number = this.titleId
 				this.order.vehicle.id = ''
     			this.order.vehicle.email = ''
         		this.order.vehicle.plate_number = ''
@@ -638,7 +638,7 @@
             	this.order.packages = this.cart
 	        	this.order.date = this.optionsFn()
 	        	this.order.time = this.time()
-	        	this.order.receipt_number = this.titleId()
+	        	this.order.receipt_number = this.titleId
 	        	this.order.location = this.user.location
 	        	this.order.location_id = this.user.location.id
 	        	this.order.total = this.cartTotal

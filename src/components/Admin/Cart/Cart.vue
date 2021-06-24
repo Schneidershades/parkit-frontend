@@ -391,12 +391,7 @@ export default {
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
             }).catch((error) => {
-
             	this.negativeNotification(error)
-                // console.log(error)
-                // if(error){
-                //     this.negativeNotification(this.error.error)
-                // }
             })           
 
 	      	// Simulating a delay here.
@@ -456,10 +451,10 @@ export default {
 				user_discount_operator_id: user_discount_operator_id
 			}).then((response) => {
 	      		this.submitting = true
-            }).catch((error) => {
+            }).catch(() => {
                 // this.errorMessage = error
                 // console.log(this.errorMessage)
-                console.log(error)
+                console.log()
                 // if(this.errorMessage){
                 //     this.negativeNotification(this.errorMessage)
                 // }
