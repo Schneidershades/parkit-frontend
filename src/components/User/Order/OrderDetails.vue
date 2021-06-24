@@ -278,8 +278,8 @@ export default {
 			this.payNowAtLocation(orderId).then((response) => {
 	        	var redirect = "/user/order/payment/"+this.$route.params.orderId + "/transaction"
 	      		this.$router.push({ path: redirect })	
-            }).catch((error) => {
-                
+            }).catch(() => {
+                console('none')
             })  
 		},
 
@@ -293,8 +293,8 @@ export default {
 	        this.gatewayResponse(content).then((response) => {
 	        	var redirect = "/user/order/payment/"+this.$route.params.orderId + "/transaction"
 	      		this.$router.push({ path: redirect })	      		
-            }).catch((error) => {
-                console.log(error)
+            }).catch(() => {
+                console('none')
             })  
 	    },
 
