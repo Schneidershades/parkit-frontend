@@ -8,11 +8,11 @@ export const getPlateNumbers = ({ commit, rootState }) => {
 		console.log(response.data.data)
 		commit('setPlateNumbers', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		console.log('none')
   	})
 }
 

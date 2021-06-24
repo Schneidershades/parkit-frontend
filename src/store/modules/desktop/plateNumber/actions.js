@@ -9,7 +9,6 @@ export const getPlateNumbers = async ({ commit }, plate) => {
 		return Promise.resolve()
 	}).catch((error) => {
 		console.log(error.response.data)
-        return Promise.reject()
     }) 
 }
 
@@ -22,7 +21,6 @@ export const getPlateNumber = async ({ commit }, plate) => {
 		return Promise.resolve()
 	}).catch((error) => {
 		console.log(error.response.data)
-        return Promise.reject()
     }) 
 }
 
@@ -34,7 +32,6 @@ export const getLocationPlateNumber = async ({ commit }, id) => {
 		return Promise.resolve()
 	}).catch((error) => {
 		console.log(error.response.data)
-        return Promise.reject()
     }) 
 }
 
@@ -46,7 +43,6 @@ export const updateCustomer = async ({ commit }, items) =>{
 		return Promise.resolve()
 	}).catch((error) => {
 		console.log(error.response.data)
-        return Promise.reject()
     }) 
 }
 
@@ -58,6 +54,5 @@ export const deletePlateNumber = async ({ commit, dispatch }, plate) => {
 		return Promise.resolve()
 	}).catch((error) => {
 		console.log(error.response.data)
-        return Promise.reject()
     }) 
 }
