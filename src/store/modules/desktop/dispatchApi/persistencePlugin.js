@@ -17,8 +17,9 @@ const testOffline = async () => {
 testOffline()
   .then(() => {
     console.log('fetched online data')
-}).catch(error => {
+}).catch(() => {
     // welp. you can't have nice things.
+    console.log('none')
 });
 
 
