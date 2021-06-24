@@ -289,7 +289,7 @@
                     if(error){
                         this.negativeNotification(error.error)
                     }
-                }) 
+                })
             },
 
             submitNewUser(){
