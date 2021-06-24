@@ -668,7 +668,7 @@
 	                if(process.env.MODE == 'cordova'){
 						alert('print')
 	                }
-	            }).catch((error) => {
+	            }).catch(() => {
 	            	this.negativeNotification('cannot process order at the moment')
 	            })
 			},
@@ -774,6 +774,8 @@
                         if(check == true){
                             return this.positiveNotification('Vehicle Plate Numbers updated')
                         }
+                    }).catch(() => {
+                        console('none')
                     })
                 })();
             },

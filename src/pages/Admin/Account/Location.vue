@@ -546,14 +546,14 @@ export default {
 		postExpense(location){
 			this.sendLocationsDetails(location).then((response) => {
 	          return this.$router.push({ path: `/web/admin/account/location/expense/${this.$route.params.locationId}` })   
-	        }).catch((error) => {
+	        }).catch(() => {
 	            console.log('not available')
 	        })
 		},
 		postIncome(location){
 			this.sendLocationsDetails(location).then((response) => {
 	          	return this.$router.push({ path: `/web/admin/account/location/income/${this.$route.params.locationId}` })   
-	        }).catch((error) => {
+	        }).catch(() => {
 	            console.log('not available')
 	        })
 		},
@@ -561,7 +561,7 @@ export default {
 		viewTransaction(location){
 			this.sendAccountLocationTransactionSelected(location).then((response) => {
 				this.seeTransaction = true
-	        }).catch((error) => {
+	        }).catch(() => {
 	            console.log('not available')
 	        })
 		},
@@ -572,8 +572,7 @@ export default {
 				this.seeTransaction = false
 				this.positiveNotification('Transaction successfully deleted')
 				// return this.$router.push({ path: `/admin/account/location/${this.$route.params.locationId}` })
-	        }).catch((error) => {
-				// this.negativeNotification('unable to delete transaction')
+	        }).catch(() => {
 	            console.log('not available')
 	        })
 		},
