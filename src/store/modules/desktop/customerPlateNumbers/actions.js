@@ -17,7 +17,9 @@ export const getPlateNumbers = async ({ commit, rootState }) => {
 		console.log(response.data.data)
 		commit('setPlateNumbers', response.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 export const checkPlateNumber = ({state, commit, dispatch, rootState }, plate_number) =>{

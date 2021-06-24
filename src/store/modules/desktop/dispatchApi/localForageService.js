@@ -13,7 +13,7 @@ if(process.env.MODE != 'ssr'){
   ]).then(() => {
     console.log('localstorage successful')
   })
-  .catch(error => {
+  .catch(() => {
     console.log('localstorage failed')
   });
 }
