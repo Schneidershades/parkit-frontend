@@ -10,7 +10,6 @@ export const getLocationDashboard = ({ commit }, item) => {
 		commit('setDashboard', JSON.parse(LocalStorage.getItem('locationDashboard')))
 		return Promise.resolve()
 	})
-
 }
 
 export const getLocationStats = ({ commit }, item) => {
@@ -35,7 +34,6 @@ export const getLocationStats = ({ commit }, item) => {
 export const getBirthdayLocationDashboard = ({ commit }, item) => {
 	let user = JSON.parse(LocalStorage.getItem('user'))
 
-	// store notes
 	if(!user){
 		return console.log('user location not found')
 	}

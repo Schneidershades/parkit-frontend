@@ -5,11 +5,11 @@ export const getRoles = ({ commit, dispatch, root }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setRoles', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		console.log('console')
   	})
 }
 
@@ -18,11 +18,10 @@ export const getPermissions = ({ commit, dispatch, root }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setPermissions', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
   	})
 }
 
@@ -37,11 +36,11 @@ export const sendRolesPermissions = ({ commit, dispatch, rootState}, item) => {
 		dispatch('getRoles')
 		dispatch('getPermissions')
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		console.log('console')
   	})
 }
 
@@ -53,10 +52,10 @@ export const saveRole = ({ commit, dispatch, rootState}, item) => {
 		dispatch('getRoles')
 		dispatch('getPermissions')
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		console.log('console')
   	})
 }
