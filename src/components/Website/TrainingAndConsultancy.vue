@@ -88,7 +88,6 @@
                 errorMessage: 'errorMessage',
             }),
         },
-            
         methods:{
             ...mapActions({
               sendMail: 'contact/sendTrainingAndConsultancyEmail',

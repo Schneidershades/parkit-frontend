@@ -61,7 +61,7 @@ export default {
         this.sendLocationsDetails(location).then((response) => {
           // console.log(`/admin/account/location/${locationId}`)
           return this.$router.push({ path: `/web/admin/account/location/${location.id}` })   
-        }).catch((error) => {
+        }).catch(() => {
             console.log('not available')
         })  
       },
