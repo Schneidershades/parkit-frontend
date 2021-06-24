@@ -2,25 +2,23 @@ import { localForageService } from './localForageService';
 
 export const setPersistedState = (state) => {
   const persistedState = mapToPersistedState(state)
-  
+
   const promises = [];
   return new Promise((resolve, reject) => {
-    for (let elem in state) {  
-      var deep = state[elem] 
-      for (let s in deep ) {  
+    for (let elem in state) {
+      var deep = state[elem]
+      for (let s in deep ) {
         if(s == 'cart'|| s == 'connected'|| s == 'history'|| s == 'roles'|| s == 'token'|| s == 'user' || s == 'plate_numbers'|| s == 'products')
         promises.push(localForageService.setItem(s, deep[s]));
       }
-      // console.log( elem )
-      // promises.push(localForageService.setItem(elem, state[elem]));
     }
 
     Promise.all(promises)
     .then(result => {
       resolve(result);
     })
-    .catch(error => {
-      reject(error);
+    .catch(() => {
+      console.log('not created')
     })
   });
 };
