@@ -124,7 +124,7 @@
                             })
                         }
                     })
-                })();
+                })()
             },
 
             checkOnline(){
@@ -137,8 +137,10 @@
                         if(check == true){
                             return this.positiveNotification('You are online')
                         }
+                    }).catch(() => {
+                        return this.negativeNotification('unknown connection')
                     })
-                })();
+                })()
             },
 
             positiveNotification(message){
