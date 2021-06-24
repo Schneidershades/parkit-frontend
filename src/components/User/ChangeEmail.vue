@@ -142,8 +142,7 @@
                     otp: this.otpCode,
                 }).then((res) => {
                     return this.step = 3
-                })
-                .catch((error) => {
+                }).catch((error) => {
                     console.log(error)
                     this.errorMessages = error
                     if(error){
