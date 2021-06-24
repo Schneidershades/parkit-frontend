@@ -2,257 +2,252 @@ import axios from 'axios'
 import { LocalStorage } from 'quasar'
 
 export default ({
-	namespaced: true,
+  namespaced: true,
 
-	state: {
-		token: null,
-		user: null,
-		phone: null,
-		onlineStatus: null,
-	},
+  state: {
+    token: null,
+    user: null,
+    phone: null,
+    onlineStatus: null,
+  },
 
-	getters:{
-		authenticated (state){
-			return state.token && state.user
-		},
+  getters: {
+    authenticated(state) {
+      return state.token && state.user
+    },
 
-		user(state){
-			return state.user
-		},
+    user(state) {
+      return state.user
+    },
 
-		phone(state){
-			return state.phone
-		},
+    phone(state) {
+      return state.phone
+    },
 
-		onlineStatus(state){
-			return state.onlineStatus
-		}
-	},
+    onlineStatus(state) {
+      return state.onlineStatus
+    }
+  },
 
-	mutations: {
-		SET_TOKEN (state, token) {
-			state.token = token
-		},
+  mutations: {
+    SET_TOKEN(state, token) {
+      state.token = token
+    },
 
-		SET_USER (state, data) {
-			state.user = data
-		},
+    SET_USER(state, data) {
+      state.user = data
+    },
 
-		SET_PHONE_NUMBER (state, phone) {
-			state.phone = phone
-		},
+    SET_PHONE_NUMBER(state, phone) {
+      state.phone = phone
+    },
 
-		SET_ONLINE_STATUS (state, onlineStatus) {
-			state.onlineStatus = onlineStatus
-		}
-	},
+    SET_ONLINE_STATUS(state, onlineStatus) {
+      state.onlineStatus = onlineStatus
+    }
+  },
 
-	actions: {
-		async signIn({dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/auth/signin', credentials).then(response => {
-					// dispatch('adminOrders/sendOfflineOrders', null, { root: true })
-	                dispatch('attempt', response.data.token)
-	                resolve()
-	            }, error => {
-	                dispatch('errorbag/flashMessage', error.response.data.data.error, {root:true})
-	                reject()
-	            })
-		    })	
-			
-		},
+  actions: {
+    async signIn({ dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/auth/signin', credentials).then(response => {
+          // dispatch('adminOrders/sendOfflineOrders', null, { root: true })
+          dispatch('attempt', response.data.token)
+          resolve()
+        }, error => {
+          dispatch('errorbag/flashMessage', error.response.data.data.error, { root: true })
+          reject()
+        })
+      })
+    },
 
-		async adminSignIn({commit, dispatch, rootState }, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/admin/user/signin', credentials).then(response => {
+    async adminSignIn({ commit, dispatch, rootState }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/admin/user/signin', credentials).then(response => {
 
-			        dispatch('adminOrders/sendOfflineOrders', null, { root: true })
-			        dispatch('adminShopping/getProducts', null, { root: true })
-			        dispatch('locationHistory/getLocationHistory', null, { root: true })
-			        dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
+          dispatch('adminOrders/sendOfflineOrders', null, { root: true })
+          dispatch('adminShopping/getProducts', null, { root: true })
+          dispatch('locationHistory/getLocationHistory', null, { root: true })
+          dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
+          dispatch('attempt', response.data.token)
+          resolve()
 
-	                dispatch('attempt', response.data.token)
-	                resolve()
+        }, error => {
+          dispatch('errorbag/flashMessage', error.response.data.data.error, { root: true })
+          reject()
+        })
+      })
+    },
 
-	            }, error => {
-	                dispatch('errorbag/flashMessage', error.response.data.data.error, {root:true})
-	                reject()
-	            })
-		    })			
-		},
+    async attempt({ commit, dispatch, state, rootState }, token) {
+      if (token) {
+        commit('SET_TOKEN', token)
+      }
 
-		async attempt({ commit, dispatch, state, rootState }, token){
-			if(token){
-				commit('SET_TOKEN', token)
-			}
+      if (process.env.MODE == 'electron') {
+        dispatch('adminShopping/getProducts', null, { root: true })
+      }
 
-			if(process.env.MODE == 'electron'){
-				dispatch('adminShopping/getProducts', null, { root: true })
-			}
+      if (!state.token) {
+        return
+      }
 
-			if(!state.token){
-				return
-			}
+      try {
+        return new Promise((resolve, reject) => {
+          axios.get('api/v1/auth/me').then(response => {
+            LocalStorage.set('user', JSON.stringify(response.data.data))
+            commit('SET_USER', response.data.data)
+            commit('SET_USER', JSON.parse(LocalStorage.getItem('user')))
+            commit('accountLocation/setAccountLocationDetails', response.data.data.location, { root: true })
+            resolve()
+          }, (error) => {
+            // dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
+            console.log(error.response.data.data.error)
+            // reject(error.response.data.data.error)
+            // reject()
+          })
+        })
+      } catch {
+        commit('SET_USER', null)
+        commit('SET_TOKEN', null)
+      }
+    },
 
-			try{
-				return new Promise((resolve, reject) => {
-		            axios.get('api/v1/auth/me').then(response => {
-						LocalStorage.set('user', JSON.stringify(response.data.data))
-		                commit('SET_USER', response.data.data)
-		                commit('SET_USER', JSON.parse(LocalStorage.getItem('user')))
+    signOut({ commit, dispatch, rootState }) {
+      return axios.post('api/v1/auth/signout').then(() => {
+        commit('SET_USER', null)
+        commit('SET_TOKEN', null)
+        commit('shopping/clearCart', null, { root: true })
+      })
+    },
 
-						commit('accountLocation/setAccountLocationDetails', response.data.data.location, {root:true})
+    async sendPhoneNumber({ commit, dispatch }, phone_number) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/phone', phone_number).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+          commit('SET_PHONE_NUMBER', phone_number)
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data.error);
+        })
+      })
+    },
 
-						resolve()
+    async verifyOTP({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/verify-otp', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		            }, error => {
-		                // dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-		                // console.log(error.response.data.data.error)
-		                // reject(error.response.data.data.error)
-		                reject()
-		            })
-		        })
-			}catch (e){
-				commit('SET_USER', null)
-				commit('SET_TOKEN', null)
-			}
-		},
-		
-		signOut({ commit, dispatch, rootState }){
-			return axios.post('api/v1/auth/signout').then(() =>{
-				commit('SET_USER', null)
-				commit('SET_TOKEN', null)
-				commit('shopping/clearCart', null, { root: true })
-			})
-		},
+    async sendForgotPasswordPhoneNumber({ commit, dispatch }, phone_number) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/forgot-password-phone', phone_number).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+          commit('SET_PHONE_NUMBER', phone_number)
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data.error);
+        })
+      })
+    },
 
-		async sendPhoneNumber({commit, dispatch}, phone_number){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/phone', phone_number).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-					commit('SET_PHONE_NUMBER', phone_number)
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data.error);
-	            })
-	        })
-		},
+    async verifyForgotPasswordOTP({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/forgot-password/verify-otp', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		async verifyOTP({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/verify-otp', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
-
-		async sendForgotPasswordPhoneNumber({commit, dispatch}, phone_number){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/forgot-password-phone', phone_number).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-					commit('SET_PHONE_NUMBER', phone_number)
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data.error);
-	            })
-	        })
-		},
-
-		async verifyForgotPasswordOTP({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/forgot-password/verify-otp', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
-
-		async ForgotPasswordChange({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/auth/change/password', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
+    async ForgotPasswordChange({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/auth/change/password', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
 
-		async PasswordReset({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/auth/password-reset', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data.data.error, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
+    async PasswordReset({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/auth/password-reset', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data.data.error, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		async CheckPasswordResetToken({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.get('api/v1/auth/password-reset/'+ credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data.data.error, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
+    async CheckPasswordResetToken({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.get('api/v1/auth/password-reset/' + credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data.data.error, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		async NewPasswordReset({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.patch('api/v1/auth/password-reset/update', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data.data.error, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
+    async NewPasswordReset({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.patch('api/v1/auth/password-reset/update', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data.data.error, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		async updateProfile({commit, dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/auth/profile/update', credentials).then(response => {
-	                dispatch('errorbag/flashMessage', response.data.data.message, {root:true})
-	                dispatch('attempt', response.data.token)
-	                resolve(response);
-	            }, error => {
-	                dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-	                reject(error.response.data.data);
-	            })
-	        })
-		},
+    async updateProfile({ commit, dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/auth/profile/update', credentials).then(response => {
+          dispatch('errorbag/flashMessage', response.data.data.message, { root: true })
+          dispatch('attempt', response.data.token)
+          resolve(response);
+        }, error => {
+          dispatch('errorbag/flashErrorMessage', error.response.data, { root: true })
+          reject(error.response.data.data);
+        })
+      })
+    },
 
-		async signUp({dispatch}, credentials){
-			return new Promise((resolve, reject) => {
-	            axios.post('api/v1/auth/signup', credentials).then(response => {
-	                dispatch('attempt', response.data.token)
-	                resolve()
-	            }, error => {
-	            	console.log(error.response.data.data.error)
-	                dispatch('errorbag/flashMessage', error.response.data.data.error, {root:true})
-	                reject()
-	            })
-		    })	
-		},
+    async signUp({ dispatch }, credentials) {
+      return new Promise((resolve, reject) => {
+        axios.post('api/v1/auth/signup', credentials).then(response => {
+          dispatch('attempt', response.data.token)
+          resolve()
+        }, error => {
+          console.log(error.response.data.data.error)
+          dispatch('errorbag/flashMessage', error.response.data.data.error, { root: true })
+          reject()
+        })
+      })
+    },
 
-		onlineStatus({ commit, rootState }, credentials){
-	        commit('SET_ONLINE_STATUS', credentials)
-		},
-	},
+    onlineStatus({ commit, rootState }, credentials) {
+      commit('SET_ONLINE_STATUS', credentials)
+    },
+  },
 })

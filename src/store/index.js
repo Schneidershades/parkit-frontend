@@ -130,8 +130,6 @@ export default new Vuex.Store({
 	},
 })
 
-
-
 require('./modules/desktop/dispatchApi/subscriber.js')
 require('./modules/desktop/dispatchApi/persistencePlugin.js')
 require('./modules/desktop/dispatchApi/roles.js')
