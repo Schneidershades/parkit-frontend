@@ -1,8 +1,8 @@
 <template>
-    <div class="q-pa-md">
+    <div class="s">
         <BackButton/>
-        <q-card>            
-            <q-card-section>            
+        <q-card>
+            <q-card-section>
                 <div class="q-pa-md">
                     <q-form
                         @submit="submitRequest"
@@ -16,7 +16,7 @@
                                     filled
                                     v-model="form.first_name"
                                     :dense="dense"
-                                    label="First Name *" 
+                                    label="First Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
@@ -27,7 +27,7 @@
                                     filled
                                     v-model="form.middle_name"
                                     :dense="dense"
-                                    label="Middle Name *" 
+                                    label="Middle Name *"
                                     lazy-rules
                                 />
                             </div>
@@ -37,7 +37,7 @@
                                     filled
                                     v-model="form.last_name"
                                     :dense="dense"
-                                    label="Last Name *" 
+                                    label="Last Name *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
                                 />
@@ -49,7 +49,7 @@
                                     filled
                                     v-model="form.email"
                                     :dense="dense"
-                                    label="Email Address *" 
+                                    label="Email Address *"
                                     lazy-rules
                                 />
                             </div>
@@ -59,7 +59,7 @@
                                     filled
                                     v-model="form.phone"
                                     :dense="dense"
-                                    label="Phone *" 
+                                    label="Phone *"
                                     lazy-rules
                                 />
                             </div>
@@ -79,10 +79,10 @@
                                 </q-input>
                             </div>
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.sex"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="Sex *"
                                     lazy-rules
                                     :dense="dense"
@@ -95,16 +95,16 @@
                                     filled
                                     v-model="form.address"
                                     :dense="dense"
-                                    label="Residential Address *" 
+                                    label="Residential Address *"
                                     lazy-rules
                                 />
                             </div>
 
                             <!-- <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.city_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="City *"
                                     lazy-rules
                                     :dense="dense"
@@ -113,10 +113,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.state_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="State *"
                                     lazy-rules
                                     :dense="dense"
@@ -125,10 +125,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.country_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="Country *"
                                     lazy-rules
                                     :dense="dense"
@@ -143,10 +143,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.first_employment"
-                                    :options="question" 
+                                    :options="question"
                                     label="First Employment *"
                                     lazy-rules
                                     :dense="dense"
@@ -181,10 +181,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.account_details"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a bank detail *"
                                     lazy-rules
                                     :dense="dense"
@@ -245,10 +245,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification1_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -263,17 +263,17 @@
                                         filled
                                         v-model="form.qualification1"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification1_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -334,13 +334,13 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification2_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
-                                    
+
                                     :readonly="readonly"
                                 />
                             </div>
@@ -352,17 +352,17 @@
                                         filled
                                         v-model="form.qualification2"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification2_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -424,10 +424,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification3_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -442,17 +442,17 @@
                                         filled
                                         v-model="form.qualification3"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification3_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -514,10 +514,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification4_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -532,17 +532,17 @@
                                         filled
                                         v-model="form.qualification4"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification4_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -604,10 +604,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification5_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -622,17 +622,17 @@
                                         filled
                                         v-model="form.qualification5"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification5_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -783,10 +783,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.position"
-                                    :options="position" 
+                                    :options="position"
                                     label="Position *"
                                     lazy-rules
                                     :dense="dense"
@@ -804,14 +804,14 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3" v-if="user.location.code == 'PARKIT PARENT'">
+                            <div class="col-3" v-if="$can('create', 'locations')">
 
                                 <q-select
-                                filled 
+                                filled
                                 label="Select Location *"
                                 lazy-rules
-                                v-model="form.location_id" 
-                                :options="locations" 
+                                v-model="form.location_id"
+                                :options="locations"
                                 :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
                                 :option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
                                 :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
@@ -824,8 +824,8 @@
                             <q-card-actions align="right" class="col-12">
                                 <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
                             </q-card-actions>
-                        </div> 
-                    </q-form>   
+                        </div>
+                    </q-form>
                 </div>
             </q-card-section>
         </q-card>
@@ -833,12 +833,12 @@
 </template>
 
 <script>
-    
+
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
     import { date } from 'quasar'
     const isOnline = require('is-online');
-    
+
     import BackButton from 'components/Share/BackButton.vue'
 
     export default {
@@ -1011,42 +1011,42 @@
                 ],
 
                 sex: [
-                    'Male', 
-                    'Female', 
+                    'Male',
+                    'Female',
                 ],
 
                 certificate: [
-                    'SSCE', 
-                    'B.Sc', 
-                    'OND', 
-                    'HND', 
-                    'MSC', 
-                    'Others', 
+                    'SSCE',
+                    'B.Sc',
+                    'OND',
+                    'HND',
+                    'MSC',
+                    'Others',
                 ],
 
                 position: [
-                    'Parkit Pro (PP)', 
-                    'Head Parkit Pro (HPP)', 
-                    'Front Desk Pro (FD)', 
-                    'Manager (MG)', 
-                    'Head of Operation (HOP)', 
-                    'Assistant Head of Operation (AHOP)', 
-                    'Facility Manager (FM)', 
-                    'Technical Assistant (FM)', 
+                    'Parkit Pro (PP)',
+                    'Head Parkit Pro (HPP)',
+                    'Front Desk Pro (FD)',
+                    'Manager (MG)',
+                    'Head of Operation (HOP)',
+                    'Assistant Head of Operation (AHOP)',
+                    'Facility Manager (FM)',
+                    'Technical Assistant (FM)',
                 ],
 
                 question: [
-                    'yes', 
-                    'no', 
+                    'yes',
+                    'no',
                 ],
                 days: [
-                    'Sunday', 
-                    'Monday', 
-                    'Tuesday', 
-                    'Wednesday', 
-                    'Thursday', 
-                    'Friday', 
-                    'Saturday', 
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday',
                     'Sunday',
                 ],
             }
@@ -1068,7 +1068,7 @@
                 return this.form.amount * this.form.quantity
             }
         },
-            
+
         methods:{
             ...mapActions({
                 postEmployee: 'employees/postEmployee',
@@ -1091,17 +1091,17 @@
 
                             this.postEmployee(this.form).then((res) => {
                                 this.positiveNotification('Resource has been created')
-                                return this.$router.replace({path: '/desktop/employees'})
+                                return window.history.length > 2
                             }).catch((error) => {
                                 this.errorMessages = error
                                 console.log(this.errorMessages)
                                 if(this.errorMessages){
                                     this.negativeNotification(this.errorMessages)
                                 }
-                            }) 
+                            })
                         }
                     })
-                })();      
+                })();
             },
 
             viewDetails(item){
@@ -1133,7 +1133,7 @@
             optionsFn () {
                 var today = new Date();
                 var bu = today.getDate();
-                
+
                 console.log(new Date())
                 var timeStamp = Date.now()
                 var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
@@ -1142,7 +1142,7 @@
 
             time(){
                 var today = new Date();
-                var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+                var time = today.getHours() + ":" + today.getMinutes() + ":" +
                 today.getSeconds();
                 return time
             },
