@@ -8,7 +8,9 @@ export const getLocationExpenseOrders = ({ commit }, item) => {
 		console.log(response.data)
 		commit('setOrders', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const updateExpenseOrders = ({ commit, dispatch }, item) => {
@@ -16,7 +18,9 @@ export const updateExpenseOrders = ({ commit, dispatch }, item) => {
 	return axios.put(URL, item).then((response) => {
 		dispatch('getExpenseOrders')
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const getExpenseOrders = ({ commit }) => {
@@ -25,7 +29,9 @@ export const getExpenseOrders = ({ commit }) => {
 		console.log(response.data)
 		commit('setOrders', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const findExpenseOrders = ({ commit }, id) => {
@@ -34,7 +40,9 @@ export const findExpenseOrders = ({ commit }, id) => {
 		console.log(response.data)
 		commit('setExpenseOrderDetails', response.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 
@@ -44,7 +52,9 @@ export const getPenaltyAndDeduction = ({ commit }) => {
 		console.log(response.data)
 		commit('setOrders', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const getLoanAndOutstanding = ({ commit }) => {
@@ -53,7 +63,9 @@ export const getLoanAndOutstanding = ({ commit }) => {
 		console.log(response.data)
 		commit('setOrders', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const sendExpenseOrder = ({ commit, dispatch}, information) => {
@@ -68,7 +80,9 @@ export const sendExpenseOrder = ({ commit, dispatch}, information) => {
 		}
 		dispatch('getLocationExpenseOrders', user.location.id)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('console')
+  	})
 }
 
 export const approveExpenseOrder = ({ commit, dispatch, rootState }, information) => {
@@ -79,7 +93,7 @@ export const approveExpenseOrder = ({ commit, dispatch, rootState }, information
 		return Promise.resolve()
 	}, error => {
 	   	dispatch('errorbag/flashMessage', error.response.data.data.error, {root:true})
-        return Promise.reject()
+        return
     })
 
 }
@@ -89,5 +103,7 @@ export const deleteExpenseOrders = ({ commit }, id) => {
 	return axios.delete(URL).then((response) => {
 		dispatch('getExpenseOrders')
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		return
+  	})
 }
