@@ -250,8 +250,8 @@ export default {
 		deleteModel(id){
 			this.deletePlateNumber(id).then((response) => {
         		this.positiveNotification('Action was deleted')
-            }) 
-		},		
+            })
+		},
 	},
 	mounted (){
 		if(this.location == null){
