@@ -137,7 +137,7 @@
                     this.$router.replace({
                         name: 'home'
                     })
-                }).catch((error) => {
+                }).catch(() => {
                     this.errorMessages = error
                     this.disable = false 
                 })           
