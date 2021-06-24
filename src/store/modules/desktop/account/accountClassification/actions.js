@@ -14,12 +14,14 @@ export const sendAccountClassification = ({ commit, dispatch }, information) => 
 		console.log(response.data)
 		dispatch('getAccountClassification')
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('none')
+  	})
 }
 
 export const selectClassification = ({ commit }, vehicle) => {
 	commit('setSelectedClassification', vehicle)
-	return Promise.resolve()
+	// return Promise.resolve()
 }
 
 export const updateClassification = ({ commit, dispatch }, credentials) => {
@@ -28,7 +30,9 @@ export const updateClassification = ({ commit, dispatch }, credentials) => {
 		console.log(response.data)
 		dispatch('getAccountClassification')
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('none')
+  	})
 }
 
 export const deleteClassification = async ({ commit, dispatch }, id) => {
@@ -37,8 +41,8 @@ export const deleteClassification = async ({ commit, dispatch }, id) => {
 		console.log(response.data.data)
 		dispatch('getAccountClassification')
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		console.log(error.response.data)
-        return Promise.reject()
-    }) 
+        console.log('none')
+    })
 }
