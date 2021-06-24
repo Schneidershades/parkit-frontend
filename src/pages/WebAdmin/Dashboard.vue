@@ -292,7 +292,7 @@ export default {
     viewPricelist(location) {
       this.sendLocationsDetails(location).then((response) => {
         return this.$router.push({ path: `/web/admin/settings/rates/location` })
-      }).catch((error) => {
+      }).catch(() => {
           console.log('not available')
       })
     },
@@ -300,7 +300,7 @@ export default {
     viewUsers(location) {
       this.sendLocationsDetails(location).then((response) => {
         return this.$router.push({ path: `/web/admin/users/location` })
-      }).catch((error) => {
+      }).catch(() => {
           console.log('not available')
       })
     },
@@ -326,7 +326,7 @@ export default {
 
       this.postLocation(this.form).then((response) => {
         this.createLocation = false
-      }).catch((error) => {
+      }).catch(() => {
           console.log('not available')
       })
     }

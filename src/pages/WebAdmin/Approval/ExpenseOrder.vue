@@ -7,35 +7,35 @@
 						<q-card-section v-if="expenseOrderDetails">
 							<q-card-actions align="center">
 				                <img src="~assets/parkit_lm_logo.png" alt="Parkit Location Manager" width="300">
-				            </q-card-actions> 
+				            </q-card-actions>
 
                             <q-banner dense rounded inline-actions v-if="message" class="q-my-lg text-white bg-red">
                               {{message}}
                             </q-banner>
 
 							<q-form class="q-gutter-md" @submit="loginUser" ref="form">
-								<q-input 
-									square 
-									filled  
-									v-model="form.username" 
+								<q-input
+									square
+									filled
+									v-model="form.username"
 									label="username"
                                     readonly
                                 	lazy-rules
                                 />
-								<q-input 
-									square 
-									filled  
-									v-model="form.password" 
-									type="password" 
-									label="password" 
+								<q-input
+									square
+									filled
+									v-model="form.password"
+									type="password"
+									label="password"
 					                lazy-rules
 					                :rules="[ val => val && val.length > 0 || 'Please type in your password']"
 									/>
 
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.status"
-                                    :options="decisions" 
+                                    :options="decisions"
                                     label="Select Option *"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please select an option']"
@@ -61,35 +61,35 @@
 
 	.login-box {
 	  	width: 400px;
-	  	margin: 70px 70px 70px 70px; 
+	  	margin: 70px 70px 70px 70px;
 	}
   	.login-box .footer {
 	    width: 100%;
 	    left: 0px;
-	    right: 0px; 
+	    right: 0px;
 	}
   	.login-box .social {
     	display: block;
-    	margin-bottom: 30px; 
+    	margin-bottom: 30px;
 	}
 
 	#recoverform {
-  		display: none; 
+  		display: none;
   	}
 
 	.login-sidebar {
   		padding: 0px;
-  		margin-top: 0px; 
+  		margin-top: 0px;
   	}
   	.login-sidebar .login-box {
     	right: 0px;
     	position: absolute;
-    	height: 100%; 
+    	height: 100%;
 	}
 </style>
 
 <script>
-    
+
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
     const isOnline = require('is-online');
@@ -116,7 +116,7 @@
                 decisions: [
                     'decline',
                     'approve'
-                ] 
+                ]
             }
         },
 
@@ -134,7 +134,7 @@
                 expenseOrderDetails: 'expenseOrders/expenseOrderDetails',
             })
         },
-            
+
         methods:{
             ...mapActions({
               	login: 'auth/adminSignIn',
@@ -157,6 +157,8 @@
                                 // return this.$router.push({name: 'desktopDashboard'})
                             })
                         }
+                    }).catch(() => {
+                        console.log('none')
                     })
                 })();
             },
