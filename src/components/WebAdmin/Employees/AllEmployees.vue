@@ -129,8 +129,6 @@
                 connected: 'internetStatus/setConnection',
             }),
 
-
-
             viewModel(item){
             	this.selectEmployee(item).then((res) => {
          			return this.$router.push({ path: `/web/admin/employees/view` })  
@@ -140,7 +138,7 @@
                     if(this.errorMessages){
                         this.negativeNotification(this.errorMessages)
                     }
-                }) 
+                })
             },
 
             positiveNotification(message){

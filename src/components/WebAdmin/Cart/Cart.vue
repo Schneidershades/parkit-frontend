@@ -385,11 +385,9 @@ export default {
                 if(check == false){
                     return this.negativeNotification('You are offline. Please connect to an available internet')
                 }
-                this.connected(check).then((res) => {
-                    
-                })
+                this.connected(check)
                 
-            })(); 
+            })()
         	
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
