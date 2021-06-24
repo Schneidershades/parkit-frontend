@@ -232,13 +232,11 @@
                                 if(this.errorMessages){
                                     this.negativeNotification(this.errorMessages)
                                 }
-                            })  
+                            })
                         }
                     })
-                    
-                })();         
+                })()
             },
-            
 
             positiveNotification(message){
                 Notify.create({
