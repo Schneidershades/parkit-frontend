@@ -2,8 +2,6 @@ import localforage from 'localforage';
 import localforageGetItems from 'localforage-getitems'
 
 export default async ({ app, router, store, Vue }) => {
-  console.log(process.env.MODE)
-
   if(process.env.MODE != 'ssr'){
 
     const localForageService = localforage.createInstance({
@@ -18,7 +16,7 @@ export default async ({ app, router, store, Vue }) => {
     .then(() => {
       console.log('good localstorage setup')
     })
-    .catch(error => {
+    .catch(() => {
       console.log('bad localstorage setup')
     });
   }

@@ -251,13 +251,8 @@ export default {
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
                 console.log(response)
-            }).catch((error) => {
-                // this.errorMessage = error
-                // console.log(this.errorMessage)
-                console.log(error)
-                // if(this.errorMessage){
-                //     this.negativeNotification(this.errorMessage)
-                // }
+            }).catch(() => {
+                console.log('cannot process at the moment')
             })           
 	      	setTimeout(() => {
 		        this.submitting = false

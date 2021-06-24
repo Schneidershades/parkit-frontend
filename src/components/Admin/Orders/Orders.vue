@@ -119,7 +119,6 @@ export default {
 		...mapActions({
 			// getOrders: 'o/getOrders',
 		}),
-
 	    viewOrder(orderId) {
 	      	return this.$router.push({ path: `/user/order/${orderId}` })
 		},		
