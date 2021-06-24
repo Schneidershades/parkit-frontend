@@ -399,7 +399,6 @@
         },
 
         mounted(){
-
     		if(this.selectedEmployee != null){
     			this.getEmployeePenaltiesAndDeductions(this.selectedEmployee)
     			this.form.expense_orderable_id = this.selectedEmployee.id
