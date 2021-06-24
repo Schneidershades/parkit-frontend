@@ -1,6 +1,6 @@
 <template>
 	<q-page padding>
-      	<div class="q-pa-md q-gutter-sm">
+      	<div class="s">
 	      	<q-breadcrumbs>
 		        <q-breadcrumbs-el label="Home" />
 		        <q-breadcrumbs-el label="Employees"/>
