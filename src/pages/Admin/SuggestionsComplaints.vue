@@ -201,15 +201,12 @@
                 location: 'accountLocation/accountLocationDetails',
             }),
         },
-            
         methods:{
             ...mapActions({
               	sendRequest: 'complaintsAndSuggestions/sendComplaintsAndSuggestion',
                 connected: 'internetStatus/setConnection',
               	getLocationComplaintsAndSuggestions: 'complaintsAndSuggestions/getLocationComplaintsAndSuggestions',
             }),
-
-            
 
             submitRequest(){
                 (async () => {
@@ -228,13 +225,11 @@
                                 if(this.errorMessages){
                                     this.negativeNotification(this.errorMessages)
                                 }
-                            })  
+                            })
                         }
                     })
-                    
-                })();         
+                })()
             },
-            
 
             positiveNotification(message){
                 Notify.create({
@@ -261,11 +256,9 @@
             if(this.location == null){
                 return window.history.length > 2 
             }
-            
             this.getLocationComplaintsAndSuggestions(this.location.id)
             this.form.user_id = this.user.id
             this.form.location_id = this.location.id
-            
         }
     }
 </script>
