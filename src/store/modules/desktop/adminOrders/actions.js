@@ -9,18 +9,22 @@ export const getOrders = ({ commit, dispatch, rootState }) => {
 		return axios.get('api/v1/auth/orders').then((response) => {
 			commit('setOrders', response.data.data)
 			return Promise.resolve()
-		})
+		}).catch(() => {
+	  		console.log('none')
+	  	})
 	}else{
 		return axios.get('api/v1/auth/orders').then((response) => {
 			// console.log(response.data)
 			commit('setOrders', response.data.data)
 			return Promise.resolve()
-		})
+		}).catch(() => {
+	  		console.log('none')
+	  	})
 	}
 }
 
 export const getOfflineOrders = async({state, commit, dispatch, rootState }, item) => {
-	if (await localForageService.getItem('orders') == null){
+	if (await localForageService.getItem('orders').catch(() => {return}) == null){
 		return localForageService.setItem('orders', [])
 	}
 	if(item==null){
@@ -38,7 +42,10 @@ export const placeOrder = ({ commit, dispatch, rootState }, order) =>{
 		dispatch('shopping/removeAllProductFromCartLocalStorage', null, { root: true })
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+		console.log(error.response.data)
+        return
+    })
 }
 
 
@@ -48,7 +55,10 @@ export const getOrderId = ({ commit }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setOrderDetails', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+		console.log(error.response.data)
+        console.log('none')
+    })
 }
 
 export const paymentProcess = ({commit}, item) => {
@@ -60,7 +70,9 @@ export const paymentProcess = ({commit}, item) => {
 		commit('setPaymentDetails', item)
 		dispatch('startPaymentTimeout')
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('none')
+  	})
 }
 
 
@@ -88,16 +100,18 @@ export const payAtLocation = ({ commit }, item) =>{
 	return axios.get(url).then((response) => {
 		commit('setPaymentDetails', response.data.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+  		console.log('none')
+  	})
 }
 
 export const saveTransaction = async({ state, commit, dispatch, rootState }, order) =>{
 	commit('updateTransaction', order)
 	dispatch('storeTransactionInLocalStorage')
 
-	console.log(await localForageService.getItem('orders'))
+	await localForageService.getItem('orders').catch(() => {console.log('none')})
 
-	commit('setOrders', await localForageService.getItem('orders'))
+	commit('setOrders', await localForageService.getItem('orders').catch(() => {return}))
 	var receipt = LocalStorage.getItem('receiptOrderNumber')
 	var newNumber = ++receipt
 	LocalStorage.set('receiptOrderNumber', newNumber)
@@ -115,7 +129,10 @@ export const saveTransaction = async({ state, commit, dispatch, rootState }, ord
 
 export const storeTransactionInLocalStorage = async({ state, commit, dispatch}) =>{
 	// console.log({ "data": state.orders })
-	await dispatch('getOfflineOrders', state.orders)
+	await dispatch('getOfflineOrders', state.orders).catch(() => {
+		console.log(error.response.data)
+        return
+    })
 }
 
 export const clearTransaction = ({ state, commit, dispatch, rootState }, order) =>{
@@ -158,7 +175,7 @@ export const processRequest = async({ state, commit, dispatch, rootState }, orde
 	commit('setUpdateOrderDetails', order)
 	dispatch('sendOfflineOrders', state.orders)
 	dispatch('getOfflineOrders', state.orders)
-	commit('setOrders', await localForageService.getItem('orders'))
+	commit('setOrders', await localForageService.getItem('orders').catch(() => {return}))
 }
 
 
@@ -174,8 +191,8 @@ export const signInaUserWithEditPrivilege = async ({ commit }, items) =>{
 	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
 		commit('setSignedInaUserWithEditPrivilege', true)
 		return Promise.resolve()
-	}).catch((error) => {
-        return Promise.reject()
+	}).catch(() => {
+        return
     })
 }
 
@@ -183,8 +200,8 @@ export const signInaUserWithDeletePrivilege = async ({ commit }, items) =>{
 	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
 		commit('setSignedInaUserWithDeletePrivilege', true)
 		return Promise.resolve()
-	}).catch((error) => {
-        return Promise.reject()
+	}).catch(() => {
+        return
     })
 }
 
@@ -195,8 +212,8 @@ export const getUsersWithRight = async ({ commit }, item) =>{
 		console.log(response.data)
 		commit('setUsersWithRight', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-        return Promise.reject()
+	}).catch(() => {
+        return
     })
 }
 
@@ -205,13 +222,13 @@ export const getUserDeletePrivilege = async ({ commit }, item) =>{
 	await axios.post('api/v1/admin/user/check-permission', {'permission' : item}).then((response) => {
 		commit('setUserDeletePrivilege', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-        return Promise.reject()
+	}).catch(() => {
+        return
     })
 }
 
 export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, item) =>{
-	var orders = await dispatch('getOfflineOrders')
+	var orders = await dispatch('getOfflineOrders').catch(() => {return})
 
 
 	commit('adminShopping/setSignedInaUserWithDiscountPrivilege', null, {root:true})
@@ -257,11 +274,11 @@ export const sendOfflineOrders = async ({ state, commit, dispatch, rootState }, 
 		dispatch('customerPlateNumbers/getPlateNumbers', null, { root: true })
 
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
 

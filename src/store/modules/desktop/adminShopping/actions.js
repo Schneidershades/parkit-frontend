@@ -22,7 +22,10 @@ export const getProducts = ({ commit, dispatch, rootState }, item) => {
 		console.log(response.data.data)
 		commit('setProducts', response.data)
 		return Promise.resolve()
-	})
+	}).catch(() => {
+		console.log(error.response.data)
+        console.log('none')
+    })
 }
 
 // add product to cart
@@ -40,7 +43,7 @@ export const addProductToCart = ({ commit, dispatch }, productsItems) =>{
 	dispatch('storeCart')	
 }
 
-export const getCart = async ({ state, commit }) => {
+export const getCart = ({ state, commit }) => {
 	LocalStorage.set('cart', JSON.stringify(state.cart))
 	commit('setCart', state.cart)
 }
@@ -105,11 +108,9 @@ export const applyCoupon = async ({ commit }, items) =>{
 		// console.log(response.data.data)
 		commit('updateCouponData', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateCouponData', null)
-        return Promise.reject()
-    }) 
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 export const applyCustomerDiscount = async ({ commit }, items) =>{
@@ -118,11 +119,9 @@ export const applyCustomerDiscount = async ({ commit }, items) =>{
 		// console.log(response.data.data)
 		commit('updateDiscountData', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
-        return Promise.reject()
-    }) 
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 
@@ -139,27 +138,21 @@ export const setUserDiscountPrivilege = async ({ commit }, items) =>{
 export const signInaUserWithDiscountPrivilege = async ({ commit }, items) =>{
 	// console.log(items)
 	await axios.post('api/v1/admin/user/permission/authorize', items).then((response) => {
-		// console.log(response.data.data)
 		commit('setSignedInaUserWithDiscountPrivilege', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
-        return Promise.reject()
-    }) 
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 export const getUsersWithDiscountPrivilege = async ({ commit }) =>{
 	// console.log(items)
 	await axios.get('api/v1/admin/user/permission/discounts').then((response) => {
-		// console.log(response.data)
 		commit('setUsersWithDiscountPrivilege', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
-        return Promise.reject()
-    }) 
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 export const getUsersWithRight = async ({ commit }, item) =>{
@@ -167,11 +160,9 @@ export const getUsersWithRight = async ({ commit }, item) =>{
 		console.log(response.data)
 		commit('setUsersWithDiscountPrivilege', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
-		// console.log(error.response.data)
-        // commit('updateDiscountData', null)
-        return Promise.reject()
-    }) 
+	}).catch(() => {
+        console.log('none')
+    })
 }
 
 export const defaultDiscountToZeroOnLocationManagerApp = async ({ commit }) =>{
