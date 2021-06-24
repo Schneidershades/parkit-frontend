@@ -3,32 +3,33 @@
         <div class="q-gutter-y-md q-pb-md">
             <BackButton/>
 
+            <!-- {{selectedEmployee}} -->
 
-            <q-btn 
-                type="submit" 
-                unelevated 
-                color="red" 
-                class="q-px-md q-ma-sm" 
-                size="md" 
-                label="Loans & Outstandings"  
+            <q-btn
+                type="submit"
+                unelevated
+                color="red"
+                class="q-px-md q-ma-sm"
+                size="md"
+                label="Loans & Outstandings"
                 to="/web/admin/employees/loans-and-outstanding"/>
 
-            <q-btn 
-                type="submit" 
-                unelevated 
-                color="blue" 
-                class="q-px-md q-ma-sm" 
-                size="md" 
-                label="Penalties & Deducations"  
+            <q-btn
+                type="submit"
+                unelevated
+                color="blue"
+                class="q-px-md q-ma-sm"
+                size="md"
+                label="Penalties & Deducations"
                 to="/web/admin/employees/penalties-and-deductions"/>
 
-            <q-btn 
-                type="submit" 
-                unelevated 
-                color="purple" 
-                class="q-px-md q-ma-sm" 
-                size="md" 
-                label="Guarantors"  
+            <q-btn
+                type="submit"
+                unelevated
+                color="purple"
+                class="q-px-md q-ma-sm"
+                size="md"
+                label="Guarantors"
                 to="/web/admin/employees/guarantors"/>
 
             <br>
@@ -42,7 +43,7 @@
                 <div class="text-h6 text-center">View Employee</div>
             </q-card-section>
 
-            <q-card-section>            
+            <q-card-section>
                 <div class="q-pa-md">
                     <q-form
                         @submit="submitRequest"
@@ -56,7 +57,7 @@
                                     filled
                                     v-model="form.first_name"
                                     :dense="dense"
-                                    label="First Name *" 
+                                    label="First Name *"
                                     lazy-rules
                                     :readonly="readonly"
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
@@ -69,7 +70,7 @@
                                     v-model="form.middle_name"
                                     :dense="dense"
                                     :readonly="readonly"
-                                    label="Middle Name *" 
+                                    label="Middle Name *"
                                     lazy-rules
                                 />
                             </div>
@@ -79,7 +80,7 @@
                                     filled
                                     v-model="form.last_name"
                                     :dense="dense"
-                                    label="Last Name *" 
+                                    label="Last Name *"
                                     :readonly="readonly"
                                     lazy-rules
                                     :rules="[ val => val && val.length > 0 || 'Please type a title']"
@@ -91,7 +92,7 @@
                                     filled
                                     v-model="form.email"
                                     :dense="dense"
-                                    label="Email Address *" 
+                                    label="Email Address *"
                                     :readonly="readonly"
                                     lazy-rules
                                 />
@@ -103,7 +104,7 @@
                                     v-model="form.phone"
                                     :readonly="readonly"
                                     :dense="dense"
-                                    label="Phone *" 
+                                    label="Phone *"
                                     lazy-rules
                                 />
                             </div>
@@ -123,10 +124,10 @@
                                 </q-input>
                             </div>
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.sex"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="Sex *"
                                     lazy-rules
                                     :dense="dense"
@@ -140,16 +141,16 @@
                                     v-model="form.address"
                                     :readonly="readonly"
                                     :dense="dense"
-                                    label="Residential Address *" 
+                                    label="Residential Address *"
                                     lazy-rules
                                 />
                             </div>
 
                             <!-- <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.city_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="City *"
                                     lazy-rules
                                     :dense="dense"
@@ -158,10 +159,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.state_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="State *"
                                     lazy-rules
                                     :dense="dense"
@@ -170,10 +171,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm q-pb-md">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.country_id"
-                                    :options="sex" 
+                                    :options="sex"
                                     label="Country *"
                                     lazy-rules
                                     :dense="dense"
@@ -188,10 +189,10 @@
                             </div>
 
                             <div class="col-4 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.first_employment"
-                                    :options="question" 
+                                    :options="question"
                                     label="First Employment *"
                                     lazy-rules
                                     :dense="dense"
@@ -228,10 +229,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.account_details"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a bank detail *"
                                     lazy-rules
                                     :dense="dense"
@@ -295,10 +296,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification1_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -314,17 +315,17 @@
                                         v-model="form.qualification1"
                                         :dense="dense"
                                         label="Name of Institutions*"
-                                        :readonly="readonly" 
+                                        :readonly="readonly"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification1_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -387,10 +388,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification2_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -406,17 +407,17 @@
                                         :readonly="readonly"
                                         v-model="form.qualification2"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification2_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -478,10 +479,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification3_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -496,17 +497,17 @@
                                         filled
                                         v-model="form.qualification3"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification3_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -570,10 +571,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification4_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -588,17 +589,17 @@
                                         filled
                                         v-model="form.qualification4"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification4_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -659,10 +660,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.qualification5_available"
-                                    :options="question" 
+                                    :options="question"
                                     label="Have a Qualification *"
                                     lazy-rules
                                     :dense="dense"
@@ -677,17 +678,17 @@
                                         filled
                                         v-model="form.qualification5"
                                         :dense="dense"
-                                        label="Name of Institutions*" 
+                                        label="Name of Institutions*"
                                         lazy-rules
                                         :rules="[ val => val && val.length > 0 || 'Please type an input']"
                                     />
                                 </div>
 
                                 <div class="col-4 q-pt-sm q-pl-sm">
-                                    <q-select 
-                                        filled 
+                                    <q-select
+                                        filled
                                         v-model="form.qualification5_certificate"
-                                        :options="certificate" 
+                                        :options="certificate"
                                         label="Have a Qualification *"
                                         lazy-rules
                                         :dense="dense"
@@ -726,7 +727,7 @@
                                         </template>
                                     </q-input>
                                 </div>
-                                
+
                                 <div class="col-12 q-pl-sm">
                                     <q-input
                                         v-if="form.qualification5_certificate == 'Others'"
@@ -842,10 +843,10 @@
                             </div>
 
                             <div class="col-3 q-pl-sm">
-                                <q-select 
-                                    filled 
+                                <q-select
+                                    filled
                                     v-model="form.position"
-                                    :options="position" 
+                                    :options="position"
                                     label="Position *"
                                     :dense="dense"
                                     lazy-rules
@@ -864,16 +865,16 @@
                                     lazy-rules
                                 />
                             </div>
-                            <div class="col-3 q-pl-sm" v-if="user.location.code == 'PARKIT PARENT' && selectedEmployee.location_id==null && $can('create', 'salaries')" >
+                            <div class="col-3 q-pl-sm" v-if="$can('create', 'salaries')" >
 
                                 <q-select
-                                filled 
+                                filled
                                 label="Select Location *"
                                 lazy-rules
                                 v-model="form.location_id"
                                 :readonly="readonly"
-                                :dense="dense" 
-                                :options="locations" 
+                                :dense="dense"
+                                :options="locations"
                                 :option-value="opt => Object(opt) === opt && 'id' in opt ? opt.id : null"
                                 :option-label="opt => Object(opt) === opt && 'id' in opt ? opt.locationName : null"
                                 :option-disable="opt => Object(opt) === opt ? opt.inactive === true : true"
@@ -885,14 +886,14 @@
                             <div class="col-12 q-pl-sm" v-if="$can('edit', 'employees')">
                                 <q-card-actions align="right">
                                     Toggle to Edit Profile <q-toggle color="warning" v-model="readonly" label="Disable" />
-                                </q-card-actions>  
+                                </q-card-actions>
                             </div>
 
                             <q-card-actions align="right" class="col-12">
                                 <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
                             </q-card-actions>
                         </div>
-                    </q-form>   
+                    </q-form>
                 </div>
             </q-card-section>
         </q-card>
@@ -900,16 +901,16 @@
             No Item was selected
         </div>
     </div>
-	
+
 </template>
 
 <script>
-    
+
     import { mapActions, mapGetters } from 'vuex'
     import { Notify } from 'quasar'
 	import { date } from 'quasar'
     const isOnline = require('is-online');
-    
+
     import BackButton from 'components/Share/BackButton.vue'
 
     export default {
@@ -1082,42 +1083,42 @@
 			    ],
 
 			    sex: [
-                    'Male', 
-                    'Female', 
+                    'Male',
+                    'Female',
                 ],
 
                 certificate: [
-                    'SSCE', 
-                    'B.Sc', 
-                    'OND', 
-                    'HND', 
-                    'MSC', 
-                    'Others', 
+                    'SSCE',
+                    'B.Sc',
+                    'OND',
+                    'HND',
+                    'MSC',
+                    'Others',
                 ],
 
                 position: [
-                    'Parkit Pro (PP)', 
-                    'Head Parkit Pro (HPP)', 
-                    'Front Desk Pro (FD)', 
-                    'Manager (MG)', 
-                    'Head of Operation (HOP)', 
-                    'Assistant Head of Operation (AHOP)', 
-                    'Facility Manager (FM)', 
-                    'Technical Assistant (FM)', 
+                    'Parkit Pro (PP)',
+                    'Head Parkit Pro (HPP)',
+                    'Front Desk Pro (FD)',
+                    'Manager (MG)',
+                    'Head of Operation (HOP)',
+                    'Assistant Head of Operation (AHOP)',
+                    'Facility Manager (FM)',
+                    'Technical Assistant (FM)',
                 ],
 
                 question: [
-                    'yes', 
-                    'no', 
+                    'yes',
+                    'no',
                 ],
                 days: [
-                    'Sunday', 
-                    'Monday', 
-                    'Tuesday', 
-                    'Wednesday', 
-                    'Thursday', 
-                    'Friday', 
-                    'Saturday', 
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday',
                     'Sunday',
                 ],
             }
@@ -1139,7 +1140,7 @@
             	return this.form.amount * this.form.quantity
             }
         },
-            
+
         methods:{
             ...mapActions({
               	updateEmployee: 'employees/updateEmployee',
@@ -1158,7 +1159,7 @@
                         if(check == false){
                             return this.negativeNotification('You are offline. Please connect to an available internet')
                         }else{
-                        	
+
                             this.updateEmployee(this.form).then((res) => {
 			                    this.positiveNotification('Resource has been created')
 			                }).catch((error) => {
@@ -1167,10 +1168,10 @@
 			                    if(this.errorMessages){
 			                        this.negativeNotification(this.errorMessages)
 			                    }
-			                }) 
+			                })
                         }
                     })
-                })();      
+                })();
             },
 
             viewDetails(item){
@@ -1202,7 +1203,7 @@
             optionsFn () {
 	     		var today = new Date();
 	  			var bu = today.getDate();
-		      	
+
 	     		console.log(new Date())
 	     		var timeStamp = Date.now()
 				var formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
@@ -1211,22 +1212,22 @@
 
 		    time(){
 		    	var today = new Date();
-		    	var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+		    	var time = today.getHours() + ":" + today.getMinutes() + ":" +
             	today.getSeconds();
             	return time
 		    },
         },
 
         mounted(){
-            
+
             this.getLocations()
-            
+
             if(this.user.location.code == "PARKIT PARENT"){
                 this.getLocations()
             }
 
             if(this.selectedEmployee){
-                
+
                 this.form.id  = this.selectedEmployee.id
                 this.form.staffable_id  = this.selectedEmployee.staffable_id
                 this.form.staffable_type  = this.selectedEmployee.staffable_type
@@ -1241,10 +1242,10 @@
                 this.form.state_id = this.selectedEmployee.state_id
                 this.form.country_id = this.selectedEmployee.country_id
                 this.form.position = this.selectedEmployee.position
-                this.form.first_employment = this.selectedEmployee.first_employment
+                this.form.first_employment = this.selectedEmployee.previous_employer_name ? 'yes' : 'no'
                 this.form.previous_employer_name = this.selectedEmployee.previous_employer_name
                 this.form.previous_employment_position = this.selectedEmployee.previous_employment_position
-                this.form.account_details = this.selectedEmployee.account_details
+                this.form.account_details = this.selectedEmployee.account_name ? 'yes' : 'no'
                 this.form.account_bank = this.selectedEmployee.account_bank
                 this.form.account_name = this.selectedEmployee.account_name
                 this.form.account_number = this.selectedEmployee.account_number

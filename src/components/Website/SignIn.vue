@@ -175,8 +175,6 @@
                 })
             },
 
-            
-
             positiveNotification(message){
                 Notify.create({
                     type: 'positive',
