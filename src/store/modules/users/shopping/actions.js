@@ -189,10 +189,10 @@ export const applyCoupon = async ({ commit }, items) =>{
 		// console.log(response.data.data)
 		commit('updateCouponData', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		// console.log(error.response.data)
         // commit('updateCouponData', null)
-        return Promise.reject()
+        console.log('console')
     }) 
 }
 
@@ -202,10 +202,10 @@ export const applyCustomerDiscount = async ({ commit }, items) =>{
 		// console.log(response.data.data)
 		commit('updateDiscountData', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		// console.log(error.response.data)
         // commit('updateDiscountData', null)
-        return Promise.reject()
+        console.log('console')
     }) 
 }
 
@@ -225,10 +225,10 @@ export const getUsersWithDiscountPrivilege = async ({ commit }) =>{
 		// console.log(response.data)
 		commit('setUsersWithDiscountPrivilege', response.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		// console.log(error.response.data)
         // commit('updateDiscountData', null)
-        return Promise.reject()
+        console.log('console')
     }) 
 }
 
@@ -238,10 +238,10 @@ export const signInaUserWithDiscountPrivilege = async ({ commit }, items) =>{
 		// console.log(response.data.data)
 		commit('setSignedInaUserWithDiscountPrivilege', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		// console.log(error.response.data)
         // commit('updateDiscountData', null)
-        return Promise.reject()
+        console.log('console')
     }) 
 }
 
