@@ -92,9 +92,8 @@
                                     <q-card-actions align="right">
                                         <q-btn type="submit" unelevated color="primary" class="q-px-md" size="lg" label="Send Request" />
                                     </q-card-actions>
-
-                                </div>  
-                            </q-form>   
+                                </div>
+                            </q-form>
                         </div>
                     </q-card-section>
                 </q-card>
