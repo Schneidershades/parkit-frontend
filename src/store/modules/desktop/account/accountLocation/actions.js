@@ -5,11 +5,11 @@ export const getAccountLocation = ({ commit, rootState }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setAccountLocation', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
 
@@ -27,11 +27,11 @@ export const sendTransactions = ({ commit, dispatch, rootState}, item) => {
 	return axios.post(URL, transactions).then((response) => {
 		dispatch('auth/attempt', rootState.auth.token, { root: true })
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
 
@@ -40,11 +40,11 @@ export const getAccountLocationDetails = ({ commit, rootState }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setAccountLocationDetails', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
 
@@ -53,11 +53,11 @@ export const getAccountLocationTransactions = ({ commit, rootState }, item) => {
 	return axios.get(URL).then((response) => {
 		commit('setAccountLocationTransactions', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
 
@@ -72,10 +72,10 @@ export const deleteAccountLocationTransactionSelected = ({ commit, dispatch, roo
 		dispatch('auth/attempt', rootState.auth.token, { root: true })
 		dispatch('getAccountLocationTransactions', item.locationId)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		return
   	})
 }
