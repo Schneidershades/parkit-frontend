@@ -192,10 +192,6 @@ export default {
     },
 
     optionsFn (mon) {
-      var today = new Date();
-      var bu = today.getDate();
-        
-      console.log(new Date())
       var timeStamp = Date.now()
       var formattedString = date.formatDate(bu, 'YYYY-MM-DD')
         return mon >= formattedString
