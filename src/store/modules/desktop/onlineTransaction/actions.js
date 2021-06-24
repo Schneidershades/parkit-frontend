@@ -5,11 +5,11 @@ export const getTransactionOrdersOnline = ({ commit, rootState }, item) => {
 	return axios.post(URL, item).then((response) => {
 		commit('setTransactions', response.data.data)
 		return Promise.resolve()
-	}).catch((error) => {
+	}).catch(() => {
 		if (!error.response) {
     		return dispatch('internetStatus/setConnection', false, {root:true})
         }
-  		return Promise.reject()
+  		console.log('none')
   	})
 }
 
