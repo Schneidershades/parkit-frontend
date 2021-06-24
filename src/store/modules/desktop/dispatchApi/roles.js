@@ -10,7 +10,6 @@ store.watch(
     (state, getters) => getters['auth/user'],
     isAuth => {
 
-
       	if (isAuth) {
       		
 			const testOffline = async () => {
