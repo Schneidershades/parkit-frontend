@@ -410,12 +410,7 @@ export default {
 	      	this.applyCoupon(this.couponId).then((response) => {
 	      		this.submitting = true
             }).catch((error) => {
-
             	this.negativeNotification(error)
-                // console.log(error)
-                // if(error){
-                //     this.negativeNotification(this.error.error)
-                // }
             })           
 
 	      	// Simulating a delay here.
@@ -476,12 +471,7 @@ export default {
 			}).then((response) => {
 	      		this.submitting = true
             }).catch((error) => {
-                // this.errorMessage = error
-                // console.log(this.errorMessage)
                 console.log(error)
-                // if(this.errorMessage){
-                //     this.negativeNotification(this.errorMessage)
-                // }
             })  
 
 	      	// Simulating a delay here.
