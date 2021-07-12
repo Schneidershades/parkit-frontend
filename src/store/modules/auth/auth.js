@@ -101,10 +101,8 @@ export default ({
             commit('accountLocation/setAccountLocationDetails', response.data.data.location, { root: true })
             resolve()
           }, (error) => {
-            // dispatch('errorbag/flashErrorMessage', error.response.data, {root:true})
-            console.log(error.response.data.data.error)
-            // reject(error.response.data.data.error)
-            // reject()
+            reject(error.response.data.data.error)
+            reject()
           })
         })
       } catch {
