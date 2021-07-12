@@ -780,6 +780,7 @@ export default {
 
 	data () {
 		return {
+			platform : null,
       		fixedIncomeDialog: false,
       		fixedExpenseDialog: false,
       		seeTransaction: false,

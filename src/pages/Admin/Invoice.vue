@@ -448,13 +448,8 @@
 	        PackageTabList,
 	    },
 
-	    created(){
-            this.titleId =  this.location.code+'00v0030'+this.receiptNo
-	    },
-
         data(){
             return{
-            	titleId : null,
                 order: {
                 	receipt_number : null,
                 	vehicle: {
@@ -534,6 +529,11 @@
         },
 
         computed: {
+
+            titleId () {
+            	return this.location.code+'00v0030'+this.receiptNo
+            },
+
             ...mapGetters({
                 connectOnline: 'auth/onlineStatus',
             	cartTotal: 'adminShopping/cartTotal',
