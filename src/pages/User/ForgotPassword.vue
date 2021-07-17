@@ -219,7 +219,7 @@
         methods:{
             ...mapActions({
               stepOneValidation: 'auth/sendForgotPasswordPhoneNumber',
-              stepTwoValidation: 'auth/verifyForgotPasswordOTP',
+              stepTwoValidation: 'auth/verifyOTP',
               stepThreeValidation: 'auth/ForgotPasswordChange',
               sendLink: 'auth/PasswordReset',
             }),
